@@ -1,0 +1,132 @@
+<?php
+
+/**
+ * @file
+ */
+
+/**
+ * Implement hook_theme().
+ */
+function paypre_theme() {
+  return [
+    'paypre_form' => [
+      'render element' => 'form',
+      'template' => 'paypre-form',
+    ],
+    'paypre_detail_form' => [
+      'render element' => 'form',
+      'template' => 'paypre-detail-form',
+    ],
+    'paypre_pool_list' => [
+      'render element' => 'elements',
+      'template' => 'paypre-pool-list',
+    ],
+
+  ];
+}
+
+/**
+ * 定义付款单的工单状态.
+ */
+function getPaypreStatus() {
+  return [
+  // 已使用.
+    0 => '未审批',
+  // 已使用.
+    2 => '审批中',
+  // 已使用.
+    4 => '已拒绝',
+  // 已使用.
+    5 => '已同意',
+    6 => '待支付',
+    7 => '已取消',
+  // 已使用.
+    8 => '支付部分',
+    9 => '已完成支付',
+    11 => '已完成',
+  // 已使用.
+    20 => '支付已拒绝',
+  ];
+}
+
+/**
+ *
+ */
+function template_preprocess_paypre_detail_form(&$variables) {
+  $variables['member_info'] = $variables['form']['member_info']['#markup'];
+}
+
+/**
+ *
+ */
+function template_preprocess_paypre_form(&$variables) {
+  $variables['member_info'] = $variables['form']['member_info']['#markup'];
+}
+
+/**
+ *
+ */
+function toChineseNumber($money) {
+  if (empty($money)) {
+    return 0;
+  }
+  $money = round($money, 2);
+  $cnynums = ["零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖"];
+  $cnyunits = ["圆", "角", "分"];
+  $cnygrees = ["拾", "佰", "仟", "万", "拾", "佰", "仟", "亿"];
+  @list($int, $dec) = explode(".", $money, 2);
+  $dec = array_filter([$dec[1], $dec[0]]);
+  $ret = @array_merge($dec, [implode("", cnyMapUnit(str_split($int), $cnygrees)), ""]);
+  $ret = @implode("", array_reverse(cnyMapUnit($ret, $cnyunits)));
+  return str_replace(array_keys($cnynums), $cnynums, $ret);
+}
+
+/**
+ *
+ */
+function cnyMapUnit($list, $units) {
+  $ul = count($units);
+  $xs = [];
+  foreach (array_reverse($list) as $x) {
+    $l = count($xs);
+    if ($x != "0" || !($l % 4)) {
+      $n = ($x == '0' ? '' : $x) . ($units[($l - 1) % $ul]);
+    }
+    else {
+      $n = is_numeric($xs[0][0]) ? $x : '';
+    }
+    array_unshift($xs, $n);
+  }
+  return $xs;
+}
+
+/**
+ * Implement hook_load().
+ */
+function paypre_load_multiple($ids = []) {
+  if (empty($ids)) {
+    return [];
+  }
+  $storage = \Drupal::entityManager()->getStorage('paypre');
+  $entities = $storage->loadMultiple($ids);
+
+  return $entities;
+}
+
+/**
+ * Implement hook_load().
+ */
+function paypre_load($id) {
+  $storage = \Drupal::entityManager()->getStorage('paypre');
+  $entity = $storage->load($id);
+
+  return $entity;
+}
+
+/**
+ * Implement hook_cron().
+ */
+function paypre_cron() {
+  $paypre_ids = \Drupal::service('paypre.paypreservice')->updateCronStatus();
+  $update_status = \Drupal::service('paypre.paypreservice')->updatePaypreStatus($paypre_ids, 9);
+}

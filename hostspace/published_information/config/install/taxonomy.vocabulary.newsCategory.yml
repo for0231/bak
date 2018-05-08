@@ -1,0 +1,8 @@
+vid: newsCategory
+name: NewsCategory
+description: 'Category of news.'
+hierarchy: 1
+weight: -10
+status: true
+langcode: en
+

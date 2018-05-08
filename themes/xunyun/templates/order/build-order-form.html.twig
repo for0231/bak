@@ -1,0 +1,23 @@
+{#
+/*
+ * Available variables:
+ * - form: The confirm form.
+ */
+#}
+
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+
+<div class='build-order'>
+ <div class='title'>
+   <b>{{'Order title'|t}}</b>
+   <p>{{'When you have multiple orders, orders the title will help you distinguish between memory or order'|t}}</p>
+ </div>
+ {{form.alias_order}}
+ {{form.details}}
+ <div class="build-bottom">
+   {{form.order_price_label}}
+   {{form.actions}}
+ </div>
+</div>

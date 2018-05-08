@@ -1,0 +1,127 @@
+.js td  div.dropbutton-multiple {
+  padding-right: 0;
+  margin-right: 0;
+  width: 91px;
+}
+div.container-inline label::after {
+  content: none;
+}
+div.list-filter {
+  text-align:right;
+  margin-bottom: 8px;
+}
+div .sop-mode{
+  margin-top: 120px;
+}
+
+div.ajax-content .right {
+  left: 40%;
+  position: absolute;
+  top: 5px;
+  z-index: 999999;
+}
+div.ajax-content .right table.workload {
+  border: 1px solid #e6e4df;
+  background: #ffffff none repeat scroll 0 0;
+}
+div.ajax-content .right table.workload td {
+  padding: 0;
+}
+div.ajax-content .right table.workload table {
+  margin: 0;
+}
+div.ajax-content .right table.workload table tr {
+  border-bottom: none;
+}
+div.ajax-content .right table.workload table td {
+  border-left: 1px solid #e6e4df;
+  border-bottom: 1px solid #e6e4df;
+  width: 50px;
+  padding: 5px;
+  text-align: center;
+}
+
+table td input.form-text {
+  width: 100%
+}
+table.edit .form-item {
+  margin: 0;
+}
+table.edit .col1 {
+  width: 30%;
+}
+table.edit td {
+  vertical-align: top;
+  padding: 5px 12px;
+}
+
+table.edit  td.default-textarea textarea {
+  height: 150px;
+}
+table.edit  td.business-ip textarea {
+  height: 215px
+}
+table.edit td.frame-add textarea {
+  height: 270px;
+}
+
+table.edit td.ip-handle textarea {
+  height: 172px
+}
+table.edit td.frame-textarea textarea {
+  height: 270px;
+}
+table.edit td.fault-textarea textarea {
+  height: 350px;
+}
+table.edit td.room-textarea textarea {
+  height: 350px;
+}
+table.edit div.form-item-problem-types {
+  display: inline;
+}
+table.edit div#child_item_wrapper {
+  display: inline;
+}
+table.edit div#child_item_wrapper div {
+  display: inline;
+}
+table.detail textarea  {
+  height: 710px;
+}
+table.detail-small textarea  {
+  height: 250px;
+}
+table .detail-small td .pingjia{
+  width: 20%;
+}
+.container-inline-block div {
+  display: inline-block
+}
+div.ajax-content .rightmost {
+  left: 71%;
+  position: absolute;
+  top: 5px;
+  z-index: 999999;
+}
+div.ajax-content .rightmost table.workload {
+  border: 1px solid #e6e4df;
+  background: #ffffff none repeat scroll 0 0;
+}
+div.ajax-content .rightmost table.workload td {
+  padding: 0;
+}
+div.ajax-content .rightmost table.workload table {
+  margin: 0;
+}
+div.ajax-content .rightmost table.workload table tr {
+  border-bottom: none;
+}
+div.ajax-content .rightmost table.workload table td {
+  border-left: 1px solid #e6e4df;
+  border-bottom: 1px solid #e6e4df;
+  width: 50px;
+  padding: 5px;
+  text-align: center;
+}
+

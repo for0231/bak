@@ -1,0 +1,23 @@
+requirement-form:
+  version: VERSION
+  css:
+    theme:
+      css/requirement.css: {}
+  js:
+    js/requirement.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.spinner
+    - core/drupal
+    - core/drupalSettings
+drupal.requirement.default:
+  version: VERSION
+  js:
+    js/requirement_default.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupal.dropbutton
+    - core/jquery.ui.datepicker
+    - core/jquery.once

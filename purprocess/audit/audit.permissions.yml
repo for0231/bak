@@ -1,0 +1,8 @@
+administer audit edit:
+  title: 'Administer audit edit'
+administer audit delete:
+  title: 'Administer audit delete'
+administer audit collection:
+  title: 'Administer audit collection'
+administer audit allhistory collection:
+  title: 'Administer audit allhistory collection'

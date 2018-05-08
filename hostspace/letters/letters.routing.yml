@@ -1,0 +1,65 @@
+system.admin_letters:
+  path: '/admin/letters'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Station letter.'
+  requirements:
+    _permission: 'access administration letters pages'
+
+letter.admin.send_form:
+  path: '/admin/letters/send'
+  defaults:
+    _form: 'Drupal\letters\Form\SendMailForm'
+    _title: 'Send a station letter.'
+  requirements:
+    _permission: 'administer letter send'
+
+letter.outbox:
+  path: '/admin/letter/outbox'
+  defaults:
+    _form: 'Drupal\letters\Form\OutboxForm'
+    _title: 'Outbox.'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+letter.detail:
+  path: '/admin/letter/{type}/{letter_id}'
+  defaults:
+    _form: 'Drupal\letters\Form\DetailForm'
+    _title: 'Detail of the station letter.'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+letter.delete:
+  path: '/admin/letter/{letter_id}/del/{flag}'
+  defaults:
+    _form: 'Drupal\letters\Form\DeleteLetterForm'
+    _title: 'Delete station letter.'
+    flag: null
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+letter.inbox:
+  path: '/admin/letter/inbox'
+  defaults:
+    _form: 'Drupal\letters\Form\InboxForm'
+    _title: 'Inbox.'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+#===============会员中心站内信===========
+letter.user.letter:
+  path: 'user/account/letter'
+  defaults:
+    _form: 'Drupal\letters\Form\UserLetterForm'
+    _title: 'Letter.'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+letter.user.letter.set_read:
+  path: 'letter/setRead'
+  defaults:
+    _controller: '\Drupal\letters\Controller\LetterController::setLetterRead'
+    _title: 'Station letter.'
+  requirements:
+    _user_is_logged_in: 'TRUE'

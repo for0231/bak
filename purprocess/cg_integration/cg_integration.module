@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file 采购集成页面模块.
+ */
+
+/**
+ * Implement hook_cron().
+ *
+ * 定时统计当前在线用户的待处理事项总数。
+ * 限制: 当前用户需要登录。
+ */
+function cg_integration_cron() {
+  $fix_modules = ['requirement', 'purchase', 'paypre', 'paypro'];
+
+  list($entities) = \Drupal::service('paypre.paypreservice')->getAjaxDataCollection($fix_modules);
+
+  $count = count($entities);
+
+  // 工作台待处理任务数量通知.
+  $account = \Drupal::currentUser()->id();
+  $user = user_load($account)->get('mail')->value;
+  if (!empty($user) && $count > 0) {
+    $params['subject'] = t('采购管理系统: 您有待处理事项 ' . $count . ' 个');
+    \Drupal::service('plugin.manager.mail')->mail('smtp', 'smtp-test', $user->getEmail(), $user->getPreferredLangcode(), $params);
+  }
+}

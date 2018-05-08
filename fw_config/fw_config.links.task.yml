@@ -1,0 +1,17 @@
+admin.fw.ip.shield:
+  title: IP防护管理
+  route_name: admin.fw.ip.shield
+  base_route: admin.fw.ip.shield
+  weight: 1
+
+admin.fw.ip.shield.multiple:
+  title: 批量IP防护操作
+  route_name: admin.fw.ip.shield.multiple
+  base_route: admin.fw.ip.shield
+  weight: 2
+
+admin.fw.ip.shield.filter:
+  title: IP防护查询
+  route_name: admin.fw.ip.shield.filter
+  base_route: admin.fw.ip.shield
+  weight: 3

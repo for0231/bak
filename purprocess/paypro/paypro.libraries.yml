@@ -1,0 +1,44 @@
+statistic:
+  version: VERSION
+  js:
+    js/statistic.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.spinner
+    - core/drupal
+    - core/drupalSettings
+paypro_detail:
+  version: VERSION
+  js:
+    js/paypro-details.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.spinner
+    - core/drupal
+    - core/drupalSettings
+    - core/drupal.ajax
+
+paypro_payment_detail:
+  version: VERSION
+  js:
+    js/paypro_payment_detail.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.spinner
+    - core/drupal
+    - core/drupalSettings
+
+paypro_payprespool:
+  version: VERSION
+  js:
+    js/paypro_payprespool.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.spinner
+    - core/drupal
+    - core/drupalSettings
+    - core/drupal.ajax

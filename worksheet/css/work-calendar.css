@@ -1,0 +1,44 @@
+div.form-calendar {
+  width: 500px;
+  margin-top: 20px;
+}
+
+div.form-calendar table {
+  border: 1px solid #e6e4df;
+}
+
+div.form-calendar table tr:hover, div.form-calendar tr:focus {
+  background: none;
+}
+
+div.form-calendar table td {
+  border-right: 1px solid #e6e4df;
+  height: 40px;
+  padding: 1px;
+  text-align: center;
+  -moz-user-select: none;
+}
+div.form-calendar td.work {
+  cursor: pointer;
+}
+div.form-calendar td.unwork {
+  cursor: pointer;
+}
+div.form-calendar td.unwork div {
+  background: #fff0f0;
+  height: 100%;
+}
+
+div.form-calendar td.unwork div span{
+  background: #f43 none repeat scroll 0 0;
+  color: #fff;
+  display: block;
+  height: 15px;
+  left: 0;
+  line-height: 14px;
+  text-align: left;
+  text-indent: 1px;
+  top: 0;
+  width: 15px;
+}
+

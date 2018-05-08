@@ -1,0 +1,75 @@
+{{attach_library('resourcepool/drupal.business-url')}}
+<table class="business-table">
+  <thead>
+  <tr>
+    <th >链路ID(我司分配)</th>
+    <th >供应商</th>
+    <th >链路代号</th>
+    <th >commit带宽</th>
+    <th >brust带宽</th>
+    <th >A-end</th>
+    <th >Z-end</th>
+    <th >出售带宽比例</th>
+    <th >实际带宽利用率</th>
+    <th >备注</th>
+  </tr>
+  </thead>
+  <tbody>
+    {% for item in direct_re %}
+      <tr class='direct_tr'>
+        <td >{{item.link_id}}</td>
+        <td >{{item.supplier}}</td>
+        <td >{{item.link_code}}</td>
+        <td >{{item.commit_bandwidth}}</td>
+        <td >{{item.brust_bandwidth}}</td>
+        <td >{{item.A_end}}</td>
+        <td >{{item.Z_end}}</td>
+        <td >
+        {% for key,value in direct_res %}
+          {% if key == item.no %}
+            {{ (value/item.commit_bandwidth*100)|number_format(2,'.',',') }}%
+          {% else %}
+            
+          {% endif %}
+        {% endfor %}
+        </td>
+        <td >{{ (item.reality_bw_percent/item.brust_bandwidth*100)|number_format(2,'.',',') }}%</td>
+        <td >{{item.note}}</td>
+      </tr>
+        <thead>
+        <tr>
+          <th >链路ID(我司分配)</th>
+          <th >客户名称</th>
+          <th >链路代号</th>
+          <th >commit带宽</th>
+          <th >brust带宽</th>
+          <th >A-end</th>
+          <th >Z-end</th>
+          <th ></th>
+          <th ></th>
+          <th ></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for key,value in resolution_re %}
+        {% for item2 in value %}
+        {% if key == item.no %}
+            <tr>
+              <td >{{item2['no']}}</td>
+              <td >{{item2['client_name']}}</td>
+              <td >{{item2['link_id']}}</td>
+              <td >{{item2['commit_bandwidth']}}</td>
+              <td >{{item2['brust_bandwidth']}}</td>
+              <td >{{item2['A_end']}}</td>
+              <td >{{item2['Z_end']}}</td>
+              <td ></td>
+              <td ></td>
+              <td ></td>
+            </tr>
+        {% endif %}  
+        {% endfor %}  
+        {% endfor %}
+        </tbody>
+    {% endfor %}
+  </tbody>
+</table>

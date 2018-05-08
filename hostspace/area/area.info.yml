@@ -1,0 +1,8 @@
+name: Area
+type: module
+core: 8.x
+package: Hostspaces
+description: 'Area'
+version: VERSION
+dependencies:
+  - common

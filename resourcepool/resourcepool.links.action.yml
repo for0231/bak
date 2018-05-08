@@ -1,0 +1,35 @@
+admin.rackpart.add:
+  route_name: admin.rackpart.add
+  title: '添加机柜配置'
+  appears_on:
+    - admin.resourcepool.rackpart.list
+admin.rackpart.notes.add:
+  route_name: admin.rackpart.notes.add
+  title: '批量操作机柜备注'
+  appears_on:
+    - admin.resourcepool.rackpart.list
+###增加专线
+    
+admin.resource.serverconn.add:
+  route_name: admin.resource.serverconn.add
+  title: '增加服务器基础资源'
+  appears_on:
+    - admin.resource.serverconn.list
+    
+admin.resourcepool.dedicatedres.add:
+  route_name: admin.resourcepool.dedicatedres.add
+  title: '增加基础专线资源'
+  appears_on:
+    - admin.resourcepool.dedicatedres
+
+admin.resourcepool.businesslist.add:
+  route_name: admin.resourcepool.businesslist.add
+  title: '增加专线客户产品信息'
+  appears_on:
+    - admin.resourcepool.businesslist
+    
+admin.resource.supplier.add:
+  route_name: admin.resource.supplier.add
+  title: '增加供应商'
+  appears_on:
+    - admin.resourcepool.supplierlist

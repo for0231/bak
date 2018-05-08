@@ -1,0 +1,9 @@
+<ul class="shujuzx_list">
+  {% for article in articleData %}
+  <li>
+    <h4>【{{ article.category_val }}】<a href="{{ article.detail }}">{{ article.title.value }}</a></h4>
+    <span>日期：{{ article.pub_time }}     浏览量：{{ article.views.value }}</span>
+    <p>{{ article.summary_val }}</p>
+  </li>
+  {% endfor %}
+</ul>

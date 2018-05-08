@@ -1,0 +1,138 @@
+.anquanxinx {  
+  .anquan_01 {
+    height: 120px;
+    margin-top: 10px;
+    width: 100%;
+    img {
+      float: left;
+      height: 90px;
+      width: 90px;
+    }  
+    dl {
+      float: left;
+      margin: 0 20px;
+      dt,dd {
+        font-size: 14px;
+        height: 30px;
+        line-height: 30px;
+        margin: 0;
+        a {
+          color: #3366CC;
+          font-size: 14px;
+          margin: 0 20px;
+        }
+      }
+    }       
+  }  
+  .jindutiao {
+    background: none repeat scroll 0 0 #F1F1F1;
+    border: 1px solid #E2E2E2;
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    margin: 20px 0;
+    padding: 20px;
+    span {
+      img {
+        margin: 0 10px;
+        height: 15px;
+      }
+    }
+    a {
+      color: #3366CC;
+      font-size: 14px;
+      margin: 0 20px;
+    }
+  }
+  .anquan_02 {
+    li {
+      border-bottom: 1px dotted #EEEEEE;
+      float: left;
+      font-size: 14px;
+      height: 60px;
+      line-height: 60px;
+      width: 100%;
+      a, b, span {
+        display: block;
+        float: left;
+        margin: 0 10px;
+        width: 90px;
+      }
+      a {
+        color: #3366CC;
+        font-size: 14px;
+      }
+      span {       
+        color: #5B970D;
+        padding-left: 22px;
+      }
+      .set {
+        background: url("/themes/xunyun/images/icon_13.png") no-repeat scroll 0 center rgba(0, 0, 0, 0);
+      }     
+      p {
+        display: block;
+        float: left;
+        font-size: 12px;
+        line-height: 20px;
+        margin: 10px 10px 0;
+        width: 380px;
+      }
+    }
+  }
+}
+// =========== 修改密码的模板 ==============
+.pwd_div {
+  .password-strength {
+    float: right;
+    margin-right: 12px;
+  }
+
+  label {
+    float: left;
+    font-size: 13px;
+    padding-top: 3px;
+    text-align: right;
+    width: 160px;
+  }
+  #edit-save {
+    background-color: #FF4400;
+    background-position: right -676px;
+    background-repeat: no-repeat;
+    color: #FFFFFF;
+    height: 31px;
+    line-height: 31px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0 22px;
+    border: 0 none;
+    margin-left: 200px;
+    width: 55px;
+  }
+  input {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #A6A6A6 #CCCCCC #CCCCCC;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px;
+    height: 14px;
+    line-height: 14px;
+    padding: 7px 9px;
+    width: 200px;
+    margin-left: 5px;
+  }  
+}
+
+.certificate-manage-form {
+  input.button {
+    background: none repeat scroll 0 0 #FF4400;
+    border: medium none;
+    border-radius: 3px 3px 3px 3px;
+    color: #FFFFFF;
+    margin: 0 5px;
+    padding: 5px 20px
+  }
+}
+

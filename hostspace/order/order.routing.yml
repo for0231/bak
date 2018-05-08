@@ -1,0 +1,365 @@
+server.order:
+  path: 'server/{productId}/order'
+  defaults:
+    _form: '\Drupal\order\Form\CustomBusiness'
+    _title: 'Custom configure'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+server.info:
+  path: 'server/{productId}/info'
+  defaults:
+    _form: '\Drupal\order\Form\ServerInfoForm'
+    _title: 'Server info'
+  requirements:
+    _access: 'TRUE'
+
+user.cart:
+  path: 'server/cart'
+  defaults:
+    _form: '\Drupal\order\Form\UserCartForm'
+    _title: 'Cart'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+user.cart.delete:
+  path: 'server/cart/{cartId}/delete'
+  defaults:
+    _controller: '\Drupal\order\Controller\OrderController::cartDelete'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+user.build.order:
+  path: 'server/build/order'
+  defaults:
+    _entity_form: 'order.create'
+    _title: 'Build order'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+user.order.payment:
+  path: 'order/{order}/payment'
+  defaults:
+    _entity_form: 'order.payment'
+    _title: 'Order payment'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+user.order.payment.success:
+  path: 'order/{order}/payment/success'
+  defaults:
+    _controller: '\Drupal\order\Controller\OrderController::paymentSuccess'
+    _title: 'Payment success'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+user.order:
+  path: 'user/order'
+  defaults:
+    _controller: '\Drupal\order\Controller\OrderController::userOrder'
+    _title: 'My order'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+user.order.detail:
+  path: 'user/order/{order}/detail'
+  defaults:
+    _controller: '\Drupal\order\Controller\OrderController::userOrderDetail'
+    _title: 'Detail of order'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+user.order.cencel:
+  path: 'user/order/{order}/cancel'
+  defaults:
+    _entity_form: 'order.cancel'
+    _title: 'Cancel the order'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+user.server:
+  path: 'user/server'
+  defaults:
+    _form: '\Drupal\order\user\UserServerListForm'
+    _title: 'My server'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+## 用户服务器控制面板
+user.server.panel:
+  path: 'user/server/{hostclient}/panel'
+  defaults:
+    _controller: '\Drupal\order\Controller\OrderController::userHostclientPanel'
+    _title: 'Server Panel'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+user.server.detail:
+  path: 'user/server/{hostclient}/detail'
+  defaults:
+    _controller: '\Drupal\order\Controller\OrderController::userHostclientDetail'
+    _title: 'Detail of server'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+user.server.upgrade:
+  path: 'server/{hostclient_id}/upgrade'
+  defaults:
+    _form: '\Drupal\order\Form\UserUpgradeForm'
+    _title: 'Product upgrade'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+user.server.stop.info:
+  path: 'user/server/stop/info'
+  defaults:
+    _controller: '\Drupal\order\Controller\OrderController::userStopInfo'
+    _title: 'Stop recording'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+user.server.remove_ip:
+  path: 'user/server/{hostclient}/remove'
+  defaults:
+    _entity_form: 'hostclient.user_remove_ip'
+    _title: '申请移除IP'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+admin.hostclient.remove_ip:
+  path: 'admin/hostclient/{hostclient}/remove'
+  defaults:
+    _entity_form: 'hostclient.user_remove_ip'
+    _title: '申请移除IP'
+  requirements:
+    _permission: 'administer hostclient remove ip'
+system.admin_order:
+  path: '/admin/order'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Order'
+  requirements:
+    _permission: 'access order admin'
+
+admin.order.list:
+  path: '/admin/order/list'
+  defaults:
+    _entity_list: 'order'
+    _title: 'View Order List'
+  requirements:
+    _permission: 'administer order list'
+
+entity.order.accept_form:
+  path: '/admin/order/{order}/accept'
+  defaults:
+    _entity_form: 'order.accept'
+    _title: 'Distribution Server'
+  requirements:
+    _permission: 'administer order accept'
+
+entity.order.detail_view:
+  path: '/admin/order/{order}/detail'
+  defaults:
+    _controller: '\Drupal\order\Controller\OrderController::adminOrderDetail'
+    _title: 'Detail of order'
+  requirements:
+    _permission: 'administer order view'
+
+entity.order.change_price_form:
+  path: '/admin/order/{order}/preferential'
+  defaults:
+    _entity_form: 'order.change'
+    _title: 'Apply to change order price.'
+  requirements:
+    _permission: 'administer price change apply'
+
+admin.change_price.list:
+  path: '/admin/order/change_price/list'
+  defaults:
+    _controller: '\Drupal\order\Controller\OrderController::PriceChangeList'
+    _title: 'Change price order list'
+  requirements:
+    _permission: 'administer price change view'
+
+admin.change_price.audit:
+  path: '/admin/change_price/{price_change_id}/audit'
+  defaults:
+    _form: '\Drupal\order\Form\PriceChangeAuditForm'
+    _title: 'Change price audit'
+  requirements:
+    _permission: 'administer price change audit'
+
+admin.change_price.detail:
+  path: '/admin/change_price/{price_change_id}/detail'
+  defaults:
+    _form: '\Drupal\order\Form\PriceChangeAuditForm'
+    _title: 'Change price detil'
+  requirements:
+    _permission: 'administer price change view'
+
+entity.order.trial_form:
+  path: '/admin/order/{order}/trial'
+  defaults:
+    _entity_form: 'order.trial'
+    _title: 'Apply for trial'
+  requirements:
+    _permission: 'administer order trial apply'
+
+admin.order.trial.list:
+  path: '/admin/order/trial/list'
+  defaults:
+    _controller: '\Drupal\order\Controller\OrderController::TrialApplyList'
+    _title: 'Trial order list'
+  requirements:
+    _permission: 'administer order trial view'
+
+admin.order.trial.audit:
+  path: '/admin/order/trial/{trial_id}/audit'
+  defaults:
+    _form: '\Drupal\order\Form\TrialApplyAuditForm'
+    _title: 'Trial apply audit'
+  requirements:
+    _permission: 'administer order trial audit'
+
+admin.order.trial.detail:
+  path: '/admin/order/trial/{trial_id}/detail'
+  defaults:
+    _form: '\Drupal\order\Form\TrialApplyAuditForm'
+    _title: 'Trial apply audit'
+  requirements:
+    _permission: 'administer order trial view'
+
+system.admin_hostclient:
+  path: '/admin/hostclient'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Hostclient'
+  requirements:
+    _permission: 'administer hostclient view'
+
+admin.hostclient.business.list:
+  path: '/admin/hostclient/business/list'
+  defaults:
+    _controller: '\Drupal\order\Controller\OrderController::untreatedBusinessList'
+    _title: 'Server Untreated list'
+  requirements:
+    _permission: 'administer business department'
+
+admin.hostclient.business.dept:
+  path: '/admin/hostclient/{handle_id}/business/dept'
+  defaults:
+    _form: '\Drupal\order\Form\BusinessDeptForm'
+    _title: 'Business department'
+  requirements:
+    _permission: 'administer business department'
+
+admin.hostclient.technology.list:
+  path: '/admin/hostclient/technology/list'
+  defaults:
+    _controller: '\Drupal\order\Controller\OrderController::untreatedTechnologyList'
+    _title: 'Server Untreated list'
+  requirements:
+    _permission: 'administer technology department'
+
+admin.hostclient.technology.dept:
+  path: '/admin/hostclient/{handle_id}/technology/dept'
+  defaults:
+    _form: '\Drupal\order\Form\TechnologyDeptForm'
+    _title: 'Technology department'
+  requirements:
+    _permission: 'administer technology department'
+
+admin.hostclient.technology.rollback:
+  path: '/admin/hostclient/{handle_id}/technology/rollback'
+  defaults:
+    _form: '\Drupal\order\Form\TechnologyRollbackForm'
+    _title: 'Back to the business department'
+  requirements:
+    _permission: 'administer technology department'
+
+admin.hostclient.list:
+  path: '/admin/hostclient/list'
+  defaults:
+    _entity_list: 'hostclient'
+    _title: 'Server all list'
+  requirements:
+    _permission: 'administer hostclient view'
+
+admin.hostclient.untreated:
+  path: '/admin/hostclient/untreated'
+  defaults:
+    _controller: '\Drupal\order\Controller\OrderController::untreatedHostclient'
+    _title: 'Untreated server list'
+  requirements:
+    _permission: 'administer hostclient view'
+
+admin.hostclient.normal:
+  path: '/admin/hostclient/normal'
+  defaults:
+    _controller: '\Drupal\order\Controller\OrderController::NormalHostclient'
+    _title: 'Normal server list'
+  requirements:
+    _permission: 'administer hostclient view'
+
+entity.hostclient.detail_form:
+  path: '/admin/hostclient/{hostclient}/detail'
+  defaults:
+    _entity_form: 'hostclient.detail'
+    _title: 'Hostclien detail'
+  requirements:
+    _permission: 'administer hostclient view'
+
+entity.hostclient.remove_ip_form:
+  path: '/admin/hostclient/{hostclient}/remove_ip'
+  defaults:
+    _entity_form: 'hostclient.remove_ip'
+    _title: 'Remove the server IP'
+  requirements:
+    _permission: 'administer hostclient remove ip'
+
+entity.hostclient.stop_form:
+  path: '/admin/hostclient/{hostclient}/stop'
+  defaults:
+    _entity_form: 'hostclient.stop'
+    _title: 'The product stop'
+  requirements:
+    _permission: 'administer hostclient stop'
+
+admin.hostclient.stop.list:
+  path: '/admin/hostclient/stop/list'
+  defaults:
+    _controller: '\Drupal\order\Controller\OrderController::stopServerList'
+    _title: '停用服务器列表'
+  requirements:
+    _permission: 'administer hostclient stop'
+
+admin.hostclient.stop.recover:
+  path: '/admin/hostclient/stop/{stop_id}/recover'
+  defaults:
+    _controller: '\Drupal\order\Controller\OrderController::stopServerRecover'
+    _title: 'The stop server recover'
+  requirements:
+    _permission: 'administer hostclient stop handle'
+
+admin.hostclient.stop.storage:
+  path: '/admin/hostclient/stop/{stop_id}/storage'
+  defaults:
+    _controller: '\Drupal\order\Controller\OrderController::stopServerStorage'
+    _title: 'The stop server storage'
+  requirements:
+    _permission: 'administer hostclient stop handle'
+
+distribution.server.autocomplete:
+  path: 'distribution/server/{room_id}/{server_type}/{current_ipm}'
+  defaults:
+    _controller: '\Drupal\order\Controller\OrderController::handleAutocomplete'
+    current_ipm: 'NULL'
+  requirements:
+    _access: 'TRUE'
+access.qianyin.business.ip:
+  path: 'user/qianyin/{string}'
+  defaults:
+    _controller: '\Drupal\order\Controller\OrderController::detachBusinessIPFromQianYinAutoComplete'
+  options:
+    no_cache: TRUE
+  requirements:
+    _access: 'TRUE'

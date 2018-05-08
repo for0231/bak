@@ -1,0 +1,30 @@
+access flow lead jd admin:
+  title: 'access flow lead jd admin'
+administer qy jd system config:
+  title: 'administer qy jd system config'
+administer qy jd policy view:
+  title: 'administer qy jd policy view'
+administer qy jd policy edit:
+  title: 'administer qy jd policy edit'
+administer qy jd traction view:
+  title: 'administer qy jd traction view'
+administer qy jd traction edit:
+  title: 'administer qy jd traction edit'
+administer qy jd logs view:
+  title: 'administer qy jd logs view'
+administer qy jd ip checked:
+  title: 'administer qy jd ip checked'
+administer qy jd route view:
+  title: 'administer qy jd route view'
+administer qy jd route edit:
+  title: 'administer qy jd route edit'
+administer qy jd Flow monitor:
+  title: 'administer qy jd Flow monitor'
+administer qy jd alarm view:
+  title: 'administer qy jd alarm view'
+administer qy jd alarm edit:
+  title: 'administer qy jd alarm edit'
+administer qy jd open firewall listen:
+  title: 'administer qy jd open firewall listen'
+administer qy jd traction index:
+  title: 'administer qy jd traction index'

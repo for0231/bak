@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @file 
+ * Manage  ip description.
+ */
+
+
+/**
+ * Implement hook_permission().
+ */
+function ip_permission() {
+  return array(
+    'administer ip list' => array(
+      'title' => t('Administer ip list'),   
+    ),
+		'administer ip add' => array(
+      'title' => t('Administer ip add'),   
+    ),
+		'administer ip edit' => array(
+			'title' => t('dminister ip edit'),
+		),
+		'administer IP delete' => array(
+			'title' => t('Administer ip delete'),
+		),
+		'access ip log' => array(
+			'title' => t('Access ip log'),
+		),
+	 );
+}
+
+/**
+ * Gathers a list of uniquely defined ip log message types.
+ *
+ * @return array
+ *   List of uniquely defined ip log message types.
+ */
+function _iplog_get_message_types() {
+  $types['type'] = \Drupal::config('ip.settings')->get('ip.log');
+  return $types;
+}
+
+/**
+ * Implement hook_theme().
+ */
+function ip_theme() {
+  return array(
+    'ip_segment_list' => array(
+      'template' => 'ip-segment-list',
+      'variables' => array()
+    ),
+   );
+}
+
+/**
+ *构建ip段列表模板需要的参数
+ */
+function template_ip_segment_list(&$variables){
+
+
+}
+

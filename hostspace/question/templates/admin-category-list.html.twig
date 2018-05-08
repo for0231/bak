@@ -1,0 +1,39 @@
+{#
+/**
+ * @file
+ * 故障分类管理页面 
+ * 
+ *  Available variables:
+ * -category:
+ */
+#}
+
+
+<div style="width:200px;">{{ add }}</div>
+<br/>
+     <!-- <div style="background-color:#1D84C3;height:30px;padding-top:10px;font-size:14px;font-weight:bold;color:#FFF">故障分类管理</div> -->
+
+<table>
+  <tr>
+    {% for parent in category %}
+     <tr>
+       <th align="left">{{ parent.title }}</th>
+     </tr>
+     <tr>
+       <td>
+         <table style="margin-left:15px;width:880px;">
+           {% for child in parent.child %}
+             <tr>
+               <td style="width:200px;height:30px">&nbsp;&nbsp;&nbsp;&nbsp;|-&nbsp;&nbsp;{{ child.class_name.value}}</td>
+               <td style="width:200px;height:30px">完成时间:&nbsp;&nbsp;{{ child.limited_stamp.value }}&nbsp;min</td>
+               <td style="width:200px;height:30px">共存有{{ child.question_number }}条故障信息</td>
+               <td>{{ child.edit }}&nbsp;&nbsp;&nbsp;&nbsp;{{ child.delete }}</td>
+             </tr>               
+           {% endfor %}
+         </table>
+         <hr height="1" align="left" style="color:#eee;width:900px;" ></hr>
+       </td>
+     </tr>
+    {% endfor %}  
+  </tr> 
+</table> 

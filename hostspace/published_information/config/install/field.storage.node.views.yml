@@ -1,0 +1,14 @@
+id: node.views
+field_name: views
+entity_type: node
+type: integer
+settings: { }
+locked: false
+cardinality: 1
+translatable: true
+indexes: { }
+status: true
+langcode: en
+dependencies:
+  module:
+    - node

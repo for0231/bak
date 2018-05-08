@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * 显示搜索结果模板
+ *
+ *  Available variables:
+ *   -knowledges: 搜索出的知识实体数组
+ */
+ #}
+ <ul>
+   {% for knowledge in knowledges %}
+   <li>
+     <h3><a href="{{ path('knowledge.view.info', {knowledge_content: knowledge.id.value}) }}">{{ knowledge.title.value }}</a></h3>
+     <p>
+       <span>编辑: {{ knowledge.uid.entity.name.value }}</span> |
+       <span>时间: {{ knowledge.created.value|format_date('html_date') }}</span>
+     </p>
+     <p>{{ knowledge.content.value|striptags|slice(0,200) }}</p>
+   </li>
+   {% endfor %}
+</ul>

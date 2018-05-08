@@ -1,0 +1,202 @@
+system.contract_admin:
+  title: Contract System
+  parent: system.admin
+  route_name: system.admin_contract
+  weight: -100
+
+project.admin:
+  title: Project 
+  parent: system.contract_admin
+  route_name: project.admin
+  weight: 2
+
+contract.admin:
+  title: Contract 
+  parent: system.contract_admin
+  route_name: contract.admin
+  weight: 3
+
+contract.user.admin:
+  title: Client
+  parent: system.contract_admin
+  route_name: contract.user.admin
+  weight: 1
+
+contract.funds.income_list:
+  title: Income_list
+  parent: system.contract_admin
+  route_name: contract.funds.classify_list
+  route_parameters: { type: income}
+  weight: 4
+
+contract.funds.pay_list:
+  title: pay_list
+  parent: system.contract_admin
+  route_name: contract.funds.classify_list
+  route_parameters: { type: pay}
+  weight: 5
+
+
+contract.shortcut:
+  title: 'Shortcut'
+  parent: system.contract_admin
+  route_name: system.admin_contract_shortcut
+  weight: 6
+
+shortcut.project:
+  title: '项目查询'
+  parent: contract.shortcut
+  route_name: system.admin_contract_shortcut_project
+  weight: 1
+
+
+#本周项目
+contract.shortcut.project:
+  title: '本周项目'
+  parent: shortcut.project
+  route_name: contract.shortcut.project
+  route_parameters: { type: week}
+
+#本月项目
+contract.shortcut.project.month:
+  title: '本月项目'
+  parent: shortcut.project
+  route_name: contract.shortcut.project
+  route_parameters: { type: month}
+
+#本年项目
+contract.shortcut.project.year:
+  title: '本年项目'
+  parent: shortcut.project
+  route_name: contract.shortcut.project
+  route_parameters: { type: year}
+
+contract.shortcut.project.all:
+  title: '全部项目'
+  parent: shortcut.project
+  route_name: project.admin
+
+
+shortcut.contract:
+  title: '合同查询'
+  parent: contract.shortcut
+  route_name: system.admin_contract_shortcut_contract
+  weight: 2
+
+#本周合同 
+contract.shortcut.contract:
+  title: '本周合同'
+  parent: shortcut.contract
+  route_name: contract.shortcut.contract
+  route_parameters: { type: week}
+  weight: 1 
+
+#本月合同 
+contract.shortcut.contract.month:
+  title: '本月合同'
+  parent: shortcut.contract
+  route_name: contract.shortcut.contract
+  route_parameters: { type: month}
+  weight: 2
+
+#本年合同 
+contract.shortcut.contract.year:
+  title: '本年合同'
+  parent: shortcut.contract
+  route_name: contract.shortcut.contract
+  route_parameters: { type: year}
+  weight: 3
+
+#本年合同 
+contract.shortcut.contract.all:
+  title: '所有合同'
+  parent: shortcut.contract
+  route_name: contract.admin
+  weight: 5
+
+contract.shortcut.project.all:
+  title: '全部项目'
+  parent: shortcut.project
+  route_name: project.admin
+
+
+shortcut.funds_in:
+  title: '收款查询'
+  parent: contract.shortcut
+  route_name: system.shortcut_funds_in
+  weight: 3 
+
+shortcut.funds_out:
+  title: '付款查询'
+  parent: contract.shortcut
+  route_name: system.shortcut_funds_out
+  weight: 4 
+#本周收款 
+contract.shortcut.funds_in.week:
+  title: '本周收款'
+  parent: shortcut.funds_in
+  route_name: contract.shortcut.funds
+  route_parameters: { property: income, type: week}
+  weight: 1 
+
+#本月收款 
+contract.shortcut.funds_in.month:
+  title: '本月收款'
+  parent: shortcut.funds_in
+  route_name: contract.shortcut.funds
+  route_parameters: { property: income, type: month}
+  weight: 2
+
+#本月收款 
+contract.shortcut.funds_in.next_month:
+  title: '本月收款'
+  parent: shortcut.funds_in
+  route_name: contract.shortcut.funds
+  route_parameters: { property: income, type: next_month}
+  weight: 2
+
+
+#本年收款
+contract.shortcut.funds_in.year:
+  title: '本年收款'
+  parent: shortcut.funds_in
+  route_name: contract.shortcut.funds
+  route_parameters: { property: income, type: year}
+  weight: 3
+
+
+#本周付款 
+contract.shortcut.funds_out.week:
+  title: '本周付款'
+  parent: shortcut.funds_out
+  route_name: contract.shortcut.funds
+  route_parameters: { property: pay, type: week}
+  weight: 1 
+
+#本月付款 
+contract.shortcut.funds_out.month:
+  title: '本月付款'
+  parent: shortcut.funds_out
+  route_name: contract.shortcut.funds
+  route_parameters: { property: pay, type: month}
+  weight: 2
+
+#下月付款
+contract.shortcut.funds_out.next_month:
+  title: '下月付款'
+  parent: shortcut.funds_out
+  route_name: contract.shortcut.funds
+  route_parameters: { property: pay, type: next_month}
+  weight: 2
+
+
+#本年付款
+contract.shortcut.funds_out.year:
+  title: '本年付款'
+  parent: shortcut.funds_out
+  route_name: contract.shortcut.funds
+  route_parameters: { property: pay, type: year}
+  weight: 3
+
+
+

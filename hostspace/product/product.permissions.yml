@@ -1,0 +1,29 @@
+administer product view:
+  title: 'administer product view'
+
+administer product edit:
+  title: 'administer product edit'
+
+administer product delete:
+  title: 'administer product delete'
+
+administer product business view:
+  title: 'administer product business view'
+
+administer product business edit:
+  title: 'administer product business edit'
+
+administer product business delete:
+  title: 'administer product business delete'
+
+administer product price view:
+  title: 'administer product price view'
+
+administer product price edit:
+  title: 'administer product price edit'
+
+administer product price delete:
+  title: 'administer product price delete'
+
+access administration product pages:
+  title: 'access administration product pages'

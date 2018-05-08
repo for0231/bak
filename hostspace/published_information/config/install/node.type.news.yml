@@ -1,0 +1,11 @@
+type: news
+name: News
+description: 'For publishing news on the site.'
+help: ' '
+title_label: 'News title'
+new_revision: false
+display_submitted: true
+preview_mode: 1
+status: true
+langcode: en
+

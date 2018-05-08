@@ -1,0 +1,5 @@
+services:
+  cg_integration.route_subscriber:
+    class: Drupal\cg_integration\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }

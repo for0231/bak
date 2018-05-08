@@ -1,0 +1,17 @@
+admin.Knowledge:
+  title: 'Knowledge base management'
+  parent: system.admin
+  route_name: admin.knowledge
+  weight: -100
+
+entity.knowledge.type:
+  title: '知识分类列表'
+  parent: admin.Knowledge
+  route_name: entity.knowledge_type
+  weight: 1
+
+entity.knowledge.content:
+  title: '知识列表'
+  parent: admin.Knowledge
+  route_name: entity.knowledge_content
+  weight: 5

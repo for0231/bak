@@ -1,0 +1,354 @@
+system.admin_resourcepool:
+  path: '/admin/resource'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: '资源池'
+  requirements:
+    _permission: 'access resource pool admin'
+    
+admin.resourcepool.rackpart:
+  path: '/admin/resource/rackpart'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: '机柜配置'
+  requirements:
+    _permission: 'access resource pool rackpart list'
+
+admin.resourcepool.rackpart.list:
+  path: '/admin/rackpartlist'
+  defaults:
+    _entity_list: 'work_sheet_rackpart'
+    _title: '机柜配置列表'
+  requirements:
+    _permission: 'access resource pool rackpart list'
+
+admin.resourcepool.vlan.statistic:
+  path: '/admin/resource/vlan/statistic'
+  defaults:
+    _controller: '\Drupal\resourcepool\Controller\ResourceController::VlanStatistic'
+    _title: 'VLAN使用数量统计'
+  requirements:
+    _permission: 'access resource pool rackpart list'
+
+admin.rackpart.import:
+  path: '/admin/rackpart/import'
+  defaults:
+    _form: '\Drupal\resourcepool\Form\RackpartImportForm'
+    _title: '导入机柜配置'
+  requirements:
+    _permission: 'access resource pool rackpart list'
+
+admin.rackpart.add:
+  path: '/admin/rackpart/add'
+  defaults:
+    _entity_form: 'work_sheet_rackpart.default'
+    _title: '添加机柜配置'
+  requirements:
+    _permission: 'access resource pool rackpart list'
+
+admin.rackpart.notes.add:
+  path: 'admin/resourcepool/notes/add'
+  defaults:
+    _form: '\Drupal\resourcepool\Form\NotesAddForm'
+    _title: '批量操作机柜备注'
+  requirements:
+    _permission: 'access resource pool rackpart list'
+
+admin.rackpart.download:
+  path: '/admin/rackpart/export'
+  defaults:
+    _controller: '\Drupal\resourcepool\Controller\ResourceController::exportRackpart'
+    _title: '机柜配置模板'
+  requirements:
+    _permission: 'access resource pool rackpart list'    
+
+entity.work_sheet_rackpart.edit_form:
+  path: 'admin/rackpart/{work_sheet_rackpart}/edit'
+  defaults:
+    _entity_form: 'work_sheet_rackpart.default'
+    _title: '机柜配置修改'
+  requirements:
+    _permission: 'access resource pool rackpart list'
+
+entity.work_sheet_rackpart.delete_form:
+  path: 'admin/rackpart/{work_sheet_rackpart}/delete'
+  defaults:
+    _entity_form: 'work_sheet_rackpart.delete'
+    _title: '删除机柜配置'
+  requirements:
+    _permission: 'access resource pool rackpart list'
+
+admin.rackpart.educe:
+  path: '/admin/rackpart/educe'
+  defaults:
+    _controller: '\Drupal\resourcepool\Controller\ResourceController::rackpartExport'
+    _title: '导出机柜配置'
+  requirements:
+    _permission: 'access resource pool rackpart list'    
+admin.rackpart.delete:
+  path: '/admin/rackpart/delete'
+  defaults:
+    _controller: '\Drupal\resourcepool\Controller\ResourceController::rackpartdelete'
+    _title: '机柜查询删除'
+  requirements:
+    _permission: 'access resource pool rackpart list'
+    
+admin.rackpart.notes.delete:
+  path: '/admin/rackpart/notes/delete'
+  defaults:
+    _controller: '\Drupal\resourcepool\Controller\ResourceController::notesdelete'
+    _title: '机柜备注删除'
+  requirements:
+    _permission: 'access resource pool rackpart list'
+
+admin.resourcepool.mock.login.cacti:
+  path: 'admin/resource/mock/login/{url}/cacti/{type}'
+  defaults:
+    _controller: '\Drupal\resourcepool\Controller\ResourceController::loginCacti'
+    _title: '模拟登录usa,hk的cacti后台'
+  requirements:
+    _permission: 'access resource pool rackpart list'
+
+admin.resource.hostip:
+  path: '/admin/resource/switchnameip'
+  defaults:
+    _controller: '\Drupal\resourcepool\Controller\ResourceController::getSwitchnameIp'
+    _title: '交换机名和IP对应关系'
+  requirements:
+    _permission: 'access resource pool rackpart list'
+
+##专线项目
+
+##专线业务系统
+system.admin_ddn_resourcepool:
+  path: '/admin/ddn/resource'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: '专线业务系统'
+  requirements:
+    _permission: 'access resourcepool ddn'
+
+##专线资源
+admin.resourcepool.businesslink:
+  path: '/admin/resourcepool/businesslink'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: '专线资源'
+  requirements:
+    _permission: 'access resourcepool businesslink'
+#基础专线资源
+admin.resourcepool.dedicatedres:
+  path: 'admin/resourcepool/dedicatedres'
+  defaults:
+    _controller: '\Drupal\resourcepool\Controller\ResourceController::getDedicatedRes'
+    _title: '基础专线资源'
+  requirements:
+    _permission: 'admin resourcepool dedicatedres list'
+    
+admin.resourcepool.dedicatedres.add:
+  path: 'admin/resourcepool/dedicatedres/add'
+  defaults:
+    _form: '\Drupal\resourcepool\Form\DedicatedresAddForm'
+    _title: '增加基础专线资源'
+  requirements:
+    _permission: 'admin resourcepool dedicatedres list'
+
+admin.resourcepool.dedicatedres.edit:
+  path: 'admin/resourcepool/dedicatedres/{no}/edit'
+  defaults:
+    _form: '\Drupal\resourcepool\Form\DedicatedresAddForm'
+    _title: '修改基础专线资源'
+  requirements:
+    _permission: 'admin resourcepool dedicatedres list'
+    
+admin.resourcepool.dedicatedres.delete:
+  path: 'admin/resourcepool/dedicatedres/{no}/delete'
+  defaults:
+    _controller: '\Drupal\resourcepool\Controller\ResourceController::deleteDedicatedRes'
+    _title: '删除基础专线资源'
+  requirements:
+    _permission: 'admin resourcepool dedicatedres list'
+
+#专线客户产品信息
+admin.resourcepool.businesslist:
+  path: '/admin/resourcepool/businesslist'
+  defaults:
+    _controller: '\Drupal\resourcepool\Controller\ResourceController::getBusinessList'
+    _title: '专线客户产品信息'
+  requirements:
+    _permission: 'access resourcepool businesslist'
+
+admin.resourcepool.businesslist.add:
+  path: 'admin/resourcepool/businesslist/add'
+  defaults:
+    _form: '\Drupal\resourcepool\Form\BusinessAddForm'
+    _title: '增加专线客户产品信息'
+  requirements:
+    _permission: 'access resourcepool businesslist'
+
+admin.resourcepool.businesslist.edit:
+  path: 'admin/resourcepool/businesslist/{no}/edit'
+  defaults:
+    _form: '\Drupal\resourcepool\Form\BusinessAddForm'
+    _title: '修改专线客户产品信息'
+  requirements:
+    _permission: 'access resourcepool businesslist'
+
+##产品分段资源列表
+admin.resourcepool.splitproduct:
+  path: 'admin/resourcepool/splitproduct/list'
+  defaults:
+    _controller: '\Drupal\resourcepool\Controller\ResourceController::getSplitproductList'
+    _title: '产品分段资源列表'
+  requirements:
+    _permission: 'admin resourcepool splitproduct list'
+    
+admin.resourcepool.splitproduct.add:
+  path: 'admin/resourcepool/splitproduct/add'
+  defaults:
+    _form: '\Drupal\resourcepool\Form\SplitProductAddForm'
+    _title: '增加产品分段资源'
+  requirements:
+    _permission: 'admin resourcepool splitproduct list'
+   
+admin.resourcepool.splitproduct.edit:
+  path: 'admin/resourcepool/splitproduct/{no}/edit'
+  defaults:
+    _form: '\Drupal\resourcepool\Form\SplitProductAddForm'
+    _title: '修改产品分段资源'
+  requirements:
+    _permission: 'admin resourcepool splitproduct list'
+
+admin.resourcepool.splitproduct.delete:
+  path: 'admin/resourcepool/splitproduct/{no}/delete'
+  defaults:
+    _controller: '\Drupal\resourcepool\Controller\ResourceController::deleteSplitProduct'
+    _title: '删除产品分段资源'
+  requirements:
+    _permission: 'admin resourcepool splitproduct list'
+
+##共享带宽分段统计表
+admin.resourcepool.bwsubsection.list:
+  path: 'admin/resourcepool/bwsubsection/list'
+  defaults:
+    _controller: '\Drupal\resourcepool\Controller\ResourceController::getBwSubsection'
+    _title: '共享带宽分段统计表'
+  requirements:
+    _permission: 'admin resourcepool bwsubsection list'
+
+#国内服务器资源
+admin.server.resource:
+  path: '/admin/server/resource'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: '国内服务器资源'
+  requirements:
+    _permission: 'access resourcepool inlandserver'
+#服务器连接
+admin.resource.serverconn.list:
+  path: 'admin/resource/serverconn/list'
+  defaults:
+    _controller: '\Drupal\resourcepool\Controller\ResourceController::getServerConnection'
+    _title: '服务器基础资源'
+  requirements:
+    _permission: 'admin resourcepool serverconn list'
+
+admin.resource.serverconn.add:
+  path: 'admin/resource/serverconn/add'
+  defaults:
+    _form: '\Drupal\resourcepool\Form\ServerconnAddForm'
+    _title: '增加服务器基础资源'
+  requirements:
+    _permission: 'admin resourcepool serverconn list'
+
+admin.resource.serverconn.edit:
+  path: 'admin/resource/serverconn/{no}/edit'
+  defaults:
+    _form: '\Drupal\resourcepool\Form\ServerconnAddForm'
+    _title: '修改服务器基础资源'
+  requirements:
+    _permission: 'admin resourcepool serverconn list'
+
+admin.resource.serverconn.delete:
+  path: 'admin/resource/serverconn/{no}/delete'
+  defaults:
+    _controller: '\Drupal\resourcepool\Controller\ResourceController::deleteServerconn'
+    _title: '删除服务器基础资源'
+  requirements:
+    _permission: 'admin resourcepool serverconn list'
+    
+#服务器客户产品信息
+admin.resource.server.resource:
+  path: 'admin/resource/server/resource'
+  defaults:
+    _controller: '\Drupal\resourcepool\Controller\ResourceController::getServerResource'
+    _title: '服务器客户产品信息'
+  requirements:
+    _permission: 'admin resourcepool serverres list'
+
+admin.resource.serverres.edit:
+  path: 'admin/resource/serverres/{no}/edit'
+  defaults:
+    _form: '\Drupal\resourcepool\Form\ServerresAddForm'
+    _title: '修改服务器资源'
+  requirements:
+    _permission: 'admin resourcepool serverres list'
+#客户合同编号查询   
+admin.resourcepool.contract.find:
+  path: 'admin/resourcepool/contract/find'
+  defaults:
+    _controller: '\Drupal\resourcepool\Controller\ResourceController::getContractFind'
+    _title: '客户合同编号查询'
+  requirements:
+    _permission: 'admin resourcepool contract find'
+###客户状态修改
+admin.resourcepool.client.soldoutedit:
+  path: 'admin/resourcepool/clientstatus/edit'
+  defaults:
+    _controller: '\Drupal\resourcepool\Controller\ResourceController::editClientStatus'
+    _title: '修改客户状态'
+  requirements:
+    _permission: 'admin resourcepool clientstatus edit'
+#综合信息
+admin.resourcepool.generalinfo:
+  path: '/admin/resourcepool/generalinfo'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: '综合信息'
+  requirements:
+    _permission: 'admin resourcepool generalinfo'
+    
+admin.resourcepool.supplierlist:
+  path: 'admin/resourcepool/supplierlist'
+  defaults:
+    _controller: '\Drupal\resourcepool\Controller\ResourceController::getSupplierList'
+    _title: '供应商资料'
+  requirements:
+    _permission: 'admin resourcepool generalinfo'
+
+admin.resource.supplier.add:
+  path: 'admin/resource/supplier/add'
+  defaults:
+    _form: '\Drupal\resourcepool\Form\SupplierAddForm'
+    _title: '增加供应商'
+  requirements:
+    _permission: 'admin resourcepool generalinfo'
+
+admin.resource.supplier.edit:
+  path: 'admin/resource/supplier/{no}/edit'
+  defaults:
+    _form: '\Drupal\resourcepool\Form\SupplierAddForm'
+    _title: '修改供应商'
+  requirements:
+    _permission: 'admin resourcepool generalinfo'
+
+admin.resource.supplier.delete:
+  path: 'admin/resource/supplier/{no}/delete'
+  defaults:
+    _controller: '\Drupal\resourcepool\Controller\ResourceController::deleteSupplier'
+    _title: '删除供应商'
+  requirements:
+    _permission: 'admin resourcepool generalinfo'
+    
+    
+    

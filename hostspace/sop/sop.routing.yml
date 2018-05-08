@@ -1,0 +1,105 @@
+admin.sop.list:
+  path: 'admin/sop'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: '工单列表'
+  requirements:
+    _permission: 'administrator bus and tech sop permission'
+admin.sop_task.list:
+  path: 'admin/sop/list'
+  defaults:
+    _entity_list: 'sop'
+    _title: '工单列表'
+  requirements:
+    _permission: 'administrator bus and tech sop permission'
+admin.sop_task.detail:
+  path: 'admin/sop/{sop}/detail'
+  defaults:
+    _controller: 'Drupal\sop\Controller\SOPController::sopDetail'
+    _title_callback: 'Drupal\sop\Controller\SOPController::getTitle'
+  requirements:
+    _permission: 'administrator bus and tech sop permission'
+entity.sop.edit_form:
+  path: 'admin/sop/{sop}/edit'
+  defaults:
+    _controller: 'Drupal\sop\Controller\SOPController::sopEdit'
+  requirements:
+    _permission: 'administrator bus and tech sop permission'
+entity.sop.delete_form:
+  path: '/admin/sop/{sop}/delete'
+  defaults:
+    _entity_form: 'sop.delete'
+  requirements:
+    _permission: 'administrator bus and tech sop permission'
+admin.sop.sop_task.sop_task_room.add:
+  path: 'admin/sop/sop_task_room/add'
+  defaults:
+    _entity_form: 'sop_task_room.default'
+    _title: '添加机房事务'
+  requirements:
+    _permission: 'administrator bus and tech sop permission'
+admin.sop.sop_task.sop_task_room.edit:
+  path: 'admin/sop/sop_task_room/{sop_task_room}/edit'
+  defaults:
+    _entity_form: 'sop_task_room.default'
+    _title: '编辑添加机房事务'
+  requirements:
+    _permission: 'administrator bus and tech sop permission'
+admin.sop.sop_task.sop_task_iband.add:
+  path: 'admin/sop/sop_task_iband/add'
+  defaults:
+    _entity_form: 'sop_task_iband.default'
+    _title: '添加IPor带宽'
+  requirements:
+    _permission: 'administrator bus and tech sop permission'
+admin.sop.sop_task.sop_task_iband.edit:
+  path: 'admin/sop/sop_task_iband/{sop_task_iband}/edit'
+  defaults:
+    _entity_form: 'sop_task_iband.default'
+    _title: '编辑IPor带宽'
+  requirements:
+    _permission: 'administrator bus and tech sop permission'
+admin.sop.sop_task.sop_task_failure.add:
+  path: 'admin/sop/sop_task_failure/add'
+  defaults:
+    _entity_form: 'sop_task_failure.default'
+    _title: '添加故障处理'
+  requirements:
+    _permission: 'administrator bus and tech sop permission'
+admin.sop.sop_task.sop_task_failure.edit:
+  path: 'admin/sop/sop_task_failure/{sop_task_failure}/edit'
+  defaults:
+    _entity_form: 'sop_task_failure.default'
+    _title: '编辑故障处理'
+  requirements:
+    _permission: 'administrator bus and tech sop permission'
+sop.sop_task_server.client.autocomplete:
+  path: 'admin/sop/sop_task_server/client'
+  defaults:
+    _controller: 'Drupal\sop\Controller\SOPController::handleClientAutocomplete'
+  requirements:
+    _access: 'TRUE'
+sop.sop_task_server.mip.autocomplete:
+  path: 'admin/sop/sop_task_server/mip'
+  defaults:
+    _controller: '\Drupal\order\Controller\OrderController::handleSopMipAutocomplete'
+  requirements:
+    _access: 'TRUE'
+sop.sop_task_server.room.autocomplete:
+  path: 'admin/sop/sop_task_room/mip'
+  defaults:
+    _controller: '\Drupal\order\Controller\OrderController::handleSopRoomAutocomplete'
+  requirements:
+    _access: 'TRUE'
+sop.sop_task_server.failure.autocomplete:
+  path: 'admin/sop/sop_task_failure/mip'
+  defaults:
+    _controller: '\Drupal\order\Controller\OrderController::handleSopFailureAutocomplete'
+  requirements:
+    _access: 'TRUE'
+sop.sop_task_iband_ip_filter_room:
+  path: 'js/sop/iband/ip/{room}/filter'
+  defaults:
+    _form: 'Drupal\sop\Form\SopTaskIBandFilterBipForm'
+  requirements:
+    _access: 'TRUE'

@@ -1,0 +1,56 @@
+<?php
+
+/**
+ * @file
+ * Contains theme override functions and preprocess functions
+ */
+
+use Drupal\Core\Template\RenderWrapper;
+use Drupal\Core\Template\Attribute;
+use Drupal\Core\Url;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Component\Utility\Xss;
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function xunyun_preprocess_page(&$variables) {
+  // Add information about the number of sidebars.
+  if (!empty($variables['page']['sidebar_first']) && !empty($variables['page']['sidebar_second'])) {
+    $variables['column_laside'] = 't-two-left-sidebars'; ///lside: 30, rside: 20
+    $variables['column_raside'] = 't-two-right-sidebars'; ///lside: 30, rside: 20
+    $variables['column_content'] = 't-two-content';//main: 50
+  }
+  elseif (!empty($variables['page']['sidebar_first'])) {
+    $variables['column_content'] = 't-single-content';//main: 80
+    $variables['column_laside'] = 't-left-sidebars'; ///lside: 30
+  }
+  elseif (!empty($variables['page']['sidebar_second'])) {
+    $variables['column_content'] = 't-single-content';//main: 80
+    $variables['column_raside'] = 't-right-sidebars'; ///rside: 20
+  }
+  else {
+    $variables['column_content'] = 't-no-sidebars'; ///main: 100
+  }
+  $url = Url::fromRoute('<current>');
+  $args = explode('/', $url->getInternalPath());
+  // Configure front page css and js.
+  if (\Drupal::service('path.matcher')->isFrontPage()) {
+    $libraries['#attached']['library'][] = 'xunyun/front';
+    $libraries['#attached']['library'][] = 'xunyun/nav-common';
+  }
+  else {
+    $libraries['#attached']['library'][] = 'xunyun/global-styling';
+    if ($args[0] != "user") {
+      $libraries['#attached']['library'][] = 'xunyun/nav-common';
+    } elseif ($args[0] == "user") {
+      if ($args[1] == "login" || $args[1] == "password" || $args[1] == "register") {
+        $libraries['#attached']['library'][] = 'xunyun/nav-common';
+      } else {
+        $libraries['#attached']['library'][] = 'xunyun/nav-user';
+      }
+    }
+  }
+  drupal_render($libraries);
+}
+

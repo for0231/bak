@@ -1,0 +1,45 @@
+part.cpu.add_form:
+  title: CPU
+  route_name: part.cpu.add_form
+  base_route: part.cpu.add_form
+  weight: 1
+part.mainboard.add_form:
+  title: Mainboard
+  route_name: part.mainboard.add_form
+  base_route: part.cpu.add_form
+  weight: 3
+part.memory.add_form:
+  title: Memory
+  route_name: part.memory.add_form
+  base_route: part.cpu.add_form
+  weight: 5
+part.harddisc.add_form:
+  title: Hard disk
+  route_name: part.harddisc.add_form
+  base_route: part.cpu.add_form
+  weight: 7
+part.chassis.add_form:
+  title: Chassis
+  route_name: part.chassis.add_form
+  base_route: part.cpu.add_form
+  weight: 9
+part.raid.add_form:
+  title: Raid
+  route_name: part.raid.add_form
+  base_route: part.cpu.add_form
+  weight: 11
+part.network.add_form:
+  title: Network card
+  route_name: part.network.add_form
+  base_route: part.cpu.add_form
+  weight: 13
+part.optical.add_form:
+  title: Optical module
+  route_name: part.optical.add_form
+  base_route: part.cpu.add_form
+  weight: 15
+part.switch.add_form:
+  title: Switch
+  route_name: part.switch.add_form
+  base_route: part.cpu.add_form
+  weight: 17

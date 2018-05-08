@@ -1,0 +1,164 @@
+/*
+覆盖component.css中的部分杨慧
+*/
+.block{
+	display: block;
+}
+table {
+	width: 100%;
+}
+div.form-calendar table td {
+	border-top: 1px solid #e6e4df;
+}
+.worksheet-room-setting-form{
+	margin-left: 40px;
+}
+#content {
+    padding: 10px 10px;
+}
+article.sortable-grid {
+	margin-top: -20px;
+}
+.form-control[disabled]{
+  background-color: #eeeeee !important;
+}
+nav ul.tabs--primary li {
+  background-color:#EDEDED !important;
+}
+.smart-form .button {
+  /*color:black;
+  background-color: #ffffff;*/
+  border: 1px solid #CCCCCC;
+}
+.smart-form .button:hover {
+	color: black;
+}
+.form-actions {
+	border-top: none;
+}
+.btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+    cursor: not-allowed !important;
+    opacity: 0.65;
+}
+.radio,
+.checkbox {
+  display: table-cell;
+}
+.btn-xs,
+.btn-group-xs > .btn {
+  font-size: 22px;
+}
+.nav-tabs > li > a:hover {
+}
+.table > thead > tr > th {
+  border-bottom: 1px solid #dddddd;
+  padding-bottom: 16px;
+}
+.smart-form .icon-append {
+  margin-top: 20px;
+}
+nav ul li.active > a:before {
+	content: none;
+}
+.form-actions {
+	margin-top:0px;
+	margin-left:0px;
+	margin-bottom:0px;
+}
+.nav-tabs > li.active > a {
+  -webkit-box-shadow: 0 -2px 0 #EDEDED;
+  -moz-box-shadow: 0 -2px 0 #EDEDED;
+  box-shadow: 0 -2px 0 #EDEDED;
+}
+.nav-tabs > li > a {
+  line-height: 1.428571429;
+  border: 1px solid transparent;
+  border-radius: 4px 4px 0 0;
+  border-color: #eeeeee;
+}
+@media (min-width: 768px) {
+  .smart-rtl .nav-tabs.nav-justified > li > a {
+    border-radius: 2px 2px 0 0;
+    color: #0000ff;
+  }
+}
+/*
+#main {
+  min-height: 1000px;
+}
+*/
+nav ul.tabs--primary.nav.nav-tabs li.active a:hover {
+  color: #337ab7;
+}
+nav ul.tabs--primary.nav.nav-tabs li{
+	padding: 0px;
+	margin-bottom: -2px;
+}
+nav ul.tabs--primary.nav.nav-tabs li a{
+	border: 1px solid #ddddd;
+	height: 40px;
+}
+nav ul.tabs--primary li a {
+    color: #337ab7;
+    border: solid 1px #dddddd;
+	margin: 0px;
+}
+nav ul.tabs--primary.nav.nav-tabs li a:hover {
+  background-color: #ddd;
+}
+nav ul.tabs--primary.nav.nav-tabs li.active a.is-active {
+  background-color:#337ab7;
+}
+nav ul.tabs--secondary {
+  margin-top: 0px;
+}
+h1.page-header {
+  margin-top: 0;
+  margin-bottom: 3px;
+  display:none;
+}
+.has-glyphicons .select-wrapper:after{
+	margin-right: 15px;
+}
+/*
+.form-horizontal{margin:0;padding:0;margin-left:200px;margin-right:auto;width:900px;background-color:#eee}
+.btn-div{margin-top:30px}
+.control-label{text-align:right}
+.title-form{font-size:30px;margin-left:200px;margin-top:25px}
+.col-4{width:33.33%}
+.col{box-sizing:border-box;float:left;min-height:1px;padding-left:15px;padding-right:15px}
+.btn-lg,.btn-group-lg>.btn{font-size:17px;line-height:1.33}
+.but-main{background-color:#fff;margin-top:5px;border:1px solid #ddd}
+.li{width:100px;float:left;margin-top:30px}
+.main-but-top{margin-bottom:5px;margin-top:5px;font-size:20px}
+.main-but-top button{margin-left:20px;width:150px;box-shadow:inset 0 3px 5px rgba(0,0,0,0.125);border:1px solid transparent}
+#page #header{color:#fff}
+#footer{color:#f00}
+.btn-warning{background-color:#f0ad4e;border-color:#eea236;color:#fff}
+.btn{-moz-user-select:none;background-image:none;border-radius:4px;cursor:pointer;display:inline-block;font-size:14px;font-weight:400;line-height:1.42857;padding:6px 12px;text-align:center;vertical-align:middle;white-space:nowrap}
+.btn-danger{background-color:#d9534f;border-color:#d43f3a;color:#fff}
+.ui-sortable .jarviswidget-sortable>header{border-radius:0;box-shadow:0 -2px 0 rgba(0,0,0,0.05) inset;cursor:move;line-height:normal}
+*/
+*{margin:0;padding:0}
+html{overflow-y:scroll}
+a{text-decoration:none}
+a:focus{outline:0}
+p{font-size:15px;margin:0 0 20px 0}
+#page-wrap{width:440px;margin:80px auto}
+h1{font:bold 40px Sans-Serif;margin:0 0 20px 0}
+.hide{position:absolute;top:-9999px;left:-9999px}
+/*添加弹出框代码*/
+.ui-dialog {
+	position: fixed; 
+	height: auto; 
+	width: 400px; 
+	top: 73px; 
+	left: 626px;
+	display: block;
+}
+input[type="checkbox"] {
+	margin: -7px 0px 0px;	
+}
+h2 {
+	margin: 0px;
+}

@@ -1,0 +1,16 @@
+.field-type-multi-part {
+  margin: 0.75em 0;
+}
+
+.field-type-multi-part div.form-item {
+  display: inline;
+}
+
+.field--type-multi-part {
+  margin: 0.75em 0;
+}
+.field--type-multi-part div.form-item {
+  display: inline;
+}
+
+

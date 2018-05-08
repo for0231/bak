@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+id: worksheet_business
+label: '业务人员'
+weight: 1
+is_admin: false
+permissions: 
+  - view the administration theme
+  - access worksheet admin
+  - access worksheet sop list
+  - administer adding work sheet
+  - administer operation work sheet
+  - access worksheet sop delete

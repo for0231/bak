@@ -1,0 +1,66 @@
+{{attach_library('resourcepool/drupal.business-url')}}
+
+<table class="business-table">
+  <thead>
+  <tr>
+    <th >编号</th>
+    <th >类型</th>
+    <th >链路ID</th>
+    <th >commit带宽</th>
+    <th >brust带宽</th>
+    <th >A-end</th>
+    <th >Z-end</th>
+    <th >备注</th>
+    <th >Vlan</th>
+    <th >客户名称</th>
+    <th >起租日期</th>
+    <th >截止日期</th>
+    <th >价格</th>
+    <th >合同编号</th>
+    <th >操作</th>
+  </tr>
+  </thead>
+  <tbody>
+    {% for item in business_list %}
+      <tr>
+        <td >{{item.no}}</td>
+        <td >
+        {% if item.type == 2 %}
+          客户共享产品
+        {% else %}
+          客户专用产品
+        {% endif %}
+        </td>
+        <td ><a href='{{item.cacti1}}' target="_blank">{{item.link_id}}</a></td>
+        <td >{{item.commit_bandwidth}}</td>
+        <td >{{item.brust_bandwidth}}</td>
+        <td >{{item.A_end}}</td>
+        <td >{{item.Z_end}}</td>
+        <td >{{item.note}}</td>
+        <td >{{item.vlan}}</td>
+        <td >{{item.client_name}}</td>
+        <td >
+        {% if item.rent_time is not empty %}
+        {{ item.rent_time|date("Y/m/d") }}
+        {% else %}
+        {% endif %}
+        </td>
+        <td >
+        {% if item.end_time is not empty %}
+        {{ item.end_time|date("Y/m/d") }}
+        {% else %}
+        {% endif %}
+        </td>
+        <td >{{item.price}}</td>
+        <td >{{item.contract_no}}</td>
+        <td>
+        {% if item.type == 2 %}
+        <a href="{{ url('admin.resourcepool.splitproduct.add',{'client_no': item.no})}}">添加拆分资源</a>
+        {% endif %}
+        <a href="{{ url('admin.resourcepool.businesslist.edit',{'no': item.no})}}">修改</a>
+        <a href="{{ url('admin.resourcepool.dedicatedres.delete',{'no': item.no,'type':item.type,'link_id':item.link_id})}}">删除</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

@@ -1,0 +1,203 @@
+@gray-light:   lighten(#000, 46.7%);
+@brand-info:    #5bc0de;
+@gray-lighter: lighten(#000, 93.5%);
+@brand-info: #5bc0de;
+@margin-left:200px;
+@margin-top:25px;
+@brand-success:#5cb85c;
+@bgn-success0bg:@brand-success;
+
+.form-horizontal{
+	margin:0;
+	padding:0;
+	margin-left:@margin-left;
+	margin-right:auto;
+	width:900px;
+	background-color:@gray-lighter;
+}
+.btn-div{
+	margin-top:30px;
+}
+.control-label{
+	 text-align:right;
+}
+.title-form{
+	font-size:30px;
+	margin-left:@margin-left;
+	margin-top:@margin-top;
+}
+.form-control{
+    border-radius: 10px;
+	background-color: @gray-lighter;
+	margin-top:@margin-top;
+}
+.col-4{
+	width: 33.33%;
+}
+.col{
+	box-sizing: border-box;
+	float: left;
+	min-height: 1px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+.btn-lg, .btn-group-lg > .btn {
+	font-size: 17px;
+	line-height: 1.33;
+}
+.btn-success {
+	background-color: #739e73;
+	border-color: #659265;
+	color: #fff;
+	float: right;
+	margin-left: 1500px;
+}
+.but-main{
+	background-color:white;
+	margin-top: 5px;
+	border: 1px solid #ddd;
+}
+.li{
+	width: 100px;
+	float: left;
+	margin-top: 30px;
+}
+.main-but-top{
+	margin-bottom: 5px;
+	margin-top: 5px;
+	font-size: 20px;
+}
+.main-but-top button{
+	margin-left: 20px;
+	/*box-shadow: #dddddd;*/
+	width: 150px;
+	box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+	border: 1px solid transparent;
+}
+@a : 34%;
+.mixin (@a) when(lightness(@a)>=50%){
+	background-color: black;
+}
+.mixin(@a) when (lightness(@a)<50%){
+	background-color: white;
+}
+.mixin(@a){
+	color: @a;
+}
+@base-color:#38947B;
+@base: 5%;
+@filler:@base*2;
+@other:@base+@filler;
+@var:red;
+#page{
+	@var:white;
+	#header{
+		color: @var;
+	}
+}
+#footer{
+	color: @var;//red
+}
+.btn-warning {
+	background-color: #f0ad4e;
+	border-color: #eea236;
+	color: #fff;
+}
+.btn {
+	-moz-user-select: none;
+	background-image: none;
+	border-radius: 4px;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857;
+	padding: 6px 12px;
+	text-align: center;
+	vertical-align: middle;
+	white-space: nowrap;
+}
+.btn-danger {
+	background-color: #d9534f;
+	border-color: #d43f3a;
+	color: #fff;
+}
+.ui-sortable .jarviswidget-sortable > header {
+	border-radius: 0;
+	box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.05) inset;
+	cursor: move;
+	line-height: normal;
+}
+
+/*####################*/
+/*
+	 Organic Tabs
+	 by Chris Coyier
+	 http://css-tricks.com
+*/
+
+* { margin: 0; padding: 0; }
+html { overflow-y: scroll; }
+a { text-decoration: none; }
+a:focus { outline: 0; }
+p { font-size: 15px; margin: 0 0 20px 0; }
+#page-wrap { width: 440px; margin: 80px auto; }
+h1 { font: bold 40px Sans-Serif; margin: 0 0 20px 0; }
+
+/* Generic Utility */
+.hide { position: absolute; top: -9999px; left: -9999px; }
+
+
+/* Specific to example one */
+
+#example-one { background: #eee; padding: 10px; margin: 0 0 20px 0; -moz-box-shadow: 0 0 5px #666; -webkit-box-shadow: 0 0 5px #666; }
+
+#example-one .nav { overflow: hidden; margin: 0 0 10px 0; }
+#example-one .nav li { width: 97px; float: left; margin: 0 10px 0 0; }
+#example-one .nav li.last { margin-right: 0; }
+#example-one .nav li a { display: block; padding: 5px; background: #959290; color: white; font-size: 10px; text-align: center; border: 0; }
+#example-one .nav li a:hover { background-color: #111; }
+
+#example-one ul { list-style: none; }
+#example-one ul li a { display: block; border-bottom: 1px solid #666; padding: 4px; color: #666; }
+#example-one ul li a:hover { background: #fe4902; color: white; }
+#example-one ul li:last-child a { border: none; }
+
+#example-one ul li.nav-one a.current, #example-one ul#featured li a:hover { background-color: #0575f4; color: white; }
+#example-one ul li.nav-two a.current, #example-one ul#core li a:hover { background-color: #d30000; color: white; }
+#example-one ul li.nav-three a.current, #example-one ul#jquerytuts li a:hover { background-color: #8d01b0; color: white; }
+#example-one ul li.nav-four a.current, #example-one ul#classics li a:hover { background-color: #FE4902; color: white; }
+
+
+
+/* Specific to example two */
+
+#example-two .list-wrap { background: #eee; padding: 10px; margin: 0 0 15px 0; }
+
+#example-two ul { list-style: none; }
+#example-two ul li a { display: block; border-bottom: 1px solid #666; padding: 4px; color: #666; }
+#example-two ul li a:hover { background: #333; color: white; }
+#example-two ul li:last-child a { border: none; }
+
+#example-two .nav { overflow: hidden; }
+#example-two .nav li { width: 97px; float: left; margin: 0 10px 0 0; }
+#example-two .nav li.last { margin-right: 0; }
+#example-two .nav li a { display: block; padding: 5px; background: #666; color: white; font-size: 10px; text-align: center; border: 0; }
+
+#example-two li a.current,#example-two li a.current:hover { background-color: #eee !important; color: black; }
+#example-two .nav li a:hover, #example-two .nav li a:focus { background: #999;}
+
+
+#example-two li a.current, #example-two li a.current:hover {
+	background-color: #eee !important;
+	color: black;
+}
+#example-two .nav li a {
+	background: #666 none repeat scroll 0 0;
+	border: 0 none;
+	display: block;
+	font-size: 10px;
+	padding: 5px;
+	text-align: center;
+}
+

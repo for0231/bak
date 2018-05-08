@@ -1,0 +1,6 @@
+name: Tips
+type: module
+core: 8.x
+package: Smart
+description: 'Tip messages'
+version: VERSION

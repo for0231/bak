@@ -1,0 +1,6 @@
+administer cg_integration edit:
+  title: 'Administer cg_integration Edit'
+administer cg_integration delete:
+  title: 'Administer cg_integration Delete'
+access cg_integration list:
+  title: 'Access cg_integration'

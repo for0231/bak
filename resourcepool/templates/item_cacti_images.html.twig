@@ -1,0 +1,10 @@
+<div class="wrap mt1 nav">
+  <div class="btcont">该机图片如下:</div>
+    <ul class="nav_menu clearfix">
+      {% for key,item in item_cacti_images %}
+      <li><img src={{ item }} /></li>
+      <li>Type: {{ key }} </li>
+      {% endfor %}
+    </ul>
+  </div>
+<div>

@@ -1,0 +1,4 @@
+services:
+  fw_config.wdfirewall:
+    class: Drupal\fw_config\WdFwconfigService
+    arguments: ['@database']

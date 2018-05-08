@@ -1,0 +1,7 @@
+admin.voice.get:
+  path: 'admin/voice/get'
+  defaults:
+    _controller: '\Drupal\voice\Controller\VoiceController::getVoice'
+    _title: 'Voice'
+  requirements:
+    _access: 'TRUE'

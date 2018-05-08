@@ -1,0 +1,14 @@
+administer paypre edit:
+  title: 'Administer paypre edit'
+administer paypre delete:
+  title: 'Administer paypre delete'
+administer paypre detail:
+  title: 'Administer paypre detail'
+administer paypre collection:
+  title: 'Administer Paypre collection'
+administer paypre data modes:
+  title: 'administer paypre data modes'
+administer paypre audit history:
+  title: 'administer paypre audit history'
+administer paypre all history:
+  title: 'administer paypre all history'

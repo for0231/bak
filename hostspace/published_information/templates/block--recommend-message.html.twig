@@ -1,0 +1,12 @@
+<div class="blank20"></div>
+<div id="recommend_message">
+  <div class="title_02">推荐内容</div>
+    <ul class="neirong_list">
+      {% for msg in recommend_data %}
+        <li>
+          <h3><a href="{{ msg.detail }}">{{ msg.title.value }}</a></h3>
+          <p>{{ msg.summary_val }}</p>
+        </li> 
+       {% endfor %}       
+    </ul>
+</div>

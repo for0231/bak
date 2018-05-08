@@ -1,0 +1,1398 @@
+<?php
+
+/**
+ * @file
+ * Member description.
+ */
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Entity\EntityInterface;
+use \Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\user\UserInterface;
+use Drupal\Core\Url;
+use Drupal\hostlog\HostLogFactory;
+use Drupal\Core\Render\Element\Email;
+use Symfony\Component\HttpFoundation\Request;
+
+/**
+ * Implement hook_theme().
+ */
+function member_theme() {
+  return array(
+    'member_center' => array(
+      'template' => 'member-center',
+      'variables' => array('user' => null)
+    ),
+    'member_information' => array(
+      'template' => 'member-infomation',
+      'variables' => array('member' => null)
+    ),
+    'employee_information' => array(
+      'template' => 'employee-infomation',
+      'variables' => array('employee' => null)
+    ),
+    'my_account' => array(
+      'template' => 'my-account',
+      'variables' => array('user_id' => null)
+     ),
+     'my_safe_info' => array(
+      'template' => 'my-safe-info',
+      'variables' => array('user_id' => null)
+     ),
+     'child_account_admin' => array(
+       'template' => 'child-account-admin',
+       'variables' => array('child_list' => null)
+     ),
+     'user_form' => array(
+       'render element' => 'form',
+       'template' => 'my-info-modify'
+     ),
+     'user_recharge' => array(
+       'render element' => 'form',
+       'template' => 'user-recharge',
+     ),
+     'member_consumer_record' => array(
+       'template' => 'member-consumer-record',
+       'variables' => array('records' => null, 'comsumer'=> array())
+     ),
+     'security_question' => array(
+       'template' => 'my-safe-question',
+       'render element' => 'form',
+     ),
+     'modify_pwd' => array(
+       'template' => 'modify-pwd',
+       'render element' => 'form',
+      ),
+     'user_register_form' => array(
+       'template' => 'admin-add-user' ,
+       'render element' => 'form',
+      ),
+     'user_login_form' => array(
+       'render element' => 'form',
+       'template' => 'user-login-form'
+     ),
+     'user_pass' => array(
+       'render element' => 'form',
+       'template' => 'user-password-form'
+     ),
+  );
+}
+/**
+ * 指定网站充值类型
+ * 函数待用
+ */
+function setPaymentType() {
+  return array(
+    '1' => t('服务器产品'),
+    '2' => t('其他'), //留待使用将来支付产品类型
+  );
+}
+// ------------添加新用户--------------------
+
+/**
+ * Implement hook_form_FORM_ID_alter().user_register_form()
+ *
+ * 重新构建添加用户的表单 实现会员/员工的添加
+ *
+ * @see \Drupal\user\RegistForm
+ *
+ */
+function member_form_user_register_form_alter(&$form, FormStateInterface $form_state){
+  $user = \Drupal::currentUser();
+  //获取当前操作的form对象
+  $account = $form_state->getFormObject()->getEntity();
+  $register = $account->isAnonymous();
+  //获取当前操作的实体
+  // 如果有后台添加user的权限  则不是前台注册
+  $admin = $user->hasPermission('administer users');
+  if($admin) {
+    //取消不需要的表单元素
+    //unset($form['account']['mail']);
+    unset($form['account']['pass']);
+    unset($form['account']['notify']);
+    unset($form['language']);
+    $form['information']['basic_info']['user_type'] = array(
+      '#type' => 'select',
+      '#title' => t('Type of user'),
+      '#required' => true,
+      '#options' => array(
+        '' => t('Select user\'s type'),
+        'employee' => 'employee',
+        'client' => 'client'
+      ),
+      '#ajax' => array(
+         'callback' => 'loadMember',
+         'wrapper' => 'member_info',
+         'effect' => 'none',
+         'method' => 'html'
+      )
+    );
+    $form['information']['basic_info']['member'] = array(
+      '#type' => 'container',
+      '#id' => 'member_info'
+    );
+    $form['information']['basic_info']['member']['info'] = array(
+      '#type' => 'container',
+    );
+
+    //得到选择的用户类型
+    $user_type = $form_state->getValue('user_type');
+    //添加员工
+    if($user_type == 'employee') {
+      // 注册一个新员工
+      registEmployee($form, $form_state);
+
+    } elseif($user_type == 'client') {
+      //注册一个新用户
+      regClient($form, $form_state);
+    }
+
+    $form['#entity_builders'][] ='setFormValueToEntity';
+
+  } else {  // 网站前台注册功能
+    $form['user_type'] = array(
+      '#type' => 'value',
+      '#value' => 'client'
+    );
+    //设置form表单浏览器不记录历史 
+    $form['#attributes']['data-user-info-from-browser'] = FALSE;
+    
+    unset($form['account']['mail']['#title']);
+    $form['account']['mail']['#prefix'] = '<div class="form-group m-b-20">';
+    $form['account']['mail']['#suffix'] = '</div>';
+    $form['account']['mail']['#attributes']['placeholder'] = t('Email');
+    $form['account']['mail']['#attributes']['class'] = array('form-control input-lg');
+    
+    unset($form['account']['name']['#title']);
+    $form['account']['name']['#prefix'] = '<div class="form-group m-b-20">';
+    $form['account']['name']['#suffix'] = '</div>';
+    $form['account']['name']['#attributes']['placeholder'] = t('User name');
+    $form['account']['name']['#attributes']['class'] = array('form-control input-lg');
+    
+    $form['actions'] += array(
+      '#prefix' => '<div class="login-buttons">',
+      '#suffix' => '</div>',
+      '#attributes' => array(
+        'class' => array('login-buttons'),
+      ),
+    );
+    $form['actions']['submit']['#attributes'] = array(
+      'class' => array('btn btn-success btn-block btn-lg'),
+    );
+  }
+}
+
+/**
+ * 注册新员工
+ */
+function registEmployee(&$form,  FormStateInterface $form_state) {
+  $form['information']['basic_info']['member']['info']['employee_name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Full name'),
+    '#required' => TRUE,
+    '#weight' => -1
+  );
+  //部门
+  $form['information']['member']['info']['dept'] = array(
+    '#type' => 'container',
+    '#attributes' => array(
+      'class' => array('container-inline')
+    )
+  );
+  //部门、职位 联动
+  $dept = \Drupal::entityManager()->getStorage('taxonomy_term')->loadTree('dept_employee',0,1);
+  $dept_ops = array();
+	foreach ($dept as $v) {
+	  $dept_ops[$v->tid] = $v->name;
+	}
+
+  $form['information']['basic_info']['member']['info']['dept']['department'] = array(
+    '#type' => 'select',
+    '#options' => $dept_ops,
+    '#title' => t('Department'),
+    '#required' => TRUE,
+    '#ajax' => array(
+      'callback' => 'loadPosition',
+      'wrapper' => 'job',
+      'effect' => 'none',
+      'method' => 'html'
+    )
+  );
+  $form['information']['basic_info']['member']['info']['dept']['dept_child'] = array(
+    '#type' => 'container',
+    '#id' => 'job',
+    '#required' => TRUE,
+    '#attributes' => array(
+      'class' => array('container-inline')
+    )
+  );
+  //得到页面选择的部门的部门id
+  $dept_id = $form_state->getValue('department');
+  if(!empty($dept_id)){
+    $position = \Drupal::entityManager()->getStorage('taxonomy_term')->loadChildren($dept_id);
+    $position_ops = array('' => 'Select Position');
+	  foreach ($position as $k =>$v) {
+	    $position_ops[$k] = $v->label();
+	  }
+    $form['information']['basic_info']['member']['info']['dept']['dept_child']['position'] = array(
+      '#type' => 'select',
+      '#options' => $position_ops,
+      '#required' => TRUE,
+      '#title' => '职位'
+    );
+  }
+  return $form;
+}
+
+/**
+ * 注册新用户
+ */
+function regClient(&$form,  FormStateInterface $form_state) {
+  //加载会员的类型
+  $form['information']['basic_info']['member']['info']['client_type'] = array(
+    '#type' => 'select',
+    '#title' => t('Type of membership'),
+    '#required' => TRUE,
+    '#options' => clientType()
+  );
+
+  $form['information']['basic_info']['member']['info']['corporate_name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Company or person name'),
+    '#required' => TRUE,
+  );
+  return $form;
+}
+
+// ------------用户信息修改--------------------
+/**
+ * Implement hook_form_FORM_ID_alter().user_register_form()
+ *
+ * 重新构建修改用户的表单 实现会员/员工的信息修改
+ *
+ * @see \Drupal\user\RegistForm
+ */
+function member_form_user_form_alter(&$form, FormStateInterface $form_state) {
+  $form['language']['preferred_langcode']['#title'] = t('Preferred language');
+  //获取当前操作的form对象
+  $form_obj = $form_state->getFormObject();
+  //获取当前操作的实体
+  $user_entity = $form_obj->getEntity();
+
+   //得到服务类
+  $member_service = \Drupal::service('member.memberservice');
+
+  $form['information'] = array('#type' => 'container');
+
+  //进行修改操作
+  if(!$user_entity->isNew()) {
+    $user_id = $user_entity->id();
+    $user_type = $user_entity->get('user_type')->value;
+
+    if($user_type == 'employee') {  //员工
+      $employee = $member_service->queryDataFromDB($user_type,$user_id);
+      $form['employee_name'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Name of employee'),
+        '#default_value' =>  $employee->employee_name,
+      );
+
+      //判断是否是在修改自己的资料
+      if($user_id == \Drupal::currentUser()->id()){  // 修改自己的资料信息.
+        if($user_id != 1) {   //不是admin账户时
+          // 修改自己资料时 不能修改自己的用户组
+          $form['account']['roles'] = array(
+            '#type' => 'checkboxes',
+            '#title' => t('Roles'),
+            '#options' => array(),
+          );
+        }
+        //调用修改自己资料的方法
+        modifyEmployeeSelf($employee,$form);
+      } else {  //修改他人资料
+        $form['account']['mail']['#disabled'] = true;
+        //unset($form['account']['pass']);
+        //调用修改员工资料的方法
+        modifyEmployeeInfo($form, $form_state,$employee);
+      }
+    } elseif($user_type == 'client') { //客户
+      $client = $member_service->queryDataFromDB($user_type,$user_id);
+      //判断是否是在修改自己的资料
+      if($user_id == \Drupal::currentUser()->id()){  // 修改自己的资料信息
+        //调用修改自己信息资料的方法
+         modifyClientSelf($form, $form_state, $client);
+      } else {  //修改他人资料
+        unset($form['account']['mail']);
+        unset($form['account']['pass']);
+        //调用修改客户信息的方法
+        modifyClientInfo($form, $form_state, $client);
+      }
+    }
+    $form['#entity_builders'][] ='setFormValueToEntity';
+  }
+}
+
+/**
+ * 员工在修改自己的资料
+ *
+ * @param $employee  object
+ *   待修改的员工对象
+ * @param $form array
+ *
+ * @return $form
+ *  构建好的表单元素
+ */
+function modifyEmployeeSelf($employee,&$form) {
+  $form['information']['qq'] = array(
+    '#type' => 'textfield',
+    '#title' => 'QQ',
+    '#default_value' =>  $employee->qq,
+  );
+  $form['information']['telephone'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Telephone'),
+    '#default_value' =>  $employee->telephone,
+  );
+  $form['information']['address'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Address'),
+    '#default_value' =>  $employee->address,
+  );
+  return $form;
+}
+
+/**
+ * 修改员工的资料
+ *
+ * @param $employee  object
+ *   待修改的员工对象 
+ * @param $form array
+ *
+ * @return $form
+ *  构建好的表单元素
+ */
+function modifyEmployeeInfo(&$form, FormStateInterface $form_state, $employee) {
+  $form['information']['basic_info']['member']['info']['dept'] = array(
+    '#type' => 'container',
+    '#attributes' => array(
+      'class' => array('container-inline')
+    )
+  );
+  $dept = \Drupal::entityManager()->getStorage('taxonomy_term')->loadTree('dept_employee',0,1);
+  $dept_ops = array();
+	foreach ($dept as $v) {
+	  $dept_ops[$v->tid] = $v->name;
+	} 
+  $form['information']['basic_info']['member']['info']['dept']['department'] = array(
+    '#type' => 'select',
+    '#options' => $dept_ops,
+    '#default_value' => $employee->department,
+    '#title' => t('Department'),
+    '#ajax' => array(
+      'callback' => 'loadPosition',
+      'wrapper' => 'job_wrapper',
+      'effect' => 'none',
+      'method' => 'html'
+    )
+  );
+  $form['information']['basic_info']['member']['info']['dept']['dept_child'] = array(
+    '#type' => 'container',
+    '#id' => 'job_wrapper'
+  );
+  //得到页面选择的部门的部门id
+  $dept_id = $form_state->getValue('department')? $form_state->getValue('department') : $employee->department;
+  $position = \Drupal::entityManager()->getStorage('taxonomy_term')->loadChildren($dept_id);
+  //变更部门时，加载该部门下的职位
+  if($form_state->getValue('department')!= $employee->department) {
+    $position_ops = array(''=>'Select position');
+  }else{
+    $position_ops = array();
+  }
+  foreach ($position as $k =>$v) {
+	  $position_ops[$k] = $v->label();
+  }
+  $form['information']['basic_info']['member']['info']['dept']['dept_child']['position'] = array(
+    '#type' => 'select',
+    '#options' => $position_ops,
+    '#default_value' => $employee->position,
+    '#title' => t('Position')
+  );
+
+  return $form;
+}
+
+/**
+ * 客户修改自己的资料
+ *
+ * @param $form array()
+ * @param $form_state FormStateInterface
+ *
+ * @return $form 构建好的表单元素
+ */
+function modifyClientSelf(&$form, FormStateInterface $form_state, $client) {
+  $form['info_mation']['basic_info_1'] = array('#type' => 'container');
+  $form['information']['basic_info_1']['nick'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Nick'),
+    '#default_value' => $client->nick
+  );
+  $form['information']['basic_info_1']['client_name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Full name'),
+    '#default_value' => $client->client_name
+  );
+
+  //加载行业分类
+  $type = \Drupal::entityManager()->getStorage('taxonomy_term')->loadChildren(\Drupal::config('member.settings')->get('client.industry'));
+  $type_ops = array();
+  foreach ($type as $k=>$v) {
+	$type_ops[$k] = $v->label();
+  }
+  $form['information']['basic_info_1']['industry'] = array(
+    '#type' => 'select',
+    '#title' => t('Industry Classification'),
+    '#options' => $type_ops,
+    '#default_value' => $client->industry
+  );
+  $form['information']['basic_info_1']['major_bussiness'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Major bussiness'),
+    '#default_value' => $client->major_bussiness
+  );
+  $form['information']['security'] = array('#type' => 'container');
+  $form['information']['security']['safe_question'] = array(
+    '#type' => 'select',
+    '#title' => t('Safe question 1'),
+    '#options' => securityQuestion_1(),
+    '#default_value' => $client->safe_question
+  );
+  $form['information']['security']['safe_answer'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Safe answer'),
+    '#default_value' => $client->safe_answer
+  );
+  $form['information']['security']['safe_question_1'] = array(
+    '#type' => 'slect',
+    '#title' => t('Safe question'),
+    '#options' => securityQuestion_2(),
+    '#default_value' => $client->safe_question_1
+  );
+  $form['information']['security']['safe_answer_1'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Safe answer'),
+    '#default_value' => $client->safe_answer_1
+  );
+  $form['information']['security']['safe_question_2'] = array(
+    '#type' => 'select',
+    '#title' => t('Safe question 3'),
+    '#options' => securityQuestion_3(),
+    '#default_value' => $client->safe_question_2 
+  );
+  $form['information']['security']['safe_answer_2'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Safe answer'),
+    '#default_value' => $client->safe_answer_2
+  );
+  //--------省、市、县 下拉列表联动开始 --------
+  $province = \Drupal::entityManager()->getStorage('taxonomy_term')->loadTree('area',0,1);
+  $province_ops = array('' => 'Select province');
+  foreach ($province as $v) {
+	$province_ops[$v->tid] = $v->name;
+  }
+  $form['information']['area'] = array(
+    '#type' => 'container',
+    '#attributes' => array(
+      'class' => array('container-inline')
+    )
+  );
+  $form['information']['area']['title'] = array(
+    '#type' => 'label',
+    '#title' => t('Location')
+  );
+  $form['information']['area']['province'] = array(
+    '#type' => 'select',
+    '#options' => $province_ops,
+    '#default_value' => $client->province,
+      '#ajax' => array(
+        'callback' => 'loadCity',
+        'wrapper' => 'province_child_data',
+        'effect' => 'none',
+        'method' => 'html'
+      )
+  );
+  $form['information']['area']['province_child'] = array(
+    '#type' => 'container',
+    '#id' => 'province_child_data'
+  );
+  $provinceId = $form_state->getValue('province') ? $form_state->getValue('province') : $client->province;
+  if($provinceId) {
+    $city = \Drupal::entityManager()->getStorage('taxonomy_term')->loadChildren($provinceId);
+	  $city_ops = array('' => 'Select city');
+    foreach ($city as $k =>$v) {
+	    $city_ops[$k] = $v->label();
+    }
+    $form['information']['area']['province_child']['city'] = array(
+      '#type' => 'select',
+      '#options' => $city_ops,
+      '#default_value' => $client->city,
+        '#ajax' => array(
+        'callback' => 'loadRegion',
+        'wrapper' => 'city_child_data',
+        'effect' => 'none',
+        'method' => 'html'
+      )
+    );
+    $form['information']['area']['province_child']['city_child'] = array(
+      '#type' => 'container',
+      '#id' => 'city_child_data'
+    );
+  }
+  $cityId = $form_state->getValue('city') ? $form_state->getValue('city') : $client->city;
+  if(!empty($cityId)) {
+    $region = \Drupal::entityManager()->getStorage('taxonomy_term')->loadChildren($cityId);
+	  $region_ops = array('' => 'Select region');
+    foreach ($region as $k => $v) {
+	    $region_ops[$k] = $v->label();
+    }
+    $form['information']['area']['province_child']['city_child']['region'] = array(
+      '#type' => 'select',
+      '#default_value' => $client->region,
+      '#options' => $region_ops
+    );
+  }
+  //---------省、市、县 下拉列表联动结束--------
+  $form['information']['basic_info'] = array('#type' => 'container');
+  $form['information']['basic_info']['address'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Address'),
+    '#default_value' => $client->address
+  );
+  $form['information']['basic_info']['qq'] = array(
+    '#type' => 'textfield',
+    '#title' => 'QQ',
+    '#default_value' => $client->qq
+  );
+  $form['information']['basic_info']['telephone'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Telephone'),
+    '#default_value' => $client->telephone
+  );
+  $form['information']['basic_info']['fax'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Fax'),
+    '#default_value' => $client->fax
+  );
+  return $form;
+}
+
+/**
+ * 修改客户的资料
+ *
+ * @param $form array()
+ * @param $form_state FormStateInterface
+ *
+ * @return $form 构建好的表单元素
+ */
+function modifyClientInfo(&$form, FormStateInterface $form_state, $client) {
+  $form['information']['basic_info']['client_type'] = array(
+    '#type' => 'select',
+    '#title' => t('Type of membership'),
+    '#options' => clientType(),
+    '#default_value' => $client->client_type
+  );
+
+  $form['information']['basic_info']['corporate_name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Company or person name'),
+    '#default_value' => $client->client_type == 2 ? $client->corporate_name : $client->client_name
+  );
+  //修改客服务专员
+  $dept = \Drupal::entityManager()->getStorage('taxonomy_term')->loadTree('dept_employee',0,1);
+  $dept_ops = array('' => 'Select');
+	foreach ($dept as $v) {
+	  $dept_ops[$v->tid] = $v->name;
+	}
+  $form['information']['basic_info']['information']  = array(
+    '#type' => 'label',
+    '#title' => t('Client commissioner')
+  );
+  $form['information']['basic_info']['dept'] = array(
+    '#type' => 'container',
+    '#attributes' => array(
+      'class' => array('container-inline')
+    )
+  );
+  $member_service = \Drupal::service('member.memberservice');
+  $employee = $member_service->queryDataFromDB('employee', $client->commissioner);
+  $depart_id = $employee ? $employee->department : '';
+  $form['information']['basic_info']['dept']['department'] = array(
+    '#type' => 'select',
+    '#options' => $dept_ops,
+    '#default_value' => $depart_id,
+    '#ajax' => array(
+      'callback' => 'loadPeople',
+      'wrapper' => 'employee_wrapper',
+      'effect' => 'none',
+      'method' => 'html'
+    )
+  );
+  $form['information']['basic_info']['dept']['dept_child'] = array(
+    '#type' => 'container',
+    '#id' => 'employee_wrapper',
+    '#attributes' => array(
+      'class' => array('container-inline')
+    )
+  );
+
+  //得到页面选择的部门的部门id
+  $dept_id = $form_state->getValue('department') ? $form_state->getValue('department') : $depart_id;
+  if($dept_id) {
+    $employees = $member_service->getEmployeeByDepartmentID($dept_id);
+    $employee_arr = array('' => 'Select');
+    foreach($employees as $key=>$emp) {
+      $employee_arr[$emp->uid] = empty($emp->employee_name) ? entity_load('user', $emp->uid)->label() : $emp->employee_name;
+    }
+    $form['information']['basic_info']['dept']['dept_child']['commissioner'] = array(
+      '#type' => 'select',
+      '#default_value' => $client->commissioner ? $client->commissioner : '' ,
+      '#options' => $employee_arr,
+    );
+  }
+  return $form;
+}
+
+/**
+ * 将表单中的值复制到Entity中
+ *
+ * @param $entityId
+ *   实体id
+ * @param $entity EntityInterface
+ *   @see Drupal\user\user
+ *
+ * @param $form
+ *  表单
+ *
+ * @param $form_state
+ * 存储表单值
+ */
+function setFormValueToEntity($entityId, $entity, $form, $form_state) {
+  $user_type = $entity->get('user_type')->value;
+  if($user_type == 'employee') {
+
+    $entity->employee_name = $form_state->getValue('employee_name');
+    $entity->department = $form_state->getValue('department');
+    $entity->position = $form_state->getValue('position');
+
+    $entity->qq = $form_state->getValue('qq');
+    $entity->telephone = $form_state->getValue('telephone');
+    $entity->address = $form_state->getValue('address');
+
+  }elseif($user_type = 'client') {
+    if($form_state->getValue('client_type') == 2)  {
+      $entity->corporate_name = $form_state->getValue('corporate_name');
+    } else {
+      if(empty($form_state->getValue('client_name'))) { //判断是后台修改还是前面修改
+         $entity->client_name = $form_state->getValue('corporate_name');
+      } else {
+         $entity->client_name = $form_state->getValue('client_name');
+      }
+    }
+
+    $entity->client_type = $form_state->getValue('client_type');
+    //负责专员
+    $entity->commissioner  = $form_state->getValue('commissioner');
+    $entity->nick = $form_state->getValue('nick');
+    $entity->industry = $form_state->getValue('industry');
+    $entity->major_bussiness = $form_state->getValue('major_bussiness');
+    $entity->safe_question = $form_state->getValue('safe_question');
+    $entity->safe_answer = $form_state->getValue('safe_answer');
+    $entity->safe_question_1 = $form_state->getValue('safe_question_1');
+    $entity->safe_answer_1 = $form_state->getValue('safe_answer_1');
+    $entity->safe_question_2 = $form_state->getValue('safe_question_2');
+    $entity->safe_answer_2 = $form_state->getValue('safe_answer_2');
+    $entity->province = $form_state->getValue('province');
+    $entity->city = $form_state->getValue('city');
+    $entity->region = $form_state->getValue('region');
+    $entity->address = $form_state->getValue('address');
+    $entity->qq = $form_state->getValue('qq');
+    $entity->telephone = $form_state->getValue('telephone');
+    $entity->fax = $form_state->getValue('fax');
+  }
+}
+
+/**
+ * 实现钩子 hoo_ENTITY_TYPE_presave()
+ *   设置新添加用户的密码默认为：123456
+ *
+ * @param $entity  EntityInterface
+ *  要操作的user实体
+ */
+function member_user_presave(EntityInterface $entity){
+  $user = \Drupal::currentUser();
+  // 如果有后台添加user的权限  则不是前台注册
+  $admin = $user->hasPermission('administer users');
+  //如果是新用户，并且是后台user添加时 -- 则设置默认密码为123456
+  if($entity->isNew() && $admin) {
+    if(empty($entity->get('user_type')->value)) {
+      $entity->set('user_type', 'client');
+    }
+    $entity->set('pass', \Drupal::service('password')->hash('123456'));
+  }
+}
+
+/**
+ * 实现钩子 hook_ENTITY_TYPE_insert()
+ *
+ * @param $entity
+ * @see Drupal\user\user
+ */
+function member_user_insert(EntityInterface $entity) {
+  // 得到当前操作注册的用户
+  $user = \Drupal::currentUser();
+  // 如果有后台添加user的权限  则不是前台注册
+  $admin = $user->hasPermission('administer users');
+
+  //得到服务类
+  $member_service = \Drupal::service('member.memberservice');
+  //ID of member
+  $uid = $entity->id();
+  // 后台user添加
+  if($admin) {
+    if($entity->get('user_type')->value == 'employee') {
+      $employee_name = $entity->employee_name;
+      $department = $entity->department;
+      $position = $entity->position;
+      $filed_arr = array(
+        'employee_name' => $employee_name,
+        'department' => $department,
+        'position' => $position,
+        'uid' => $uid
+      );
+      //调用server类中的方法，存储员工信息到user_employee_data 表中 
+      $member_service->saveEmployeeInfo($filed_arr);
+
+      /** ======================  写入添加员工的操作日志 ============= */
+        // 将非实体User的字段写入
+        $entity->other_data = array('data' => $filed_arr, 'data_name' => 'employee', 'data_id' => $uid);
+        HostLogFactory::OperationLog('member')->log($entity, 'insert');
+      /**================================================== */
+
+    } else if($entity->get('user_type')->value == 'client') {
+      $corporate_name = $entity->corporate_name;
+      $client_type = $entity->client_type;
+      $filed_arr = array(
+        'corporate_name' => $corporate_name,
+        'client_type' => empty($client_type) ? 1 : $client_type,
+        'qq' => $entity->qq,
+        'client_name' => empty($entity->client_name) ? $entity->getUsername() : $entity->client_name,
+        'telephone' => $entity->telephone,
+        'uid' => $uid,
+        'commissioner' => 0
+      );
+      //调用server类中的方法，存储会员信息到user_client_data 表中 
+      $member_service->saveClientInfo($filed_arr);
+
+      /** ======================  写入添加会员的操作日志 ============= */
+        // 将非实体User的字段写入
+        $entity->other_data = array('data' => $filed_arr, 'data_name' => 'client', 'data_id' => $uid);
+        HostLogFactory::OperationLog('member')->log($entity, 'insert');
+      /**================================================== */
+    }
+  } else { // 前台会员注册
+    //调用server类中的方法，存储会员信息到user_client_data 表中 
+    $member_service->saveClientInfo(array(
+      'uid' => $uid, 
+      'client_type' => 1, 
+      'client_name' => $entity->getUsername()
+    ));
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update() for user entities.
+ *
+ * @param $entity user
+ *   @see Drupal\user\user
+ */
+function member_user_update(EntityInterface $entity) {
+  //得到服务类
+  $member_service = \Drupal::service('member.memberservice');
+
+  //ID of member
+  $uid = $entity->id();
+  //用户类型 员工/会员
+  $user_type = $entity->get('user_type')->value;
+ 
+  if($user_type == 'employee') {
+    $employee_name = $entity->employee_name;
+    $department = $entity->department;
+    $position = $entity->position;
+   
+    $qq = $entity->qq;
+    $telephone = $entity->telephone;
+    $address = $entity->address;
+
+    if($uid == \Drupal::currentUser()->id()){
+      $filed_arr = array(
+        'employee_name' => $employee_name,
+        'qq' => $qq,
+        'telephone' => $telephone,
+        'address' => $address,
+      );
+    } else {
+       $filed_arr = array(
+        'employee_name' => $employee_name,
+        'department' => $department,
+        'position' => $position,
+      );
+    }
+    //调用server类中的方法，存储员工信息到user_employee_data 表中 
+    $member_service->updateUserInfo($uid,$filed_arr,$user_type);
+
+    /** ======================  写入修改员工信息的操作日志 ============= */
+      // 将非实体User的字段写入
+      $entity->other_data = array('data' => $filed_arr, 'data_name' => 'employee', 'data_id' => $uid);
+      HostLogFactory::OperationLog('member')->log($entity, 'update');
+    /**================================================== */
+
+  } elseif($user_type == 'client') {
+    $client_type = $entity->client_type;
+    if($uid == \Drupal::currentUser()->id()){
+      $filed_arr = array(
+        'nick' => $entity->nick,
+        'client_name' => $entity->client_name,
+        'industry' => $entity->industry,
+        'major_bussiness' => $entity->major_bussiness,
+        'safe_question' => $entity->safe_question,
+        'safe_answer' => $entity->safe_answer,
+        'safe_question_1' => $entity->safe_question_1,
+        'safe_answer_1' => $entity->safe_answer_1,
+        'safe_question_2' => $entity->safe_question_2,
+        'safe_answer_2' => $entity->safe_answer_2,
+        'province' => $entity->province,
+        'city' => $entity->city,
+        'region' => $entity->region,
+        'address' => $entity->address,
+        'qq' => $entity->qq,
+        'telephone' => $entity->telephone,
+        'fax' => $entity->fax,
+      );
+    } else {
+      $filed_arr['client_type'] = $client_type;
+      if($client_type == 2) {
+        $filed_arr['corporate_name'] = $entity->corporate_name;
+      } else {
+        $filed_arr['client_name'] = $entity->client_name;
+      }
+      if($entity->commissioner) {
+        $filed_arr['commissioner'] = $entity->commissioner;
+      }
+
+      /** ======================  写入修改会员信息的操作日志 ============= */
+      // 将非实体User的字段写入
+      $entity->other_data = array('data' => $filed_arr, 'data_name' => 'client', 'data_id' => $uid);
+      HostLogFactory::OperationLog('member')->log($entity, 'update');
+      /**================================================== */
+    }
+    //调用server类中的方法，存储会员信息到user_client_data 表中
+    $member_service->updateUserInfo($uid,$filed_arr,$user_type);
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete() for user entities.
+ *
+ * 删除指定用户
+ *
+ * @param $entity user
+ *   要删除的用户实体
+ *   @see Drupal\user\user 
+ */
+function member_user_delete(EntityInterface $entity) {   
+  \Drupal::service('member.memberservice')->deleteUser($entity->get('user_type')->value,$entity->id());
+   /** ======================  写入添加会员的操作日志 ============= */
+   HostLogFactory::OperationLog('member')->log($entity, 'delete');
+   /**================================================== */
+}
+
+
+
+/**
+ *根据选择的部门加载员工  ajax回调函数
+ */
+function loadPeople(array $form, FormStateInterface $form_state) {
+    return $form['information']['basic_info']['dept']['dept_child']['commissioner'];	
+}
+
+/**
+ *根据选择的user类型 加载表单元素 ajax回调函数
+ *
+ * @param $form
+ *
+ * @param $form_state
+ */
+function loadMember(array $form, FormStateInterface $form_state) {
+   return $form['information']['basic_info']['member'];//['info'];
+}
+
+/**
+ *根据选择的部门加载职位  ajax回调函数
+ */
+function loadPosition(array $form, FormStateInterface $form_state) {
+  return $form['information']['basic_info']['member']['info']['dept']['dept_child']['position'];
+}
+
+/**
+ *根据选择的省份加载城市。ajx的回调函数
+ *
+ * @param $form
+ *
+ * @param $form_state
+ */
+function loadCity(array $form, FormStateInterface $form_state) {
+    $element =  $form['information']['area']['province_child'];
+    unset($element['modify_info']['city_child']['region']);
+    return $element;
+  }
+  
+/**
+ *根据选择的城市加载县。ajx的回调函数
+ *
+ * @param $form
+ *
+ * @param $form_state
+ */
+function loadRegion(array $form, FormStateInterface $form_state) {
+    return $form['information']['area']['province_child']['city_child'];
+}
+
+/**
+ * Implement hook_form_FORM_ID_alter().
+ * user_login_form.
+ * 重构登录页面
+ *
+ * @see Drupal\user\Form\UserLoginForm
+ */
+function member_form_user_login_form_alter(&$form, FormStateInterface $form_state) {
+  // Display login form:
+  $form['name'] = array(
+    '#type' => 'textfield',
+    '#prefix' => '<div class="form-group m-b-20">',
+    '#suffix' => '</div>',
+    '#size' => 60,
+    '#maxlength' => USERNAME_MAX_LENGTH,
+    '#required' => TRUE,
+    '#attributes' => array(
+      'autocorrect' => 'none',
+      'autocapitalize' => 'none',
+      'spellcheck' => 'false',
+      'autofocus' => 'autofocus',
+      'placeholder' => t('Username'),
+      'class' => array('form-control input-lg'),
+    ),
+  );
+  $form['pass'] = array(
+    '#type' => 'password',
+    '#prefix' => '<div class="form-group m-b-20">',
+    '#suffix' => '</div>',
+    '#size' => 60,
+    '#required' => TRUE,
+    '#attributes' => array(
+      'class' => array('form-control input-lg'),
+      'placeholder' => t('Password'),
+    ),
+  );
+  $form['actions'] = array(
+    '#type' => 'actions',
+    '#prefix' => '<div class="login-buttons">',
+    '#suffix' => '</div>',
+    '#attributes' => array(
+      'class' => array('login-buttons'),
+    ),
+  );
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Sign in'),
+    '#attributes' => array(
+      'class' => array('btn btn-success btn-block btn-lg'),
+    ),
+  );
+}
+
+/**
+ * Implement hook_form_FORM_ID_alter(). user_pass.
+ * 重新构建找回用户密码页面
+ *
+ * @see \Drupal\user\Form\UserPasswordForm
+ */
+function member_form_user_pass_alter(&$form, FormStateInterface $form_state) {
+  $form['name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Username or email address'),
+    '#size' => 60,
+    '#prefix' => '<div class="form-group m-b-20">',
+    '#suffix' => '</div>',
+    '#maxlength' => max(USERNAME_MAX_LENGTH, Email::EMAIL_MAX_LENGTH),
+    '#required' => TRUE,
+    '#attributes' => array(
+      'autocorrect' => 'off',
+      'autocapitalize' => 'off',
+      'spellcheck' => 'false',
+      'autofocus' => 'autofocus',
+      'placeholder' => t('Username or Email'),
+      'class' => array('form-control input-lg'),
+    ),
+  );
+  // Allow logged in users to request this also.
+  $user = \Drupal::currentUser();
+  if ($user->isAuthenticated()) {
+    $form['name']['#type'] = 'value';
+    $form['name']['#value'] = $user->getEmail();
+    $form['mail'] = array(
+      '#prefix' => '<div class="form-group m-b-20"><p>',
+      '#markup' => t('Password reset instructions will be mailed to %email. You must log out to use the password reset link in the email.', array('%email' => $user->getEmail())),
+      '#suffix' => '</p></div>',
+    );
+  }
+  else {
+    $form['mail'] = array(
+      '#prefix' => '<div class="form-group m-b-20"><p>',
+      '#markup' => t('Password reset instructions will be sent to your registered e-mail address.'),
+      '#suffix' => '</p></div>',
+    );
+
+    $form['name']['#default_value'] = \Drupal::request()->query->get('name');
+  }
+  $form['actions'] = array(
+    '#type' => 'actions',
+    '#prefix' => '<div class="login-buttons">',
+    '#suffix' => '</div>',
+    '#attributes' => array(
+      'class' => array('login-buttons'),
+    ),
+  );
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+    '#attributes' => array(
+      'class' => array('btn btn-success btn-block btn-lg'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function member_element_info_alter(array &$types) {
+  if (isset($types['password_confirm'])) {
+    $types['password_confirm']['#process'][] = 'member_form_process_password_confirm';
+  }
+}
+
+function member_form_process_password_confirm($element) {
+  unset($element['pass1']['#title']);
+  $element['pass1']['#attributes']['placeholder'] = t('Password');
+  $element['pass1']['#attributes']['class'][] = 'form-control input-lg';
+  $element['pass1']['#prefix'] = '<div class="form-group m-b-20">';
+  $element['pass1']['#suffix'] = '</div>';
+  unset($element['pass2']['#title']);
+  $element['pass2']['#attributes']['placeholder'] =  t('Confirm password');
+  $element['pass2']['#attributes']['class'][] = 'form-control input-lg';
+  $element['pass2']['#prefix'] = '<div class="form-group m-b-20">';
+  $element['pass2']['#suffix'] = '</div>';
+  return $element;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view() for user entities.
+ * 
+ * 查看用户的信息
+ */
+function member_user_view(array &$build, UserInterface $account, EntityViewDisplayInterface $display) {
+   if($account->get('user_type')->value == 'client') {
+    $build['member_infor'] = array(
+      '#theme' => 'member_information',
+      '#member' => $account,
+      '#weight' => 10
+    );
+  }elseif($account->get('user_type')->value == 'employee') {
+    $build['member_infor'] = array(
+      '#theme' => 'employee_information',
+      '#employee' => $account,
+      '#weight' => 10
+    );
+  }
+}
+
+/**
+ * 构造用户详情模板所需要的参数
+ */
+function  template_preprocess_member_information(&$variables) {
+  $member = $variables['member'];
+  $client = \Drupal::service('member.memberservice')->queryDataFromDB('client',$member->id());
+  $role = member_max_level_role($member);
+  $role_arr[] = $role->label();
+  $member->ship = clientType()[$client->client_type] ;
+  $member->company = $client->corporate_name;
+  $member->full_name = $client->client_name;
+  $member->industry = $client->industry ? entity_load('taxonomy_term', $client->industry)->label() : '';
+  $member->business = $client->major_bussiness;
+  $member->province = $client->province ? entity_load('taxonomy_term', $client->province)->label() : '';
+  $member->city = $client->city ? entity_load('taxonomy_term', $client->city)->label() : '';
+  $member->region = $client->region ? entity_load('taxonomy_term', $client->region)->label() : '';
+  $member->address = $client->address;
+  $member->phone = $client->telephone;
+  $member->qq = $client->qq;
+  $member->fax = $client->fax;
+  $member->agent = $role_arr;
+  $member->edit_url = new Url('entity.user.edit_form', array('user' => $member->id()));
+
+}
+
+/**
+ * 构造员工详情模板所需要的参数
+ */
+function  template_preprocess_employee_information(&$variables) {
+  $employee = $variables['employee'];
+  $emp = \Drupal::service('member.memberservice')->queryDataFromDB('employee',$employee->id());
+
+  $employee->username = $employee->getUsername();
+  $employee->dept = $emp->department ? entity_load('taxonomy_term', $emp->department)->label() : '';
+  $employee->position = $emp->position ? entity_load('taxonomy_term', $emp->position)->label() : '';
+  $employee->address = $emp->address;
+  $employee->telephone = $emp->telephone;
+  $employee->qq = $emp->qq;
+  $employee->employee_name = $emp->employee_name;
+}
+
+
+// ============== 前台模板 ================
+
+/**
+ * 构建我的账户信息页面显示所需的参数
+ */
+function  template_preprocess_my_account(&$variables) {
+  $user_id = $variables['user_id'];
+  $user = entity_load('user' , $user_id);
+
+  $role = member_max_level_role($user);
+  $user->level_name =$role->label();
+
+  $user->user_id = $user_id;
+  $funds = \Drupal::service('member.memberservice')->getClientCredit($user_id);
+  if($funds) {
+    $user->credit = $funds->credit;
+    $user->cash = $funds->cash;
+    $user->switch = $funds->alarm;
+  } else {
+    $user->credit = 0;
+    $user->cash = 0;
+    $user->switch = 'OFF';
+  }
+  if($user->get('user_host_picture')->entity) {
+    $img = array(
+      '#theme' => 'image_formatter',
+      '#item' => $user->get('user_host_picture')->first()
+    );
+    $variables['img'] = drupal_render($img);
+  }
+  $variables['user_obj'] = $user;
+
+}
+
+/**
+ * 构建我的安全信息页面显示所需的参数
+ */
+function  template_preprocess_my_safe_info(&$variables) {
+  $user_id = $variables['user_id'];
+  $user = entity_load('user' , $user_id);
+  if($user->get('user_host_picture')->entity) {
+    $img = array(
+      '#theme' => 'image_formatter',
+      '#item' => $user->get('user_host_picture')->first()
+    );
+    $variables['img'] = drupal_render($img);
+  }
+
+
+  // 得到用户详情
+  $obj = \Drupal::service('member.memberservice')->queryDataFromDB($user->get('user_type')->value, $user_id);
+  $isset_safe_question = 'yes';
+  if(isset($obj->safe_question) && (!$obj->safe_question && !$obj->safe_question_1  && !$obj->safe_question_2)) {
+    $isset_safe_question = 'no';
+  }
+
+  $user->reg_time = format_date($user->get('created')->value, 'custom', 'Y-m-d H:i:s');
+  $user->company = isset($obj->corporate_name) ? $obj->corporate_name : '';
+  $user->base_info_url = new Url('member.my.info');
+  $user->security_url= new Url('member.account.safe_question');
+  $user->isset_safe_question = $isset_safe_question;  // 是否设置了安保问题
+  $user->modify_pwd_url = new Url('member.account.pwd_modify');
+
+  $variables['user_obj'] = $user;
+}
+
+/**
+ * 构建会员中心首页显示所需的参数
+ */
+function  template_preprocess_member_center(&$variables) {
+  $user = $variables['user'];
+  /**  用户头像  */
+  $user_entity = entity_load('user', $user->id());
+  if($user_entity->get('user_host_picture')->entity) {
+    $img = array(
+      '#theme' => 'image_formatter',
+      '#item' => $user_entity->get('user_host_picture')->first()
+    );
+    $variables['img'] = drupal_render($img);
+  }
+  /**  ---------  */
+  $role = member_max_level_role($user_entity);
+  $user->level_name =$role->label();
+
+  $user->u_name = $user->getUsername();
+  $user->uid = $user->id();
+  $funds = \Drupal::service('member.memberservice')->getClientCredit($user->id());
+  if($funds) {
+    $user->credit = $funds->credit;
+    $user->cash = $funds->cash;
+  } else {
+    $user->credit = 0;
+    $user->cash = 0;
+  }
+  //=========================服务器数据统计==================
+  // 全部服务器数量
+  $server_all = count(entity_load_multiple_by_properties('hostclient', array('client_uid' => $user->id())));
+  $user->server_all = $server_all;
+  // 即将到期
+  $server_will_expire = count(\Drupal::service('hostclient.serverservice')->getServerCountByCondition(strtotime('+7 day', REQUEST_TIME), '<=', $user->id(), 'will'));
+  $user->will_expire = $server_will_expire;
+  // 已经到期
+  $server_has_expire = count(\Drupal::service('hostclient.serverservice')->getServerCountByCondition(REQUEST_TIME, '<',  $user->id()));
+  $user->has_expire = $server_has_expire;
+  //试用中的服务器
+  $trial = count(entity_load_multiple_by_properties('hostclient', array('client_uid' => $user->id(), 'trial'=> 1)));
+  $user->trial = $trial;
+  // 其他服务器
+  $other = count(entity_load_multiple_by_properties('hostclient', array('client_uid' => $user->id()))) - $server_all - $server_will_expire - $server_has_expire - $trial ;
+  $user->other = $other > 0 ? $other : 0 ;
+
+  // =========================工单统计=====================
+  // 已完成工单
+  $done = count(entity_load_multiple_by_properties('question', array('uid' => $user->id(), 'status' => 3)));
+  $user->done = $done;
+  // 等待处理的工单
+  $wait = count(entity_load_multiple_by_properties('question', array('uid' => $user->id(), 'status' => 2)));
+  $user->wait = $wait;
+  // 正在处理
+  $doing = count(entity_load_multiple_by_properties('question', array('uid' => $user->id(), 'status' => 1)));
+  $user->doing = $doing;
+
+  $user->letter = count(\Drupal::service('letters.letterservice')->getNotReadCountByUid($user->id()));
+}
+
+/**
+ * 构建用户的消费记录模板所需的参数
+ */
+function  template_preprocess_member_consumer_record(&$variables) {
+  $uid = \Drupal::currentUser()->id();
+  // 根据用户得到所有的消费记录
+  $records = \Drupal::service('member.memberservice')->getConsumerRecordByUid($uid);
+  foreach($records as $record) {
+    $record->pay_method = consumerMethod()[$record->method];
+    $record->comsumer_type = consumerType()[$record->type];
+    if($record->type == 2) {
+      $oid = \Drupal::service('order.orderservice')->getOrderIdByOrderCode($record->order_code);
+      $record->order_path = new Url('user.order.detail', array('order' => $oid));
+    }
+  }
+  $variables['records']=$records;
+
+  //  消费情况概览
+  $revenue = \Drupal::service('member.memberservice')->getAmount($uid, 1);            //收入
+  $pay = \Drupal::service('member.memberservice')->getAmount($uid, 2);                // 支出
+  $balance = ($revenue - $pay) > 0 ? $revenue - $pay : 0;            // 余额
+  $variables['comsumer']= array(
+    'revenue' => $revenue,
+    'pay' => $pay,
+    'balance' => $balance
+  );
+}
+
+/**
+ * 得到会员最大代理等级。
+ *
+ * @param $user  会员实体
+ * @return 会员最大角色
+ */
+function member_max_level_role($user) {
+  $roles = $user->get('roles');
+  $list = array();
+  foreach ($roles as $role) {
+    if ($role->target_id) {
+      $list[$role->target_id] = $role->entity;
+    }
+  }
+  if(array_key_exists('agent_4', $list)) {
+    return $list['agent_4'];
+  }
+  if(array_key_exists('agent_3', $list)) {
+    return $list['agent_3'];
+  }
+  if(array_key_exists('agent_II', $list)) {
+    return $list['agent_II'];
+  }
+  if(array_key_exists('agent_I', $list)) {
+    return $list['agent_I'];
+  }
+  return entity_load('user_role', 'authenticated');
+}
+
+/**
+ * Return current user funds.
+ */
+function getCurrentUserFunds() {
+  $current_user = \Drupal::currentUser();
+  $uid = $current_user->id();
+  $data = db_select('user_funds_data', 'u')
+    ->fields('u')
+    ->condition('u.uid', $uid)
+    ->execute()
+    ->fetchAssoc();
+  return isset($data) ? $data : array();
+}
+
+/**
+ * Query current user banlance cash.
+ */
+function getCurrentUserBanlance() {
+ //$current_user = \Drupal::currentUser();
+  $data = getCurrentUserFunds();
+
+  return isset($data['cash']) ? $data['cash'] : 0;
+}
+/**
+ * 得到客户名称
+ */
+function getClientName($uid) {
+  $user_obj = \Drupal::service('member.memberservice')->queryDataFromDB('client', $uid);
+  $name = $user_obj->client_name ? $user_obj->client_name : entity_load('user', $uid)->getUsername();
+  return $name;
+}
+
+/*
+ * 得到员工姓名
+ */
+function getEmployeeName($uid) {
+  $user_obj = \Drupal::service('member.memberservice')->queryDataFromDB('employee', $uid);
+  $name = $user_obj->employee_name ? $user_obj->employee_name : entity_load('user', $uid)->getUsername();
+  return $name; 
+}
+
+/*
+ * 得到客户公司名
+ */
+function getCompanyName($uid) {
+  $user_obj = \Drupal::service('member.memberservice')->queryDataFromDB('client', $uid);
+  $name =  $user_obj->corporate_name ? $user_obj->corporate_name : ($user_obj->client_name ? $user_obj->client_name : entity_load('user', $uid)->getUsername());
+  return $name; 
+}

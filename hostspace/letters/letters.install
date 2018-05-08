@@ -1,0 +1,139 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function letters_schema() {
+  $schema['letter_outbox'] = array(
+    'description' => '站内信用户发件箱',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary Key: unique ID ',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '发件人编号.',
+      ),
+      'to_uid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '收件人.',
+      ),
+      'to_group' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'length' => 225,
+        'default' => '',
+        'description' => '收件组.',
+      ),
+      'title' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'length' => 225,
+        'default' => '',
+        'description' => '标题.',
+      ),
+      'content' => array(
+        'description' => '内容.',
+        'type' => 'text',
+        'mysql_type' => 'longtext',
+        'not null' => TRUE,
+      ),
+      'post_time' => array(
+        'description' => '发送时间.',
+        'type' => 'int',
+        'default' => 0,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('id'),
+    'foreign keys' => array(
+       'uid' => array(
+         'table' => 'users',
+         'columns' => array(
+          'uid' => 'uid',
+        ),
+      ),
+      'to_uid' => array(
+         'table' => 'users',
+         'columns' => array(
+          'to_uid' => 'uid',
+        ),
+      ),
+    ),
+
+  );
+  $schema['letter_inbox'] = array(
+    'description' => '站内信用户收件箱',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary Key: unique ID ',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '收件人编号.',
+      ),
+      'from_uid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '发件人编号.',
+      ),
+      'title' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'length' => 225,
+        'default' => '',
+        'description' => '标题.',
+      ),
+      'content' => array(
+        'description' => '内容.',
+        'type' => 'text',
+        'mysql_type' => 'longtext',
+        'not null' => TRUE,
+      ),
+      'receive_time' => array(
+        'description' => '发送时间.',
+        'type' => 'int',
+        'default' => 0,
+        'not null' => TRUE,
+      ),
+      'is_read' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,  // 0 未读  1 已读
+        'description' => '是否已经阅读.',
+      ),
+    ),
+    'primary key' => array('id'),
+    'foreign keys' => array(
+       'uid' => array(
+         'table' => 'users',
+         'columns' => array(
+          'uid' => 'uid',
+        ),
+      ),
+      'from_uid' => array(
+         'table' => 'users',
+         'columns' => array(
+          'from_uid' => 'uid',
+        ),
+      ),
+    ),
+  );
+
+  return $schema;
+}

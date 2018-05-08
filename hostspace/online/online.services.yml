@@ -1,0 +1,4 @@
+services:
+  online.service:
+    class: Drupal\online\ContentService
+    arguments: ['@database']

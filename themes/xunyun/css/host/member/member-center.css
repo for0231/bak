@@ -1,0 +1,126 @@
+/* line 1, ../../../bag/sass/host/member/member-center.scss */
+.huiyuan_01 {
+  background-color: #FFFFFF;
+  border: 1px solid #C9C9C9;
+  border-radius: 6px 6px 6px 6px;
+  height: 130px;
+  overflow: hidden;
+}
+/* line 7, ../../../bag/sass/host/member/member-center.scss */
+.huiyuan_01 .fl {
+  margin-left: 20px;
+  margin-top: 20px;
+}
+/* line 11, ../../../bag/sass/host/member/member-center.scss */
+.huiyuan_01 .huiyuan_geren {
+  width: 600px;
+}
+/* line 14, ../../../bag/sass/host/member/member-center.scss */
+.huiyuan_01 .xiugai {
+  float: left;
+  line-height: 30px;
+  margin: 30px 25px 0;
+  width: 90px;
+}
+
+/* line 22, ../../../bag/sass/host/member/member-center.scss */
+.huiyuan_beijing {
+  background: -moz-linear-gradient(center top, #F9F9FB, #EDEEF0) repeat scroll 0 0 transparent;
+  box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.3);
+  float: left;
+  height: 130px;
+  padding: 20px;
+  width: 438px;
+}
+
+/* line 30, ../../../bag/sass/host/member/member-center.scss */
+.gaofang {
+  float: left;
+  height: 32px;
+  line-height: 32px;
+  width: 438px;
+}
+/* line 35, ../../../bag/sass/host/member/member-center.scss */
+.gaofang img {
+  float: left;
+  margin: 0 20px;
+}
+/* line 39, ../../../bag/sass/host/member/member-center.scss */
+.gaofang p {
+  float: left;
+  font-size: 14px;
+}
+
+/* line 44, ../../../bag/sass/host/member/member-center.scss */
+.gaofang_01, .gaofang_02 {
+  float: left;
+  text-align: center;
+  width: 219px;
+}
+/* line 48, ../../../bag/sass/host/member/member-center.scss */
+.gaofang_01 p, .gaofang_02 p {
+  font-size: 14px;
+  line-height: 28px;
+}
+/* line 52, ../../../bag/sass/host/member/member-center.scss */
+.gaofang_01 u, .gaofang_02 u {
+  color: #FF0000;
+  font-family: Verdana;
+  font-size: 18px;
+}
+
+/* line 59, ../../../bag/sass/host/member/member-center.scss */
+.cpfw_01 {
+  border: 1px solid #DADADA;
+  border-radius: 6px 6px 6px 6px;
+  box-shadow: 0 1px 2px rgba(150, 150, 150, 0.5);
+  float: left;
+  height: 130px;
+  margin-top: 20px;
+  overflow: hidden;
+  position: relative;
+  width: 320px;
+}
+/* line 69, ../../../bag/sass/host/member/member-center.scss */
+.cpfw_01 h4 {
+  background: -moz-linear-gradient(center top, #EDEEF0, #DCDDDF) repeat scroll 0 0 transparent;
+  display: block;
+  font-size: 15px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 10px;
+  margin: 0;
+}
+/* line 78, ../../../bag/sass/host/member/member-center.scss */
+.cpfw_01 a {
+  color: #041E39;
+  float: left;
+  font-size: 14px;
+  margin: 5px 10px;
+}
+/* line 84, ../../../bag/sass/host/member/member-center.scss */
+.cpfw_01 span {
+  float: left;
+  font-size: 24px;
+  margin: 20px;
+}
+/* line 88, ../../../bag/sass/host/member/member-center.scss */
+.cpfw_01 span i {
+  color: #FF0000;
+  font-family: Verdana;
+  font-size: 24px;
+}
+
+/* line 95, ../../../bag/sass/host/member/member-center.scss */
+.margin_01 {
+  margin: 20px 45px;
+}
+
+/* line 99, ../../../bag/sass/host/member/member-center.scss */
+.chanping_fuw {
+  background-color: #FFFFFF;
+  border: 1px solid #C9C9C9;
+  border-radius: 6px 6px 6px 6px;
+  overflow: hidden;
+  padding: 10px 20px;
+}

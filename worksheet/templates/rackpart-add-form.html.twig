@@ -1,0 +1,45 @@
+{#
+/**
+ * @file
+ * 处理机柜配置
+ *
+ * Available variables:
+ * - form: 处理机柜配置
+ *
+ *
+ */
+#}
+
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+{{form.other}}
+<table>
+  <tr>
+    <td>{{form.manage_ip}}</td>
+    <td>{{form.rack}}</td>
+    <td>{{form.port}}</td>
+  </tr>
+  <tr>
+    <td>{{form.room}}</td>
+    <td>{{form.serve_u}}</td>
+  </tr>
+  <tr>
+    <td>{{form.ma_ic_name}}</td>
+    <td>{{form.node}}</td>
+  </tr>
+  <tr>
+    <td>{{form.ye_network_card}}</td>
+    <td>{{form.ye_vlan}}</td>
+    <td>{{form.ye_icname}}</td>
+  </tr>
+  <tr>
+    <td>{{form.network_card}}</td>
+    <td>{{form.networkcard_vlan}}</td>
+  </tr>
+  <tr>
+    <td>{{form.networkcard_icname}}</td>
+    <td>{{form.part}}</td>
+  </tr>
+</table>
+{{form.actions}}

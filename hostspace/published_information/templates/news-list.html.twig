@@ -1,0 +1,19 @@
+{#
+/**
+ * @file
+ * 新闻列表
+ *
+ *  Available variables:
+ * -newsData: 新闻数据
+ * -catg: 当前目录
+ */
+#}
+<ul>
+  {% for news in newsData %}
+  <li> 
+    <b>&gt;</b>
+    <a href="{{ news.detail }}">【{{ news.category_val }}】{{ news.title_val }}</a>
+    <span>{{ news.update_time }}</span>
+  </li>
+  {% endfor %}
+</ul>

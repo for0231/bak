@@ -1,0 +1,29 @@
+name: Xunyun
+type: theme
+description: 'Test xunyun theme.'
+ckeditor_stylesheets:
+  - css/ckeditor-iframe.css
+stylesheets-remove:
+  - normalize.css
+regions:
+   header: '页面顶部区域'
+   brand: 'LOGO'
+   help: '用于提示帮助信息，多用于管理页面'
+   menubar: '页面主导航区域'
+   banner_top: '页面幻灯片区域'
+   top_column_first: '导航下第一'
+   top_column_second: '导航下第二'
+   top_column_third: '导航下第三'
+   top_column_fourth: '导航下第四'
+   highlighted: '高亮提示信息区域'
+   content: '显示当前页面主要内容区域'
+   sidebar_first: '左侧边栏'
+   sidebar_second: '右侧边栏'
+   bottom_column_first: '页面底部内容第一栏'
+   bottom_column_second: '页面底部内容第二栏'
+   bottom_column_third: '页面底部内容第三栏'
+   bottom_column_fourth: '页面底部内容第四栏'
+   banner_bottom: '页面底部内容通栏，用于友情链接区域'
+   footer: '页脚内容'
+version: VERSION
+core: '8.x'

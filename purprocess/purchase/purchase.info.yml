@@ -1,0 +1,9 @@
+name: 采购单
+type: module
+description: 管理采购相关流程
+core: 8.x
+package: '采购管理系统'
+dependencies:
+  - part
+  - cshs
+  - currency

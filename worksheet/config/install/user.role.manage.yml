@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies: {  }
+id: worksheet_manage
+label: '管理员'
+weight: 1
+is_admin: false
+permissions: 
+  - view the administration theme
+  - administer users
+  - administer permissions
+  - cancel account
+  - access worksheet admin
+  - access worksheet sop list
+  - access worksheet sop statistic
+  - access worksheet sop delete
+  - access worksheet sop setting
+  - access worksheet room setting
+  - access worksheet abnormal cancel
+  - access worksheet task assigner apply

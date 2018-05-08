@@ -1,0 +1,25 @@
+entity.purchase.admin:
+  title: 采购单
+  parent: system.admin
+  route_name: entity.purchase.admin
+  weight: -95
+entity.purchase.collection:
+  title: 采购单工作台
+  parent: entity.purchase.admin
+  route_name: entity.purchase.collection
+  weight: 2
+entity.purchase.history.collection:
+  title: 历史采购单
+  parent: entity.purchase.admin
+  route_name: entity.purchase.history.collection
+  weight: 3
+entity.purchase.audit.history.collection:
+  title: 历史审批采购单
+  parent: entity.purchase.admin
+  route_name: entity.purchase.audit.history.collection
+  weight: 6
+entity.purchase.pools.collection:
+  title: 采购池
+  parent: entity.purchase.admin
+  route_name: entity.purchase.pools.collection
+  weight: 8

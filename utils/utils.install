@@ -1,0 +1,58 @@
+<?php
+
+use Drupal\Core\Field\BaseFieldDefinition;
+
+/**
+ * Implements hook_schema().
+ */
+function utils_schema() {
+  $schema['network_config_log'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'created' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0
+      ),
+      'type'=> array(
+        'type' => 'varchar',
+        'length' => 25,
+        'not null' => TRUE,
+        'description' => '类型'
+      ),
+      'command' => array(
+        'type' => 'text',
+        'not null' => TRUE,
+        'size' => 'big',
+        'description' => '发送的命令'
+      ),
+      'response' => array(
+        'type' => 'text',
+        'not null' => False,
+        'size' => 'big',
+        'description' => '回应'
+      )
+    ),
+    'primary key' => array('id')
+  );
+  return $schema;
+}
+
+/**
+ * 增加一个作息时间实体
+ */
+function utils_update_8001() {
+  $schema = utils_schema();
+  db_create_table('network_config_log', $schema['network_config_log']);
+}

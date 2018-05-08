@@ -1,0 +1,34 @@
+<?php
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Drupal\Core\Routing\RouteMatch;
+use Drupal\Core\Link;
+use Drupal\Core\Breadcrumb\Breadcrumb;
+
+/**
+ * Implements hook_system_breadcrumb_alter().
+ */
+function qy_wd_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatchInterface $route_match, array $context) {
+  if ($route_match->getRouteName() == 'admin.wd.traction.time' ) {
+    $request = \Drupal::request();
+    $destination = $request->query->get('destination');
+    $context = \Drupal::getContainer()->get('router.request_context');
+    $path = $context->getCompleteBaseUrl() . $destination;
+    $route_request = Request::create($path);
+    $route = \Drupal::service('router')->matchRequest($route_request);
+    $breadcrumb->addLink(Link::createFromRoute($route['_title'], $route['_route']));
+  }
+}
+
+/**
+ * Implement hook_theme().
+ */
+function qy_wd_theme() {
+  return array(
+    'ip_checked' => array(
+      'template' => 'ip-checked',
+      'variables' => array('hosts' => null)
+    )
+  );
+}

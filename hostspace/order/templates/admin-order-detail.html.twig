@@ -1,0 +1,95 @@
+{#
+/**
+ * @file
+ * 订单详情
+ * 
+ *  Available variables:
+ *   -detail
+ *   -summary
+ *   -order_obj
+ */
+#}
+
+
+<!-- 订单摘要 -->
+
+
+<!-- 订单信息 -->
+<div>
+  <table>
+    <tr>
+      <td colspan=2><h3>{{'Order info'|t}}</h3></td>
+    </tr>
+    <tr>
+      <td>{{'Order code'|t}}</td>
+      <td>{{ order_obj.code.value }}</td>
+    </tr>
+     <tr>
+      <td>{{'Status'|t}}</td>
+      <td>{{ order_obj.order_status }}</td>
+    </tr>
+    <tr>
+      <td>{{ 'Order Time'|t }}</td>
+      <td>{{ order_obj.order_time }}</td>
+    </tr>
+    <tr>
+      <td>{{ 'Order price'|t }}</td>
+      <td>￥{{ order_obj.order_price.value }}</td>
+    </tr>
+    <tr>
+      <td>{{ 'Discount price'|t }}</td>
+      <td>￥{{ order_obj.discount_price.value }}</td>
+    </tr>
+    <tr>
+      <td>{{ 'Actually paid'|t }}</td>
+      <td>￥{{ order_obj.paid_price.value }}</td>
+    </tr>
+    <tr>
+      <td>{{ 'Payment method'|t }}</td>
+      <td>{{ order_obj.pay_method }}</td>
+    </tr>
+    <tr>
+      <td>{{ 'Payment date'|t }}</td>
+      <td>{{ order_obj.pay_time }}</td>
+    </tr>
+  </table>
+</div>
+
+<!-- 订单里的产品详情 -->
+<div>
+  <table>
+    <tr>
+      <th>{{ 'Product'|t }}</th>
+      <th>{{ 'Count'|t }}</th>
+      <th>{{ 'Limit'|t }}</th>
+      <th>{{ 'Unit Price'|t }}</th>
+      <th>{{ 'Additional Services'|t }}</th>
+      <th>{{ 'Customer Message'|t }}</th>
+    </tr>
+    {% for product in order_obj.product_list %}
+      <tr>
+        <td>{{ product.product_name}}</td>
+        <td>{{ product.product_num }}</td>
+        <td>{{ product.limit_text}}</td>
+        <td>{{ product.base_price }}</td>
+        <td>
+          <table>
+            <tr>
+              <th>{{ 'Service items'|t }}</th>
+              <th>{{ 'Description'|t }}</th>
+              <th>{{ 'Price'|t }}</th>
+            </tr>
+            {% for business in product.business %}
+              <tr>
+                <td>{{ business.name }}</td>
+                <td>{{ business.value }}</td>
+                <td>￥{{ business.price }}</td>
+              </tr>
+            {% endfor %}
+          </table>  
+        </td>
+        <td>{{ product.description }}</td>
+      </tr>
+    {% endfor %}   
+  </table>
+</div>

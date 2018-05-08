@@ -1,0 +1,9 @@
+name: Product
+type: module
+core: 8.x
+package: Hostspaces
+description: 'To sell products'
+version: VERSION
+dependencies:
+  - server
+  - ip

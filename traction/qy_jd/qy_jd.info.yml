@@ -1,0 +1,8 @@
+name: traction jd
+type: module
+core: 8.x
+package: Flow traction
+description: '金盾防火墙牵引系统模块'
+version: VERSION
+dependencies:
+  - qy

@@ -1,0 +1,11 @@
+host.reminder.type:
+  title: '监控类型设置'
+  parent: system.admin_common
+  route_name: host.reminder.type
+  weight: 3
+
+host.reminder.config:
+  title: '提醒设置'
+  parent: system.admin_common
+  route_name: host.reminder.config
+  weight: 4

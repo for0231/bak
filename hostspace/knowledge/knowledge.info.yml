@@ -1,0 +1,6 @@
+name: knowledge
+type: module
+core: 8.x
+package: Hostspaces
+description: 'knowledge base'
+version: VERSION

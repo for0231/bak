@@ -1,0 +1,5 @@
+admin.remote.traction.add:
+  route_name: admin.remote.traction.add
+  title: '添加牵引'
+  appears_on:
+    - admin.remote.traction

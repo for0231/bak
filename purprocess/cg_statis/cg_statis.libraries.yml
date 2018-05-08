@@ -1,0 +1,111 @@
+##专门处理统计相关报表
+cg_statis_paypro_part_trend_statistic:
+  version: VERSION
+  js:
+    js/cg_statis_paypro_part_trend_statistic.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.spinner
+    - core/drupal
+cg_statis_purchase_statistic:
+  version: VERSION
+  js:
+    js/cg_statis_purchase_statistic.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.spinner
+    - core/drupal
+    - core/drupalSettings
+cg_statis_paypre_statistic:
+  version: VERSION
+  js:
+    js/cg_statis_paypre_statistic.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.spinner
+    - core/drupal
+    - core/drupalSettings
+cg_statis_paypre_contact_statistic:
+  version: VERSION
+  js:
+    js/cg_statis_paypre_contact_statistic.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.spinner
+    - core/drupal
+    - core/drupalSettings
+
+cg_statis_paypro_in_statistic:
+  version: VERSION
+  js:
+    js/cg_statis_paypro_in_statistic.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.spinner
+    - core/drupal
+    - core/drupalSettings
+cg_statis_paypro_out_statistic:
+  version: VERSION
+  js:
+    js/cg_statis_paypro_out_statistic.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.spinner
+    - core/drupal
+    - core/drupalSettings
+
+
+
+##每月采购计划表
+cg_statis_plan_pools_statistic:
+  version: VERSION
+  js:
+    js/cg_statis_plan_pools_statistic.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.spinner
+    - core/drupal
+
+##每月采购明细表 (完全支付)
+cg_statis_details_pools_statistic:
+  version: VERSION
+  js:
+    js/cg_statis_details_pools_statistic.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.spinner
+    - core/drupal
+##每月采购明细表 (未支付)
+cg_statis_unpaypro_pools_statistic:
+  version: VERSION
+  js:
+    js/cg_statis_unpaypro_pools_statistic.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.spinner
+    - core/drupal
+##汇总统计js
+cg_statis_paypro_aggretotal:
+  version: VERSION
+  js:
+    js/cg_statis_paypro_aggretotal.js: {}
+
+##全年采购清单
+cg_statis_peryear_pools_statistic:
+  version: VERSION
+  js:
+    js/cg_statis_peryear_pools_statistic.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.spinner
+    - core/drupal

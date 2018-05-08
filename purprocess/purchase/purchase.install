@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall function for the purchase module.
+ */
+
+use Drupal\Core\Field\BaseFieldDefinition;
+
+
+/**
+ * 增加采购单名称.
+ */
+function purchase_update_9001() {
+  $storage_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('采购单名称'))
+    ->setDescription(t('采购单名称'));
+
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('title', 'purchase', 'purchase', $storage_definition);
+}
+
+/**
+ * 增加单是否取消字段.
+ * 默认为0，表示未取消
+ *       1，表示已取消
+ * 用途：用来区分采购单取消时，需求配件回归需求池后，采购单正常与否，默认为0时-正常状态。
+ * 1时非正常状态。
+ */
+function purchase_update_9012() {
+  $storage_definition = BaseFieldDefinition::create('integer')
+    ->setLabel(t('是否取消'))
+    ->setDefaultValue(0)
+    ->setDescription(t('是否取消.'));
+
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('iscancel', 'purchase', 'purchase', $storage_definition);
+}

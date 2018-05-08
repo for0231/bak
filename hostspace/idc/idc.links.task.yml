@@ -1,0 +1,11 @@
+admin.idc.cabinet.seat.server.add:
+   title: Add server
+   route_name: admin.idc.cabinet.seat.server.add
+   base_route: admin.idc.cabinet.seat.server.add
+   weight: 1
+
+admin.idc.cabinet.seat.switch.add:
+   title: Add switch
+   route_name: admin.idc.cabinet.seat.switch.add
+   base_route: admin.idc.cabinet.seat.server.add
+   weight: 2

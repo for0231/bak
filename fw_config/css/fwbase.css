@@ -1,0 +1,33 @@
+.shield-op {
+  margin-bottom: 10px;
+}
+
+.shield-left {
+  float: left;
+  margin-right: 20px;
+  width: 400px;
+}
+.shield-left textarea {
+  height: 500px;
+}
+
+.shield-rigit {
+  float: left;
+}
+#edit-filter,
+#edit-collect1,
+#edit-collect2,
+#edit-collect3 {
+  margin:10px;
+  padding: 10px 18px;
+}
+#edit-collect2 label {
+  display: inline;
+}
+#edit-collect2 input {
+  width: 75px;
+}
+div.form-textarea-wrapper textarea {
+  display: inline;
+  width: auto;
+}

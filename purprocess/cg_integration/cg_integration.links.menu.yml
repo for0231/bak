@@ -1,0 +1,5 @@
+cg_integration.admin_workbench:
+  title: 统一操作台
+  parent: system.admin
+  route_name: cg_integration.admin_workbench
+  weight: -120

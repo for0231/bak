@@ -1,0 +1,6 @@
+name: traction common
+type: module
+core: 8.x
+package: Flow traction
+description: '牵引系统公用模块'
+version: VERSION

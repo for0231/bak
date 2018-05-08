@@ -1,0 +1,23 @@
+system.admin_part:
+  title: Part library
+  parent: system.admin
+  route_name: system.admin_part
+  weight: -195
+
+part.admin:
+  title: Part list
+  parent: system.admin_part
+  route_name: part.admin
+  weight: 2
+
+part.purchase.detail:
+  title: 'Purchasing list'
+  parent: system.admin_part
+  route_name: part.purchase.detail
+  weight: 3
+
+part.cpu.add_form:
+  title: '添加配件'
+  parent: system.admin_part
+  route_name: part.cpu.add_form
+  weight: 4

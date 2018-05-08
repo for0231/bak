@@ -1,0 +1,18 @@
+system.server:
+  title: 'Server library'
+  parent: system.admin
+  route_name: system.server
+  weight: -190
+
+server.product.overview:
+  title: 'Server catalog'
+  parent: system.server
+  route_name: admin.server_type
+  weight: 1
+
+server.overview:
+  title: 'Servers view'
+  parent: system.server
+  route_name: server.overview
+  weight: 2
+

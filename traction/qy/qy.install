@@ -1,0 +1,55 @@
+<?php
+/**
+ * Implements hook_schema().
+ */
+function qy_schema() {
+  $schema['qy_email'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'username' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => '发送邮件的用户名'
+      ),
+      'ip' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => '发送邮件的IP'
+      ),
+      'mask_number' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'description' => '掩码数'
+      ),
+      'email' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => '发送邮箱'
+      ),
+    ),
+    'primary key' => array('id'),
+    'indexes' => array(
+      'ip' => array('ip')
+    )
+  );
+  return $schema;
+}
+
+/**
+ * 创建邮件表
+ */
+function qy_update_8100() {
+  $table = db_table_exists('qy_email');
+  if(!$table) {
+    $schema = qy_schema();
+    db_create_table('qy_email', $schema['qy_email']);
+  }
+}

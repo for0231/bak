@@ -1,0 +1,31 @@
+<div class="zhanghu_right fr">
+
+        <div class="wodezhanghu">
+          <div class="fl huiyuan_geren">
+            {% if img %}
+            {{ img }}
+            {% else %}
+            <img src ="/{{ directory }}/images/header.jpg">
+            {% endif %}
+            <dl>
+              <dt><b>{{ 'user name'|t }}
+                ：</b>{{ user_obj.name.value }}<span>&nbsp;&nbsp;&nbsp;&nbsp;{{user_obj.level_name}}<span></dt>
+              <dd><b>{{ 'Cash balance'|t }}
+                ：</b> <i>{{ user_obj.cash}} </i>{{'yuan'|t }} <a class="lijichongz" href="{{ path('member.user.recharge') }}">{{ 'Prepaid immediately'|t }} </a><!--<u>|</u><a class="suoqu" href="#">{{ 'Obtain credentials'|t }} </a>--> </dd>
+              <dd><b>{{ 'Line of credit'|t }}
+                ：</b> <i>{{ user_obj.credit }} </i>{{'yuan'|t }} </dd>
+            </dl>
+          </div>
+          <div class="blank10"></div>
+          <div class="yue_bj">
+            <b>{{ 'Balance warning switch'|t }}:</b>
+            <div class="switch">
+              <input type="hidden" class="alarm_uid" value={{ user_obj.user_id }}>
+              <input type="hidden" class="alarm_flag" value={{ user_obj.switch }}>
+              <input type="checkbox" class="switch-check" id="switch">
+              <label class="switch-label" for="switch"> Check <span></span> </label>
+            </div>
+          </div>
+        </div>
+
+</div>

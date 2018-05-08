@@ -1,0 +1,14 @@
+id: user.user_type
+field_name: user_type
+entity_type: user
+type: string
+settings: {  }
+locked: false
+cardinality: 1
+translatable: true
+indexes: { }
+status: true
+langcode: en
+dependencies:
+  module:
+    - user

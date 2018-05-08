@@ -1,0 +1,24 @@
+{#
+/*
+ * Available variables:
+ * - elements: The confirm form.
+ */
+#}
+
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+
+<table class='filter'>
+  <tr>
+    <td class='first-col'>{{form.filters.oid}}</td>
+    <td>{{form.filters.title}}</td>
+  </tr>
+  <tr>
+    <td class='first-col'>{{form.filters.start}}</td>
+    <td>{{form.filters.expire}}</td>
+  </tr>
+  <tr>
+    <td colspan="2" class="search">{{form.filters.status}} {{form.filters.actions}}</td>
+  </tr>
+</table>

@@ -1,0 +1,12 @@
+entity.knowledge_type:
+  route_name: entity.knowledge_type.add_form
+  title: '增加知识分类'
+  appears_on:
+    - entity.knowledge_type
+
+entity.knowledge_content:
+  route_name: entity.knowledge_content.add_form
+  title: '发布知识'
+  appears_on:
+    - entity.knowledge_content
+

@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * 顶端登录信息区块
+ *
+ * Availabel variables:
+ *
+ * - non_login: 会员是否已经登录. TRUE,未登录。 FALSE,已登录
+ * - username: 会员名
+ * - xufei: 待续费数
+ * - letters: 未读站内信数
+ */
+#}
+
+<span id="block-tips">
+  欢迎你,<a href="{{ tips.user_center }}">{{ tips.username }}</a> &nbsp;&nbsp;[<a href="{{ tips.logout_url }}"><b>退出</b></a>]<i>|</i>
+  <a href="{{ tips.server_url }}">续费{% if tips.xufei %}<u >({{ tips.xufei }})</u>{% endif %}</a><i>|</i>
+  <a href="{{ tips.letter_url }}">站内信{% if tips.letters %}<u >({{ tips.letters }})</u>{% endif %}</a><i>|</i>
+  <a href="{{ tips.fault_url }}">提交工单</a>
+</span>

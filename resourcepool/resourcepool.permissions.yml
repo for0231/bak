@@ -1,0 +1,30 @@
+access resource pool admin:
+  title: '允许资源池管理'
+access resource pool rackpart list:
+  title: '允许机柜管理'
+  
+#添加专线
+access resourcepool ddn:
+  title:'允许专线业务系统'
+access resourcepool businesslink:
+  title: '允许专线资源'
+admin resourcepool dedicatedres list:
+  title: '允许基础专线资源'
+access resourcepool businesslist:
+  title: '允许专线客户产品信息'
+admin resourcepool splitproduct list:
+  title: '允许产品分段资源列表'
+admin resourcepool bwsubsection list:
+  title: '允许共享带宽分段统计表'
+access resourcepool inlandserver:
+  title: '允许国内服务器资源'
+admin resourcepool serverconn list:
+  title: '允许服务器连接'
+admin resourcepool serverres list:
+  title: '允许服务器客户产品信息'
+admin resourcepool contract find:
+  title: '允许客户合同编号查询'
+admin resourcepool clientstatus edit:
+  title: '允许修改客户状态'
+admin resourcepool generalinfo:
+  title: '允许综合信息'

@@ -1,0 +1,128 @@
+<?php
+
+/**
+ * @file
+ */
+
+/**
+ * 设置需求单的工单状态.
+ */
+function getRequirementStatus() {
+  return [
+  // 已使用.
+    '0' => '未审批',
+  // 已使用.
+    '2' => '审批中',
+  // 已使用.
+    '4' => '已拒绝',
+  // 已使用.
+    '5' => '已同意',
+  // 已使用.
+    '6' => '待采购',
+    '8' => '已取消',
+    '10' => '采购处理/部分',
+    '12' => '采购处理/全部',
+    '14' => '采购完成',
+    '16' => '已完成',
+  ];
+}
+
+/**
+ * Implement hook_theme().
+ */
+function requirement_theme() {
+  return [
+    'requirement_form' => [
+      'render element' => 'form',
+      'template' => 'requirement-form',
+    ],
+    'requirement_detail_form' => [
+      'render element' => 'form',
+      'template' => 'requirement-detail-form',
+      // 'variables' => ['requirement'=>null],.
+    ],
+    'requirement_part_form' => [
+      'render element' => 'form',
+      'template' => 'requirement-part-form',
+    ],
+  ];
+}
+
+/**
+ * @return
+ *   - 0 : 使用配件单独保存
+ *   - 1 : 使用需求单保存
+ */
+function getPartModifiedStatus() {
+  return [
+    0 => '未修改',
+    1 => '已修改',
+  ];
+}
+
+/**
+ * @return
+ *   - 0 : 使用配件单独保存
+ *   - 1 : 使用需求单保存
+ */
+function getPartSaveStatus() {
+  return [
+    0 => '非正常保存',
+    1 => '正常保存',
+  ];
+}
+
+/**
+ * 需求单执行类型.
+ */
+function getRequirementType() {
+  return [
+    // '' => '立即执行', // 处理默认值为NULL时的问题。.
+    0 => '立即执行',
+    1 => '计划执行',
+    2 => '周期执行',
+  ];
+}
+
+/**
+ *
+ */
+function template_preprocess_requirement_form(&$variables) {
+}
+
+/**
+ *
+ */
+function template_preprocess_requirement_detail_form(&$variables) {
+  $variables['member_info'] = $variables['form']['member_info']['#markup'];
+}
+
+/**
+ *
+ */
+function template_preprocess_requirement_part_form(&$variables) {
+  // 添加变量不管用.
+}
+
+/**
+ * Implement hook_load().
+ */
+function requirement_load_multiple($ids = []) {
+  if (empty($ids)) {
+    return [];
+  }
+  $storage = \Drupal::entityManager()->getStorage('requirement');
+  $entities = $storage->loadMultiple($ids);
+
+  return $entities;
+}
+
+/**
+ * Implement hook_load().
+ */
+function requirement_load($id) {
+  $storage = \Drupal::entityManager()->getStorage('requirement');
+  $entity = $storage->load($id);
+
+  return $entity;
+}

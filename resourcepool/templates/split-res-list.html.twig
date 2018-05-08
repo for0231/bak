@@ -1,0 +1,42 @@
+{{attach_library('resourcepool/drupal.business-url')}}
+<table class="split-table">
+  <thead>
+  <tr>
+    <th class='title'>归属产品信息</th>
+    <th class='title'>类型:客户产品</th>
+    <th class='title'>链路ID:{{ dedicated.link_id }}</th>
+    <th class='title'>commit带宽:{{ dedicated.commit_bandwidth }}</th>
+    <th class='title'>brust带宽:{{ dedicated.brust_bandwidth }}</th>
+    <th class='title'>A-end:{{ dedicated.A_end }}</th>
+    <th class='title'>Z-end:{{ dedicated.Z_end }}</th>
+    <th class='title'>客户名称:{{ dedicated.client_name }}</th>
+    
+  </tr>
+  <tr>
+    <th >编号</th>
+    <th >类型</th>
+    <th >commit带宽</th>
+    <th >brust带宽</th>
+    <th >归属资源</th>
+    <th >归属产品</th>
+    <th >分段资源编号</th>
+    <th>操作</th>
+  </tr>
+  </thead>
+  <tbody>
+    {% for item in split_res %}
+      <tr>
+        <td >{{item.no}}</td>
+        <td >产品分段资源</td>
+        <td >{{dedicated.commit_bandwidth}}</td>
+        <td >{{dedicated.brust_bandwidth}}</td>
+        <td >{{ aff_list[item.affiliation_res]}}</td>
+        <td >{{item.affiliation_pro}}</td>
+        <td >{{item.subsection_res}}</td>
+        <td>
+        <a href="{{ url('admin.resourcepool.splitproduct.delete',{'no': item.no,'client_no':client_no})}}">删除</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

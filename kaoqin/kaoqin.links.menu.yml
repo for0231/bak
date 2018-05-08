@@ -1,0 +1,48 @@
+entity.kaoqin.admin:
+  title: 考勤管理
+  parent: system.admin
+  route_name: entity.kaoqin.admin
+  weight: 90
+
+entity.kaoqin.import:
+  title: 考勤导入
+  parent: entity.kaoqin.admin
+  route_name: entity.kaoqin.import
+  weight: 1
+
+entity.kaoqin.listbuilder:
+  title: 考勤列表
+  parent: entity.kaoqin.admin
+  route_name: entity.kaoqin.listbuilder
+  weight: 3
+
+entity.kaoqin.diff:
+  title: 考勤差异
+  parent: entity.kaoqin.admin
+  route_name: entity.kaoqin.diff
+  weight: 5
+
+entity.kaoqin.statistic:
+  title: 考勤统计
+  parent: entity.kaoqin.admin
+  route_name: entity.kaoqin.statistic
+  weight: 7
+
+entity.kaoqin.config_form:
+  title: 考勤设置
+  parent: entity.kaoqin.admin
+  route_name: entity.kaoqin.config_form
+  weight: 9
+
+entity.kaoqin.upon.listbuilder:
+  title: 排班列表
+  parent: entity.kaoqin.admin
+  route_name: entity.kaoqin.upon.listbuilder
+  weight: 11
+
+entity.kaoqin.upon.update:
+  title: 排班设置
+  parent: entity.kaoqin.admin
+  route_name: entity.kaoqin.upon.update
+  weight: 13
+

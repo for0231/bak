@@ -1,0 +1,258 @@
+system.admin_contract:
+  path: '/admin/contract/system'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Contract System'
+  requirements:
+    _permission: 'access administration contract pages'
+
+system.admin_contract_shortcut:
+  path: '/admin/contract/shortcut'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'shortcut'
+  requirements:
+    _permission: 'access administration contract pages'
+
+system.admin_contract_shortcut_project:
+  path: '/admin/contract/shortcut/Project'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Project shortcut'
+  requirements:
+    _permission: 'access administration contract pages'
+
+system.admin_contract_shortcut_contract:
+  path: '/admin/contract/shortcut/contract'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Contract shortcut'
+  requirements:
+    _permission: 'access administration contract pages'
+
+
+system.shortcut_funds:
+  path: '/admin/contract/shortcut/funds'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Funds shortcut'
+  requirements:
+    _permission: 'access administration contract pages'
+
+system.shortcut_funds_in:
+  path: '/admin/contract/shortcut/funds/income'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Funds shortcut'
+  requirements:
+    _permission: 'access administration contract pages'
+
+system.shortcut_funds_out:
+  path: '/admin/contract/shortcut/funds/out'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Funds shortcut'
+  requirements:
+    _permission: 'access administration contract pages'
+
+
+project.add_form:
+  path: '/admin/project/add'
+  defaults:
+    _entity_form: 'host_project.default'
+    _title: 'Add project'
+  requirements:
+    _permission: 'administer peoject add'
+
+project.admin:
+  path: '/admin/project'
+  defaults:
+    _entity_list: 'host_project'
+    _title: 'Project list'
+  requirements:
+    _permission: 'administer project list'
+
+entity.host_project.edit_form:
+  path: '/admin/project/{host_project}'
+  defaults:
+    _entity_form: 'host_project.default'
+    _title: 'Edit project'
+  requirements:
+    _permission: 'administer peoject add'
+
+entity.host_project.delete_form:
+  path: '/admin/project/{host_project}/delete'
+  defaults:
+    _entity_form: 'host_project.delete'
+    _title: 'Delete project'
+  requirements:
+    _permission: 'administer peoject delete'
+
+contract.add_form:
+  path: '/admin/contract/add'
+  defaults:
+    _entity_form: 'host_contract.default'
+    _title: 'Add conrtact'
+  requirements:
+    _permission: 'administer contract add'
+
+entity.host_contract.edit_form:
+  path: '/admin/contract/{host_contract}'
+  defaults:
+    _entity_form: 'host_contract.default'
+    _title: 'Edit contract'
+  requirements:
+    _permission: 'administer contract add'
+
+contract.funds.add_form:
+  path: '/admin/contract/{host_contract}/funds/add'
+  defaults:
+    _form: 'Drupal\contract\Form\FundsPlanAddForm'
+    _title: 'Delete plan'
+  requirements:
+    _permission: 'administer contract add'
+
+contract.funds.delete:
+  path: '/admin/contract/{host_contract}/funds/{funds_plan}/delete'
+  defaults:
+    _form: 'Drupal\contract\Form\FundsPlanDeleteForm'
+    _title: 'Add funds plan'
+  requirements:
+    _permission: 'administer contract add'
+
+contract.goods.add:
+  path: '/admin/contract/{host_contract}/goods/add'
+  defaults:
+    _form: 'Drupal\contract\Form\GoodsPlanAddForm'
+    _title: 'Add goods plan'
+  requirements:
+    _permission: 'administer contract add'
+
+contract.goods.delete:
+  path: '/admin/contract/{host_contract}/goods/{goods_plan}/delete'
+  defaults:
+    _form: 'Drupal\contract\Form\GoodsPlanDeleteForm'
+    _title: 'Delete plan'
+  requirements:
+    _permission: 'administer contract add'
+
+contract.goods.complete:
+  path: '/admin/contract/{host_contract}/goods/{goods_plan}/complete'
+  defaults:
+    _form: 'Drupal\contract\Form\GoodsPlanCompleteForm'
+    _title: 'Complete'
+  requirements:
+    _permission: 'administer contract execute'
+
+contract.admin:
+  path: '/admin/contract'
+  defaults:
+    _entity_list: 'host_contract'
+    _title: 'Contract list'
+  requirements:
+    _permission: 'administer contract list'
+
+entity.host_contract.execute_form:
+  path: '/admin/contract/{host_contract}/execute'
+  defaults:
+    _entity_form: 'host_contract.execute'
+    _title: 'Execute contract'
+  requirements:
+    _permission: 'administer contract execute'
+
+entity.host_contract.stop_form:
+  path: '/admin/contract/{host_contract}/stop'
+  defaults:
+    _entity_form: 'host_contract.stop'
+    _title: 'Stop contract'
+  requirements:
+    _permission: 'administer contract execute'
+
+entity.host_contract.complete_form:
+  path: '/admin/contract/{host_contract}/complete'
+  defaults:
+    _entity_form: 'host_contract.complete'
+    _title: 'Stop contract'
+  requirements:
+    _permission: 'administer contract execute'
+
+entity.host_contract.delete_form:
+  path: '/admin/contract/{host_contract}/delete'
+  defaults:
+    _entity_form: 'host_contract.delete'
+    _title: 'Delete contract'
+  requirements:
+    _permission: 'administer contract execute'
+
+contract.funds.complete:
+  path: '/admin/contract/{host_contract}/funds/{funds_plan}/complete'
+  defaults:
+    _form: 'Drupal\contract\Form\FundsPlanCompleteForm'
+    _title: 'Complete'
+  requirements:
+    _permission: 'administer contract execute'
+
+contract.user.add_form:
+  path: '/admin/contract/client/add'
+  defaults:
+    _entity_form: 'contract_user.default'
+    _title: 'Add client'
+  requirements:
+    _permission: 'administer contratc client add'
+
+contract.user.admin:
+  path: '/admin/contract/client'
+  defaults:
+    _entity_list: 'contract_user'
+    _title: 'Client'
+  requirements:
+    _permission: 'administer contratc client list'
+
+entity.contract_user.edit_form:
+  path: '/admin/contract/client/{contract_user}'
+  defaults:
+    _entity_form: 'contract_user.default'
+    _title: 'Edit Client'
+  requirements:
+    _permission: 'administer contratc client add'
+
+entity.contract_user.delete_form:
+  path: '/admin/contract/client/{contract_user}/delete'
+  defaults:
+    _entity_form: 'contract_user.delete'
+    _title: 'Delete user'
+  requirements:
+    _permission: 'administer contratc client delete'
+
+contract.funds.classify_list:
+  path: '/admin/contract/funds/{type}'
+  defaults:
+    _form: 'Drupal\contract\Form\FundsClassifyForm'
+    _title: 'funds list'
+  requirements:
+    _permission: 'administer contract add'
+
+contract.shortcut.project:
+  path: '/admin/contract/shortcut/project/{type}'
+  defaults:
+    _form: 'Drupal\contract\Form\ProjectShortcut'
+    _title: 'Shortcut'
+  requirements:
+    _permission: 'administer contract add'
+
+
+contract.shortcut.contract:
+  path: '/admin/contract/shortcut/contract/{type}'
+  defaults:
+    _form: 'Drupal\contract\Form\ContractShortcut'
+    _title: 'Contract Shortcut'
+  requirements:
+    _permission: 'administer contract add'
+
+contract.shortcut.funds:
+  path: '/admin/contract/shortcut/funds/{property}/{type}'
+  defaults:
+    _form: 'Drupal\contract\Form\FundsIncomeShortcut'
+    _title: 'Funds income Shortcut'
+  requirements:
+    _permission: 'administer contract add'

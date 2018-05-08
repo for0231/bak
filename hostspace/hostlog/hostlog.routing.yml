@@ -1,0 +1,35 @@
+host.log.admin:
+  path: '/admin/log/list'
+  defaults:
+    _controller: '\Drupal\hostlog\Controller\LogController::logList'
+    _title: 'View list of log. '
+  requirements:
+    _permission: 'access administration log pages'
+host.log.view:
+  path: 'admin/log/{log_id}/view'
+  defaults:
+    _controller: '\Drupal\hostlog\Controller\LogController::viewLog'
+    _title: 'View detail of log. '
+  requirements:
+    _permission: 'access administration log pages'
+host.reminder.config:
+  path: 'admin/hostlog/reminder/settings'
+  defaults:
+    _form: 'Drupal\hostlog\Form\ReminderSettings'
+    _title: 'Reminder Settings'
+  requirements:
+    _permission: 'administer reminder settings'
+host.reminder.tip:
+  path: 'ajax/reminder/tip'
+  defaults:
+    _controller: 'Drupal\hostlog\Controller\ReminderController::render'
+    _title: 'auto cron'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+host.reminder.type:
+  path: 'admin/hostlog/reminder/type/settings'
+  defaults:
+    _controller: 'Drupal\hostlog\Controller\ReminderController::typeSettings'
+    _title: '监控类型设置'
+  requirements:
+    _permission: 'administer reminder settings'

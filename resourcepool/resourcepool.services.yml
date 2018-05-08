@@ -1,0 +1,7 @@
+services:
+  resourcepool.dbservice:
+    class: Drupal\resourcepool\ResourcePoolService
+    arguments: ['@database']
+  resourcepool.remoteservice:
+    class: Drupal\resourcepool\ResourceRemoteService
+    arguments: ['@database']

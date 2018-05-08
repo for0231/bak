@@ -1,0 +1,30 @@
+system.admin_member:
+  title: Member management 
+  parent: system.admin 
+  route_name: system.admin_member
+  weight: -200
+
+member.employee.admin:
+  title: List of employees 
+  description: 'List of employees.'
+  parent: system.admin_member 
+  route_name: member.employee.admin
+  weight: -9
+
+member.client.admin:
+  title: List of clients 
+  description: 'List of clients.'
+  parent: system.admin_member 
+  route_name: member.client.admin
+
+member.funds.credit:
+  title: Credit management 
+  description: 'Credit management.'
+  parent: system.admin_member 
+  route_name: member.funds.credit
+
+member.funds.recharge_record:
+  title: 客户充值/消费统计
+  parent: system.admin_member 
+  route_name: member.funds.recharge_record
+

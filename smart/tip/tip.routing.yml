@@ -1,0 +1,35 @@
+entity.msg.add_form:
+  path: 'admin/smart/tip/msg/add'
+  defaults:
+    _entity_form: 'tip_msg.default'
+    _title: 'Message add'
+  requirements:
+    _permission: 'administration smart tips edit'
+entity.msg.edit_form:
+  path: 'admin/smart/tip/msg/{tip_msg}/edit'
+  defaults:
+    _entity_form: 'tip_msg.default'
+    _title: 'Message edit'
+  requirements:
+    _permission: 'administration smart tips edit'
+entity.tip_msg.collection:
+  #path: 'ajax/smart/tip/msg/list'
+  path: 'admin/smart/tip/msg/list'
+  defaults:
+    _controller: 'Drupal\tip\Controller\TipController::ajaxGetPersonalMsgList'
+    _title: 'Msg list'
+  requirements:
+    _permission: 'access smart tips ajax personal list'
+entity.tip.collection:
+  path: 'admin/smart/tip/list'
+  defaults:
+    _controller: 'Drupal\tip\Controller\TipController::ajaxGetTipList'
+    _title: 'Tip list'
+  requirements:
+    _permission: 'administrator smart tips list'
+tip.msg.user.autocomplete:
+  path: 'admin/smart/tip/msg/user/auto'
+  defaults:
+    _controller: 'Drupal\tip\Controller\TipController::handleUserAutocomplete'
+  requirements:
+    _access: 'TRUE'

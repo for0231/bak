@@ -1,0 +1,8 @@
+name: traction wd
+type: module
+core: 8.x
+package: Flow traction
+description: '唯盾防火墙牵引系统模块'
+version: VERSION
+dependencies:
+  - qy

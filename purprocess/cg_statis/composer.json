@@ -1,0 +1,14 @@
+{
+  "name": "drupal/cg_statis",
+  "type": "drupal-module",
+  "description": "采购统计",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/cg_statis",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/cg_statis",
+    "source": "http://cgit.drupalcode.org/cg_statis"
+  },
+  "require": { }
+}

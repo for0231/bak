@@ -1,0 +1,153 @@
+// ============= 故障申报 =========
+.tijiaogongdan {
+  border: 1px solid #CCCCCC;
+  float: left;
+  width: 100%;
+  #edit-ip-search div.form-item {
+    display: inline;
+  }
+  div {
+    width: 100%;
+    #edit-parent-category, #edit-parent-question-class {
+      width: 17%;
+    }
+  }
+  tr {
+    td {
+      padding: 10px;
+      width: 200px;
+    }
+  }
+  .server {
+    padding: 0;
+  }
+  .width_100 .form-wrapper {   
+    padding: 0;
+  }
+  #declare-question {
+    background: none repeat scroll 0 0 #FF4400;
+    color: #FFFFFF;
+    margin: 0 5px;
+    padding: 5px 20px;
+    border: 0;
+    border-radius: 3px 3px 3px 3px;
+  }
+  #edit-content-0-format-help {
+    display: none;
+  }
+}
+
+// =================== 故障列表 ==================
+
+#edit-filters {
+  font-size: 14px;
+  margin-top: 10px;
+  label {
+    float: left; 
+  }
+  label:after {
+    content: "：";
+  }
+  .form-item {
+    width: 50%;
+    float: left;
+    margin-bottom: 1em;
+  }
+  #edit-actions {
+    width: 50%;
+    input {
+      background: none repeat scroll 0 0 #FF4400;
+      color: #FFFFFF;
+      margin: 0 5px;
+      padding: 5px 20px;
+      border: none;
+      border-radius: 3px 3px 3px 3px;
+    }
+    
+  }
+}
+.tabPanel {
+  .q_panel {
+    border-bottom: 1px solid #AAAAAA;
+    height: 33px;
+    .hit {
+      background: -moz-linear-gradient(center top , #E1E1E1, #FFFFFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+      border: 1px solid #AAAAAA;
+      border-bottom: 1px solid #FFFFFF;
+      border-radius: 4px 4px 0 0;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+      cursor: pointer;
+      float: left;
+      font-size: 11px;
+      height: 32px;
+      line-height: 33px;
+      margin: 0 2px 0 0;
+      text-align: center;
+      text-shadow: 0 1px 0 #FFFFFF;
+      width: 111px;
+      color: #000000;
+    }
+  }
+}
+.pane {
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  background-color: #FFFFFF;
+  border-color: -moz-use-text-color #AAAAAA #AAAAAA;
+  border-image: none;
+  border-right: 1px solid #AAAAAA;
+  border-style: none solid solid;
+  border-width: 0 1px 1px;
+  display: none;
+  float: left;
+  font-size: 14px;
+  padding: 10px 20px;
+  width: 718px;
+  margin-left: 10px;
+
+}
+.goumai_biaodan {
+  border-left: 1px solid #CCCCCC;
+  border-top: 1px solid #CCCCCC;
+  width: 100%;
+  tr {
+    height: 40px;
+    line-height: 50px;
+    td {
+      border-bottom: 1px solid #CCCCCC;
+      border-right: 1px solid #CCCCCC;
+      text-align: center;
+    }
+  }
+}
+.goumai_beijing {
+  background: none repeat scroll 0 0 #DDDDDD;
+  color: #041E39;
+  font-weight: bold;
+}
+
+// =================== 故障详情 ==================
+.fault_detail {
+  th {
+    //background-color: #F8F8F8; 
+    border: 1px solid #F0F0F0;
+  }
+   td {
+    border: 1px solid #E1E1E1;
+    padding: 8px;
+  }
+
+   #edit-reply-content-format {
+    display: none;
+  }
+  #edit-submit {
+    background: none repeat scroll 0 0 #FF4400;
+    border: 0 none;
+    border-radius: 3px 3px 3px 3px;
+    color: #FFFFFF;
+    margin: 0 5px;
+    padding: 5px 20px;
+  }
+}

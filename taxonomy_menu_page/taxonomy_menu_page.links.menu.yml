@@ -1,0 +1,41 @@
+admin.taxonomy_menu_page.admin:
+  title: 采购基础分类
+  parent: system.admin
+  route_name: admin.taxonomy_menu_page.admin
+  weight: -100
+
+admin.taxonomy_menu_page.enterprises:
+  title: 企业
+  parent: admin.taxonomy_menu_page.admin
+  route_name: admin.taxonomy_menu_page.enterprises
+  weight: 2
+
+admin.taxonomy_menu_page.supply:
+  title: 供应商
+  parent: admin.taxonomy_menu_page.admin
+  route_name: admin.taxonomy_menu_page.supply
+  weight: 2
+
+admin.taxonomy_menu_page.unit:
+  title: 单位
+  parent: admin.taxonomy_menu_page.admin
+  route_name: admin.taxonomy_menu_page.unit
+  weight: 2
+
+admin.taxonomy_menu_page.located:
+  title: 地点
+  parent: admin.taxonomy_menu_page.admin
+  route_name: admin.taxonomy_menu_page.located
+  weight: 2
+
+admin.taxonomy_menu_page.ships:
+  title: 物流公司
+  parent: admin.taxonomy_menu_page.admin
+  route_name: admin.taxonomy_menu_page.ships
+  weight: 2
+
+admin.taxonomy_menu_page.parts:
+  title: 配件
+  parent: admin.taxonomy_menu_page.admin
+  route_name: admin.taxonomy_menu_page.parts
+  weight: 2

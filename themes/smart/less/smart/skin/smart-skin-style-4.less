@@ -1,0 +1,250 @@
+/********************************************************************* Skin-4 *************************************************************/
+
+
+@smstyle-4-aside-color : #3a3f51;
+@smstyle-4-headerchild : #71A06A;
+
+@smstyle-4-menuchild-padding-increment: 23px;
+
+
+body.smart-style-4 {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
+}
+
+.smart-style-4 .ribbon-button-alignment {
+	display: none;
+}
+
+.smart-style-4:not(.menu-on-top) #left-panel {
+    padding-top: @smart-navbar-height;
+}
+
+.smart-style-4  #ribbon {
+	position: absolute!important;
+	z-index: 1;
+	left: 3px;
+	top: 30px;
+	background: 0 0;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.smart-style-4 #header {
+	background-image: none;
+	background: #fff;
+	box-shadow: 0 2px 2px rgba(0,0,0,0.05),0 1px 0 rgba(0,0,0,0.05);
+}
+
+.smart-style-4 #header>:first-child {
+	background: @smstyle-4-headerchild;
+}
+
+.smart-style-4 .login-info>span {
+	border-bottom-color: darken(@smstyle-4-headerchild, 70%);
+}
+
+.smart-style-4 .page-title {
+	margin: 8px 0 13px;
+	font-size:24px;
+}
+
+.smart-style-4 .page-title>span {
+    font-size:14px;
+}
+
+
+
+.smart-style-4 .page-title >i:first-child {
+	display:none;
+}
+
+.smart-style-4 #logo-group span#activity {
+	.gradient(@color: darken( @smstyle-4-headerchild, 10%), @start: darken( @smstyle-4-headerchild, 10%), @stop: lighten(@smstyle-4-headerchild, 10%) );
+	border-color: darken(@smstyle-4-headerchild, 10%);
+	color: lighten(@smstyle-4-headerchild, 40%); 
+}
+
+/* LEFT PANEL */
+
+.smart-style-4:not(.mobile-view-activated) .login-info {
+    display: none;
+}
+
+.smart-style-4:not(.mobile-view-activated) #mobile-profile-img {
+    display:inline-block !important;
+}
+
+.smart-style-4 #mobile-profile-img a.userdropdown img {
+    margin-left: 3px;
+}
+
+.smart-style-4  #mobile-profile-img > li {
+    display: inline-block;
+    padding-right: 0px;
+    margin-right: -3px;
+}
+
+.smart-style-4 aside {
+	background: @smstyle-4-aside-color;
+}
+
+.smart-style-4 aside .minifyme {
+	background: @smstyle-4-headerchild;
+	color: lighten(@smstyle-4-headerchild, 40%); 
+}
+
+.smart-style-4 aside .minifyme:hover {
+	background: lighten(@smstyle-4-headerchild, 10%);
+	color: lighten(@smstyle-4-headerchild, 50%); 
+}
+
+.smart-style-4:not(.menu-on-top) nav ul li.active:not(.open)>a:before,
+.smart-style-4:not(.menu-on-top) nav > ul > li.active:not(.open)>a:before {
+	content: "";
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAqBAMAAAAt0TTmAAAAHlBMVEUAAAD///////////////////////////////////8kfJuVAAAACnRSTlMABQMJDRIBFhofGayHogAAAOFJREFUKM+F070RgzAMBeBU6QkbuKDnlA1INoCjpWIDzmyA2QC2zVMC6IfcIbrvnjC2xe1v3XuUs4AqoN6gBjMuYOcNqINElHskLqDuflY/fKjgC1VRCZTgu/6isaZpoByU5nYAIqgtRiRhJZp3HKc4AInUynOKQNs8LwlWc3MoNluXNEWsYmxNabdwGDefbRp4YW2rmM1dv8+ue/4+v49MLB37lTMYQdxKclbq/ELfbdaCEOPX2ftA7HRviMHU/SIl1yazUdrZ2MjMUA7gaSn8/IE6ZSHD42Y3oGQH+l+4qg+S/XPD6LV6iwAAAABJRU5ErkJggg==);
+	background-repeat: no-repeat;
+	background-position: left;
+	border-left: 4px solid lighten(@smstyle-4-aside-color, 100%);
+	left: 0px;
+	height: 20px;
+	top: 6px;
+}
+
+
+.smart-style-4 nav > ul > li.active:not(.open)>a:before {
+	height: 26px !important;
+	top: 7px !important;	
+}
+
+.smart-style-4 nav ul li a {
+	color: lighten(@smstyle-4-aside-color, 50%);
+	-webkit-transition: background-color .2s ease-in-out 0s;
+	transition: background-color .2s ease-in-out 0s;
+	font-size: 13px;
+	padding-top: 12px;
+	padding-bottom: 11px;
+}
+
+.smart-style-4 nav>ul>li>a {
+	padding-top: 13px;
+	padding-bottom: 13px;
+}
+
+.smart-style-4 nav>ul>li>a b {
+	top: 11px;
+	font-size: 14px;
+}
+
+.smart-style-4 nav>ul ul li a {
+	padding-top: 9px;
+	padding-bottom: 8px;
+}
+
+.smart-style-4:not(.minified) nav ul ul li > a {
+	padding-left: @smstyle-4-menuchild-padding-increment * 2;
+}
+
+.smart-style-4:not(.minified) nav ul ul ul li a {
+	padding-left: @smstyle-4-menuchild-padding-increment * 3;
+}
+
+.smart-style-4:not(.minified) nav ul ul ul ul li a {
+	padding-left: @smstyle-4-menuchild-padding-increment * 4;
+}
+
+.smart-style-4:not(.minified) nav ul ul ul ul ul li a {
+	padding-left: @smstyle-4-menuchild-padding-increment * 5;
+}
+
+.smart-style-4:not(.minified) nav ul ul ul ul ul ul li a {
+	padding-left: @smstyle-4-menuchild-padding-increment * 6;
+}
+
+.smart-style-4:not(.minified) nav>ul>li>a>i {
+	margin-right: 9px;
+}
+
+.smart-style-4:not(.menu-on-top) nav ul li a:hover {
+	background: darken(@smstyle-4-aside-color, 4%);
+	color:lighten(@smstyle-4-aside-color, 100%);
+}
+.smart-style-4 nav ul li a:active {
+	background: darken(@smstyle-4-aside-color, 8%);
+	color:lighten(@smstyle-4-aside-color, 100%);
+}
+
+.smart-style-4 nav ul ul,
+.smart-style-4 nav ul li.open>a,
+.smart-style-4.minified nav ul ul,
+.smart-style-4.minified nav li li{
+	background: darken(@smstyle-4-aside-color, 2%);
+}
+
+.smart-style-4 nav>ul>li>ul:before,
+.smart-style-4 nav>ul ul li:before {
+	border: none;
+} 
+
+.smart-style-4 #content > .row:first-child {
+	background-color: lighten(@smstyle-4-aside-color, 70%);
+	margin-top: -10px;
+	padding-top: 10px;
+	margin-bottom: 13px;
+	padding-bottom: 7px;
+	border-bottom: 1px solid lighten(@smstyle-4-aside-color, 60%);;
+}
+
+/* unique classes for this skin only */
+.smart-style-4 #smart-fixed-ribbon + span,
+.smart-style-4 #ribbon {
+    display:none;
+}
+
+.smart-style-4.fixed-ribbon #content {
+    padding-top:10px;
+}
+
+/* pages: gallery */
+
+.smart-style-4 .superbox-show {
+    background:darken(@smstyle-4-aside-color,13%);
+}
+
+.smart-style-4 .superbox-list.active:before {
+    color:darken(@smstyle-4-aside-color,13%);
+}
+
+.smart-style-4 .superbox-imageinfo span {
+    color:lighten(@smstyle-4-aside-color,43%);
+}
+
+/*
+ * Style 4 Responsive
+ */
+  @media (max-width: 979px) {
+    .smart-style-4 #header  {
+        background: @smstyle-4-headerchild;
+    }
+
+    .smart-style-4 #hide-menu>:first-child>a {
+        border-color: #FFFFFF !important;
+    }
+
+    .smart-style-4:not(.menu-on-top) #left-panel {
+        margin-top:0px !important;
+    }
+
+    .smart-style-4 #project-selector, 
+    .smart-style-4 .project-selector,
+    .smart-style-4 #project-context>:first-child, 
+    .smart-style-4 .project-context>:first-child,
+    .smart-style-4 .header-dropdown-list>li>.dropdown-toggle,
+    .smart-style-4 .btn-header.transparent a {
+        color:#fff !important;
+        text-shadow: none;
+    }
+
+
+}
+
+

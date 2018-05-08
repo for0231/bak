@@ -1,0 +1,7 @@
+admin.referer:
+  path: 'admin/referer'
+  defaults:
+    _controller: 'Drupal\referer_statist\Controller\RefererController::showRefererStatistics'
+    _title: '访问来源统计'
+  requirements:
+    _permission: 'referer statistics view'

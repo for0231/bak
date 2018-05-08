@@ -1,0 +1,8 @@
+vid: articleCategory
+name: ArticleCategory
+description: 'Category of article'
+hierarchy: 1
+weight: -10
+status: true
+langcode: en
+

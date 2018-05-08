@@ -1,0 +1,18 @@
+member.center:
+  version: VERSION
+  css:
+    theme:
+      css/member_center.css: {}
+member.recharge:
+  version: VERSION
+  css:
+    theme:
+      css/member_recharge.css: {}
+# 余额预警设置
+member.alarm:
+  version: VERSION
+  js:
+    js/balance_alarm.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

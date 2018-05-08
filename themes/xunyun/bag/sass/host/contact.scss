@@ -1,0 +1,17 @@
+main#content {
+  border-color: #cdd2d7;
+  border-image: none;
+  border-style: solid;
+  border-width: 2px 1px 1px;
+}
+#main {
+  .t-two-content {
+    background-color: white;  //设置内容区域背景
+  }
+  .t-single-content {
+    background-color: white;  //设置内容区域背景
+  }
+  .t-no-sidebars {
+    background-color: white;  //设置内容区域背景
+  }
+}

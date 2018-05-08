@@ -1,0 +1,49 @@
+part:
+  cpu:
+    base_parameter_type: 10
+    base_parameter_family: 10
+    base_frequency: 10
+    cpu_slug_type: 10
+    cpu_kernel_code: 10
+    cpu_kernel_num: 10
+    cpu_kernel_threads: 10
+    cpu_cache_level_1: 10
+    cpu_cache_level_2: 10
+    cpu_cache_level_3: 10
+    cpu_is_64: 10
+  memory:
+    suitable_base_parameter: 10
+    capacity_base_parameter: 10
+    type_base_parameter: 10
+    clocked_base_parameter: 10
+    practicle_base_parameter: 10
+    process_base_parameter: 10
+  harddisc:
+    suitable_base_parameter: 10
+    size_base_parameter: 10
+    capacity_base_parameter: 10
+    disc_number_base_parameter: 10
+    per_disc_capacity_base_parameter: 10
+    head_number_capacity_base_parameter: 10
+    cache_capacity_base_parameter: 10
+    speed_capacity_base_parameter: 10
+    interface_type_capacity_base_parameter: 10
+    interface_speed_capacity_base_parameter: 10
+  mainboard:
+    chipmaker: 10
+    chipset: 10
+    chipset_display: 10
+    chipset_audio: 10
+    chipset_network: 10
+    cpu_platform: 10
+    cpu_type: 10
+    cpu_slot: 10
+    memory_slot: 10
+    pcie_slot: 10
+    pci_slot: 10
+    sata_Interface: 10
+    hdmi_Interface: 10
+    outer_port: 10
+    other_Interface: 10
+    mainboard_type: 10
+    system_not: 10

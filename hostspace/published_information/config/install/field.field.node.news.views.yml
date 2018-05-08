@@ -1,0 +1,19 @@
+id: node.news.views
+entity_type: node
+bundle: news
+field_name: views
+field_type: integer
+label: 'Views'
+description: 'views of news'
+required: true
+readOnly: true
+default_value:
+  -
+    value: 0
+settings: {  }
+status: true
+langcode: en
+dependencies:
+  config:
+    - field.storage.node.views
+    - node.type.news

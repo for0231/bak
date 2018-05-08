@@ -1,0 +1,27 @@
+publishen.article.category:
+  title: 'Add Directory'
+  route_name: entity.taxonomy_term.add_form
+  route_parameters: {taxonomy_vocabulary: articleCategory}
+  appears_on:
+    - published.article.category
+    
+publishen.news.category:
+  title: 'Add Directory'
+  route_name: entity.taxonomy_term.add_form
+  route_parameters: {taxonomy_vocabulary: newsCategory}
+  appears_on:
+    - published.news.category
+    
+publishen.article.add_form:
+  title: 'Add article'
+  route_name: node.add
+  route_parameters: {node_type: articles}
+  appears_on:
+    - published.admin.article.list
+
+publishen.news.add_form:
+  title: 'Add news'
+  route_name: node.add
+  route_parameters: {node_type: news}
+  appears_on:
+    - published.admin.news.list

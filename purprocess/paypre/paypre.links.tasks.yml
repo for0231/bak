@@ -1,0 +1,5 @@
+entity.paypro.add_form:
+  title: 支付单
+  route_name: entity.paypro.add_form
+  base_route: entity.paypro.add_form
+  weight: 1

@@ -1,0 +1,61 @@
+<?php
+
+/**
+ * @file
+ */
+
+/**
+ * Implement hook_theme().
+ */
+function part_theme() {
+  return [
+    'partspool' => [
+      'template' => 'partspool',
+      'variables' => ['data' => NULL],
+    ],
+    'unpartspool' => [
+      'template' => 'unpartspool',
+      'variables' => ['data' => NULL],
+    ],
+    'purchase_parts_pool' => [
+      'template' => 'purchase-parts-pool',
+      'variables' => ['data' => NULL],
+    ],
+  ];
+}
+
+/**
+ * 设置配送状态.
+ */
+function getShipStatus() {
+  return [
+    '0' => '无',
+    '5' => '配送中',
+    '10' => '已接收/部分',
+    '15' => '已接收/全部',
+    '20' => '完成配送',
+  ];
+}
+
+/**
+ * Implement hook_load().
+ */
+function part_load_multiple($ids = []) {
+  if (empty($ids)) {
+    return [];
+  }
+  $storage = \Drupal::entityManager()->getStorage('part');
+  $entities = $storage->loadMultiple($ids);
+
+  return $entities;
+}
+
+/**
+ * Implement hook_load().
+ */
+function part_load($id) {
+  $storage = \Drupal::entityManager()->getStorage('part');
+  $entity = $storage->load($id);
+
+  return $entity;
+}

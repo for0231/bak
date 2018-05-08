@@ -1,0 +1,67 @@
+admin.wd.policy.add:
+  route_name: admin.wd.policy.add
+  title: '增加策略'
+  appears_on:
+    - admin.wd.policy
+    
+admin.wd.policy.segment.add:
+  route_name: admin.wd.policy.segment.add
+  title: '增加路线策略'
+  appears_on:
+    - admin.wd.policy
+
+admin.wd.policy_tmp.add:
+  route_name: admin.wd.policy_tmp.add
+  title: '增加临时策略'
+  appears_on:
+    - admin.wd.policy_tmp
+
+admin.wd.traction.add:
+  route_name: admin.wd.traction.add
+  title: '增加手动牵引'
+  appears_on:
+    - admin.wd.traction
+    - admin.wd.traction_filter
+  class: \Drupal\qy_wd\Plugin\Menu\TractionAddLocalAction
+
+admin.wd.ip_stop.add:
+  route_name: admin.wd.ip_stop.add
+  title: '增加IP封停'
+  appears_on:
+    - admin.wd.ip_stop
+
+admin.wd.route.add:
+  route_name: admin.wd.route.add
+  title: '增加线路'
+  appears_on:
+    - admin.wd.route
+
+admin.wd.listen.kill:
+  route_name: admin.wd.listen.kill
+  title: '开启解牵引及重写缓存数据'
+  appears_on:
+    - admin.wd.route
+  options:
+    attributes:
+      target: _blank
+
+admin.wd.alarm:
+  title: '报警值设置'
+  route_name: admin.wd.alarm
+  appears_on:
+    - admin.wd.monitor
+  options:
+    attributes:
+      target: _blank
+
+admin.wd.chart.setting:
+  title: '设置监控IP'
+  route_name: admin.wd.chart.setting
+  appears_on:
+    - admin.wd.chart
+
+admin.wd.logs.export:
+  title: '导出数据'
+  route_name: admin.wd.logs.export
+  appears_on:
+    - admin.wd.logs.traction

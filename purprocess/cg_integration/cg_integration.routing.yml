@@ -1,0 +1,14 @@
+cg_integration.admin_workbench:
+  path: 'admin/workbench'
+  defaults:
+    _controller: 'Drupal\cg_integration\Controller\CGIntegrationController::mainPage'
+    _title: 'Administration'
+  requirements:
+    _permission: 'access administration pages'
+cg_integration.admin_workbench.index:
+  path: 'admin/workbench/index'
+  defaults:
+    _controller: 'Drupal\cg_integration\Controller\CGIntegrationController::indexPage'
+    _title: 'Administration'
+  requirements:
+    _permission: 'access administration pages'

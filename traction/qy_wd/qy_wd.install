@@ -1,0 +1,631 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall function for the user module.
+ */
+use Drupal\Core\Database\Database;
+
+/**
+ * Implements hook_install().
+ */
+function qy_wd_install() {
+  $db_service = \Drupal::service('qy_wd.db_service');
+  for($i = 0; $i < 16; $i++) {
+    $db_service->add_alarm(array('id' => $i+1, 'max_bps' => 18000, 'min_bps' => '0'));
+    $db_service->add_unit_flow(array('id' => $i+1));
+  }
+}
+
+/**
+ * Implements hook_schema().
+ */
+function qy_wd_schema() {
+  $schema['t_policy'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'ip' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => '策略针对的IP'
+      ),
+      'mask_number' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'description' => '掩码数'
+      ),
+      'routeid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'description' => '所属线路'
+      ),
+      'ms' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 1,
+        'description' => '牵引模式(1.独享、2.共享-只认正常流量牵引条件，不认超大流量牵引条件)'
+      ),
+      'note' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => '备注'
+      ),
+      'bps' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => '流量阀值－正常流量牵引条件'
+      ),
+      'pps' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => '包阀值－正常流量牵引条件'
+      ),
+      'time' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => '牵引时间－正常流量牵引条件'
+      ),
+      'starts' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => '临时策略开始是时间'
+      ),
+      'kills' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 1,
+        'description' => '临时牵引有效期单位分钟'
+      ),
+      'xx' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 1,
+        'description' => '牵引种类(0为流量牵引；1为订单牵引,3临时，4防护 5客户 6虚拟)'
+      ),
+      'opter' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => 'sys',
+        'description' => '操作员登录名'
+      ),
+      'zt' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => '暂停'
+      ),
+      'timebyflow' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 1,
+        'description' => '启用通过流量来增加时间'
+      ),
+      'doublebase' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 1,
+        'description' => '开启通过流量来增加时间时使用的基础倍数'
+      ),
+      'traction_tip' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => '是否启动牵引提示'
+      )
+    ),
+    'primary key' => array('id'),
+    'indexes' => array(
+      'ip' => array('ip'),
+      'routeid' => array('routeid')
+    )
+  );
+
+  $schema['t_qy'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'ip' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => '牵引的IP'
+      ),
+      'net_type' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 1,
+        'description' => '所属线路'
+      ),
+      'pps' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => '牵引时的pps流量'
+      ),
+      'bps' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => '牵引时的bps流量'
+      ),
+      'start' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => '牵引的时间'
+      ),
+      'time' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => '牵引多少时间后解封(0 代表永久)'
+      ),
+      'type' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => '牵引类型'
+      ),
+      'note' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => '备注'
+      ),
+      'opter' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => 'sys',
+        'description' => '操作员'
+      ),
+      'gjft' => array(
+        'type' => 'int',
+        'not null' => FALSE,
+        'default' => 1,
+        'description' => ' 1牵引; 2封停; 3虚拟攻击'
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => '客户Id'
+      ),
+      'state' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => '状态：1:全线路牵引,0：单线路牵引'
+      ),
+      'prompt_tip' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => '是否提示'
+      ),
+      'emial_send' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => '是否已经发送了邮件0-未发送 1-已发送'
+      )
+    ),
+    'primary key' => array('id')
+  );
+
+  $schema['t_logs'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'ip' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => '牵引的IP'
+      ),
+      'routename' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => '',
+        'description' => '线路名称'
+      ),
+      'bps' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => 'bps流量'
+      ),
+      'pps' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => 'pps流量'
+      ),
+      'start' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'description' => '开始时间'
+      ),
+      'end' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'description' => '结束时间'
+      ),
+      'type' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => '牵引类型'
+      ),
+      'note' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => '备注'
+      ),
+      'opter' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => 'sys',
+        'description' => '操作员'
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => '客户'
+      ),
+      'log' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => '1是牵引；2是封停'
+      )
+    ),
+    'primary key' => array('id')
+  );
+  //线路
+  $schema['t_route'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+         'unsigned' => TRUE,
+         'not null' => TRUE
+      ),
+      'routename' => array(
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => FALSE,
+        'description' => '线路名称'
+      ),
+      'blackhole' => array(
+        'type' => 'varchar',
+        'length' => 250,
+        'not null' => FALSE,
+        'description' => '黑洞IP'
+      ),
+      'username' => array(
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => FALSE,
+        'description' => '登录黑洞的用户名'
+      ),
+      'password' => array(
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => FALSE,
+        'description' => '登录黑洞的密码'
+      ),
+      'mode_command' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1,
+        'description' => '命令模板：0-vyatta、1-cisco'
+      ),
+      'blackhole_command' => array(
+        'type' => 'varchar',
+        'length' => 250,
+        'not null' => FALSE,
+        'description' => '命令',
+        'default' => 'blackhole'
+      ),
+      'total_bps' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'description' => '总墙牵引值'
+      ),
+      'one_bps' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'description' => '单墙牵引值'
+      ),
+      'time' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 30,
+        'description' => '牵引时间'
+      ),
+      'max_count' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 20,
+        'description' => '最大牵引条数'
+      ),
+      'firewall_unit' => array(
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => FALSE,
+        'description' => '防火墙所属单元'
+      ),
+      'is_global' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '是否全局牵引'
+      ),
+      'status' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1,
+        'description' => '0-禁用、1-启用、2-只启用监控不写黑洞'
+      ),
+      'email_content' => array(
+        'type' => 'varchar',
+        'length' => 1000,
+        'not null' => FALSE,
+        'default' => '',
+        'description' => '邮件内容'
+      )
+    ),
+    'primary key' => array('id')
+  );
+  $schema['t_alarm'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => '单元id'
+      ),
+      'max_bps' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'description' => '最大报警值'
+      ),
+      'min_bps' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'description' => '最小报警值'
+      ),
+      'delay_time' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 30,
+        'description' => '间隔报警秒数'
+      ),
+      'timeout' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => '超警值的时间'
+      )
+    ),
+    'primary key' => array('id')
+  );
+  $schema['t_unit_flow'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => '单元id'
+      ),
+      'die_time'=> array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => '宕机时间(秒)'
+      ),
+      'run_time' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => '防火墙运行了多久'
+      ),
+      'in_pps' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => '进入包数'
+      ),
+      'out_pps' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => '过滤后包数'
+      ),
+      'in_bps' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => '进入流量'
+      ),
+      'out_bps' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => '过滤后流量'
+      ),
+      'top_ip' => array(
+        'type' => 'varchar',
+        'length' => 100,
+        'not null' => FALSE,
+        'default' => '',
+        'description' => '单元的前几个ip'
+      )
+    ),
+    'primary key' => array('id')
+  );
+  return $schema;
+}
+
+/**
+ * 删除多余的字段
+ */
+function qy_wd_update_8100() {
+  db_drop_field('t_logs', 'depart');
+  db_drop_field('t_policy', 'depart');
+  db_drop_field('t_qy', 'depart');
+  db_drop_field('t_policy', 'net_type');
+}
+
+/**
+ * 为高防IP提示增加字段
+ */
+function qy_wd_update_8102() {
+  $schema = qy_wd_schema();
+  db_add_field('t_policy', 'traction_tip', $schema['t_policy']['fields']['traction_tip']);
+  db_add_field('t_qy', 'prompt_tip', $schema['t_qy']['fields']['prompt_tip']);
+}
+
+/**
+ * 增加发送email控制字段
+ */
+function qy_wd_update_8103() {
+  $schema = qy_wd_schema();
+  db_add_field('t_qy', 'emial_send', $schema['t_qy']['fields']['emial_send']);
+  Database::getConnection()->query('update t_qy set emial_send = 1');
+}
+
+/**
+ * 增加线路邮件内容字段
+ */
+function qy_wd_update_8104() {
+  $schema = qy_wd_schema();
+  db_add_field('t_route', 'email_content', $schema['t_route']['fields']['email_content']);
+}
+
+/**
+ *设置图表数据流量保存地址
+ */
+function qy_wd_update_8108() {
+  $config = \Drupal::configFactory()->getEditable('qy_wd.settings');
+  $config->set('chart_save_ips', '');
+  $config->save();
+}
+
+/**
+ * 为策略增加所属线路字段
+ */
+function qy_wd_update_8122() {
+  $schema = qy_wd_schema();
+  db_add_field('t_policy', 'routeid', $schema['t_policy']['fields']['routeid']);
+}
+
+/**
+ *为所有线路复制策略
+ */
+function qy_wd_update_8123() {
+  $database = \Drupal::database();
+  $routes = $database->query('select id from t_route')->fetchCol();
+  $first_id = 0;
+  foreach($routes as $routeid) {
+    if($first_id) {
+      $sql = 'insert into t_policy (ip,mask_number,ms,note,bps,pps,time,`starts`,kills,xx,opter,zt,timebyflow,doublebase,traction_tip,routeid) SELECT ip,mask_number,ms,note,bps,pps,time,`starts`,kills,xx,opter,zt,timebyflow,doublebase,traction_tip, '. $routeid .' FROM t_policy where routeid=' . $first_id;
+      $database->query($sql);
+    } else {
+      $first_id = $routeid;
+      $sql = 'update t_policy set routeid = ' . $first_id;
+      $database->query($sql);
+    }
+  }
+}
+
+/**
+ * 设置索引字段
+ */
+function qy_wd_update_8124() {
+  $database = \Drupal::database();
+  $database->query('ALTER TABLE t_policy ADD INDEX routeid(routeid)');
+}
+
+/**
+ * 升级牵引提示字段
+ */
+function qy_wd_update_8125() {
+  $database = \Drupal::database();
+  $database->query('update t_policy set traction_tip = (case when LOCATE(routeid,traction_tip) > 0 then 1 else 0 end)');
+  $database->query('alter table t_policy modify column traction_tip TINYINT(3)');
+}
+
+/**
+ *增加命令样板类型
+ */
+function qy_wd_update_8126() {
+  $schema = qy_wd_schema();
+  db_add_field('t_route', 'mode_command', $schema['t_route']['fields']['mode_command']);
+}

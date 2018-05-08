@@ -1,0 +1,17 @@
+system.admin_remote:
+  title: '牵引系统'
+  parent: system.admin
+  route_name: system.admin_remote
+  weight: -200
+
+admin.remote.traction:
+  title: '我要牵引'
+  parent: system.admin_remote
+  route_name: admin.remote.traction
+  weight: 50
+
+admin.remote.config:
+  title: '牵引配置'
+  parent: system.admin_remote
+  route_name: admin.remote.config
+  weight: 50

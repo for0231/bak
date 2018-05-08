@@ -1,0 +1,40 @@
+entity.requirement.admin:
+  title: 需求单
+  parent: system.admin
+  route_name: entity.requirement.admin
+  weight: -100
+entity.requirement.collection:
+  title: 需求单工作台
+  parent: entity.requirement.admin
+  route_name: entity.requirement.collection
+  weight: 2
+entity.requirement.circle.collection:
+  title: 周期性需求
+  parent: entity.requirement.admin
+  route_name: entity.requirement.circle.collection
+  weight: 3
+entity.requirement.plan.collection:
+  title: 计划性需求
+  parent: entity.requirement.admin
+  route_name: entity.requirement.plan.collection
+  weight: 4
+entity.requirement.history.collection:
+  title: 历史需求单
+  parent: entity.requirement.admin
+  route_name: entity.requirement.history.collection
+  weight: 5
+entity.requirement.audit.history.collection:
+  title: 历史审批需求单
+  parent: entity.requirement.admin
+  route_name: entity.requirement.audit.history.collection
+  weight: 6
+entity.part.collection:
+  title: 需求池
+  parent: entity.requirement.admin
+  route_name: entity.part.collection
+  weight: 9
+entity.part.un.collection:
+  title: 清洗池
+  parent: entity.requirement.admin
+  route_name: entity.part.un.collection
+  weight: 10

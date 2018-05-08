@@ -1,0 +1,17 @@
+id: node.summary
+field_name: summary
+entity_type: node
+type: text_with_summary
+settings: {  }
+locked: false
+cardinality: 1
+translatable: true
+indexes: { }
+status: true
+langcode: en
+dependencies:
+  module:
+    - node
+    - text
+module: text
+persist_with_no_fields: true

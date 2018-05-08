@@ -1,0 +1,136 @@
+.user-cart {
+  .title {
+    border-bottom: 2px solid #CDD2D7;
+    color: #333333;
+    font-size: 16px;
+    height: 30px;
+    line-height: 30px;
+    width: 100%;
+    b {
+      border-bottom: 2px solid #041E39;
+      color: #041E39;
+      float: left;
+      height: 30px;
+      line-height: 30px;
+      padding: 0 10px;
+    }
+  }
+  table.cart {
+    background: none repeat scroll 0 0 #FFF8E1;
+    border: 1px solid #B9C6D4;
+    width: 1098px;
+    margin: 0;
+    .empty {
+      font-size: 18px;
+      height: 50px;
+      padding-left: 20px;
+    }
+    tr {
+      border-bottom: 1px solid #B9C6D4;
+    }
+    td.table-select, .select-all {
+      height: 40px;
+      line-height: 40px;
+      padding-left: 20px;
+      text-align: left;
+    }
+    .cart-header th, .base-info td{
+      color: #041E39;
+      font-size: 14px;
+      text-align: left;
+      height: 40px;
+      line-height: 40px;
+      padding-left: 20px;
+    }
+    .cart-header th.wid20 {
+      width: 20%;
+    }
+    th.number,td.number {
+      width:130px;
+    }
+    th.price,td.price {
+      width:130px;
+    }
+    th.property,td.property {
+      width:130px;
+    }
+    th.operation,td.operation {
+      width:130px;
+    }
+    thead tr {
+      background: none repeat scroll 0 0 #E7E9EB;
+      border-bottom: 1px solid #B9C6D4;
+    }
+    tr.base-info {
+      height: 60px;
+      line-height: 60px;
+      h2 {
+        float: left;
+        font-weight: 600;
+        margin: 0 5px 0 0;
+      }
+      .price {
+        color: #FF0000;
+        font-size: 20px;
+      }
+    }
+    tr.price-info {
+      .price-item {
+        float: left;
+      }
+      .price-details {
+        float: left;
+        font-weight: bold;
+        margin-left: 20px;
+        padding-top: 10px;
+        width: 127px;
+      }
+      .form-item {
+        input {
+          display: block;
+          margin-top: 5px;
+        }
+        select {
+          display: block;
+          margin-top: 5px;
+        }
+      }
+      .symbol span {
+        color: #FF0000;
+        font-size: 16px;
+      }
+      input.form-number {
+        width: 70px;
+      }
+    }
+  }
+  .cart-bottom {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-left: 1px solid #B9C6D4;
+    border-right: 1px solid #B9C6D4;
+    border-bottom: 1px solid #B9C6D4;
+    font-size: 14px;
+    height: 70px;
+    line-height: 70px;
+    width: 1096px;
+    text-align: right;
+    .order-price {
+      display: inline;
+      font-size: 20px;
+      label {
+        color: #FF0000;
+      }
+    }
+    input {
+      background: none repeat scroll 0 0 #FF4400;
+      color: #FFFFFF;
+      font-size: 18px;
+      height: 50px;
+      margin: 0 20px;
+      text-align: center;
+      width: 130px;
+      border-radius: 3px 3px 3px 3px;
+      border: medium none;
+    }
+  }
+}

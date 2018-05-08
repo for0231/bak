@@ -1,0 +1,14 @@
+id: node.copyright
+field_name: copyright
+entity_type: node
+type: string
+settings: { }
+locked: false
+cardinality: 1
+translatable: true
+indexes: { }
+status: true
+langcode: en
+dependencies:
+  module:
+    - node

@@ -1,0 +1,25 @@
+admin.hostclient.list:
+  title: '所有服务器'
+  route_name: admin.hostclient.list
+  base_route: admin.hostclient.list
+  weight: 1
+
+admin.hostclient.untreated:
+  title: '未完成服务器'
+  route_name: admin.hostclient.untreated
+  base_route: admin.hostclient.list
+  weight: 2
+
+admin.hostclient.normal:
+  title: '正常服务器'
+  route_name: admin.hostclient.normal
+  base_route: admin.hostclient.list
+  weight: 3
+
+admin.hostclient.stop.list:
+  title: '停用服务器'
+  route_name: admin.hostclient.stop.list
+  base_route: admin.hostclient.list
+  weight: 4
+
+ 

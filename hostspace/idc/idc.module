@@ -1,0 +1,261 @@
+<?php
+/**
+ * @file
+ * Manage idc description.
+ */
+
+use Drupal\Core\Url;
+use Drupal\Component\Utility\SafeMarkup;
+
+/**
+ * Implement hook_theme().
+ */
+function idc_theme() {
+  return array(
+    'cabinet_item' => array(
+      'template' => 'cabinet-item',
+      'variables' => array('cabinet' => null)
+    ),
+    'seat_list' => array(
+      'template' => 'seat-list',
+      'variables' => array('cabinet' => null)
+    ),
+    'cabinet_server_detail' => array(
+      'template' => 'cabinet-server-detail',
+      'variables' => array('cabinet_server' => null)
+    )
+  );
+}
+
+/**
+ * Implement hook_options_list_alter()
+ */
+function idc_options_list_alter(array &$options, array $context) {
+  $fieldName = $context['fieldDefinition']->toArray()['field_name'];
+  if($fieldName == 'switch_p' || $fieldName == 'switch_m') {
+    $request = \Drupal::request()->attributes->all();
+    $cabinetId = $request['room_cabinet'];
+    $list = entity_load_multiple_by_properties('cabinet_switch', array('cabinet_id' => $cabinetId));
+    $new_options = array('_none' => '- Select a value -');
+    foreach($list as $entity) {
+      $key = $entity->getObjectId('ips_id');
+      $new_options[$key] = $options[$key];
+    }
+    $options = $new_options;
+  }
+}
+
+/**
+ * 构建模板需要的参数
+ */
+function template_preprocess_cabinet_item(&$variables) {
+  $entity = $variables['cabinet'];
+  $variables['cabinet']->cabinet_code = \Drupal::l($entity->code->value, new Url('admin.idc.cabinet.seat', array('room_cabinet' => $entity->id())));
+  $variables['cabinet']->edit = \Drupal::l(t('Edit'), new Url('entity.room_cabinet.edit_form', array('room_cabinet' => $entity->id())));
+  $variables['cabinet']->delete = \Drupal::l(t('Delete'), new Url('entity.room_cabinet.delete_form', array('room_cabinet' => $entity->id()))); 
+}
+
+/**
+ * 构建模板需要的参数
+ */
+function template_preprocess_seat_list(&$variables) {
+  $cabinet = $variables['cabinet'];
+  //交换机列表
+  $variables['cabinet']->switchList = entity_load_multiple_by_properties('cabinet_switch', array('cabinet_id' => $cabinet->id()));
+  //构建机位列表数据
+  $seatList = array();
+  $seat_number = $cabinet->getSimpleValue('seat');
+  for($i = 1; $i <= $seat_number; $i++) {
+    $entities = entity_load_multiple_by_properties('cabinet_server', array('cabinet_id' =>$cabinet->id(), 'start_seat' => $i, 'parent_id' => 0));
+    if(empty($entities)) {
+      $entities = entity_load_multiple_by_properties('cabinet_switch', array('cabinet_id' =>$cabinet->id(), 'start_seat' => $i));
+    }
+    if(empty($entities)) {
+      $seatList[$i]['action'] = 'new';
+      $element = array();
+      $element['op'] = array(
+        '#type' => 'operations',
+        '#links' => array(
+          'add_server' => array(
+            'title' => t('Add server'),
+            'url' => new Url('admin.idc.cabinet.seat.server.add', array('room_cabinet' => $cabinet->id(), 'seat' => $i))
+          ),
+          'add_group' => array(
+            'title' => t('Add group'),
+            'url' => new Url('admin.idc.cabinet.seat.group.add', array('room_cabinet' => $cabinet->id(), 'seat' => $i))
+          ),
+          'add_switch' => array(
+            'title' => t('Add switch'),
+            'url' => new Url('admin.idc.cabinet.seat.switch.add', array('room_cabinet' => $cabinet->id(), 'seat' => $i))
+          )
+        )
+      );
+      $seatList[$i]['operate'] = drupal_render($element);
+    } else {
+      $entity = reset($entities);
+      $type = $entity->getEntityTypeId();
+      $size = $entity->getSimpleValue('seat_size');
+      $max_row = $i + $size -1;
+      if($size > 1) {
+        for(;$i < $max_row; $i++) {
+          $seatList[$i]['action'] = 'edit';
+          $seatList[$i]['is_rowspan'] = true;
+        }
+      }
+      $seatList[$max_row]['action'] = 'edit';
+      $seatList[$max_row]['rowspan'] = $size;
+      $seatList[$max_row]['entity_type'] = $type;
+      $op = array();
+      if($type == 'cabinet_server') {
+        if($entity->getObjectId('ipm_id') > 0) {
+          $seatList[$max_row]['is_group'] = false;
+          $server_entity = $entity->getObject('server_id');
+          $seatList[$max_row]['code'] = $server_entity->label() . '|' . $server_entity->get('type')->entity->label();
+          $ipm = $entity->getObject('ipm_id');
+          $seatList[$max_row]['manage_ip'] = $ipm->label();
+          $seatList[$max_row]['sid'] = $entity->id();
+          $seatList[$max_row]['status'] = ipmStatus()[$ipm->get('status')->value];
+          $seatList[$max_row]['switch'] = 'P:' . $entity->getObject('switch_p')->label() . '('. $entity->getSimpleValue('switch_p') .')M:' . $entity->getObject('switch_m')->label() . '('. $entity->getSimpleValue('switch_m') . ')';
+          //定义操作
+          $op['remove_server'] = array(
+            'title' => t('Remove'),
+            'url' => new Url('admin.idc.seat.server.delete', array('cabinet_server' => $entity->id()))
+          );
+          $op['move_server'] = array(
+            'title' => t('Move machine'),
+            'url' => new Url('admin.idc.seat.server.move', array('cabinet_server' => $entity->id()))
+          );
+        } else {
+          $seatList[$max_row]['is_group'] = true;
+          $seatList[$max_row]['group_name'] = $entity->getSimpleValue('group_name');
+          $child_datas = entity_load_multiple_by_properties('cabinet_server', array('parent_id' => $entity->id()));
+          $child_code = '';
+          $child_manage_ip = '';
+          $child_status = '';
+          $child_switch = '';
+          $child_node = '';
+          foreach($child_datas as $item) {
+            $server_entity = $item->getObject('server_id');
+            $child_code .= '<div>'. $server_entity->label() .'|'. $server_entity->get('type')->entity->label() .'</div>';
+            $c_ipm = $item->getObject('ipm_id');
+            $child_manage_ip .= '<div>'. \Drupal::l($c_ipm->label(),  new Url('admin.idc.cabinet.server.detail', array('cabinet_server' => $item->id()))) .'</div>';
+            $child_status .= '<div>'. ipmStatus()[$c_ipm->get('status')->value] .'</div>';
+            $child_switch .= '<div>P:' . $item->getObject('switch_p')->label() . '('. $item->getSimpleValue('switch_p') .')M:' . $item->getObject('switch_m')->label() . '('. $item->getSimpleValue('switch_m') . ')</div>';
+            $child_node .= '<div>'. $item->getSimpleValue('group_name') .'</div>';
+          }
+          $seatList[$max_row]['code'] = SafeMarkup::format($child_code, array());
+          $seatList[$max_row]['manage_ip'] = SafeMarkup::format($child_manage_ip, array());
+          $seatList[$max_row]['status'] = SafeMarkup::format($child_status, array());
+          $seatList[$max_row]['switch'] = SafeMarkup::format($child_switch, array());
+          $seatList[$max_row]['node'] = SafeMarkup::format($child_node, array());
+
+          $op['group_server'] = array(
+            'title' => t('Add server'),
+            'url' => new Url('admin.idc.cabinet.seat.group.server', array('room_cabinet' => $cabinet->id(), 'group_id' => $entity->id())),
+          );
+          $op['remove_server'] = array(
+            'title' => t('Remove group'),
+            'url' => new Url('admin.idc.seat.server.delete', array('cabinet_server' => $entity->id()))
+          );
+
+          $op['remove_server_item'] = array(
+            'title' => t('Remove group item'),
+            'url' => new Url('admin.idc.seat.server.group', array('groupId' => $entity->id()))
+          );
+          /*$op['move_server'] = array(
+            'title' => t('Move machine'),
+            'url' => new Url('admin.idc.seat.server.move', array('cabinet_server' => $entity->id()))
+          );*/
+        }
+      } else {
+        $seatList[$max_row]['switch'] = $entity->getObject('ips_id')->label();
+        $op['remove_switch'] = array(
+          'title' => t('Remove'),
+          'url' => new Url('admin.idc.seat.switch.delete', array('cabinet_switch' => $entity->id()))
+        );
+      }
+      $element = array();
+      $element['op'] = array(
+        '#type' => 'operations',
+        '#links' => $op
+      );
+      $seatList[$max_row]['operate'] = drupal_render($element);
+    }
+  }
+  $variables['cabinet']->seatList = array_reverse($seatList, true);
+}
+
+
+function template_preprocess_cabinet_server_detail(&$variables) {
+  $cabinet_server = $variables['cabinet_server'];
+  $cabinet = $cabinet_server->getObject('cabinet_id');
+  $room = $cabinet->getObject('rid');
+  $base_info = array();
+  $base_info['room_name'] = $room->label();
+  $base_info['cabinet_code'] = $cabinet->label();
+  $ipm = $cabinet_server->getObject('ipm_id');
+  $base_info['ipm'] = $ipm->label();
+  $server = $cabinet_server->getObject('server_id');
+  $server_type = $server->get('type')->entity;
+  $base_info['server_type'] = $server_type->label();
+  $base_info['server_code'] = $server->label();
+  $variables['base_info'] = $base_info;
+
+  //硬件信息
+  $base_part = array();
+  $business_part = array();
+  $cpus = $server->get('cpu')->getValue();
+  foreach($cpus as $cpu) {
+    $part_cpu = entity_load('part_cpu', $cpu['target_id']);
+    if($cpu['value']) {
+      $base_part['CPU'][] = $part_cpu->label();
+    } else {
+      $business_part['CPU'][] = $part_cpu->label();
+    }
+  }
+  $mainboard = $server->get('mainboard')->entity;
+  $base_part['主板'] = $mainboard->label();
+  $memorys = $server->get('memory')->getValue();
+  foreach($memorys as $memory) {
+    $part_memory = entity_load('part_memory', $memory['target_id']);
+    if($memory['value']) {
+      $base_part['内存'][] = $part_memory->label();
+    } else {
+      $business_part['内存'][] = $part_memory->label();
+    }
+  }
+  $harddisks = $server->get('harddisk')->getValue();
+  foreach($harddisks as $harddisk) {
+    $part_harddisk = entity_load('part_harddisc', $harddisk['target_id']);
+    if($harddisk['value']) {
+      $base_part['硬盘'][] = $part_harddisk->label();
+    } else {
+      $business_part['硬盘'][] = $part_harddisk->label();
+    }
+  }
+  $chassis = $server->get('chassis')->entity;
+  $base_part['机箱'] = $chassis->label();
+
+  $base_part_tmp = array();
+  foreach($base_part as $key => $part) {
+    $base_part_tmp[$key] = array(
+      'number' => is_array($part) ? count($part) : 1,
+      'title' => is_array($part) ? implode('，', $part) : $part
+    );
+  }
+  $variables['base_part'] = $base_part_tmp;
+  $business_part_tmp = array();
+  foreach($business_part as $key => $item) {
+    $business_part_tmp[$key] = array(
+      'number' => is_array($item) ? count($item) : 1,
+      'title' => is_array($item) ? implode('，', $item) : $item
+    );
+  }
+  $variables['business_part'] = $business_part_tmp;
+
+  $function = 'order_cabinet_server_detail';
+  if (function_exists($function)) {
+    $function($variables);
+  }
+}
+

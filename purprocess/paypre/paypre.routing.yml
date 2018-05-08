@@ -1,0 +1,121 @@
+entity.paypre.admin:
+  path: '/admin/paypre'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Administration'
+  requirements:
+    _permission: 'administer paypre collection'
+
+entity.paypre.add_form:
+  path: 'admin/paypre/add'
+  defaults:
+    ###_entity_form: 'paypre.default'
+    _form: '\Drupal\paypre\Form\PaypreAddForm'
+    _title: '付款单'
+  requirements:
+    _permission: 'administer paypre edit'
+
+entity.paypre.edit_form:
+  path: 'admin/paypre/{paypre}/edit'
+  defaults:
+    _entity_form: 'paypre.default'
+    _title: '付款单'
+  requirements:
+    _permission: 'administer paypre edit'
+
+entity.paypre.detail_form:
+  path: 'admin/paypre/{paypre}/detail'
+  defaults:
+    _entity_form: 'paypre.detail'
+    _title: '付款单'
+  requirements:
+    _permission: 'administer paypre detail'
+
+entity.paypre.collection:
+  path: '/admin/paypre/collection'
+  defaults:
+    _entity_list: 'paypre'
+    _title: '付款单工作台'
+  requirements:
+    _permission: 'administer paypre collection'
+
+entity.paypre.history.collection:
+  path: 'admin/paypre/collection/history'
+  defaults:
+    _controller: 'Drupal\paypre\Controller\PaypreController::getHistoryData'
+    _title: '付款单历史数据表'
+  requirements:
+    _permission: 'administer paypre collection'
+
+entity.paypre.audit.history.collection:
+  path: 'admin/paypre/collection/history/audit'
+  defaults:
+    _controller: 'Drupal\paypre\Controller\PaypreController::getAuditHistoryData'
+    _title: '付款单审批历史数据表'
+  requirements:
+    _permission: 'administer paypre audit history'
+
+entity.paypre.pool:
+  path: '/admin/paypre/pool'
+  defaults:
+    _controller: '\Drupal\paypre\Controller\PaypreController::viewPool'
+    _title: '付款单工作池'
+  requirements:
+    _permission: 'administer paypre collection'
+
+##创建付款单
+ajax.purchase.pool.paypre.create:
+  path: 'ajax/paypre/pool/purchase/create'
+  defaults:
+    _controller: 'Drupal\paypre\Controller\PaypreController::createPaypreAutocomplete'
+    _title: '创建付款单'
+  requirements:
+    _permission: 'administer paypre edit'
+
+entity.paypre.details.samecnos.autocomplete:
+  path: 'ajax/paypre/{paypre}/samecnos/details'
+  defaults:
+    _controller: 'Drupal\paypre\Controller\PaypreController::getAjaxPaypreDetailsSamecnosAutocomplete'
+    _title: '相同采购单的付款单列表'
+  requirements:
+    _permission: 'administer paypre detail'
+
+entity.paypre.details.autocomplete:
+  path: 'ajax/paypre/{paypre}/details'
+  defaults:
+    _controller: 'Drupal\paypre\Controller\PaypreController::getAjaxPaypreDetailsAutocomplete'
+    _title: '付款单详情'
+  requirements:
+    _permission: 'administer paypre detail'
+
+entity.paypre.purchase.details.autocomplete:
+  path: 'ajax/paypre/purchase/details'
+  defaults:
+    _controller: 'Drupal\paypre\Controller\PaypreController::getAjaxPaypreDetailsAutocomplete'
+    _title: '付款单详情'
+  requirements:
+    _permission: 'administer paypre detail'
+ajax.paypro.paypre.detail.purchase.statistic.collection:
+  path: 'ajax/paypre/purchase/statistic/collection'
+  defaults:
+    _controller: 'Drupal\paypre\Controller\PaypreController::getPurchaseDetailStatisticCollectionAutocomplete'
+    _title: '采购单列表'
+  requirements:
+    _permission: 'administer paypre detail'
+##@todo 支付单详情页面-无法查看支付单的配件列表详情
+entity.paypre.details.parts.autocomplete:
+  path: 'ajax/paypre/details/parts'
+  defaults:
+    _controller: 'Drupal\paypre\Controller\PaypreController::getAjaxPayprePartsAutocomplete'
+    _title: '付款单配件'
+  requirements:
+    _permission: 'administer paypre detail'
+
+
+admin.paypre.collection.data:
+  path: 'admin/paypre/collection/data'
+  defaults:
+    _controller: 'Drupal\paypre\Controller\PaypreController::getPaypreDataCollection'
+    _title: '未完成付款单列表数据'
+  requirements:
+    _permission: 'administer paypre collection'

@@ -1,0 +1,17 @@
+system.admin_utils:
+  title: '实用工具'
+  parent: system.admin
+  route_name: system.admin_utils
+  weight: -178
+
+admin.utils.network.config:
+  title: '网络配置'
+  parent: system.admin_utils
+  route_name: admin.utils.network.config
+  weight: 0
+  
+admin.utils.network.config.logs:
+  title: '配置日志'
+  parent: system.admin_utils
+  route_name: admin.utils.network.config.logs
+  weight: 1

@@ -1,0 +1,46 @@
+{#
+/**
+ * @file
+ * 处理机房工单表单
+ *
+ * Available variables:
+ * - form: 处理机房工单表单
+ *   - client: 公司名称
+ *
+ */
+#}
+{{attach_library('worksheet/drupal.worksheet-default') }}
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+{{form.other}}
+{{form.js}}
+<table class='edit'>
+  <tr>
+    <td class='col1'>{{form.code}}</td>
+    <td class='col1'>{{form.client}}</td>
+    <td>{{form.contacts}}</td>
+  </tr>
+  <tr>
+    <td>{{form.show_created}}</td>
+    <td>{{form.show_user}}</td>
+    <td>{{form.show_handleuser}}</td>
+  </tr>
+  <tr>
+    <td>{{form.show_lastuser}}</td>
+    <td class="container-inline-block">{{form.tid}} {{form.op_dept}} </td>
+    <td>{{form.order_code}}</td>
+  </tr>
+  <tr>
+    <td>{{form.logistics_company}}</td>
+    <td>{{form.send_time}}</td>
+    <td>{{form.estimate_time}}</td>
+  </tr>
+  <tr>
+    <td class='room-textarea'>{{form.requirement}}</td>
+    <td class='room-textarea'>{{form.next_step}}</td>
+    <td class='room-textarea'>{{form.remember}}</td>
+  </tr>
+</table>
+{{form.deliver_info_show}}
+{{form.actions}}

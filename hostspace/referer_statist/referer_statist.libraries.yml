@@ -1,0 +1,12 @@
+drupal.referer-statist-echarts:
+  version: VERSION
+  js:
+    js/referer-statist-echarts.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+
+drupal.baidu-echarts:
+  version: VERSION
+  js:
+    js/echarts.common.min.js: {}

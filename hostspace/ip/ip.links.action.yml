@@ -1,0 +1,60 @@
+ip.ipm.add_form:
+  route_name: ip.ipm.add_form
+  title: 'Add management ip'
+  appears_on:
+    - ip.ipm.admin
+
+ip.ipm.multiple.add_form:
+  route_name: ip.ipm.multiple.add_form
+  title: 'Add multiple management ip'
+  appears_on:
+    - ip.ipm.admin
+
+ip.ips.add_form:
+  route_name: ip.ips.add_form
+  title: 'Add switch ip'
+  appears_on:
+    - ip.ips.admin
+
+ip.bip.apply:
+  route_name: ip.bip.apply
+  title: 'Apply new business ip'
+  appears_on:
+    - ip.ipb.admin
+
+ip.bip.apply.list:
+  title: 'Application List'
+  route_name: ip.bip.apply.list
+  appears_on:
+    - ip.ipb.admin
+ip.ipb.taxonomy.admin:
+  title: 'Manage type of business ip'
+  route_name: ip.ipb.taxonomy.admin
+  appears_on:
+    - ip.ipb.admin
+
+ip.ipb.classify.admin:
+  title: 'Business IP classify'
+  route_name: ip.ipb.classify.admin
+  appears_on:
+    - ip.ipb.admin
+
+ip.ipb.entity_taxonomy_term.add_form:
+  title : 'Add term'
+  route_name: entity.taxonomy_term.add_form
+  route_parameters: {taxonomy_vocabulary: business_ip_type}
+  appears_on:
+    - ip.ipb.taxonomy.admin
+
+ip.ipb.calssify.entity_taxonomy_term.add_form:
+  title : 'Add term'
+  route_name: entity.taxonomy_term.add_form
+  route_parameters: {taxonomy_vocabulary: business_ip_segment_type}
+  appears_on:
+    - ip.ipb.classify.admin
+
+ip.group.add:
+  title: '增加分组'
+  route_name: ip.group.add
+  appears_on:
+    - ip.group.list

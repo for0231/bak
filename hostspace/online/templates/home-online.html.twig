@@ -1,0 +1,214 @@
+<section class="onlineChartCont">
+    <section id="onlineChart" class="onlineChart">
+        <em>
+            在线商务洽谈
+        </em>
+        <span id="onlineClick" class="glyphicon glyphicon-menu-up">
+        </span>
+    </section>
+    <section style="display: none;" id="alertChart" class="alertChart">
+        <section class="alertHeader">
+            <em>
+                讯云网络在线洽谈
+            </em>
+            <span id="onlineClose" class="glyphicon glyphicon-remove">
+            </span>
+        </section>
+        <p>
+            欢迎光临讯云网络!请先填写下面的表单。
+        </p>
+        <form class="alertForm">
+            <section class="form-group">
+                <label for="yourName">
+                    您的名字：
+                </label>
+                <input type="text" placeholder="您的名字" id="yourName" name="ask_name" class="form-control">
+            </section>
+            <section class="form-group">
+                <label for="E-mail">
+                    您的邮箱：
+                </label>
+                <input type="text" placeholder="您的邮箱" id="email" class="form-control">
+            </section>
+            <button id="alertBtn" class="btn btn-default alertBtn" type="button">
+                开始交谈
+            </button>
+        </form>
+        <i>
+            Powerd by 讯云网络
+        </i>
+    </section>
+    <section style="display: none;" id="alertChartWait" class="alertChart alertChartWait">
+        <section class="alertHeader">
+            <em>
+                讯云网络在线洽谈
+            </em>
+        </section>
+        <p>
+            您前面有
+            <span class='personnum'>
+                2
+            </span>
+            个人，请等候......
+        </p>
+        <i>
+            Powerd by 讯云网络
+        </i>
+    </section>
+    <section style="display: none;" id="alertChartPublish" class="alertChart alertChartPublish">
+        <section class="alertHeader">
+            <em>
+                讯云网络在线洽谈
+            </em>
+            <span id="closeMessage" class="glyphicon glyphicon-remove">
+            </span>
+        </section>
+        <section class="alertUserCont clear">
+            <aside class="alertUser clear">
+	            <section class="userHead">
+	                <span class="glyphicon glyphicon-user">
+	                </span>
+	            </section>
+	            <section class="userMess">
+	                <b>
+	                    Kevin
+	                </b>
+	                <em>
+	                    商务代表
+	                </em>
+	                <a class="glyphicon glyphicon-thumbs-up" href="javascript:;">
+	                </a>
+	                |
+	                <a class="glyphicon glyphicon-thumbs-down" href="javascript:;">
+	                </a>
+	                |
+	                <a class="glyphicon glyphicon-heart-empty" href="javascript:;">
+	                </a>
+	            </section>
+            </aside>
+            <aside class="alertLogo">
+						<img src="/{{ directory }}/logo.png" alt="">
+						</aside>
+        </section>
+        <section class="userText">
+            <section class="userTextCont">
+	            <ul>
+								<li>
+									<em>Kevin</em>
+									<p>你好，我的名字是Kevin。请问我可以怎么帮助你？<span>11:20pm</span></p>
+								</li>
+								<li>
+									<em>David</em>
+									<p>请问我可以怎么帮助你？<span>11:30pm</span></p>
+								</li>
+							</ul>
+              <ul id='ltcontent'>
+              	
+              </ul>
+            </section>
+            <section class="form-group">
+                <section class="input-group">
+                  <!--  <input type="" placeholder="回车发送消息" class="form-control">-->
+                    
+                    <textarea rows="2" cols="2" class="form-control" id='ask_content'></textarea>
+                    <span class="input-group-btn">
+                        <button  class="btn btn-default" type="button" id='questions'>
+                            	发送
+                        </button>
+                    </span>
+                </section>
+            </section>
+        </section>
+        <i>
+            Powerd by 讯云网络
+        </i>
+    </section>
+    <section style="display: none;" id="closeChartCont" class="alertChart alertChartWait closeChartCont">
+        <section class="alertHeader">
+            <em>
+                讯云网络在线洽谈
+            </em>
+            <span id="closeChart" class="glyphicon glyphicon-remove">
+            </span>
+        </section>
+        <p>
+            确定关闭洽谈框吗？
+        </p>
+        <section class="form-group clear">
+            <section class="closeBtn">
+                <button id="closeChartBtn" class="btn btn-default" type="button">
+                    关闭交谈
+                </button>
+            </section>
+            <section class="cancelBtn">
+                <button id="cancelChartBtn" class="btn btn-default" type="button">
+                    取消
+                </button>
+            </section>
+        </section>
+        <i>
+            Powerd by 讯云网络
+        </i>
+    </section>
+    <section style="display: none;" id="chooseInputCont" class="alertChart chooseInputCont">
+        <section class="alertHeader">
+            <em>
+                讯云网络在线洽谈
+            </em>
+            <span id="chooseInput" class="glyphicon glyphicon-remove">
+            </span>
+        </section>
+        <section class="InputCont">
+            <p>
+                Thanks for chatting with us. Would you mind answering a couple of questions
+                about your experience?
+            </p>
+            <form action="">
+                <section class="radioCont">
+                    <p>
+                        Is this the first time you chat with us about this case?
+                    </p>
+                    <input type="radio">
+                    yes
+                    <br>
+                    <input type="radio">
+                    no
+                </section>
+                <section class="checkboxCont">
+                    <p>
+                        Which product/s or services are you looking for?
+                    </p>
+                    <input type="checkbox">
+                    Web Hosting
+                    <br>
+                    <input type="checkbox">
+                    SSD Hosting
+                </section>
+            </form>
+            <button id="subChooseInput" class="btn chooseBtn">
+                提交
+            </button>
+        </section>
+        <i>
+            Powerd by 讯云网络
+        </i>
+    </section>
+    <section style="display:none;" id="chartEnd" class="alertChart chartEnd">
+        <section class="alertHeader">
+            <em>
+                讯云网络在线洽谈
+            </em>
+        </section>
+        <section class="chartEndDetial">
+            <p>
+                谢谢您对我们工作给予的支持
+            </p>
+            <p>
+                3秒后将自动关闭窗口
+            </p>
+        </section>
+        <i>
+            Powerd by 讯云网络
+        </i>
+    </section>
+</section>

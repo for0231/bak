@@ -1,0 +1,61 @@
+cg_statis.statis.admin:
+  title: 统计表
+  parent: system.admin
+  route_name: cg_statis.statis.admin
+  weight: -85
+cg_statis.entity.paypro.statis.partpricetrend.collection:
+  title: 物品采购单价分析表
+  parent: cg_statis.statis.admin
+  route_name: cg_statis.entity.paypro.statis.partpricetrend.collection
+  weight: 1
+
+cg_statis.entity.purchase.statistic.collection:
+  title: 采购统计
+  parent: cg_statis.statis.admin
+  route_name: cg_statis.entity.purchase.statistic.collection
+  weight: 5
+
+cg_statis.entity.paypre.statistic.collection:
+  title: 采购付款
+  parent: cg_statis.statis.admin
+  route_name: cg_statis.entity.paypre.statistic.collection
+  weight: 10
+
+cg_statis.entity.paypre.contact.statistic.collection:
+  title: 合同统计
+  parent: cg_statis.statis.admin
+  route_name: cg_statis.entity.paypre.contact.statistic.collection
+  weight: 15
+
+cg_statis.entity.paypro.out.statistic.collection:
+  title: 付款统计
+  parent: cg_statis.statis.admin
+  route_name: cg_statis.entity.paypro.out.statistic.collection
+  weight: 20
+
+cg_statis.entity.paypro.statis.permonthplan.collection:
+  title: 每月采购计划表
+  parent: cg_statis.statis.admin
+  route_name: cg_statis.entity.paypro.statis.permonthplan.collection
+  weight: 25
+
+cg_statis.entity.paypro.statis.details.collection:
+  title: 每月采购明细表
+  parent: cg_statis.statis.admin
+  route_name: cg_statis.entity.paypro.statis.details.collection
+  weight: 30
+cg_statis.entity.paypro.statis.unpaypro.collection:
+  title: 每月采购未支付表
+  parent: cg_statis.statis.admin
+  route_name: cg_statis.entity.paypro.statis.unpaypro.collection
+  weight: 35
+cg_statis.entity.paypro.statis.aggretotal.collection:
+  title: 统计汇总表
+  parent: cg_statis.statis.admin
+  route_name: cg_statis.entity.paypro.statis.aggretotal.collection
+  weight: 40
+cg_statis.entity.paypro.statis.peryear.collection:
+  title: 全年采购清单
+  parent: cg_statis.statis.admin
+  route_name: cg_statis.entity.paypro.statis.peryear.collection
+  weight: 45

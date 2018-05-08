@@ -1,0 +1,8 @@
+.container-inline div.cabinet-item table {
+  font-size: .75 em;
+}
+table {
+  border: 1px solid #f00;
+  margin: 0 18px 44px;
+  width: 100%;
+}

@@ -1,0 +1,105 @@
+<?php
+
+/**
+ * @file
+ */
+
+/**
+ * Implement hook_theme().
+ */
+function purchase_theme() {
+  return [
+    'purchase_form' => [
+      'render element' => 'form',
+      'template' => 'purchase-form',
+    ],
+    'purchase_detail_form' => [
+      'render element' => 'form',
+      'template' => 'purchase-detail-form',
+    ],
+    'purchases_pool' => [
+      'render element' => 'form',
+      'template' => 'purchases-pool',
+    ],
+
+  ];
+
+}
+
+/**
+ * Implement hook_load().
+ */
+function purchase_load_multiple($ids = []) {
+  if (empty($ids)) {
+    return [];
+  }
+  $storage = \Drupal::entityManager()->getStorage('purchase');
+  $entities = $storage->loadMultiple($ids);
+
+  return $entities;
+}
+
+/**
+ * Implement hook_load().
+ */
+function purchase_load($id) {
+  $storage = \Drupal::entityManager()->getStorage('purchase');
+  $entity = $storage->load($id);
+
+  return $entity;
+}
+
+/**
+ *
+ */
+function template_preprocess_purchase_detail_form(&$variables) {
+  $variables['member_info'] = $variables['form']['member_info']['#markup'];
+}
+
+/**
+ * 定义purchase的工单状态.
+ */
+function getPurchaseStatus() {
+  return [
+  // 已使用.
+    0 => '未审批',
+  // 已使用.
+    2 => '审批中',
+  // 已使用.
+    4 => '待付款',
+  // 已使用.
+    5 => '已同意',
+    6 => '已拒绝',
+  // 已使用.
+    7 => '付款单已拒绝',
+  // 已使用.
+    8 => '支付单已拒绝',
+    9 => '已取消',
+    10 => '付款审核',
+  // 已使用.
+    11 => '部分支付',
+    12 => '物流中',
+    13 => '支付完成',
+    14 => '已完成',
+  // 针对审核后，无法执行后续流程失效后再返回新的采购单的单.
+    15 => '已失效',
+  ];
+}
+
+/**
+ * 定义purchase的支付状态.
+ */
+function getPurchasePayStatus() {
+  return [
+    0 => '待支付',
+    2 => '部分支付',
+    10 => '已支付',
+  ];
+}
+
+/**
+ *
+ */
+function template_preprocess_purchase_form(&$variables) {
+  // @todo 处理申请人相关信息.
+}

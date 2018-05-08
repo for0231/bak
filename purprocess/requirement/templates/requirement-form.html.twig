@@ -1,0 +1,105 @@
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+<!-- row -->
+<div class="row">
+  <!-- NEW WIDGET START -->
+  <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="alert alert-danger fade in">
+			<button data-dismiss="alert" class="close">
+				×
+			</button>
+			<i class="fa-fw fa fa-warning"></i>
+      重要提示: <br/>(1). 需求单需先创建，然后才能添加需求配件物品。<br/>(2). 创建或编辑需求单时，必须点击下面的保存按钮。
+		</div>
+  </article>
+  <!-- WIDGET END -->
+</div>
+<!-- end row -->
+<table class="table table-bordered table-striped" style="clear: both">
+   <tbody>
+    <tr>
+     <td colspan=6><h6 class="text-primary">需求单信息</h6></td>
+    </tr>
+    <tr>
+     <td><strong>需求单名称</strong></td>
+     <td colspan=3>{{ form.title }}</td>
+     <td><strong>需求数量</strong></td>
+     <td>{{ form.num }}</td>
+    </tr>
+    <tr>
+      <td width=10%><strong>需求单据编号</strong></td>
+      <td>{{ form.no }}</td>
+      <td width=10%><strong>需求交付时间</strong></td>
+      <td>{{ form.requiredate }}</td>
+      <td width=10%><strong>需求类型</strong></td>
+      <td width=15%>{{ form.requiretype }}</td>
+    </tr>
+  {% if form.user_name %}
+  <tr>
+   <td colspan=6><h6 class="text-primary">申请人信息</h6></td>
+  </tr>
+
+  <tr>
+    <td><strong>申请人</strong></td>
+    <td>{{ form.user_name }}</td>
+   <td><strong>申请部门</strong></td>
+   <td>{{ form.user_depart }}</td>
+   <td><strong>所属公司</strong></td>
+   <td>{{ form.user_company }}</td>
+  </tr>
+  {% endif %}
+    <tr>
+      <td><h6 class="text-primary">物品列表<!--物品列表来自配件实体表--></h6></td>
+      <td colspan=4>&nbsp;</td>
+      <td>
+        <h6 class="text-primary" id="more-parts" >添加更多</h6>
+      </td>
+    </tr>
+    <tr>
+      <td colspan=6>
+        <!-- row -->
+        <div class="row">
+          <!-- NEW WIDGET START -->
+          <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <table id="rejqgrid"></table>
+            <div id="repjqgrid"></div>
+          </article>
+          <!-- WIDGET END -->
+        </div>
+        <!-- end row -->
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan=6>
+				<!-- row -->
+				<div class="row">
+					<!-- NEW WIDGET START -->
+					<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+             {{ form.fid }}
+           </article>
+         </div>
+      </td>
+    </tr>
+
+
+    <tr>
+      <td colspan=6>
+					<!-- row -->
+					<div class="row">
+						<!-- NEW WIDGET START -->
+						<article class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+{{ form.purpose }}
+            </article>
+						<article class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+{{ form.description }}
+            </article>
+          </div>
+      </td>
+    </tr>
+
+
+   </tbody>
+  </table>
+  {{ form.actions }}

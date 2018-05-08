@@ -1,0 +1,40 @@
+area:
+  beijing: 10
+  tianjin: 10
+  hebei:
+    shijiazhuang: 10
+    tangshan: 10
+    qinhuangdao: 10
+    handan: 10
+    xingtai: 10
+    baoding: 10
+    zhangjiakou: 10
+    chengde: 10
+    cangzhou: 10
+    langfang: 10
+    hengshui: 10
+  shanxi:
+    taiyuan: 10
+    datong: 10
+    yangquan: 10
+    changzhi: 10
+    jincheng: 10
+    suzhou: 10
+    xinzhou: 10
+    luliang: 10
+    jinzhong: 10
+    linfen: 10
+    yuncheng: 10
+  neimeng:
+    hushi: 10
+    baotou: 10
+    wuhai: 10
+    chifeng: 10
+    hulunbeier: 10
+    xinganmeng: 10
+    tongliao: 10
+    xilinguole: 10
+    wulanchabu: 10
+    yikezhao: 10
+    bayanzhuoer: 10
+    alashan: 10

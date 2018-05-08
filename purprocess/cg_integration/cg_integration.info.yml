@@ -1,0 +1,5 @@
+name: 采购集成
+type: module
+description: 用于采购集成页面控制
+core: 8.x
+package: '采购管理系统'

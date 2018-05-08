@@ -1,0 +1,509 @@
+<?php
+
+/**
+ * @file
+ * Hostspace common data module.
+ */
+use Drupal\user\UserInterface;
+use Drupal\Core\Url;
+use Drupal\block\Entity\Block;
+use Drupal\Core\Access\AccessResult;
+
+//常量  每页显示的记录数
+define('PER_PAGE_COUNT', '15');
+
+/**
+ * hook_theme
+ */
+function common_theme() {
+  return array(
+    'block__common_footer' => array(
+      'render element' => 'elements',
+      'base hook' => 'block',
+    ),
+
+    'block__common_front' => array(
+      'render element' => 'elements',
+      'base hook' => 'block',
+    ),
+
+    'block__common_bottom_content' => array(
+      'render element' => 'elements',
+      'base hook' => 'block',
+    ),
+    'block__common_user_login_tip' => array(
+      'variables' => array('tips' => null),
+      'base hook' => 'block',
+    ),
+    'block__common_not_login_tip' => array(
+      'variables' => array('tips' => null),
+      'base hook' => 'block',
+    ),
+    'block__contact_us' => array(
+      'render element' => 'elements',
+      'base hook' => 'block',
+    ),
+  );
+}
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function common_element_info_alter(array &$types) {
+  if (isset($types['status_messages'])) {
+    $types['status_messages']['#pre_render'][] = 'common_generatePlaceholder';
+  }
+}
+
+function common_generatePlaceholder($element) {
+  $element['#attached']['library'][] = 'common/hostspace.dialog_message';
+  return $element;
+}
+
+/**
+ * Implements hook_modules_installed()
+ */
+function common_modules_installed($modules_installed) {
+  drupal_flush_all_caches();
+}
+
+/**
+ * 设置菜单区块在规定的地方显示
+ */
+function common_block_access( $block, $operation,  $account) {
+  $block_id = $block->getPluginId();
+  if($operation == 'view') {
+    $route_path = '';
+    $request = \Drupal::request();
+    $route = \Drupal::service('router')->matchRequest($request);
+    $route_path = $route['_route_object']->getPath();
+    switch($block_id) {
+      case 'system_menu_block:hostaccounts':
+        if(strpos($route_path, 'user/account')) {
+          return AccessResult::allowed();
+        }
+        return AccessResult::forbidden();
+      break;
+      case 'system_menu_block:hostorder':
+        if(strpos($route_path, 'user/order')) {
+          return AccessResult::allowed();
+        }
+        return AccessResult::forbidden();
+      break;
+      case 'system_menu_block:hostservice':
+        if(strpos($route_path, 'user/server') || strpos($route_path, 'user/malfunction')) {
+          return AccessResult::allowed();
+        }
+        return AccessResult::forbidden();
+      break;
+      case 'common_xy_menu':
+        if(strpos($route_path, 'user')) {
+          return AccessResult::forbidden();
+        }
+        return AccessResult::allowed();
+      break;
+      case 'system_menu_block:account':
+        if(strpos($route_path, 'user')) {
+          return AccessResult::allowed();
+        }
+        return AccessResult::forbidden();
+      break;
+    }
+  }
+}
+
+/*
+ * Implements hook_preprocess_HOOK() for block templates.
+ */
+function common_preprocess_block(&$variables) {
+  switch ($variables['base_plugin_id']) {
+    case 'common_user_login_tip':
+      $tips = &$variables['tips'];
+      $account = \Drupal::currentUser();
+      $tips['non_login'] = $account->isAuthenticated();
+        // 用户名
+      $tips['username'] = $account->getUsername();
+        // 续费数
+      $tips['xufei'] = count(\Drupal::service('hostclient.serverservice')->getServerCountByCondition(strtotime('+7 day', REQUEST_TIME), '<=', $account->id()));
+        // 站内信
+      $tips['letters'] = count(\Drupal::service('letters.letterservice')->getNotReadCountByUid($account->id()));
+      $tips['logout_url'] = new Url('user.logout');
+      $tips['login_url'] = new Url('user.login');
+      $tips['reg_url'] = new Url('user.register');
+      $tips['user_center'] = new Url('member.account_center');
+      $tips['server_url'] = new Url('user.server');
+      $tips['letter_url'] = new Url('letter.user.letter');
+      $tips['fault_url'] = new Url('question.add_form');
+      $variables['tips'] = $tips;
+      break;
+    case 'common_not_login_tip':
+      $tips = &$variables['tips'];
+      $account = \Drupal::currentUser();
+      $tips['non_login'] = $account->isAnonymous();
+      $tips['login_url'] = new Url('user.login');
+      $tips['reg_url'] = new Url('user.register');
+      break;
+  }
+}
+/**
+ * Returns the bundle label.
+ * @see Drupal\part\PartService::save().
+ */
+function entity_get_bundle_label($entity) {
+  $bundleInfo = entity_get_bundles($entity->getEntityTypeId());
+
+  return $bundleInfo[$entity->getEntityTypeId()]['label'];
+}
+
+/**
+ * Configure various of terms for base data.
+ *
+ * @param object $config
+ *   @code
+ *     $config = \Drupal::config('idc.settings');
+ *   @endcode
+ * @param string $parameter
+ *   the name of the config's key.
+ * @param string $name
+ *   the dimensional array of the taxonomy, vocabulary's son and parents of the next level taxonomy.
+ * @param integer $parent
+ *   the vocabulary's id.
+ * @param array $childs
+ *   the second level of the taxonomy items.
+ *
+ * @return object
+ *   return an config object.
+ */
+function taxonomy_loop_child($config, $vid, $parameter, $name, $parent, $childs) {
+  $term = entity_create('taxonomy_term', array(
+    'name' => t($name),
+    'parent' => $parent,
+    'vid' => $vid
+  ));
+  $term->save();
+  $childParent = $term->id();
+  $config->set($parameter, $childParent);
+
+  foreach($childs as $child) {
+    entity_create('taxonomy_term', array(
+      'name' => $child,
+      'parent' => $childParent,
+      'vid' => $vid
+    ))->save();
+  }
+}
+
+/**
+ * 生成一个随机编码
+ * @param  integer $length 默认8位字符串
+ * @return string  $code   随机编码
+ */
+function common_regenerate_code( $length = 8, $chars = 'ABCDEFGHIJKLMNPQRSTUVWXYZ0123456789') {
+  // 字符集，可任意添加你需要的字符
+  //  $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_ []{}<>~`+=,.;:/?|';
+  //$chars = 'ABCDEFGHIJKLMNPQRSTUVWXYZ0123456789';
+  $code = '';
+  for ( $i = 0; $i < $length; $i++ )
+  {
+    $code .= $chars[ mt_rand(0, strlen($chars) - 1) ];
+  }
+  return $code;
+}
+
+/**
+ * 为术语创建term
+ *
+ * @param $name
+ * @param vid
+ *
+ */
+function create_taxonomy_term($name, $vid) {
+  $term = entity_create('taxonomy_term', array(
+    'name' => t($name),
+    'description' => '',
+    'parent' => array(0),
+    'vid' => $vid,
+  ));
+  $term->save();
+}
+
+/**
+ * 付款方式选项；
+ */
+function get_payment_mode_options() {
+  return array(
+    'month' => t('Month payment'),
+    'season' => t('Season payment'),
+    'year' => t('Year payment')
+  );
+}
+
+/**
+ * 订单状态
+ */
+function orderStatus(){
+  return array(
+    '0' => t('Unpaid'),  // 未付款
+    '1' => t('Change price in'), //改价中
+    '2' => t('Trial apply'), //试用中
+    '3' => t('Paid'), //已付款
+    '4' => t('Processing'), //服务器处理中，
+    '5' => t('Complete'), //完成
+    '9' => t('Closed'),   //关闭
+  );
+}
+
+/**
+ * 支付方式
+ */
+function orderPaymentMode() {
+  return array(
+    '1' => '线下支付',
+    '2' => '支付宝'
+  );
+}
+
+/**
+ * 客户服务器的状态
+ */
+function hostClientStatus() {
+  return array(
+    '0' => '待处理', //订单受理之后业务部接受之前
+    '1' => '处理中', //业务部接受后
+    '2' => '待上架', //技术部处理过程
+    '3' => '已上架',
+    '4' => '已停用',
+    '5' => '已下架'
+  );
+}
+
+function questionStatus() {
+  return array(
+    '1' => '正在处理',
+    '2' => '等待处理',
+    '3' => '处理完成'
+  );
+}
+
+
+/**
+ * 管理IP状态数组
+ */
+function ipmStatus() {
+  return array(
+    '1' => t('Unuse'),
+    '2' => t('Keep'),
+    '3' => t('fault'),
+    '4' => t('Disabled'),
+    '5' => t('Used'),
+  );
+}
+
+/**
+ * 管理IP类型
+ *
+ * 租用/托管
+ */
+function ip_server_type() {
+  return array(
+    '1' => t('hire'),
+    '2' => t('deposit'),
+    '3' => t('special'),
+  );
+}
+
+/**
+ * 业务IP状态数组
+ */
+function ipbStatus() {
+  return array(
+    '1' => t('Unuse'),
+    '2' => t('Keep'),
+    '3' => t('fault'),
+    '4' => t('Disabled'),
+    '5' => t('Used'),
+    '6' => t('Dedicated')
+  );
+}
+
+/**
+ * 改价状态
+ */
+function changePriceStatus() {
+  return array(
+    '1' => t('Pending audit'), //待审核，
+    '2' => t('Approved'), //同意
+    '3' => t('Disapprove') //未通过
+  );
+}
+/**
+ * 试用状态
+ */
+function trialServerStatus() {
+  return array(
+    '1' => t('Pending audit'), //待审核，
+    '2' => t('Approved'), //通过
+    '3' => t('Disapprove') //未通过
+  );
+}
+
+function clientType(){
+  return array(
+    '1' => '个人',
+    '2' => '企业'
+  );
+}
+/**
+ * 设置网站消费方式
+ */
+function consumerMethod() {
+  return array(
+    '1' => '支付宝',
+    '2' => '账户余额',
+    '3' => '信用额度',
+    '4' => '账户余额、信用额度',
+  );
+}
+/**
+ * 设置网站消费类型
+ */
+function consumerType() {
+  return array(
+    '1' => '充值',
+    '2' => '消费',
+  );
+}
+
+/**
+ * 预定义安保问题
+ */
+function securityQuestion_1() {
+  return array(
+    '1' => t('My mother\'s birthday'),	
+    '2' => t('My father\'s birthday?'),	
+    '3' => t('Grandma\'s birthday?'),	
+    '4' => t('Lover\'s birthday?'),	
+    '5' => t('Grandpa\'s birthday?'),	
+  );
+}
+function securityQuestion_2() {
+  return array(
+    '1' => t('Where I was born?'),	
+    '2' => t('I aspire to travel to?'),	
+    '3' => t('My college entrance examination achievement?'),	
+    '4' => t('
+My favorite sport?'),	
+    '5' => t('Lover\'s hometown?'),	
+  );
+}
+function securityQuestion_3() {
+  return array(
+    '1' => t('My favorite type of car?'),	
+    '2' => t('My favorite movie?'),	
+    '3' => t('My favorite TV shows?'),	
+    '4' => t('My lucky number?'),	
+    '5' => t('My favorite day of the week?'),	
+  );
+}
+
+/**
+ * 显示注定字符串的指定长度
+ */
+function cutstr($string, $length) {
+	if(strlen($string) > $length) {
+		for($i = 0; $i < $length - 3; $i++) {
+			$strcut .= ord($string[$i]) > 127 ? $string[$i].$string[++$i] : $string[$i];
+		}
+		return $strcut.' ...';
+	} else {
+		return $string;
+	}
+}
+
+/**
+ * Generate hostspace random code.
+ */
+function getHostRandomCode() {
+  return date('Ymd'). time().rand(0,9).rand(1000,9999);
+}
+
+/**
+ * 预警方式
+ */
+function warnMode() {
+  return array(
+    '1' => '邮件',
+    '2' => '站内信'
+  );
+}
+
+/**
+ * 项目状态
+ */
+function projectStatus() {
+  return array(
+    '1' => '执行中',
+    '2' => '已终止',
+    '3' => '已结束'
+  );
+}
+/**
+ * 合同状态
+ */
+function contractStatus() {
+  return array(
+    '1' => '未执行',
+    '2' => '执行中',
+    '3' => '已终止',
+    '4' => '已结束'
+  );
+}
+
+/**
+ * 资金性质  （合同资金计划使用）
+ */
+function fundsType() {
+  return array(
+    '1' => '收款',
+    '2' => '付款'
+  );
+}
+
+/**
+ * 交易方式 （合同资金计划交易方式）
+ */
+function fundsMethod() {
+  return array(
+    '1' => '电汇',
+    '2' => '现金'
+  );
+}
+/**
+ * 交易状态 （合同资金计划交易状态）
+ */
+function fundsStatus() {
+  return array(
+    '0' => '未完成',
+    '1' => '已完成'
+  );
+}
+/**
+ * 合同用户类型
+ */
+function contractUserStatus() {
+  return array(
+    '1' => '供应商',
+    '2' => '用户'
+  );
+}
+
+/**
+ * 获取IP牵引信息
+ */
+function get_current_ip_traction_info() {
+  $qys = array();
+  if(function_exists('qy_current_ip_traction_info')) {
+    $qys = qy_current_ip_traction_info();
+  }
+  return $qys;
+}

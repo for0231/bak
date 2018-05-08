@@ -1,0 +1,95 @@
+admin.knowledge:
+  path: 'admin/knowledge'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Knowledge base management'
+  requirements:
+    _permission: 'access administration knowledge pages'
+
+entity.knowledge_type:
+  path: 'admin/knowledge/type'
+  defaults:
+    _entity_list: 'knowledge_type'
+    _title: 'Knowledge type view'
+  requirements:
+    _permission: 'administer knowledge type view'
+
+entity.knowledge_type.add_form:
+  path: 'admin/knowledge/type/add'
+  defaults:
+    _entity_form: 'knowledge_type.default'
+    _title: 'Knowledge type add'
+  requirements:
+    _permission: 'administer knowledge type edit'
+
+entity.knowledge_type.edit_form:
+  path: 'admin/knowledge/type/{knowledge_type}/edit'
+  defaults:
+    _entity_form: 'knowledge_type.default'
+    _title: 'Knowledge type edit'
+  requirements:
+    _permission: 'administer knowledge type edit'
+
+entity.knowledge_type.delete_form:
+  path: 'admin/knowledge/type/{knowledge_type}/delete'
+  defaults:
+    _entity_form: 'knowledge_type.delete'
+    _title: 'Knowledge type Delete'
+  requirements:
+    _permission: 'administer knowledge type delete'
+
+entity.knowledge_content:
+  path: 'admin/knowledge/content'
+  defaults:
+    _entity_list: 'knowledge_content'
+    _title: 'Knowledge view'
+  requirements:
+    _permission: 'administer knowledge content view'
+
+entity.knowledge_content.add_form:
+  path: 'admin/knowledge/content/add'
+  defaults:
+    _entity_form: 'knowledge_content.default'
+    _title: 'Knowledge add'
+  requirements:
+    _permission: 'administer knowledge content edit'
+
+entity.knowledge_content.edit_form:
+  path: 'admin/knowledge/content/{knowledge_content}/edit'
+  defaults:
+    _entity_form: 'knowledge_content.default'
+    _title: 'Knowledge edit'
+  requirements:
+    _permission: 'administer knowledge content edit'
+
+entity.knowledge_content.delete_form:
+  path: 'admin/knowledge/content/{knowledge_content}/delete'
+  defaults:
+    _entity_form: 'knowledge_content.delete'
+    _title: 'Knowledge Delete'
+  requirements:
+    _permission: 'administer knowledge content delete'
+
+knowledge.view:
+  path: 'knowledge'
+  defaults:
+    _controller: '\Drupal\knowledge\Controller\KnowledgeController::knowledgeView'
+    _title: 'knowledge base'
+  requirements:
+    _access: 'TRUE'
+
+knowledge.view.info:
+  path: 'knowledge/{knowledge_content}/info'
+  defaults:
+    _controller: '\Drupal\knowledge\Controller\KnowledgeController::knowledgeInfo'
+    _title: 'Knowledge details'
+  requirements:
+    _access: 'TRUE'
+
+knowledge.search:
+  path: 'knowledge/search/{key}'
+  defaults:
+    _controller: '\Drupal\knowledge\Controller\KnowledgeController::knowledgeSearch'
+    _title: 'Knowledge search'
+  requirements:
+    _access: 'TRUE'

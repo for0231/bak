@@ -1,0 +1,11 @@
+member.funds.recharge_record:
+  title: 充值记录
+  route_name: member.funds.recharge_record
+  base_route: member.funds.recharge_record
+  weight: 1
+
+member.funds.Consume_record:
+  title: 消费记录
+  route_name: member.funds.Consume_record
+  base_route: member.funds.recharge_record
+  weight: 2

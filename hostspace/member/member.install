@@ -1,0 +1,617 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall function for the Member module.
+ */
+
+use Drupal\field\Entity\FieldStorageConfig;
+use \Drupal\taxonomy\Entity\Vocabulary;
+use Drupal\Core\Database\Database;
+
+/**
+ * Implements hook_uninstall().
+ */
+function member_uninstall() {
+  $vocabulary = Vocabulary::load('client');
+  if($vocabulary) {
+    $vocabulary->delete();
+  }
+  $vocabulary = Vocabulary::load('dept_employee');
+  if($vocabulary) {
+    $vocabulary->delete();
+  }
+}
+
+/**
+ * Implements hook_install().
+ */
+function member_install() {
+  // 初始化人员管理相关的分类
+  $exist = Vocabulary::load('client');
+  if (!$exist) {
+    entity_create('taxonomy_vocabulary', array(
+      'vid' => 'client',
+      'name' => t('Client'),
+      'description' => t('For the client classify'),
+      'hierarchy' => 1,
+      'status' => true,
+      'langcode' => 'en',
+    ))->save();
+    taxonomy_client();
+ }
+
+  $exist_dept = Vocabulary::load('dept_employee');
+  if (!$exist_dept) {
+    entity_create('taxonomy_vocabulary', array(
+       'vid' => 'dept_employee',
+       'name' => t('Department of the employee'),
+       'hierarchy' => 1,
+       'status' => true,
+       'langcode' => 'en',
+     ))->save();
+    taxonomy_employee_department();
+  }
+
+  //默认将网站最高管理员设置为员工类型
+  /*
+  $admin = entity_load('user', 1);
+  $a = taxonomy_term_load_multiple_by_name('软件部');
+  $depart = '';
+  foreach($a as $key=>$v) {
+    $depart = $key;
+  }
+  $admin->set('user_type', 'employee');
+  $admin->save();
+  $filed_arr = array(
+    'employee_name' => 'admin',
+    'uid' => 1,
+    'department' => $depart
+  );
+  //调用server类中的方法，存储员工信息到user_employee_data 表中
+  \Drupal::service('member.memberservice')->saveEmployeeInfo($filed_arr);
+  */
+  // 系统默认账户  -》用于自动分配服务器
+  /*$user_entity = entity_create('user', array(
+    'name' => 'System',
+    'pass' => '12346',
+    'mail' => 'hostspace@admin.com',
+    'status' => '1',
+    'user_type' => 'employee',
+    'employee' => 'SYSTEM'
+  ));
+  $user_entity->save();*/
+}
+
+/**
+ * Implements hook_schema().
+ */
+function member_schema() {
+  $schema['user_employee_data'] = array(
+    'description' => 'Maintains extra employee data field',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary Key: unique ID for extra employee data',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The user id of this extra field data',
+      ),
+      'employee_name' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'default' => '',
+        'length' => FieldStorageConfig::NAME_MAX_LENGTH,
+        'description' => 'The user\'s nick name',
+      ),
+      'department' => array(
+        'description' => 'The department of the employee',
+        'type' => 'int',
+        'default' => 0,
+        'not null' => TRUE,
+      ),
+      'position' => array(
+        'description' => 'The position of the employee',
+        'type' => 'int',
+        'default' => 0,
+        'not null' => TRUE,
+      ),
+      'qq' => array(
+        'description' => 'The qq of the employee.',
+        'type' => 'varchar',
+        'length' => 20,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'telephone' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'length' => 15,
+        'default' => '',
+        'description' => 'The telephone of the employee.',
+      ),
+      'address' => array(
+        'description' => 'The address of the employee.',
+        'type' => 'varchar',
+        'length' => 225,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'langcode' => array(
+        'description' => 'The {language}.langcode of this node.',
+        'type' => 'varchar',
+        'length' => 12,
+        'not null' => TRUE,
+        'default' => 'en',
+      ),
+    ),
+     'primary key' => array('id'),
+      'foreign keys' => array(
+       'uid' => array(
+         'table' => 'users',
+         'columns' => array(
+          'uid' => 'uid',
+        ),
+      ),
+    ),
+  );
+
+  $schema['user_client_data'] = array(
+    'description' => 'Maintains extra client data field',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary Key: unique ID for extra user data',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'commissioner' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The commissioner uid of this client',
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The user id of this extra field data',
+      ),
+      'nick' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'default' => '',
+        'length' => FieldStorageConfig::NAME_MAX_LENGTH,
+        'description' => 'The user\'s nick name',
+      ),
+      'client_name' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'default' => '',
+        'length' => FieldStorageConfig::NAME_MAX_LENGTH,
+        'description' => 'The user\'s real name',
+      ),
+      'corporate_name' => array(
+        'description' => 'The name of the client\' company.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'client_type' => array(
+        'description' => 'The type of the client.',
+        'type' => 'varchar',
+        'length' => 5,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'industry' => array(
+        'description' => 'The industry of the client\' company.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'major_bussiness' => array(
+        'description' => 'The major_bussiness of the client\' company.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => FALSE,
+        'default' => '',
+      ),
+      'security_level' => array(
+        'description' => 'The level of the password',
+        'type' => 'char',
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'safe_question' => array(
+        'description' => 'The question is used to reset password.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+       ),
+      'safe_answer' => array(
+        'description' => 'The answer of the safe question.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'safe_question_1' => array(
+        'description' => 'The question is used to reset password.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+	    'safe_answer_1' => array(
+        'description' => 'The answer of the safe question 1.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'safe_question_2' => array(
+        'description' => 'The question is used to reset password.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'safe_answer_2' => array(
+        'description' => 'The answer of the safe question 2.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'province' => array(
+        'description' => 'The province of the user\' company.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'city' => array(
+        'description' => 'The city of the user.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'region' => array(
+        'description' => 'The region of the user.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'address' => array(
+        'description' => 'The address of the user.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => FALSE,
+        'default' => '',
+      ),
+      'qq' => array(
+        'description' => 'The qq of the user.',
+        'type' => 'varchar',
+        'length' => 20,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'telephone' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'length' => 50,
+        'default' => '',
+        'description' => 'The telephone of the user.',
+      ),
+      'fax' => array(
+        'description' => 'The fax of the user',
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => FALSE,
+        'default' => '',
+      ),
+    ),
+    'primary key' => array('id'),
+    'foreign keys' => array(
+       'uid' => array(
+         'table' => 'users',
+         'columns' => array(
+          'uid' => 'uid',
+        ),
+      ),
+      'commissioner' => array(
+         'table' => 'users',
+         'columns' => array(
+          'commissioner' => 'uid',
+        ),
+      ),
+    ),
+  );
+
+   $schema['user_funds_data'] = array(
+    'description' => '用户信用额度/现金余额管理',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary Key: unique ID ',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The user id of this extra field data',
+      ),
+      'cash' => array(
+        'type' => 'numeric',
+        'precision' => 10,
+        'scale' => 2,
+        'not null' => TRUE,
+        'default' => 0.0,
+        'description' => '现金余额'
+      ),
+      'credit' => array(
+        'type' => 'numeric',
+        'precision' => 10,
+        'scale' => 2,
+        'not null' => TRUE,
+        'default' => 0.0,
+        'description' => '信用额度'
+      ),
+      'alarm' => array(
+        'type' => 'varchar',
+        'length' => 5,
+        'not null' => FALSE,
+        'default' => 'OFF',
+        'description' => '预警开关'
+      ),
+    ),
+    'primary key' => array('id'),
+    'foreign keys' => array(
+       'uid' => array(
+         'table' => 'users',
+         'columns' => array(
+          'uid' => 'uid',
+        ),
+      ),
+    ),
+  );
+
+  $schema['user_funds_op_record'] = array(
+    'description' => '消费记录',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary Key: unique ID ',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'client_uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '相关的客户id',
+      ),
+      'op_uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '操作用户id',
+      ),
+      'amount' => array(
+        'type' => 'numeric',
+        'precision' => 10,
+        'scale' => 2,
+        'not null' => TRUE,
+        'default' => 0.0,
+        'description' => '操作金额'
+      ),
+      'message' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'length' => 225,
+        'default' => '',
+        'description' => '操作信息.',
+      ),
+      'created' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '操作时间.',
+      ),
+      /**
+       * 移除
+       */
+      'order_code' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'length' => 225,
+        'default' => '',
+        'description' => '消费或充值订单编号.',
+      ),
+    ),
+    'primary key' => array('id'),
+    'foreign keys' => array(
+       'client_uid' => array(
+         'table' => 'users',
+         'columns' => array(
+          'client_uid' => 'uid',
+        ),
+      ),
+      'op_uid' => array(
+         'table' => 'users',
+         'columns' => array(
+          'op_uid' => 'uid',
+        ),
+      ),
+    ),
+  );
+
+  $schema['user_funds_proof'] = array(
+    'description' => '购买任凭',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary Key: unique ID ',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'file_name' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'length' => 225,
+        'default' => '',
+        'description' => '生成文件路径.',
+      ),
+      'created' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '操作时间',
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '所属用户Id',
+      ),
+      'order_ids' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'length' => 225,
+        'default' => '',
+        'description' => '订单id.',
+      )
+    ),
+    'primary key' => array('id')
+  );
+
+  $schema['user_client_child_account'] = array(
+    'description' => '企业用户的子帐号管理',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary Key: unique ID ',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'parent' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '所属父帐号编号',
+      ),
+      'full_name' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'default' => '',
+        'length' => FieldStorageConfig::NAME_MAX_LENGTH,
+        'description' => '子帐号姓名',
+      ),
+      'dept' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'default' => '',
+        'length' => 15,
+        'description' => '子帐号部门',
+      ),
+    ),
+    'primary key' => array('id'),
+    'foreign keys' => array(
+       'parent' => array(
+         'table' => 'users',
+         'columns' => array(
+          'parent' => 'uid',
+        ),
+      ),
+    ),
+
+  );
+  return $schema;
+}
+
+function taxonomy_client() {
+  //读取配置文件
+  $config = \Drupal::configFactory()->getEditable('member.settings');
+
+  $term = entity_create('taxonomy_term', array(
+    'name' => t('Client'),
+    'parent' => array(0),
+    'vid' => 'client',
+    'weight' => 10,
+  ));
+  $term->save();
+  $termid = $term->id();
+
+  //账户安全级别
+  taxonomy_loop_child($config, 'client', 'client.security_level', 'The level of the password', $termid, array('弱', '中', '强'));
+  //行业分类
+  taxonomy_loop_child($config, 'client', 'client.industry', 'Category of industry', $termid, array('机构组织','农林牧渔','医药卫生','建筑建材','冶金矿产','石油化工','水利水电','交通运输','信息产业','机械机电','轻工食品','服装纺织','服装相关设备','安全防护','环保绿化','旅游休闲','办公文教','电子电工','玩具礼品','其他'));
+
+  $config->save();
+}
+
+function taxonomy_employee_department() {
+  //读取配置文件
+  $config = \Drupal::configFactory()->getEditable('member.settings');
+  $dept = array(0);
+  //部门
+  taxonomy_loop_child($config, 'dept_employee', 'dept.development', '软件部', $dept, array('主管', 'PHP开发', 'SEO','网站超管'));
+  taxonomy_loop_child($config, 'dept_employee', 'dept.finance', '财务部', $dept, array('主管', '出纳'));
+  taxonomy_loop_child($config, 'dept_employee', 'dept.business', '客服部', $dept, array('主管', '业务员'));
+  taxonomy_loop_child($config, 'dept_employee', 'dept.maintenance', '技术部', $dept, array('运维主管', '运维'));
+  $config->save();
+}
+
+/**
+ * Implements hook_update_N().
+ * @desc 将会影响到用户充值记录和额度记录
+ */
+function member_update_1001() {
+  db_add_field('user_funds_op_record', 'type', array('type' => 'varchar', 'length' => 15, 'description' => 'Cash or Credit!'));
+
+  return t('Member table structure update success');
+}
+
+/**
+ * Implements hook_update_N.
+ */
+function member_update_8005() {
+  db_drop_field('user_funds_op_record', 'order_code');
+  return t('User funds op record delete order code field success');
+}
+
+/**
+ * Implements hook_update_N.
+ */
+function member_update_8006() {
+  $schema = member_schema();
+  $user_funds_proof = Database::getConnection()->schema()->tableExists('user_funds_proof');
+  if(!$user_funds_proof) {
+    Database::getConnection()->schema()->createTable('user_funds_proof', $schema['user_funds_proof']);
+  }
+}
+
+

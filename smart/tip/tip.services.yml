@@ -1,0 +1,7 @@
+services:
+  tip.tipservice:
+    class: Drupal\tip\TipService
+    arguments: ['@database']
+  tip.userservice:
+    class: Drupal\tip\UserService
+    arguments: ['@database']

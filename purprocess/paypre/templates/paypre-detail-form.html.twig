@@ -1,0 +1,90 @@
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+<table class="table table-bordered table-striped" style="clear: both">
+   <tbody>
+    <tr>
+      <td colspan=6>
+				<!-- row -->
+				<div class="row">
+					<!-- NEW WIDGET START -->
+					<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+             {{ form.audit_locale }}
+           </article>
+         </div>
+      </td>
+    </tr>
+    <tr>
+     <td colspan=4><h6 class="text-primary">付款单信息</h6></td>
+    </tr>
+    <tr>
+      <td><strong>付款单名称</strong></td>
+      <td colspan=3>{{ form.title }}</td>
+    </tr>
+    <tr>
+      <td><strong>付款单据编号</strong></td>
+      <td>{{ form.no }}</td>
+      <td><strong>合同编号</strong></td>
+      <td>{{ form.contact_no }}</td>
+    </tr>
+    <tr>
+      <td><strong>申请人</strong></td>
+      <td>{{ member_info.name }}</td>
+     <td><strong>申请部门</strong></td>
+     <td>{{ member_info.depart }}</td>
+    </tr>
+    <tr>
+      <td><strong>所属公司</strong></td>
+      <td colspan=3>{{ member_info.company }}</td>
+    </tr>
+
+    <tr>
+     <td colspan=4><h6 class="text-primary">付款单列表</h6></td>
+    </tr>
+
+     <tr>
+       <td colspan=4>
+        <!-- row -->
+        <div class="row">
+          <!-- NEW WIDGET START -->
+          <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <table id="paypredetails"></table>
+            <div id="paypredetailsnav"></div>
+          </article>
+          <!-- WIDGET END -->
+        </div>
+        <!-- end row -->       
+       </td>
+     </tr>
+    <tr>
+     <td colspan=6><h6 class="text-primary">收款方信息</h6></td>
+    </tr>
+		<tr>
+      <td width=10%><strong>开户行:</strong></td><td width=40%>{{ form.acceptbank }}</td>     <td width=10%><strong>币种:</strong></td> <td width=40%> {{ form.ftype }}</td>
+    </tr>
+  	<tr>
+      <td width=10%><strong>账户名:</strong></td><td width=40%>{{ form.acceptname }}</td>    <td width=10%><strong>总金额:</strong></td><td width=40%>{{ form.all_amount }}</td>
+    </tr>
+    <tr>
+      <td width=10%><strong>收款账号:</strong></td><td width=40%>{{ form.acceptaccount }}</td>      <td  width=10%><strong>应付金额:</strong></td><td  width=40%>{{ form.pre_amount }}</td>
+    </tr>
+    <tr>
+      <td width=10% colspan=2></td>      <td  width=10%><strong>预付金额:</strong></td><td  width=40%><font color=red><strong>{{ form.amount }}</strong></font></td>
+    </tr>
+    <tr>
+      <td width=10% colspan=2></td>      <td  width=10%><strong>大写:</strong></td><td  width=40%>{{ form.big_amount }}</td>
+    </tr>
+    <tr>
+      <td colspan=4>
+				<!-- row -->
+				<div class="row">
+					<!-- NEW WIDGET START -->
+					<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+             {{ form.fid }}
+           </article>
+         </div>
+      </td>
+    </tr>
+   </tbody>
+  </table>
+  {{ form.actions }}

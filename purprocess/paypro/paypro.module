@@ -1,0 +1,90 @@
+<?php
+
+/**
+ * @file
+ */
+
+/**
+ * 定义支付单的工单状态.
+ */
+function getPayproStatus() {
+
+  return [
+  // 已使用.
+    0 => '未审批',
+    2 => '审批中',
+  // 已使用.
+    4 => '已拒绝',
+  // 已使用.
+    5 => '已同意',
+    6 => '待支付',
+    8 => '支付部分',
+    10 => '已完成',
+    12 => '已取消',
+  ];
+
+}
+
+/**
+ * Implement hook_theme().
+ */
+function paypro_theme() {
+  return [
+    'paypro_form' => [
+      'render element' => 'form',
+      'template' => 'paypro-form',
+    ],
+    'paypro_detail_form' => [
+      'render element' => 'form',
+      'template' => 'paypro-detail-form',
+    ],
+    'paypro_statistic' => [
+      'render element' => 'elements',
+      'template' => 'paypro-statistic',
+    ],
+
+    'paypro_paypres_pool' => [
+      'render element' => 'elements',
+      'template' => 'paypro-paypres-pool',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_hook().
+ */
+function paypro_preprocess_paypro_form(&$variables) {
+  $variables['member_info'] = $variables['form']['member_info']['#markup'];
+  $variables['paypre'] = $variables['form']['paypre']['#markup'];
+}
+
+/**
+ *
+ */
+function template_preprocess_paypro_detail_form(&$variables) {
+  $variables['member_info'] = $variables['form']['member_info']['#markup'];
+  $variables['paypre'] = $variables['form']['paypre']['#markup'];
+}
+
+/**
+ * Implement hook_load().
+ */
+function paypro_load_multiple($ids = []) {
+  if (empty($ids)) {
+    return [];
+  }
+  $storage = \Drupal::entityManager()->getStorage('paypro');
+  $entities = $storage->loadMultiple($ids);
+
+  return $entities;
+}
+
+/**
+ * Implement hook_load().
+ */
+function paypro_load($id) {
+  $storage = \Drupal::entityManager()->getStorage('paypro');
+  $entity = $storage->load($id);
+
+  return $entity;
+}

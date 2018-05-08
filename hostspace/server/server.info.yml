@@ -1,0 +1,8 @@
+name: Servers
+type: module
+core: 8.x
+package: Hostspaces
+description: '服务器'
+version: VERSION
+dependencies:
+  - part

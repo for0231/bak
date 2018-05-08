@@ -1,0 +1,371 @@
+<?php
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Drupal\Core\Link;
+use Drupal\Core\Breadcrumb\Breadcrumb;
+
+/**
+ * Implement hook_theme().
+ */
+function worksheet_theme() {
+  return array(
+    'fault_add_form' => array(
+      'render element' => 'form',
+      'template' => 'fault-add-form',
+    ),
+    'frame_add_form' => array(
+      'render element' => 'form',
+      'template' => 'frame-add-form',
+    ),
+    'ip_add_form' => array(
+      'render element' => 'form',
+      'template' => 'ip-add-form',
+    ),
+    'room_add_form' => array(
+      'render element' => 'form',
+      'template' => 'room-add-form',
+    ),
+    'switch_add_form' => array(
+      'render element' => 'form',
+      'template' => 'switch-add-form',
+    ),
+    'fault_operate_form' => array(
+      'render element' => 'form',
+      'template' => 'fault-operate-form',
+    ),
+    'frame_operate_form' => array(
+      'render element' => 'form',
+      'template' => 'frame-operate-form',
+    ),
+    'ip_operate_form' => array(
+      'render element' => 'form',
+      'template' => 'ip-operate-form',
+    ),
+    'room_operate_form' => array(
+      'render element' => 'form',
+      'template' => 'room-operate-form',
+    ),
+    'switch_operate_form' => array(
+      'render element' => 'form',
+      'template' => 'switch-operate-form',
+    ),
+    'abnormal_filter_form' => array(
+      'render element' => 'form',
+      'template' => 'abnormal-filter-form',
+    ),
+    'history_filter_form' => array(
+      'render element' => 'form',
+      'template' => 'history-filter-form',
+    ),
+    'statistic_filter_form' => array(
+      'render element' => 'form',
+      'template' => 'statistic-filter-form',
+    ),
+    'worksheet_detail' => array(
+      'render element' => 'elements',
+      'template' => 'worksheet-detail'
+    ),
+    'work_calendar' => array(
+      'render element' => 'element'
+    ),
+    'cycle_operate_form' => array(
+      'render element' => 'form',
+      'template' => 'cycle-operate-form',
+    ),
+    'logistics_add_form' => array(
+      'render element' => 'form',
+      'template' => 'logistics-add-form',
+    ),
+    'logistics_operate_form' => array(
+      'render element' => 'form',
+      'template' => 'logistics-operate-form',
+    ),
+    'majorfault_operate_form' => array(
+      'render element' => 'form',
+      'template' => 'majorfault-operate-form',
+    ),
+    'comment_form' => array(
+      'render element' => 'form',
+      'template' => 'comment-form',
+    ),
+    'xunyun_url' => array(
+     'template' => 'xunyun-url',
+     'variables' => array('hostclient' => null),
+    )
+  );
+}
+
+/**
+ * Implement hook_toolbar_alter().
+ */
+function worksheet_toolbar_alter(&$items) {
+  $items['administration']['tray']['#attached']['library'][] = 'worksheet/drupal.work-sheet-toolbar';
+  unset($items['user']['tray']['user_links']['#links']['account']);
+}
+
+/**
+ * Implements hook_user_format_name_alter().
+ */
+function worksheet_user_format_name_alter(&$name, $account) {
+  if($account instanceof Drupal\Core\Session\UserSession) {
+    $user = entity_load('user', $account->id());
+  } else {
+    $user = $account;
+  }
+  if($user->hasField('real_name') && !empty($user->get('real_name')->value)) {
+    $name = $user->get('real_name')->value;
+  }
+}
+
+/**
+ * hook_menu_local_tasks_alter
+ */
+function worksheet_menu_local_tasks_alter(&$data, $route_name) {
+  if($route_name == 'entity.user.edit_form') {
+    $data['tabs'] = array();
+  }
+}
+
+/**
+ * Implements hook_toolbar().
+ */
+function worksheet_toolbar() {
+  $user = \Drupal::currentUser();
+  $roles = $user->getRoles();
+  if(in_array('worksheet_operation',$roles)) {
+    $uid = $user->id();
+    $config = \Drupal::config('worksheet.settings');
+    $person_duty = $config->get('person_on_duty');
+    $checked = in_array($uid, $person_duty);
+    $items['duty'] = array(
+      '#type' => 'toolbar_item',
+      'tab' => array(
+        '#type' => 'checkbox',
+        '#title' => '值班',
+        '#attributes' => array(
+          'ajax-uid' => $uid
+        ),
+        '#name' => 'duty',
+        '#checked' => $checked,
+        '#cache' => array(
+          'max-age' => 0
+        )
+      ),
+      '#weight' => 150,
+      '#attached' => array(
+        'library' => array(
+          'user/drupal.user.icons',
+        ),
+      )
+    );
+    return $items;
+  }
+}
+
+/**
+ * Implements hook_system_breadcrumb_alter().
+ */
+function worksheet_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatchInterface $route_match, array $context) {
+  $routeName = $route_match->getRouteName();
+  switch($routeName) {
+    case 'admin.worksheet.sop.room.operation':
+    case 'admin.worksheet.sop.frame.operation':
+    case 'admin.worksheet.sop.ip.operation':
+    case 'admin.worksheet.sop.switch.operation':
+    case 'admin.worksheet.sop.fault.operation':
+    case 'admin.worksheet.sop.cycle.operation':
+    case 'admin.worksheet.sop.detail':
+    case 'admin.worksheet.sop.remind':
+      if(isset($_GET['source'])) {
+        $breadcrumb->addCacheContexts(array('url.query_args'));
+        $request_context = \Drupal::getContainer()->get('router.request_context');
+        $path = $request_context->getCompleteBaseUrl() . $_GET['source'];
+        $route_request = Request::create($path);
+        $route = \Drupal::service('router')->matchRequest($route_request);
+        $breadcrumb->addLink(Link::createFromRoute($route['_title'], $route['_route']));
+      }
+      break;
+    default:
+      break;
+  }
+}
+
+function template_preprocess_work_calendar(&$variables) {
+  $element = $variables['element'];
+  $year = $element['#year'] ?: date('Y', REQUEST_TIME);
+  $month = $element['#month'] ?: date('m', REQUEST_TIME);
+  $info = \Drupal::service("worksheet.date")->getMonthInfo((int)$year, (int)$month);
+  $variables['info'] = $info;
+  $attributes = isset($element['#attributes']) ? $element['#attributes'] : array();
+  $variables['attributes'] = array(
+    'js-year' => $year,
+    'js-month' => $month
+  ) + $attributes;
+}
+
+/**
+ * 计算机房结束时间
+ */
+function worksheet_room_end_time($time) {
+  $year = date('Y', $time);
+  $month = date('m', $time);
+  $day = date('j', $time);
+  $time1 = mktime(0,0,0, $month, $day, $year);
+  $time2 = mktime(6,59,59, $month, $day, $year);
+  $info = \Drupal::service("worksheet.date")->getMonthInfo((int)$year, (int)$month);
+  $curr_day = $info[$day];
+  //当天工作并且是当天0点到7点的单当9点完成
+  if($curr_day['work']) {
+    if($time >= $time1 && $time <= $time2) {
+      return mktime(9,0,0, $month, $day, $year);
+    }
+  }
+  //否则就是下一个工作日的9点钟完成
+  $t = date('t', $time);
+  if($t > $day) {
+    $i = $day+1;
+    for($i; $i<= $t; $i++) {
+      $day = $i;
+      if($info[$i]['work']) {
+        return mktime(9,0,0, $month, $day, $year);
+      }
+    }
+  }
+  $month_end = mktime(0,0,0, $month, $day, $year);
+  return worksheet_room_end_time($month_end + 24*3600);
+}
+
+/**
+ * 得到时分秒
+ */
+function worksheet_time2string($second){
+  if($second <= 0){return '00分'.'00秒';}
+  $day = floor($second/(3600*24));
+  $second = $second%(3600*24);//除去整天之后剩余的时间
+  $hour = floor($second/3600);
+  $second = $second%3600;//除去整小时之后剩余的时间
+  $minute = floor($second/60);
+  $second = $second%60;//除去整分钟之后剩余的时间
+  if($second < 0){return '00分'.'00秒';}
+  if($minute<10)$minute='0'.$minute;
+  if($second<10)$second='0'.$second;
+  //返回字符串
+  if($day==0){
+    if($hour==0)return $minute.'分'.$second.'秒';
+    return $hour.'小时'.$minute.'分'.$second.'秒';
+  } else {
+    return $day.'天'.$hour.'小时'.$minute.'分'.$second.'秒';
+  }
+}
+
+/**
+ * 工单状态
+ */
+function getStatus() {
+  return array(
+    1 => '新工单',
+    5 => '审核异常',
+    10 => '业务转接',
+    15 => '运维处理',
+    16 => '运维等待',
+    20 => '运维转接',
+    25 => '运维返工',
+    30 => '业务处理',
+    31 => '业务等待',
+    35 => '运维交付',
+    40 => '已交付',
+    45 => '完成'
+  );
+}
+/**
+ *工单分类
+ */
+function getEntityType(){
+  return array(
+    'work_sheet_frame' => '上下架 or 重装',
+    'work_sheet_ip'   => 'IP or 带宽',
+    'work_sheet_switch' => '开关机',
+    'work_sheet_room' => '机房事物',
+    'work_sheet_fault' => '故障',
+    'work_sheet_logistics' => '物流工单',
+    'work_sheet_cycle' => '周期性工单',
+    'work_sheet_major_fault' => '重大故障'
+  );
+}
+
+/**
+ * 工单操作类型
+ */
+function operationOptions() {
+  return array(
+    1 => '新建工单',
+    2 => '接受工单',
+    3 => '转交他人',  
+    4 => '业务修正',
+    5 => '交业务',
+    6 => '运维交付',
+    7 => '业务等待',
+    8 => '业务处理',
+    9 => '运维等待',
+    10 => '运维处理',
+    11 => '交客户',
+    12 => '完成工单',
+    20 => '异常审核',
+    21 => '异常接受',
+    22 => '质量异常',
+    25 => '运维交付(超时)',
+    26 => '交业务(超时)',
+    27 => '接受工单(超时)',
+    28 => '接受转交工单(超时)',
+    29 => '异常接受(超时)',
+    30 => '转交他人(超时)'
+  );
+}
+
+/**
+ * 统计类型
+ */
+function statisticOptions() {
+  return array(
+    1 => '新建工单',
+    2 => '转交他人',
+    3 => '完成工单',
+    4 => '异常审核',
+    5 => '异常接受',
+    6 => '质量异常',
+    7 => '超时工单'
+  );
+}
+
+function worksheet_options($definition, $entity = NULL, &$cacheable = TRUE) {
+  $field_name = $definition->getName();
+  $service = \Drupal::service('worksheet.option');
+  if($field_name == 'ip_class') {
+    return $service->getIpClassOptions();
+  } else if ($field_name == 'property') {
+    return $service->getIpClassOptions();
+  } else if ($field_name == 'system') {
+    return $service->getSystemOptions();
+  } else if ($field_name == 'problem_difficulty') {
+    return $service->getProblemDifficultyOptions();
+  } else if ($field_name == 'problem_types') {
+    return $service->getProblemTypesOptions();
+  } else if ($field_name == 'op_dept') {
+    return $service->getOpDept();
+  } else if ($field_name == 'job_content') {
+    return $service->getJobContent();
+  }else if ($field_name == 'room') {
+    return $service->getRoom();
+  }else if ($field_name == 'affect_direction') {
+    return $service->getAffectDirection();
+  }else if ($field_name == 'affect_range') {
+    return $service->getAffectRange();
+  }else if ($field_name == 'affect_level') {
+    return $service->getAffectLevel();
+  }else if ($field_name == 'fault_location') {
+    return $service->getFaultLocation();
+  }else {
+    return array();
+  }
+}

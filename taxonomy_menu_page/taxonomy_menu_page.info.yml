@@ -1,0 +1,7 @@
+name: taxonomy_menu
+type: module
+description: 用于扩展网站的术语分类展示。核心的术语展示页面，无法控制其浏览权限，使用独立的分类展示，以供使用。
+core: 8.x
+package: Ikdevelopmenent
+dependencies:
+  - taxonomy

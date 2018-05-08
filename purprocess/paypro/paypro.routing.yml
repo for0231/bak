@@ -1,0 +1,142 @@
+entity.paypro.admin:
+  path: 'admin/paypro'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Administration'
+  requirements:
+    _permission: 'adminsiter paypro collection'
+
+entity.paypro.add_form:
+  path: 'admin/paypro/add'
+  defaults:
+    ##_entity_form: 'paypro.default'
+    _form: '\Drupal\paypro\Form\PayproAddForm'
+    _title: '支付单'
+  requirements:
+    _permission: 'administer paypro edit'
+entity.paypro.edit_form:
+  path: 'admin/paypro/{paypro}/edit'
+  defaults:
+    _entity_form: 'paypro.default'
+    _title: '支付单'
+  requirements:
+    _permission: 'administer paypro edit'
+entity.paypro.collection:
+  path: 'admin/paypro/collection'
+  defaults:
+    _entity_list: 'paypro'
+    _title: '支付单工作台'
+  requirements:
+    _permission: 'adminsiter paypro collection'
+entity.paypro.detail_form:
+  path: 'admin/paypro/{paypro}/detail'
+  defaults:
+    _entity_form: 'paypro.detail'
+    _title: '支付单详情'
+  requirements:
+    _permission: 'administer paypro detail'
+entity.paypro.history.collection:
+  path: 'admin/paypro/collection/history'
+  defaults:
+    _controller: 'Drupal\paypro\Controller\PayproController::getHistoryData'
+    _title: '支付单历史数据表'
+  requirements:
+    _permission: 'adminsiter paypro collection'
+
+entity.paypro.audit.history.collection:
+  path: 'admin/paypro/collection/history/audit'
+  defaults:
+    _controller: 'Drupal\paypro\Controller\PayproController::getAuditHistoryData'
+    _title: '支付单审批历史数据表'
+  requirements:
+    _permission: 'administer paypro audit history'
+
+##创建支付单
+##@deprecated
+ajax.paypre.pool.paypro.create:
+  path: 'ajax/paypro/pool/paypre/create'
+  defaults:
+    _controller: 'Drupal\paypro\Controller\PayproController::createPayproAutocomplete'
+    _title: '创建支付单'
+  requirements:
+    _permission: 'administer paypro edit'
+
+### 支付单列表
+entity.paypro.statistic.collection:
+  path: 'admin/paypro/statistic/collection'
+  defaults:
+    _controller: 'Drupal\paypro\Controller\PayproController::getPayproStatisticCollection'
+    _title: '支付单统计列表'
+  requirements:
+    _permission: 'adminsiter paypro collection'
+ajax.paypro.statistic.collection:
+  path: 'ajax/paypro/statistic/collection'
+  defaults:
+    _controller: 'Drupal\paypro\Controller\PayproController::getPayproStatisticCollectionAutocomplete'
+    _title: '支付单列表'
+  requirements:
+    _permission: 'adminsiter paypro collection'
+
+ajax.paypro.paypre.statistic.collection:
+  path: 'ajax/paypro/paypre/statistic/collection'
+  defaults:
+    _controller: 'Drupal\paypro\Controller\PayproController::getPaypreStatisticCollectionAutocomplete'
+    _title: '付款单列表'
+  requirements:
+    _permission: 'administer paypro ajax collection'
+ajax.paypro.paypre.purchase.statistic.collection:
+  path: 'ajax/purchase/statistic/collection'
+  defaults:
+    _controller: 'Drupal\paypro\Controller\PayproController::getPurchaseStatisticCollectionAutocomplete'
+    _title: '采购单列表'
+  requirements:
+    _permission: 'administer paypro ajax collection'
+ajax.paypro.paypre.purchase.part.statistic.collection:
+  path: 'ajax/part/statistic/collection'
+  defaults:
+    _controller: 'Drupal\paypro\Controller\PayproController::getPartsStatisticCollectionAutocomplete'
+    _title: '配件列表'
+  requirements:
+    _permission: 'administer paypro ajax collection'
+entity.paypro.details.autocomplete:
+  path: 'ajax/paypro/{paypro}/details'
+  defaults:
+    _controller: 'Drupal\paypro\Controller\PayproController::getAjaxPayproDetailsAutocomplete'
+    _title: '支付单详情' ###即付款单
+  requirements:
+    _permission: 'administer paypro detail'
+
+#ajax.paypro.pcord.collection:
+#  path: 'ajax/paypro/{paypro}/pcord/collection'
+#  defaults:
+#    _controller: 'Drupal\paypro\Controller\PayproController::getPayproPcordAutocomplete'
+#    _title: '支付记录列表'
+#  requirements:
+#    _permission: 'administer paypro collection'
+
+
+### 付款池列表
+entity.paypro.pools.collection:
+  path: 'admin/paypro/pools/collection'
+  defaults:
+    _controller: 'Drupal\paypro\Controller\PayproController::getPayproPools'
+    _title: '付款池'
+  requirements:
+    _permission: 'administer paypro pool'
+
+### 付款池列表
+entity.paypro.pools:
+  path: 'ajax/paypro/pools'
+  defaults:
+    _controller: 'Drupal\paypro\Controller\PayproController::getPayproAutocomplete'
+    _title: '付款池列表'
+  requirements:
+    _permission: 'administer paypro pool'
+
+admin.paypro.collection.data:
+  path: 'admin/paypro/collection/data'
+  defaults:
+    _controller: 'Drupal\paypro\Controller\PayproController::getPayproDataCollection'
+    _title: '未完成支付单列表数据'
+  requirements:
+    _permission: 'adminsiter paypro collection'

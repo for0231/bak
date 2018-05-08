@@ -1,0 +1,32 @@
+system.admin_ip:
+  title: Ip library
+  parent: system.admin
+  route_name: system.admin_ip
+  weight: -185
+
+ip.group.admin:
+  title: 'IP分组管理'
+  parent: system.admin_ip
+  route_name: ip.group.list
+  weight: 1
+
+ipm.admin:
+  title: Management ip
+  description: 'Management ip list.'
+  parent: system.admin_ip
+  route_name: ip.ipm.admin
+  weight: 5
+
+ipb.admin:
+  title: Business ip
+  description: 'Business ip list.'
+  parent: system.admin_ip
+  route_name: ip.ipb.admin
+  weight: 8
+
+ips.admin:
+  title: Switch ip
+  description: 'Switch ip list.'
+  parent: system.admin_ip
+  route_name: ip.ips.admin
+  weight: 12

@@ -1,0 +1,46 @@
+.success-msg {
+  .Order_title {
+    border-bottom: 2px solid #CDD2D7;
+    color: #333333;
+    font-size: 16px;
+    height: 30px;
+    line-height: 30px;
+    width: 100%;
+    b {
+      border-bottom: 2px solid #041E39;
+      color: #041E39;
+      float: left;
+      height: 30px;
+      line-height: 30px;
+      padding: 0 10px;
+    }
+  }
+  .xuqiu {
+    font-size: 14px;
+  }
+  .fukuanchg {
+    padding: 10px 30px;
+    .fuk_chenggu {
+      border-left: 1px solid #B2C0CD;
+      border-top: 1px solid #B2C0CD;
+      font-size: 14px;
+      width: 100%;
+      tr {
+        height: 40px;
+        line-height: 40px;
+      }
+      tr.even {
+        background: none repeat scroll 0 0 #FFFFFF;
+      }
+      td {
+        border-bottom: 1px solid #B2C0CD;
+        border-right: 1px solid #B2C0CD;
+        text-align: center;
+      }
+      .fuk_beijing{
+        background: none repeat scroll 0 0 #CDD2D7;
+        font-weight: bold;
+      }    
+    }
+  }
+}

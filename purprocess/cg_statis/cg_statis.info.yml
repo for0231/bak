@@ -1,0 +1,11 @@
+name: cg_statis
+type: module
+description: 采购统计
+core: 8.x
+package: '采购管理系统'
+dependencies:
+  - part
+  - requirement
+  - purchase
+  - paypre
+  - paypro

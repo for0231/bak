@@ -1,0 +1,117 @@
+drupal.work-sheet-list:
+  version: VERSION
+  js:
+    js/work-sheet-list.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupal.dropbutton
+
+drupal.work-sheet-operate:
+  version: VERSION
+  js:
+    js/work-sheet-operate.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupal.dialog
+
+drupal.work_sheet_statistic:
+  version: VERSION
+  js:
+    js/work-sheet-statistic.js: {}
+  dependencies:
+    - core/jquery.ui.datepicker
+
+drupal.work_sheet_history:
+  version: VERSION
+  js:
+    js/work-sheet-history.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/jquery.ui.datepicker
+
+drupal.work-calendar:
+  version: VERSION
+  js:
+    js/work-calendar.js: {}
+  css:
+    theme:
+      css/work-calendar.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+
+drupal.work-sheet-toolbar:
+  version: VERSION
+  js:
+    js/work-sheet-toolbar.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/toolbar.menu
+
+drupal.worksheet-default:
+  version: VERSION
+  css:
+    theme:
+      css/worksheet-default.css: {}
+
+drupal.worksheet-frame:
+  version: VERSION
+  js:
+    js/work-sheet-frame.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+
+drupal.work-sheet-filter:
+  version: VERSION
+  js:
+    js/work-sheet-filter.js: {}
+  dependencies:
+    - core/jquery.ui.datepicker
+
+drupal.work-sheet-cycle-exec:
+  version: VERSION
+  js:
+    js/work-sheet-cycle-exec.js: {}
+  dependencies:
+    - core/jquery.ui.datepicker
+drupal.xunyun-url:
+  version: VERSION
+  css:
+    theme:
+      css/xunyun-url.css: {}
+
+drupal.worksheet-status:
+  version: VERSION
+  js:
+    js/highcharts.js: {}
+    js/exporting.js: {}
+    js/highcharts-zh_CN.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    
+drupal.work-sheet-date:
+  version: VERSION
+  js:
+    js/work-sheet-date.js: {}
+    js/jquery-ui-timepicker-addon.js: {}
+    js/jquery-ui-sliderAccess.js: {}
+  css:
+    theme:
+      css/jquery-ui-timepicker-addon.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/jquery.ui.datepicker
+drupal.manage-ips:
+  version: VERSION
+  js:
+    js/manage-ips.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

@@ -1,0 +1,49 @@
+{#
+/**
+ * @file
+ * 产品显示列表
+ *
+ * Available variables:
+ * -products:
+ *
+ * @see template_preprocess_product_list()
+ */
+#}
+ {{ attach_library('xunyun/product-list-page') }}
+<div class = 'product-list'>
+ <div class='title'><b>{{'Product list'|t}}</b></div>
+ <div class="blank20"></div>
+ {% for product in products %}
+ <div class="fuwuqi_01">
+ <div class="rwq_title"><a href='{{ product.info_url }}'>{{ product.name.value }}</a><span class='info-all'>+</span></div>
+ <ul>
+  <li><span>CPU</span><p>{{ product.display_cpu.value }}</p></li>
+  <li><span>RAM</span><p>{{product.display_memory.value}}</p></li>
+  <li><span>HD</span><p>{{product.display_harddisk.value}}</p></li>
+  {% for bus in product.business  %}
+    <li class='hide'><span>{{bus.title}}</span> <p>{{bus.value}}</p></li>
+  {% endfor %}
+  <li><span>OS</span> {{product.display_system.value}}</li>
+  <li><span>机房</span> {{product.room}}</li>
+  {% if product.is_login %}
+    {% if product.price %}
+      {% if product.original_price %}
+      <li class = 'jiage'>{{'Base price'|t }}<em>:￥<s>{{product.original_price}}</s>/{{ product.price }}</em></li>
+      {% else %}
+        <li class = 'jiage'>{{'Base price'|t }} <em>:￥{{ product.price }}</em></li>
+      {% endif %}
+      {% if product.op_url %}
+        {% if product.is_stock %}
+          <li class = 'goumai'><a href='{{ product.op_url }}'><img src="/{{ directory }}/images/gouwuc.png">{{ 'Click to buy'|t }}</a></li>
+        {% else %}
+          <li class = 'goumai'><a href='javascript:void(0)'><img src="/{{ directory }}/images/gouwuc.png">{{ 'No stock'|t }}</a></li>
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  {% else %}
+    <li class = 'goumai'><a href="{{ path('user.login', {}, {query: {destination : '/server'}}) }}">{{'Click login'|t}}</a></li>
+  {% endif %}
+ </ul>
+</div>
+{% endfor %}
+</div>

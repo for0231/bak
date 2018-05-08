@@ -1,0 +1,11 @@
+entity.room.add_form:
+  route_name: entity.room.add_form
+  title: 'Add room'
+  appears_on:
+    - admin.idc.room
+
+entity.room_cabinet.add_form:
+  route_name: entity.room_cabinet.add_form
+  title: 'Add cabinet'
+  appears_on:
+    - entity.room.loke_over

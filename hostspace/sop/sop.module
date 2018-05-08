@@ -1,0 +1,372 @@
+<?php
+/**
+ * @file
+ * This file container for sop module.
+ */
+
+use Drupal\Component\Utility\SafeMarkup;
+use Drupal\hostlog\HostLogFactory;
+
+/**
+ * @param $user user 对象
+ * @return string 客户名称
+ */
+function getSopClientName($user) {
+  if ($user instanceof Drupal\user\Entity\User) {
+    return $user->getUsername();
+  }
+  elseif (!empty($user->corporate_name)) {
+    return '公:' . $user->corporate_name;
+  }
+  elseif (!empty($user->client_name)) {
+    return '客:' . $user->client_name;
+  }
+  elseif (!empty($user->nick)) {
+    return '昵:' . $user->nick;
+  }
+  elseif (!empty($user->name)) {
+    return '账:' . $user->name;
+  }
+  elseif (!empty($user->mail)) {
+    return '邮:' . $user->mail;
+  }
+  else {
+    return '-';
+  }
+}
+
+/**
+ * 获取时间差.
+ */
+function timediff($end_time, $begin_time) {
+
+  /*
+  if($begin_time < $end_time){
+  $starttime = $begin_time;
+  $endtime = $end_time;
+  }
+  else{
+  $starttime = $end_time;
+  $endtime = $begin_time;
+  }
+   */
+  if ($end_time > $begin_time) {
+    $timediff = $end_time - $begin_time;
+    $days = intval($timediff / 86400);
+    $remain = $timediff % 86400;
+    $hours = intval($remain / 3600);
+    $remain = $remain % 3600;
+    $mins = intval($remain / 60);
+    $secs = $remain % 60;
+    $allmin = floor($timediff % 86400 / 60);
+    $res = array("day" => $days, "hour" => $hours, "min" => $mins, "sec" => $secs, "allmin" => $allmin);
+    return $res;
+  }
+  else {
+    return array();
+  }
+}
+/**
+ * SOP 故障处理问题等级.
+ */
+function sop_task_failure_question_level() {
+  return array(
+    '' => t('- Select -'),
+    '1' => '简单',
+    '2' => '困难',
+    '3' => '复杂',
+  );
+}
+/**
+ * SOP工单状态
+ * 0->2->11->1->22->3->4
+ *                ->9->92->22->3->4 运维返工 也可以取消?
+ *         ->7->22->2->11->1->22->3->4  核实业务信息 觉得这条可以取消?系统根据订单自动生成的，或许不用再核实业务信息
+ *         ->1->5->22->3->4 运维转接
+ *     ->8->11->1->22->3->4 业务转接
+ *     交付客户是否可以取消？运维交付业务后工单工作都已完成，服务器已上架，客户那边已经可以看到服务器正常上架了。.
+ */
+function sop_task_status() {
+  return array(
+    0 => '新工单',
+    1 => '运维处理',
+    11 => '运维待处理',
+    22 => '业务待处理',
+    2 => '业务处理',
+    3 => '已交付',
+    4 => '完成',
+    5 => '运维转接工单',
+    6 => '运维已交付',
+    7 => '核实业务信息',
+    8 => '业务转接',
+    9 => '运维返工',
+    92 => '运维返工处理',
+  );
+}
+/**
+ *
+ */
+function sop_complete_status() {
+  return array(
+    0 => '未完成',
+    1 => '业务完成',
+    2 => '技术完成',
+  );
+}
+/**
+ * SOP工单操作状态.
+ */
+function sop_task_op_status() {
+  return array(
+    '' => t('- Select -'),
+    15 => t('服务器IP变更'),
+    16 => t('服务器上架'),
+    17 => t('服务器下架'),
+    18 => t('服务器升级'),
+    19 => t('服务器试用'),
+    20 => t('故障处理'),
+    21 => t('机房事务'),
+  // 开关机，up,down端口需要另建sop.
+    22 => t('开机'),
+    23 => t('关机'),
+    24 => t('UP端口'),
+    25 => t('Down端口'),
+    26 => t('IP停用'),
+    27 => t('IP更换'),
+  );
+}
+/**
+ * SOP工单按钮集.
+ */
+function sop_task_buttons() {
+  return array(
+  // 业务权限.
+    0 => '交付客户',
+    1 => '转交运维部',
+    2 => '质量异常',
+    3 => '提取计费信息',
+    4 => '业务已核实',
+    5 => '完成',
+  // 技术权限.
+    6 => '接受工单',
+    7 => '审核异常',
+    8 => '交他人处理',
+    9 => '异常接受工单',
+    10 => '交付业务部',
+    11 => '直接交付客户',
+  // 技术业务可见.
+    12 => '建立工单',
+    13 => '修改/保存',
+    14 => '提取交付信息',
+    15 => '修正工单/保存工单',
+  // 特殊权限.
+    16 => '撤消返工',
+  // 工单建立人.
+    17 => '撤消工单',
+  );
+}
+
+/**
+ * SOP 机房事务等级.
+ */
+function sop_task_room_level() {
+  return array(
+    '' => t('- Select -'),
+    'i4' => 'I4',
+  );
+}
+/**
+ * SOP 故障等级.
+ */
+function sop_task_failure_level() {
+  return array(
+    '' => t('- Select -'),
+    'i3' => 'I3',
+    'p1' => 'P1',
+    'p2' => 'P2',
+    'p3' => 'P3',
+    'p4' => 'P4',
+    'p5' => 'P5',
+    'p6' => 'P6',
+    'e' => 'E类',
+  );
+}
+/**
+ * SOP工单类型.
+ */
+function sop_type_levels() {
+  return array(
+    '' => t('- Select -'),
+    'i1' => 'I1',
+    'i2' => 'I2',
+    'i3' => 'I3',
+    'i4' => 'I4',
+    'i5' => 'I5',
+    'i6' => 'I6',
+    'p1' => 'P1',
+    'p2' => 'P2',
+    'p3' => 'P3',
+    'p4' => 'P4',
+    'p5' => 'P5',
+    'p6' => 'P6',
+    'e' => 'E类',
+  );
+}
+/**
+ * Implements hook_theme().
+ */
+function sop_theme() {
+  return array(
+    'sop_task_server_form' => array(
+      'render element' => 'form',
+      'template' => 'sop-task-server-form',
+    ),
+    'sop_task_failure_form' => array(
+      'render element' => 'form',
+      'template' => 'sop-task-failure-form',
+    ),
+    'sop_task_room_form' => array(
+      'render element' => 'form',
+      'template' => 'sop-task-room-form',
+    ),
+    'sop_task_machine_form' => array(
+      'render element' => 'form',
+      'template' => 'sop-task-machine-form',
+    ),
+    'sop_task_iband_form' => array(
+      'render element' => 'form',
+      'template' => 'sop-task-iband-form',
+    ),
+    'sop_task_server_detail' => array(
+      'render element' => 'form',
+      'template' => 'sop-task-server-detail',
+    ),
+    'sop_task_failure_detail' => array(
+      'render element' => 'form',
+      'template' => 'sop-task-failure-detail',
+    ),
+    'sop_task_iband_detail' => array(
+      'render element' => 'form',
+      'template' => 'sop-task-iband-detail',
+    ),
+    'sop_task_machine_detail' => array(
+      'render element' => 'form',
+      'template' => 'sop-task-machine-detail',
+    ),
+    'sop_task_room_detail' => array(
+      'render element' => 'form',
+      'template' => 'sop-task-room-detail',
+    ),
+    'admin_handle_task_server_hostclient_info' => array(
+      'template' => 'admin-handle-task-server-hostclient-info',
+      'variables' => array('handle_info' => NULL),
+    ),
+    'admin_handle_task_failure_info' => array(
+      'render element' => 'form',
+      'template' => 'sop-task-failure-contact',
+    ),
+  );
+}
+/**
+ *
+ */
+function template_preprocess_admin_handle_task_server_hostclient_info(&$variables) {
+  $handle_info = $variables['handle_info'];
+  $hostclient = entity_load('hostclient', $handle_info->hostclient_id);
+  $order = entity_load('order', $handle_info->handle_order_id);
+  $product = $hostclient->getObject('product_id');
+  $handle_info->order_code = $order->getSimpleValue('code');
+  $handle_info->type_label = order_product_action()[$handle_info->handle_action];
+  $handle_info->product_name = $product->label();
+
+  $product_business_list = \Drupal::service('order.product')->getOrderBusiness($handle_info->handle_order_product_id);
+  $combine_list = order_order_product_business_combine($product_business_list);
+  $product_business = array();
+  foreach ($combine_list as $key => $item) {
+    $business = $item['business'];
+    $business_values = $item['business_value'];
+    $value_arr = explode(',', $business_values);
+    $value_html = '';
+    foreach ($value_arr as $value) {
+      $value_text = product_business_value_text($business, $value);
+      $value_html .= SafeMarkup::format('<span>' . $value_text . '</span>', array());
+    }
+    $product_business[$key] = array(
+      'name' => $business->label(),
+      'value' => SafeMarkup::format($value_html, array()),
+      'price' => $item['business_price'],
+    );
+  }
+  $handle_info->business = $product_business;
+}
+
+/**
+ *
+ */
+function template_preprocess_admin_handle_task_failure_info(&$variables) {
+
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete().
+ *
+ * @param $entity \Drupal\Core\Entity\EntityInterface
+ */
+function sop_hostclient_delete(Drupal\Core\Entity\EntityInterface $entity) {
+  $id = $entity->id();
+  $sop_entity_array = entity_load_multiple_by_properties('sop', array(
+    'hid' => $id,
+  ));
+  $sop_iband_entity_array = entity_load_multiple_by_properties('sop_task_iband', array(
+    'hid' => $id,
+  ));
+  foreach ($sop_entity_array as $row) {
+    $row->delete();
+  }
+  foreach ($sop_iband_entity_array as $row) {
+    $row->delete();
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update().
+ */
+function sop_hostclient_update(Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity->get('status')->value == 4) {
+    $sop_entity_array = entity_load_multiple_by_properties('sop', array(
+      'hid' => $entity->id(),
+      'module' => 'sop_task_iband',
+    ));
+    $sop_iband_entity_array = entity_load_multiple_by_properties('sop_task_iband', array(
+      'hid' => $entity->id(),
+    ));
+    $sop_iband = current($sop_iband_entity_array);
+    $sop = current($sop_entity_array);
+    /**
+     * @desc 获取服务器已有业务IP
+     */
+    $ips = $entity->get('ipb_id');
+    foreach ($ips as $value) {
+      $ipb_obj = $value->entity;
+      $sips_options[] = $ipb_obj->id();
+    }
+    $sop_iband->set('sop_status', 0);
+    $sop_iband->set('sop_op_type', 17);
+    $sop->set('sop_op_type', 17);
+    $sop_iband->set('sop_complete', 0);
+    $sop->set('sop_status', 0);
+    $sop->set('sop_complete', 0);
+    $sop_iband->set('sips', $sips_options);
+    $sop_iband->save();
+    $sop->save();
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update().
+ * 工单级父类sop被更新了.
+ */
+function sop_sop_update(Drupal\Core\Entity\EntityInterface $entity) {
+  $entity->other_status = 'sop_common_task';
+  HostLogFactory::OperationLog('sop')->log($entity, 'update');
+}

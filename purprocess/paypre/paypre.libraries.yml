@@ -1,0 +1,11 @@
+paypres:
+  version: VERSION
+  js:
+    js/paypres.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.spinner
+    - core/drupal
+    - core/drupalSettings
+    - core/drupal.ajax

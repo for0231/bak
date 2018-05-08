@@ -1,0 +1,53 @@
+/* line 2, ../../../bag/sass/host/order/user-payment-success-msg.scss */
+.success-msg .Order_title {
+  border-bottom: 2px solid #CDD2D7;
+  color: #333333;
+  font-size: 16px;
+  height: 30px;
+  line-height: 30px;
+  width: 100%;
+}
+/* line 9, ../../../bag/sass/host/order/user-payment-success-msg.scss */
+.success-msg .Order_title b {
+  border-bottom: 2px solid #041E39;
+  color: #041E39;
+  float: left;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+}
+/* line 18, ../../../bag/sass/host/order/user-payment-success-msg.scss */
+.success-msg .xuqiu {
+  font-size: 14px;
+}
+/* line 21, ../../../bag/sass/host/order/user-payment-success-msg.scss */
+.success-msg .fukuanchg {
+  padding: 10px 30px;
+}
+/* line 23, ../../../bag/sass/host/order/user-payment-success-msg.scss */
+.success-msg .fukuanchg .fuk_chenggu {
+  border-left: 1px solid #B2C0CD;
+  border-top: 1px solid #B2C0CD;
+  font-size: 14px;
+  width: 100%;
+}
+/* line 28, ../../../bag/sass/host/order/user-payment-success-msg.scss */
+.success-msg .fukuanchg .fuk_chenggu tr {
+  height: 40px;
+  line-height: 40px;
+}
+/* line 32, ../../../bag/sass/host/order/user-payment-success-msg.scss */
+.success-msg .fukuanchg .fuk_chenggu tr.even {
+  background: none repeat scroll 0 0 #FFFFFF;
+}
+/* line 35, ../../../bag/sass/host/order/user-payment-success-msg.scss */
+.success-msg .fukuanchg .fuk_chenggu td {
+  border-bottom: 1px solid #B2C0CD;
+  border-right: 1px solid #B2C0CD;
+  text-align: center;
+}
+/* line 40, ../../../bag/sass/host/order/user-payment-success-msg.scss */
+.success-msg .fukuanchg .fuk_chenggu .fuk_beijing {
+  background: none repeat scroll 0 0 #CDD2D7;
+  font-weight: bold;
+}

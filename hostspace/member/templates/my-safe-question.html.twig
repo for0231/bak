@@ -1,0 +1,23 @@
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+
+<div class="safe_question">      
+  <div class="Order_title"><b class="jiben_title">{{ 'security question'|t }}</b>
+    <p class="fr font_12"> {{ 'Security issues will serve as an important way to authenticate, carefully set!'|t }} </p>
+ </div>
+ <div class="blank20"></div>
+  <div class="security">
+    {{ form.question_1 }}
+    {{ form.ans_1 }}
+
+    {{ form.question_2 }}
+    {{ form.ans_2 }}
+
+    {{ form.question_3 }}
+    {{ form.ans_3 }}
+
+    {{ form.save }}
+
+  </div>
+</div>

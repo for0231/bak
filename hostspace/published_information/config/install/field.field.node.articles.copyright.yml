@@ -1,0 +1,19 @@
+id: node.articles.copyright
+entity_type: node
+bundle: articles
+field_name: copyright
+field_type: string
+label: 'Copyright'
+description: ' Copyright of article'
+required: true
+readOnly: true
+default_value:
+  -
+    value: 'HOSTSPACE'
+settings: {  }
+status: true
+langcode: en
+dependencies:
+  config:
+    - field.storage.node.copyright
+    - node.type.articles

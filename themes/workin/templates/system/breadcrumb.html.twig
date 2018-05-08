@@ -1,0 +1,49 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a breadcrumb trail.
+ *
+ * Available variables:
+ * - breadcrumb: Breadcrumb trail items.
+ *
+ * @ingroup templates
+ */
+
+{% if breadcrumb %}
+  <ol class="breadcrumb">
+    {% for item in breadcrumb %}
+      <li {{ item.attributes }}>
+        {% if item.url %}
+          <a href="{{ item.url }}">{{ item.text }}</a>
+        {% else %}
+          {{ item.text }}
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+{% endif %}
+#}
+  <!-- RIBBON -->
+  <div id="ribbon">
+    <span class="ribbon-button-alignment">
+      <span data-html="true" data-original-title="&lt;i class='text-warning fa fa-warning'&gt;&lt;/i&gt; Warning! This will reset all your widget settings." data-placement="bottom" rel="tooltip" data-title="refresh" data-action="resetWidgets" class="btn btn-ribbon" id="refresh">
+        <i class="fa fa-refresh"></i>
+      </span>
+    </span>
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+      {% if breadcrumb %}
+        {% for item in breadcrumb %}
+          <li {{ item.attributes }}>
+            {% if item.url %}
+              <a href="{{ item.url }}">{{ item.text }}</a>
+            {% else %}
+              {{ item.text }}
+            {% endif %}
+          </li>
+        {% endfor %}
+      {% endif %}
+    </ol>
+    <!-- end breadcrumb -->
+  </div>
+  <!-- END RIBBON -->

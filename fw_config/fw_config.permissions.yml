@@ -1,0 +1,22 @@
+access firewall admin:
+  title: '允许防火墙管理'
+administer fw ip shield manage:
+  title: '允许IP防护管理'
+administer fw ip shield filter:
+  title: '允许IP防护查询'
+administer fw ip fblink list:
+  title: '允许管理屏敝列表'
+administer fw config:
+  title: '管理防火墙的配置'
+administer fw ip library:
+  title: '更新IP库'
+administer fw log:
+  title: '查看日志'
+administer fw ip conmon list:
+  title: '允许连接监控'
+administer fw ip rule list:
+  title: '允许访问规则列表'
+administer fw message add:
+  title: '允许访问报文捕捉'
+administer fw hostpolicy list:
+  title: '允许访问唯盾主机策略'

@@ -1,0 +1,455 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall function for the ip module.
+ */
+
+use \Drupal\taxonomy\Entity\Vocabulary;
+use Drupal\Core\Field\BaseFieldDefinition;
+
+/**
+ * Implements hook_uninstall
+ */
+function ip_uninstall() {
+  $vocabulary = Vocabulary::load('business_ip_type');
+  if($vocabulary) {
+    $vocabulary->delete();
+  }
+
+  $vocabulary = Vocabulary::load('business_ip_segment_type');
+  if($vocabulary) {
+    $vocabulary->delete();
+  }
+}
+
+/**
+ * Implements hook_install().
+ */
+function ip_install(){
+  // 初始化IP相关的分类
+  if(!Vocabulary::load('business_ip_type')) {
+    entity_create('taxonomy_vocabulary', array(
+      'vid' => 'business_ip_type',
+      'name' => t('Type of business ip'),
+      'description' => t('Type of business ip'),
+      'hierarchy' => 1,
+      'status' => true,
+      'langcode' => 'en',
+    ))->save();
+    //业务IP类型
+    create_taxonomy_term('无防御','business_ip_type');
+    create_taxonomy_term('20G防御','business_ip_type');
+    create_taxonomy_term('40G防御','business_ip_type');
+    create_taxonomy_term('60G防御','business_ip_type');
+    create_taxonomy_term('80G防御','business_ip_type');
+  }
+
+  if(!Vocabulary::load('business_ip_segment_type')) {
+    entity_create('taxonomy_vocabulary', array(
+      'vid' => 'business_ip_segment_type',
+      'name' => t('Type of business ip'),
+      'description' => t('Type of business ip'),
+      'hierarchy' => 1,
+      'status' => true,
+      'langcode' => 'en',
+    ))->save();
+    //业务IP类型
+    create_taxonomy_term('VPS段','business_ip_segment_type');
+    create_taxonomy_term('站群段','business_ip_segment_type');
+    create_taxonomy_term('托管段','business_ip_segment_type');
+    create_taxonomy_term('普通段','business_ip_segment_type');
+  }
+}
+
+/**
+ * Implements hook_schema().
+ */
+function ip_schema() {
+  $schema['bip_apply'] = array(
+    'description' => '业务IP申请入库',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary Key: unique ID ',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => '申请人',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'created' => array(
+        'description' => '申请时间.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'segment' => array(
+        'description' => '申请的IP段.',
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'length' => 30,
+        'default' => 0,
+      ),
+      'begin' => array(
+        'description' => '起始ip.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'end' => array(
+        'description' => '结束ip.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'type' => array(
+        'description' => 'IP的类型（VPS|站群......）.',
+        'type' => 'varchar',
+        'length' => 5,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'defense' => array(
+        'description' => 'IP的防御值.',
+        'type' => 'varchar',
+        'length' => 10,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'client' => array(
+        'description' => '此段IP的专用用户',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+      ),
+      'remark' => array(
+        'description' => '此IP段的备注.',
+        'type' => 'varchar',
+        'length' => 1000,
+        'not null' => FALSE,
+        'default' => '',
+      ),
+      'auditor' => array(
+        'description' => '审核人',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'audit_date' => array(
+        'description' => '审核时间.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'audit_statue' => array(
+        'description' => '审核状态',
+        'type' => 'int',
+        'default' => 0,
+        'not null' => TRUE,
+      ),
+      'audit_content' => array(
+        'description' => '审核内容.',
+        'type' => 'varchar',
+        'not null' => FALSE,
+        'length' => 1000,
+        'default' => '',
+      ),
+      'rid' => array(
+        'description' => '机房编号',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'default' => 0
+      ),
+      'group_id' => array(
+        'description' => '机房编号',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'default' => 0
+      )
+    ),
+    'primary key' => array('id'),
+    'foreign keys' => array(
+       'uid' => array(
+         'table' => 'users',
+         'columns' => array(
+          'uid' => 'uid',
+        ),
+      ),
+      'auditor' => array(
+        'table' => 'users',
+        'columns' => array(
+          'auditor' => 'uid',
+        ),
+      ),
+      'client' => array(
+        'table' => 'users',
+        'columns' => array(
+          'client' => 'uid',
+        ),
+      ),
+    ),
+  );
+  $schema['bip_apply_cancle'] = array(
+    'description' => '业务IP申请下架',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary Key: unique ID ',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => '申请人',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'created' => array(
+        'description' => '申请时间.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'segment' => array(
+        'description' => '申请的IP段.',
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'length' => 30,
+        'default' => 0,
+      ),
+      'begin' => array(
+        'description' => '起始网络号.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'end' => array(
+        'description' => '结束网络号.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'remark' => array(
+        'description' => '备注.',
+        'type' => 'varchar',
+        'length' => 1000,
+        'not null' => FALSE,
+        'default' => '',
+      ),
+      'auditor' => array(
+        'description' => '审核人',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0, 
+      ),
+      'audit_date' => array(
+        'description' => '审核时间.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'audit_statue' => array(
+        'description' => '审核状态',
+        'type' => 'int',
+        'default' => 0,
+        'not null' => TRUE,
+      ),
+      'audit_content' => array(
+        'description' => '审核内容.',
+        'type' => 'varchar',
+        'not null' => FALSE,
+        'length' => 1000,
+        'default' => '',
+      ),
+    ),
+    'primary key' => array('id'),
+    'foreign keys' => array(
+       'uid' => array(
+         'table' => 'users',
+         'columns' => array(
+          'uid' => 'uid',
+        ),
+      ),
+      'auditor' => array(
+        'table' => 'users',
+        'columns' => array(
+          'auditor' => 'uid',
+        ),
+      ),
+    ),
+  );
+  $schema['ip_group'] = array(
+    'fields' => array(
+      'gid' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE, 
+      ),
+      'name' => array(
+        'description' => '分组名',
+        'type' => 'varchar',
+        'length' => 200,
+        'not null' => TRUE,
+        'default' => ''
+      ),
+      'rid' => array(
+        'description' => '所属机房',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'created' => array(
+        'description' => '创建时间',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'uid' => array(
+        'description' => '创建用户',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'changed' => array(
+        'description' => '变更时间',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      )
+    ),
+    'primary key' => array('gid')
+  );
+  return $schema;
+}
+
+/**
+ * @description 增加IP的机房属性
+ */
+function ip_update_8110(&$sandbox) {
+  $schema = ip_schema();
+  db_add_field('bip_apply', 'rid', $schema['bip_apply']['fields']['rid']);
+}
+
+/**
+ * 处理IP模块安装时，IP类型为正常添加的故障
+ * @todo 待后期找出错误的真实原因，再删除本更新
+ */
+function ip_update_8130(&$sandbox) {
+  // 初始化IP相关的分类
+  if(!Vocabulary::load('business_ip_type')) {
+    entity_create('taxonomy_vocabulary', array(
+      'vid' => 'business_ip_type',
+      'name' => t('Type of business ip'),
+      'description' => t('Type of business ip'),
+      'hierarchy' => 1,
+      'status' => true,
+      'langcode' => 'en',
+    ))->save();
+    //业务IP类型
+    create_taxonomy_term('无防御','business_ip_type');
+    create_taxonomy_term('20G防御','business_ip_type');
+    create_taxonomy_term('40G防御','business_ip_type');
+    create_taxonomy_term('60G防御','business_ip_type');
+    create_taxonomy_term('80G防御','business_ip_type');
+  }
+
+   if(!Vocabulary::load('business_ip_segment_type')) {
+    entity_create('taxonomy_vocabulary', array(
+      'vid' => 'business_ip_segment_type',
+      'name' => t('Type of business ip'),
+      'description' => t('Type of business ip'),
+      'hierarchy' => 1,
+      'status' => true,
+      'langcode' => 'en',
+    ))->save();
+    //业务IP类型
+    create_taxonomy_term('VPS段','business_ip_segment_type');
+    create_taxonomy_term('站群段','business_ip_segment_type');
+    create_taxonomy_term('托管段','business_ip_segment_type');
+    create_taxonomy_term('普通段','business_ip_segment_type');
+  }
+}
+
+/**
+ * 创建一个分组表
+ */
+function ip_update_8140() {
+  $schema = ip_schema();
+  db_create_table('ip_group', $schema['ip_group']);
+}
+
+/**
+ * 为ip相关的表增加group_id字段
+ */
+function ip_update_8141() {
+  $schema = ip_schema();
+  db_add_field('bip_apply', 'group_id', $schema['bip_apply']['fields']['group_id']);
+
+  $rid = BaseFieldDefinition::create('integer')
+      ->setLabel(t('IP Group'))
+      ->setRequired(TRUE)
+      ->setDefaultValue(0)
+      ->setTranslatable(TRUE)
+      ->setRevisionable(TRUE);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('rid', 'ipm', 'ip', $rid);
+
+  $group_id = BaseFieldDefinition::create('integer')
+      ->setLabel(t('IP Group'))
+      ->setRequired(TRUE)
+      ->setDefaultValue(0)
+      ->setTranslatable(TRUE)
+      ->setRevisionable(TRUE);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('group_id', 'ipb', 'ip', $group_id);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('group_id', 'ipm', 'ip', $group_id);
+}
+
+/**
+ * 对已有的业务IP和管理IP增加默认分组
+ */
+function ip_update_8142() {
+  $ipservice = \Drupal::service('ip.ipservice');
+  $entity_rooms = entity_load_multiple('room');
+  $i = 0;
+  foreach($entity_rooms as $room) {
+    $gid = \Drupal::service('ip.ipservice')->addIpGroup(array(
+      'name' => 'Default',
+      'rid' => $room->id(),
+      'changed' => time(),
+      'created' => time(),
+      'uid' => \Drupal::currentUser()->id()
+    ));
+    $ipbs = entity_load_multiple_by_properties('ipb', array('rid' => $room->id()));
+    foreach($ipbs as $ipb) {
+      $ipb->set('group_id', $gid);
+      $ipb->save();
+    }
+    if($i == 0) {
+      $ipms = entity_load_multiple('ipm');
+      foreach($ipms as $ipm) {
+        $ipm->set('rid', $room->id());
+        $ipm->set('group_id', $gid);
+        $ipm->save();
+      }
+    }
+    $i = 1;
+  }
+}

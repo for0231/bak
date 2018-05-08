@@ -1,0 +1,15 @@
+id: user.user.user_type
+entity_type: user
+bundle: user
+field_name: user_type
+field_type: string
+label: 'Type of user'
+description: 'Type of user'
+required: true
+readOnly: true
+settings: {  }
+status: true
+langcode: en
+dependencies:
+  config:
+    - field.storage.user.user_type

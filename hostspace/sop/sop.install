@@ -1,0 +1,185 @@
+<?php
+
+/**
+ * @file
+ */
+
+/**
+ * Implements hook_install().
+ */
+ function sop_install() {
+  // 默认将网站最高管理员设置为员工类型.
+  $admin = entity_load('user', 1);
+  $a = taxonomy_term_load_multiple_by_name('软件部');
+  $depart = '';
+  foreach ($a as $key => $v) {
+    $depart = $key;
+  }
+  $admin->set('user_type', 'employee');
+  $admin->save();
+  $filed_arr = array(
+    'employee_name' => 'admin',
+    'uid' => 1,
+    'department' => $depart,
+  );
+  // 调用server类中的方法，存储员工信息到user_employee_data 表中.
+  \Drupal::service('member.memberservice')->saveEmployeeInfo($filed_arr);
+  // 更新角色权限.
+  get_all_permissions();
+  }
+
+  /**
+   * 获取网站已有模块的权限名称，并根据权限类别分类.
+   */
+  function get_all_permissions() {
+    $busi_permissions = array(
+      'administer credit up',
+      'administer recharge record',
+      'administer price change apply',
+      'administer price change view',
+      'administer price change audit',
+      'administer order trial apply',
+      'administer order trial view',
+      'administer order trial audit',
+      'administer business department',
+      'administer hostclient remove ip',
+      'administer hostclient stop',
+      'administer hostclient stop handle',
+      'administer hostclient downshelf',
+      'administer alipay configuration',
+      'administer alipay list',
+      'administer product edit',
+      'administer product delete',
+      'administer product business view',
+      'administer product business edit',
+      'administer product business delete',
+      'administer product price view',
+      'administer product price edit',
+      'administer product price delete',
+      'administrator bussiness sop permission',
+    );
+    $tech_permissions = array(
+      'administer idc room edit',
+      'administer idc room delete',
+      'administer technology department',
+      'administer parts edit',
+      'administer parts delete',
+      'administer parts add',
+      'administer server compose',
+      'access flow lead admin',
+      'administer qy system configure',
+      'administer qy policy view',
+      'administer qy policy edit',
+      'administer qy traction view',
+      'administer qy traction edit',
+      'administer qy logs view',
+      'administer qy ip checked',
+      'administer qy attack',
+      'administer qy firewall view',
+      'administer qy firewall edit',
+      'administer qy open firewall listen',
+      'administer server products edit',
+      'administer server products overview',
+      'administer server edit',
+      'administer server overview',
+      'administer server delete',
+      'administrator technology sop permission',
+    );
+    $comm_permissions = array(
+      'bypass node access',
+      'administer area import',
+      'access administration common pages',
+      'administer global settings',
+      'administer project list',
+      'administer peoject add',
+      'administer peoject delete',
+      'access administration contract pages',
+      'administer contract add',
+      'administer contract list',
+      'administer contratc client add',
+      'administer contratc client list',
+      'administer contratc client delete',
+      'access administration log pages',
+      'administer idc room view',
+      'administer idc server stat',
+      'access administration idc pages',
+      'administer ip list',
+      'administer ip add',
+      'administer ip edit',
+      'administer IP delete',
+      'access ip log',
+      'administer IP taxonomy',
+      'access administration ip pages',
+      'administer apply add bip',
+      'administer apply list',
+      'administer audit apply',
+      'administer letter send',
+      'administer member list',
+      'administer sudo users',
+      'access order admin',
+      'administer order list',
+      'administer order accept',
+      'administer order view',
+      'administer hostclient view',
+      'administer parts list',
+      'access administration parts pages',
+      'administer product view',
+      'access administration product pages',
+      'access administration published pages',
+      'access administration question pages',
+      'administer question category add',
+      'aadminister question category admin',
+      'administer question category edit',
+      'administer question category delete',
+      'administer question list',
+      'administer I deal with',
+      'administer question statistics',
+      'administrator bus and tech sop permission',
+      'administrator special sop permission',
+      'administer sync hostclient data',
+      'access administration pages',
+      'view the administration theme',
+      'access administration log pages',
+    );
+    $productor_permissions = array(
+      'administer server overview',
+      'administer server edit',
+      'administer server delete',
+      'administer parts list',
+      'administer parts edit',
+      'administer parts delete',
+      'administer parts add',
+      'administer server compose',
+      'access administration parts pages',
+      'administer product view',
+      'administer product edit',
+      'administer product delete',
+      'administer product business view',
+      'administer product business edit',
+      'administer product business delete',
+      'administer product price view',
+      'administer product price edit',
+      'administer product price delete',
+      'access administration product pages',
+    );
+    $comm_product_permissions = array(
+      'bypass node access',
+      'administer area import',
+      'access administration common pages',
+      'administer global settings',
+      'access administration log pages',
+      'access administration pages',
+      'view the administration theme',
+      'access administration pages',
+      'view the administration theme',
+      'access administration log pages',
+    );
+
+    $customer = array_merge($busi_permissions, $comm_permissions);
+    $technical = array_merge($tech_permissions, $comm_permissions);
+    $productor = array_merge($productor_permissions, $comm_product_permissions);
+
+    user_role_grant_permissions('customer', $customer);
+    user_role_grant_permissions('technical', $technical);
+    user_role_grant_permissions('productor', $productor);
+  }

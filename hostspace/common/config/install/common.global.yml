@@ -1,0 +1,16 @@
+ipm_threshold: 50  #管理IP预警阀值
+ipb_threshold: 50  #业务IP预警阀值
+ips_threshold: 50  #交换机预警阀值
+# 预警方式 1--邮件  2--站内信息
+warning_mode: 2
+langcode: en
+# 是否开启自动分配管理服务器和业务IP
+auto_distribute: true
+# 是否开启机房限定属性
+is_district_room_id: true
+# 指定默认机房
+is_district_room: 1
+# 开启服务器控制面板
+server_panel: 0
+#试用时间
+server_trial_time: 24

@@ -1,0 +1,12 @@
+administer part edit:
+  title: 'Administer part Edit'
+administer part delete:
+  title: 'Administer part Delete'
+administer part collection:
+  title: 'administer part collection'
+administer part pool:
+  title: 'administer part pool'
+administer taxonomy part overview:
+  title: '管理配件'
+administer taxonomy part edit:
+  title: '配件编辑'

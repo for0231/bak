@@ -1,0 +1,39 @@
+access order admin:
+  title: 'access order admin'
+administer order list:
+  title: 'administer order list'
+administer order accept:
+  title: 'administer order accept'
+administer order view:
+  title: 'administer order view'
+
+administer price change apply:
+ title: 'administer price change apply'
+administer price change view:
+  title: 'administer price change view'
+administer price change audit:
+  title: 'administer price change audit'
+
+administer order trial apply:
+  title: 'administer order trial apply'
+administer order trial view:
+  title: 'administer order trial view'
+administer order trial audit:
+  title: 'administer order trial audit'
+
+administer hostclient view:
+  title: 'administer hostclient view'
+administer business department:
+  title: 'administer business department'
+administer technology department:
+  title: 'administer technology department'
+administer hostclient remove ip:
+  title: 'administer hostclient remove ip'
+administer hostclient stop:
+  title: 'administer hostclient stop'
+administer hostclient stop handle:
+  title: 'administer hostclient stop handle'
+administer hostclient downshelf:
+  title: 'administer hostclient down shelf'
+
+

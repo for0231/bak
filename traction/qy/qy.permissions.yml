@@ -1,0 +1,8 @@
+administer traction common:
+  title: 'administer traction common'
+administer qy mail view:
+  title: 'administer qy mail view'
+administer qy mail edit:
+  title: 'administer qy mail edit'
+administer qy sync data:
+  title: 'administer qy sync data'

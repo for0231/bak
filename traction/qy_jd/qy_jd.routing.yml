@@ -1,0 +1,318 @@
+system.admin_jd:
+  path: '/admin/jd'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Flow lead'
+  requirements:
+    _permission: 'access flow lead jd admin'
+
+admin.jd.configure:
+  path: '/admin/jd/config'
+  defaults:
+    _form: '\Drupal\qy_jd\Form\SysConfigureForm'
+    _title: 'System ConfigureForm'
+  requirements:
+    _permission: 'administer qy jd system config'
+
+admin.jd.policy:
+  path: 'admin/jd/policy'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\JdController::policyList'
+    _title: 'Traction policy'
+  requirements:
+    _permission: 'administer qy jd policy view'
+
+admin.jd.policy.add:
+  path: 'admin/jd/policy/add'
+  defaults:
+    _form: '\Drupal\qy_jd\Form\PolicyAddForm'
+    _title: 'Add traction policy'
+  requirements:
+    _permission: 'administer qy jd policy edit'
+
+admin.jd.policy.segment.add:
+  path: 'admin/jd/policy/segment/add'
+  defaults:
+    _form: '\Drupal\qy_jd\Form\PolicyMultipleAddForm'
+    _title: 'Add traction policy'
+  requirements:
+    _permission: 'administer qy jd policy edit'
+
+admin.jd.policy.edit:
+  path: 'admin/jd/policy/{policy_id}/edit'
+  defaults:
+    _form: '\Drupal\qy_jd\Form\PolicyAddForm'
+    _title: 'Edit traction policy'
+  requirements:
+    _permission: 'administer qy jd policy edit'
+
+admin.jd.policy.delete:
+  path: 'admin/jd/policy/{policy_id}/delete'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\JdController::policyDelete'
+  requirements:
+    _permission: 'administer qy jd policy edit'
+
+admin.jd.policy.segment.delete:
+  path: 'admin/jd/policy/{policy_id}/segment/delete'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\JdController::segmentDelete'
+  requirements:
+    _permission: 'administer qy jd policy edit'
+
+admin.jd.policy_tmp:
+  path: 'admin/jd/policy_tmp'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\JdController::policyTmpList'
+    _title: 'Traction policy tmp'
+  requirements:
+    _permission: 'administer qy jd policy view'
+
+admin.jd.policy_tmp.add:
+  path: 'admin/jd/policy_tmp/add'
+  defaults:
+    _form: '\Drupal\qy_jd\Form\PolicyTmpAddForm'
+    _title: 'Add tmp traction policy'
+  requirements:
+    _permission: 'administer qy jd policy edit'
+
+admin.jd.policy_tmp.edit:
+  path: 'admin/jd/policy_tmp/{policy_id}/edit'
+  defaults:
+    _form: '\Drupal\qy_jd\Form\PolicyTmpAddForm'
+    _title: 'Edit tmp traction policy'
+  requirements:
+    _permission: 'administer qy jd policy edit'
+
+admin.jd.policy_tmp.status:
+  path: 'admin/jd/policy_tmp/{policy_id}/status/{status}'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\JdController::policyStatus'
+  requirements:
+    _permission: 'administer qy jd policy edit'
+
+admin.jd.traction:
+  path: 'admin/jd/traction'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\JdController::tractionList'
+    _title: 'Traction list'
+  requirements:
+    _permission: 'administer qy jd traction view'
+
+admin.jd.traction_filter:
+  path: 'admin/jd/traction_filter'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\JdController::tractionFilterList'
+    _title: 'Traction filter list'
+  requirements:
+    _permission: 'administer qy jd traction view'
+
+admin.jd.traction.add:
+  path: 'admin/jd/traction/add'
+  defaults:
+    _form: '\Drupal\qy_jd\Form\TractionAddForm'
+    _title: 'Add manual traction'
+  requirements:
+    _permission: 'administer qy jd traction edit'
+
+admin.jd.ip_stop:
+  path: 'admin/jd/ip_stop'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\JdController::ipStopList'
+    _title: 'Ip stop list'
+  requirements:
+    _permission: 'administer qy jd traction view'
+
+admin.jd.ip_stop.add:
+  path: 'admin/jd/ip_stop/add'
+  defaults:
+    _form: '\Drupal\qy_jd\Form\IpStopAddForm'
+    _title: 'Add ip stop'
+  requirements:
+    _permission: 'administer qy jd traction edit'
+
+admin.jd.traction.remove:
+  path: 'admin/jd/traction/{traction_id}/remove'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\JdController::tractionRemove'
+    _title: 'Remove traction'
+  requirements:
+    _permission: 'administer qy jd traction edit'
+
+admin.jd.traction.time:
+  path: 'admin/jd/traction/{traction_id}/time'
+  defaults:
+    _form: '\Drupal\qy_jd\Form\TractionTimeEditForm'
+    _title: 'Edit traction time'
+  requirements:
+    _permission: 'administer qy jd traction edit'
+
+admin.jd.traction.remove.alarm:
+  path: 'admin/jd/traction/remove/alarm'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\JdController::removeAlarm'
+  requirements:
+    _permission: 'administer qy jd traction edit'
+
+admin.jd.logs.traction:
+  path: 'admin/jd/logs/traction'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\JdController::logsTraction'
+    _title: 'Logs traction'
+  requirements:
+    _permission: 'administer qy jd logs view'
+
+admin.jd.logs.ip_stop:
+  path: 'admin/jd/logs/ip_stop'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\JdController::logsIpStop'
+    _title: 'Logs ip stop'
+  requirements:
+    _permission: 'administer qy jd logs view'
+
+admin.jd.ip_check:
+  path: 'admin/jd/ip_check'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\JdController::ipChecked'
+    _title: 'Ip checked'
+  requirements:
+    _permission: 'administer qy jd ip checked'
+
+admin.jd.ip_check.ajax:
+  path: 'admin/jd/ip_check/ajax'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\JdController::ipCheckAjax'
+  requirements:
+    _permission: 'administer qy jd ip checked'
+
+admin.jd.index:
+  path: 'admin/jd/index'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\JdController::adminIndex'
+    _title: 'Admin home'
+  requirements:
+    _permission: 'administer qy jd traction index'
+
+admin.jd.route:
+  path: 'admin/jd/route'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\JdController::qyRouteList'
+    _title: 'Route'
+  requirements:
+    _permission: 'administer qy jd route view'
+
+admin.jd.route.add:
+  path: 'admin/jd/route/add'
+  defaults:
+    _form: '\Drupal\qy_jd\Form\RouteAddForm'
+    _title: 'Add route'
+  requirements:
+    _permission: 'administer qy jd route edit'
+
+admin.jd.route.edit:
+  path: 'admin/jd/route/{id}/edit'
+  defaults:
+    _form: '\Drupal\qy_jd\Form\RouteAddForm'
+    _title: 'Edit route'
+  requirements:
+    _permission: 'administer qy jd route edit'
+
+admin.jd.route.delete:
+  path: 'admin/jd/route/{id}/delete'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\JdController::RouteDelete'
+    _title: 'Delete route'
+  requirements:
+    _permission: 'administer qy jd route edit'
+
+admin.jd.route.firewall.add:
+  path: 'admin/jd/route/{route_id}/firewall/add'
+  defaults:
+    _form: '\Drupal\qy_jd\Form\FirewallAddForm'
+    _title: 'Add firewall'
+  requirements:
+    _permission: 'administer qy jd route edit'
+
+admin.jd.firewall.edit:
+  path: 'admin/jd/route/firewall/{id}/edit'
+  defaults:
+    _form: '\Drupal\qy_jd\Form\FirewallEditForm'
+    _title: 'Edit firewall'
+  requirements:
+    _permission: 'administer qy jd route edit'
+
+admin.jd.firewall.delete:
+  path: 'admin/jd/route/firewall/{id}/delete'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\JdController::firewallDelete'
+    _title: 'Delete firewall'
+  requirements:
+    _permission: 'administer qy jd route edit'
+
+admin.jd.monitor:
+  path: 'admin/jd/monitor'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\JdController::FlowMonitor'
+    _title: 'Flow monitor'
+  requirements:
+    _permission: 'administer qy jd Flow monitor'
+
+admin.jd.monitor.info:
+  path: 'admin/jd/monitor/{wall_id}/info'
+  defaults: 
+    _controller: '\Drupal\qy_jd\Controller\JdController::FlowInfo'
+    _title: 'Ip info'
+  requirements:
+    _permission: 'administer qy jd Flow monitor'
+
+admin.jd.alarm:
+  path: 'admin/jd/alarm'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\JdController::AlarmList'
+    _title: 'Alarm view'
+  requirements:
+    _permission: 'administer qy jd alarm view'
+
+admin.jd.alarm.edit:
+  path: 'admin/jd/alarm/{id}/edit'
+  defaults:
+    _form: '\Drupal\qy_jd\Form\AlarmEditForm'
+    _title: 'Edit Alarm'
+  requirements:
+    _permission: 'administer qy jd alarm edit'
+
+admin.jd.listen.wall:
+  path: 'admin/jd/listen/{route_id}/wall'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\FirewallController::listenWall'
+  requirements:
+    _permission: 'administer qy jd open firewall listen'
+
+admin.jd.listen.blackhole:
+  path: 'admin/jd/listen/{route_id}/blackhole'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\FirewallController::listenBlackhole'
+  requirements:
+    _permission: 'administer qy jd open firewall listen' 
+
+admin.jd.listen.close:
+  path: 'admin/jd/listen/{route_id}/close'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\JdController::colseListen'
+  requirements:
+    _permission: 'administer qy jd open firewall listen'
+
+admin.jd.listen.kill:
+  path: 'admin/jd/listen/kill'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\FirewallController::listenkill'
+  requirements:
+    _permission: 'administer qy jd open firewall listen'
+
+admin.jd.logs.export:
+  path: 'admin/jd/logs/export'
+  defaults:
+    _controller: '\Drupal\qy_jd\Controller\JdController::logsExport'
+    _title: 'Logs export'
+  requirements:
+    _permission: 'administer qy jd logs view'

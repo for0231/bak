@@ -1,0 +1,6 @@
+name: ThemeBlock
+type: module
+core: 8.x
+package: Workin
+description: '主题区块辅助模块'
+version: VERSION

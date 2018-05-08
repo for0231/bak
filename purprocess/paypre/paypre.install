@@ -1,0 +1,108 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall function for the paypre module.
+ */
+
+use Drupal\Core\Field\BaseFieldDefinition;
+
+
+/**
+ * 增加合同字段.
+ */
+function paypre_update_9004() {
+  $storage_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('合同'))
+    ->setDescription(t('合同No.'));
+
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('contact_no', 'paypre', 'paypre', $storage_definition);
+}
+
+
+/**
+ * 增加付款单名称.
+ */
+function paypre_update_9005() {
+  $storage_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('付款单名称'))
+    ->setDescription(t('付款单名称'));
+
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('title', 'paypre', 'paypre', $storage_definition);
+}
+
+
+/**
+ * 增加付款单金额.
+ */
+function paypre_update_9006() {
+  $storage_definition = BaseFieldDefinition::create('integer')
+    ->setLabel(t('付款单金额'))
+      ->setDefaultValue(0)
+      ->setDescription(t('付款单金额'));
+
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('amount', 'paypre', 'paypre', $storage_definition);
+}
+
+
+/**
+ * 增加付款单每次生成时的应付金额.
+ */
+function paypre_update_9008() {
+  $storage_definition = BaseFieldDefinition::create('integer')
+    ->setLabel(t('付款单应付金额'))
+      ->setDefaultValue(0)
+      ->setDescription(t('付款单应付金额'));
+
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('pre_amount', 'paypre', 'paypre', $storage_definition);
+}
+
+
+/**
+ * 增加付款单备注.
+ */
+function paypre_update_9011() {
+  $storage_definition = BaseFieldDefinition::create('text_long')
+    ->setLabel(t('备注'))
+    ->setDescription(t('备注'));
+
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('description', 'paypre', 'paypre', $storage_definition);
+}
+
+/**
+ * 增加单是否取消字段.
+ * 默认为0，表示未取消
+ *       1，表示已取消
+ * 用途：用来区分付款单取消时，采购单回归采购池后，付款单正常与否，默认为0时-正常状态。
+ * 1时非正常状态。
+ */
+function paypre_update_9012() {
+  $storage_definition = BaseFieldDefinition::create('integer')
+    ->setLabel(t('是否取消'))
+    ->setDefaultValue(0)
+    ->setDescription(t('是否取消.'));
+
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('iscancel', 'paypre', 'paypre', $storage_definition);
+}
+
+/**
+ * @description 金额字段，精确到float类型
+ */
+function paypre_update_9013() {
+  // Create the definition for the field
+  $new_field = array(
+    'type' => 'float',
+    'precision' => 10,
+    'scale' => 2,
+  );
+
+  db_change_field('paypre', 'pre_amount', 'pre_amount', $new_field);
+  db_change_field('paypre', 'amount', 'amount', $new_field);
+}
+

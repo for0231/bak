@@ -1,0 +1,8 @@
+name: IP
+type: module
+core: 8.x
+package: Hostspaces
+description: 'IP'
+version: VERSION
+dependencies:
+  - member

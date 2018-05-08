@@ -1,0 +1,8 @@
+name: Question
+type: module
+core: 8.x
+package: Hostspaces
+description: 'Management malfunction declare'
+version: VERSION
+dependencies:
+  - member

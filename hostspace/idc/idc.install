@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * @file 
+ * Install, update and uninstall function for the user module.
+ */
+
+use \Drupal\taxonomy\Entity\Vocabulary;
+
+/**
+ * Implements hook_uninstall
+ */
+function idc_uninstall() {
+  $vocabulary = Vocabulary::load('idc');
+  if($vocabulary) {
+    $vocabulary->delete();
+  }
+}
+
+/**
+ * Implements hook_install().
+ */
+function idc_install() {
+    // 初始化CPU相关的分类
+  $exist = Vocabulary::load('idc');
+  if (!$exist) {
+    entity_create('taxonomy_vocabulary', array(
+      'vid' => 'idc',
+      'name' => t('IDC Room'),
+      'description' => t('For the IDC room classify'),
+      'hierarchy' => 1,
+      'status' => true,
+      'langcode' => 'en',
+    ))->save();
+
+    $term = entity_create('taxonomy_term', array(
+      'name' => t('Room'),
+      'parent' => array(0),
+      'vid' => 'idc'
+    ));
+    $term->save();
+    $termId = $term->id;
+    $config = \Drupal::configFactory()->getEditable('idc.settings');
+    taxonomy_loop_child($config, 'idc', 'idc.room.area', 'Area', $termId, array('洛杉矶', '香港'));
+    taxonomy_loop_child($config, 'idc', 'idc.room.circuit', 'Circuit', $termId, array('双线', '电信', '联通'));
+    taxonomy_loop_child($config, 'idc', 'idc.room.front_visible', 'Front visible', $termId, array('是', '否'));
+    $config->save();
+  }
+}

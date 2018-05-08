@@ -1,0 +1,8 @@
+name: Publish_information
+type: module
+core: 8.x
+package: Hostspaces
+description: 'Management information of the website'
+version: VERSION
+dependencies:
+  - member

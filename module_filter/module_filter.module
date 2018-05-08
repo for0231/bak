@@ -1,0 +1,48 @@
+<?php
+/**
+ * Implement hook_theme().
+ */
+function module_filter_theme() {
+  return array(
+    'module_filter' => array(
+      'render element' => 'element'
+    ),
+    'module_filter_system_modules_tabs' => array(
+      'render element' => 'form',
+      'template' => 'module-filter-system-modules-tabs'
+    )
+  );
+}
+
+function module_filter_new_modules() {
+  // Get current list of modules.
+  $files = system_rebuild_module_data();
+  // Remove hidden modules from display list.
+  $visible_files = $files;
+  foreach ($visible_files as $filename => $file) {
+    if (!empty($file->info['hidden'])) {
+      unset($visible_files[$filename]);
+    }
+  }
+
+  uasort($visible_files, 'system_sort_modules_by_info_name');
+
+  $new_modules = array();
+  foreach ($visible_files as $filename => $module) {
+    $ctime = filectime($module->getPath() . '/' . $module->getFilename());
+    if (($ctime - strtotime('-1 week')) > 0) {
+      $new_modules[$filename] = module_filter_get_id($filename);
+    }
+  }
+  return $new_modules;
+}
+
+function module_filter_get_id($text) {
+  $id = strtolower($text);
+  $id = preg_replace('/([^a-z0-9]+)/', '-', $id);
+  return trim($id, '-');
+}
+
+function module_filter_recent_filter($var) {
+  return (!($var < REQUEST_TIME - 60*60*24*7));
+}

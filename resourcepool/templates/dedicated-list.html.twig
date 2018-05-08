@@ -1,0 +1,70 @@
+{{attach_library('resourcepool/drupal.business-url')}}
+
+<table class="business-table">
+  <thead>
+  <tr>
+	  <th colspan="9">专线sharing 网络</th>
+  </tr>
+  <tr>
+    <th >链路ID(我司分配)</th>
+    <th >供应商名字</th>
+    <th >链路代号</th>
+    <th >commit带宽</th>
+    <th >brust带宽</th>
+    <th >A-end</th>
+    <th >Z-end</th>
+    <th >备注</th>
+    <th >操作</th>
+  </tr>
+  </thead>
+  <tbody>
+    {% for item in tmp_sharing %}
+      <tr>
+        <td ><a href='{{item.cacti1}}' target="_blank">{{item.link_id}}</a></td>
+        <td >{{item.supplier}}</td>
+        <td >{{item.link_code}} </td>
+        <td >{{item.commit_bandwidth}}</td>
+        <td >{{item.brust_bandwidth}}</td>
+        <td >{{item.A_end}}</td>
+        <td >{{item.Z_end}}</td>
+        <td >{{item.note}}</td>
+        <td><a href="dedicatedres/{{item.no}}/edit">修改</a>
+        <a href="{{ url('admin.resourcepool.dedicatedres.delete',{'no': item.no,'type':1,'link_id':item.link_id})}}">删除</a></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<table class="business-table">
+  <thead>
+  <tr>
+	  <th colspan="9">专线dedicated 网络</th>
+  </tr>
+  <tr>
+    <th >链路ID(我司分配)</th>
+    <th >供应商名字</th>
+    <th >链路代号</th>
+    <th >commit带宽</th>
+    <th >brust带宽</th>
+    <th >A-end</th>
+    <th >Z-end</th>
+    <th >备注</th>
+    <th >操作</th>
+  </tr>
+  </thead>
+  <tbody>
+    {% for item in tmp_dedicated %}
+      <tr>
+        <td >{{item.link_id}}</td>
+        <td >{{item.supplier}}</td>
+        <td >{{item.link_code}} </td>
+        <td >{{item.commit_bandwidth}}</td>
+        <td >{{item.brust_bandwidth}}</td>
+        <td >{{item.A_end}}</td>
+        <td >{{item.Z_end}}</td>
+        <td >{{item.note}}</td>
+        <td><a href="dedicatedres/{{item.no}}/edit">修改</a>
+        <a href="{{ url('admin.resourcepool.dedicatedres.delete',{'no': item.no,'type':3,'link_id':item.link_id})}}">删除</a></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

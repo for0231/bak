@@ -1,0 +1,8 @@
+ip:
+  ipm:
+    status: 10
+    server_type: 10
+  ipb:
+    status: 10
+    type: 10
+

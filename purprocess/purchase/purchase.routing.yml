@@ -1,0 +1,128 @@
+entity.purchase.admin:
+  path: '/admin/purchase'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Administration'
+  requirements:
+    _permission: 'administer purchase collection'
+
+entity.purchase.add_form:
+  path: 'admin/purchase/add'
+  defaults:
+    ###_entity_form: 'purchase.default'
+    _form: '\Drupal\purchase\Form\PurchaseAddForm'
+    _title: '采购单'
+  requirements:
+    _permission: 'administer purchase edit'
+entity.purchase.edit_form:
+  path: 'admin/purchase/{purchase}/edit'
+  defaults:
+    _entity_form: 'purchase.default'
+    _title: '采购单'
+  requirements:
+    _permission: 'administer purchase edit'
+entity.purchase.collection:
+  path: '/admin/purchase/collection'
+  defaults:
+    _entity_list: 'purchase'
+    _title: '采购单工作台'
+  requirements:
+    _permission: 'administer purchase collection'
+entity.purchase.detail_form:
+  path: 'admin/purchase/{purchase}/detail'
+  defaults:
+    _entity_form: 'purchase.detail'
+    _title: '采购单'
+  requirements:
+    _permission: 'administer purchase detail'
+
+entity.purchase.history.collection:
+  path: 'admin/purchase/collection/history'
+  defaults:
+    _controller: 'Drupal\purchase\Controller\PurchaseController::getHistoryData'
+    _title: '采购单历史数据表'
+  requirements:
+    _permission: 'administer requirement collection'
+
+entity.purchase.audit.history.collection:
+  path: 'admin/purchase/collection/history/audit'
+  defaults:
+    _controller: 'Drupal\purchase\Controller\PurchaseController::getAuditHistoryData'
+    _title: '采购单审批历史数据表'
+  requirements:
+    _permission: 'administer purchase audit history'
+
+##创建采购单
+##@deprecated
+ajax.parts.pool.purchase.create:
+  path: 'ajax/purchase/pool/parts/create'
+  defaults:
+    _controller: 'Drupal\purchase\Controller\PurchaseController::createPurchaseAutocomplete'
+    _title: '创建采购单'
+  requirements:
+    _permission: 'administer purchase edit'
+
+##追加需求配件到采购单
+ajax.parts.pool.purchase.append:
+  path: 'ajax/purchase/{purchase}/pool/parts/append'
+  defaults:
+    _controller: 'Drupal\purchase\Controller\PurchaseController::appendParts2PurchaseAutocomplete'
+    _title: '追加采购单配件'
+  requirements:
+    _permission: 'administer purchase edit'
+    requirement: '\d+'
+
+### purchase edit page
+ajax.purchase.parts.collection:
+  path: 'ajax/purchase/{purchase}/parts'
+  defaults:
+    _controller: 'Drupal\purchase\Controller\PurchaseController::getPurchasePartsAutocomplete'
+    _title: '采购单的配件列表'
+  requirements:
+    _permission: 'administer purchase detail'
+    requirement: '\d+'
+
+### purchase edit page
+ajax.purchase.parts.operation:
+  path: 'ajax/purchase/{purchase}/parts/operation'
+  defaults:
+    _controller: 'Drupal\purchase\Controller\PurchaseController::operationPurchasePartsAutocomplete'
+    _title: '采购单需求配件删除'
+  requirements:
+    _permission: 'administer purchase edit'
+    requirement: '\d+'
+
+### 采购池列表
+entity.purchase.pools.collection:
+  path: 'admin/purchase/pools/collection'
+  defaults:
+    _controller: 'Drupal\purchase\Controller\PurchaseController::getPurchasePools'
+    _title: '采购池'
+  requirements:
+    _permission: 'administer purchase pool'
+### 采购池列表
+entity.purchase.pools:
+  path: 'ajax/purchase/pools'
+  defaults:
+    _controller: 'Drupal\purchase\Controller\PurchaseController::getPurchaseAutocomplete'
+    _title: '采购池列表'
+  requirements:
+    _permission: 'administer purchase pool'
+### 采购池列表
+entity.purchase.pools.operation:
+  path: 'ajax/purchase/pools/operate'
+  defaults:
+    _controller: 'Drupal\purchase\Controller\PurchaseController::operatePurchaseAutocomplete'
+    _title: '采购池列表'
+  requirements:
+    _permission: 'administer purchase pool'
+
+
+
+admin.purchase.collection.data:
+  path: 'admin/purchase/collection/data'
+  defaults:
+    _controller: 'Drupal\purchase\Controller\PurchaseController::getPurchaseDataCollection'
+    _title: '未完成采购单列表数据'
+  requirements:
+    _permission: 'administer purchase collection'

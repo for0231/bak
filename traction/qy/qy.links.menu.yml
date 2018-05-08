@@ -1,0 +1,11 @@
+system.admin_qy_email:
+  title: '牵引邮箱配置'
+  parent: system.admin
+  route_name: admin.qy.mail.list
+  weight: -195
+  
+system.admin_qy_sync:
+  title: '主从数据同步'
+  parent: system.admin
+  route_name: admin.qy.sync.data
+  weight: -185

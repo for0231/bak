@@ -1,0 +1,4 @@
+retips: 1 #1 重复提醒， 0 只提醒一次
+expiration_delay: 5 #延迟5分钟过期
+isaudio: 1 #1 声音提醒 0 没有声音提醒
+interval: 0 # 提醒间隔时间

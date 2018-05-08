@@ -1,0 +1,7 @@
+admin.sync.hostclient:
+  path: '/admin/sync/hostclient'
+  defaults:
+    _form: '\Drupal\sync_migration\Form\SyncForm'
+    _title: 'Sync hostclient Data'
+  requirements:
+    _permission: 'administer sync hostclient data'

@@ -1,0 +1,29 @@
+<?php
+/**
+ * @file
+ * 知识库module文件
+ */
+
+/**
+ * Implement hook_theme().
+ */
+function knowledge_theme() {
+  return array(
+    'knowledge_search_form' => array(
+      'render element' => 'form',
+      'template' => 'knowledge-search-form',
+    ),
+    'knowledge_content' => array(
+      'template' => 'knowledge-content',
+      'variables' => array('contents' => null)
+    ),
+    'knowledge_content_info' => array(
+      'template' => 'knowledge-content-info',
+      'variables' => array('knowledge' => null)
+    ),
+    'knowledge_search' => array(
+      'template' => 'knowledge-search',
+      'variables' => array('knowledges' => null)
+    )
+  );
+}

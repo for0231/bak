@@ -1,0 +1,83 @@
+system.admin_wd:
+  title: '牵引系统(唯盾防火墙)'
+  parent: system.admin
+  route_name: system.admin_wd
+  weight: -202
+
+admin.wd.index:
+  title: '后台首页'
+  parent: system.admin_wd
+  route_name: admin.wd.index
+  weight: 0
+
+admin.wd.traction:
+  title: '流量清洗牵引状态'
+  parent: system.admin_wd
+  route_name: admin.wd.traction
+  weight: 1
+
+admin.wd.traction_filter:
+  title: '滤后牵引状态'
+  parent: system.admin_wd
+  route_name: admin.wd.traction_filter
+  weight: 2
+
+admin.wd.ip_stop:
+  title: 'IP封停状态'
+  parent: system.admin_wd
+  route_name: admin.wd.ip_stop
+  weight: 3
+
+admin.wd.monitor:
+  title: '流量监控'
+  parent: system.admin_wd
+  route_name: admin.wd.monitor
+  weight: 10
+
+admin.wd.ip_check:
+  title: '独立IP检查'
+  parent: system.admin_wd
+  route_name: admin.wd.ip_check
+  weight: 11
+  
+admin.wd.chart:
+  title: 'IP流量图'
+  parent: system.admin_wd
+  route_name: admin.wd.chart
+  weight: 12
+
+admin.wd.policy:
+  title: '流量牵引策略'
+  parent: system.admin_wd
+  route_name: admin.wd.policy
+  weight: 15
+
+admin.wd.policy_tmp:
+  title: '临时牵引策略'
+  parent: system.admin_wd
+  route_name: admin.wd.policy_tmp
+  weight: 16
+
+admin.wd.route:
+  title: '线路管理'
+  parent: system.admin_wd
+  route_name: admin.wd.route
+  weight: 20
+
+admin.wd.config:
+  title: '系统配置'
+  parent: system.admin_wd
+  route_name: admin.wd.config
+  weight: 21
+
+admin.wd.logs.ip_stop:
+  title: 'IP封停历史'
+  parent: system.admin_wd
+  route_name: admin.wd.logs.ip_stop
+  weight: 22
+
+admin.wd.logs.traction:
+  title: '牵引历史'
+  parent: system.admin_wd
+  route_name: admin.wd.logs.traction
+  weight: 23

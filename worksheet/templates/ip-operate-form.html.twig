@@ -1,0 +1,49 @@
+{#
+/**
+ * @file
+ * 处理IP类工单表单
+ *
+ * Available variables:
+ * - form: 处理IP类工单表单
+ *   - client: 公司名称
+ *
+ */
+#}
+{{attach_library('worksheet/drupal.worksheet-default') }}
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+{{form.other}}
+{{form.js}}
+<table class='edit'>
+  <tr>
+    <td class='col1'>{{form.code}}</td>
+    <td class='col1'>{{form.manage_ip}}</td>
+    <td>{{form.client}}</td>
+  </tr>
+  <tr>
+    <td>{{form.contacts}}</td>
+    <td>{{form.show_created}}</td>
+    <td>{{form.show_user}}</td>
+  </tr>
+  <tr>
+    <td>{{form.tid}}</td>
+    <td>{{form.show_handleuser}}</td>
+    <td>{{form.show_lastuser}}</td>
+  <tr>
+  <tr>
+    <td>{{form.add_ip}}</td>
+    <td>{{form.property}}</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>{{form.rm_ip}}</td>
+    <td rowspan="2" class="ip-handle">{{form.requirement}}</td>
+    <td rowspan="2" class="ip-handle">{{form.handle_info}}</td>
+  </tr>
+  <tr>
+    <td>{{form.broadband}}</td>
+  </tr>
+</table>
+{{form.deliver_info_show}}
+{{form.actions}}

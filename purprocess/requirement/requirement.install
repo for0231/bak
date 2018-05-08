@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall function for the requirement module.
+ */
+
+use Drupal\Core\Field\BaseFieldDefinition;
+
+
+/**
+ * 增加需求单名称.
+ */
+function requirement_update_9001() {
+  $storage_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('需求名称'))
+    ->setDescription(t('需求名称'));
+
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('title', 'requirement', 'requirement', $storage_definition);
+}
+/**
+ * 增加需求数量字段.
+ */
+function requirement_update_9002() {
+  $storage_definition = BaseFieldDefinition::create('integer')
+    ->setLabel(t('需求数量'))
+    ->setDescription(t('需求数量.'));
+
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('num', 'requirement', 'requirement', $storage_definition);
+}
+

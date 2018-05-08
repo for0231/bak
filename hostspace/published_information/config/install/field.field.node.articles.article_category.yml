@@ -1,0 +1,22 @@
+id: node.articles.article_category
+entity_type: node
+bundle: articles
+field_name: article_category
+field_type: entity_reference
+label: 'Article Category'
+description: ' Category of article'
+required: true
+settings:
+  handler: default
+  handler_settings:
+    target_bundles:
+      article_category: articleCategory
+    sort:
+      field: _none
+    auto_create: true
+status: true
+langcode: en
+dependencies:
+  config:
+    - field.storage.node.article_category
+    - node.type.articles

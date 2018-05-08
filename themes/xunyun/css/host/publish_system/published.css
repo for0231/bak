@@ -1,0 +1,175 @@
+/* line 2, ../../../bag/sass/host/publish_system/published.scss */
+.shujuzx {
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  background: none repeat scroll 0 0 #FFFFFF;
+  border-color: #CDD2D7;
+  border-image: none;
+  border-right: 1px solid #CDD2D7;
+  border-style: solid;
+  border-width: 2px 1px 1px;
+  padding: 20px;
+  width: 758px;
+}
+/* line 15, ../../../bag/sass/host/publish_system/published.scss */
+.shujuzx ul, .shujuzx ol {
+  list-style-type: none;
+}
+/* line 18, ../../../bag/sass/host/publish_system/published.scss */
+.shujuzx .Order_title {
+  border-bottom: 2px solid #CDD2D7;
+  color: #333333;
+  float: left;
+  font-size: 16px;
+  height: 30px;
+  line-height: 30px;
+  text-transform: uppercase;
+  width: 100%;
+}
+/* line 27, ../../../bag/sass/host/publish_system/published.scss */
+.shujuzx .Order_title b {
+  border-bottom: 2px solid #041E39;
+  color: #041E39;
+  float: left;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+}
+/* line 36, ../../../bag/sass/host/publish_system/published.scss */
+.shujuzx .blank20 {
+  clear: both;
+  height: 20px;
+  overflow: hidden;
+  width: auto;
+}
+/* line 43, ../../../bag/sass/host/publish_system/published.scss */
+.shujuzx .falvfa ul li {
+  border-bottom: 1px dotted #CCCCCC;
+  height: 40px;
+  line-height: 40px;
+}
+/* line 47, ../../../bag/sass/host/publish_system/published.scss */
+.shujuzx .falvfa ul li b {
+  color: #FF0000;
+  font-weight: bold;
+  margin: 0 5px;
+}
+/* line 52, ../../../bag/sass/host/publish_system/published.scss */
+.shujuzx .falvfa ul li a {
+  color: #041E39;
+  font-size: 15px;
+}
+/* line 56, ../../../bag/sass/host/publish_system/published.scss */
+.shujuzx .falvfa ul li a:hover {
+  color: #FF0000;
+  text-decoration: underline;
+}
+/* line 60, ../../../bag/sass/host/publish_system/published.scss */
+.shujuzx .falvfa ul li span {
+  color: #999999;
+  float: right;
+  font-size: 14px;
+  font-weight: 100;
+}
+/* line 70, ../../../bag/sass/host/publish_system/published.scss */
+.shujuzx .fenye {
+  color: #838383;
+  float: right;
+  font-size: 14px;
+  text-decoration: none;
+}
+/* line 75, ../../../bag/sass/host/publish_system/published.scss */
+.shujuzx .fenye .fenye a {
+  border: 1px solid #CCCCCC;
+  color: #041E39;
+  padding: 4px 12px;
+  text-decoration: none;
+}
+/* line 81, ../../../bag/sass/host/publish_system/published.scss */
+.shujuzx .fenye .Page {
+  text-decoration: none;
+}
+
+/* line 86, ../../../bag/sass/host/publish_system/published.scss */
+.fl {
+  float: left;
+}
+
+/* line 90, ../../../bag/sass/host/publish_system/published.scss */
+.shujuzx .pager {
+  width: 100%;
+}
+
+/* line 93, ../../../bag/sass/host/publish_system/published.scss */
+.shujuzx .wenzhang {
+  float: left;
+  width: 760px;
+}
+/* line 96, ../../../bag/sass/host/publish_system/published.scss */
+.shujuzx .wenzhang h4 {
+  color: #041E39;
+  font-family: "Microsoft YaHei";
+  font-size: 24px;
+  font-weight: 100;
+  text-align: center;
+  width: 760px;
+}
+/* line 104, ../../../bag/sass/host/publish_system/published.scss */
+.shujuzx .wenzhang .fabiao {
+  color: #999999;
+  font-size: 12px;
+  line-height: 22px;
+  margin-top: 5px;
+  text-align: left;
+  text-indent: 2em;
+  width: 760px;
+}
+/* line 113, ../../../bag/sass/host/publish_system/published.scss */
+.shujuzx .wenzhang p {
+  color: #555454;
+  float: left;
+  font-size: 14px;
+  line-height: 30px;
+  margin-top: 10px;
+  text-align: left;
+  text-indent: 2em;
+  width: 760px;
+}
+
+/* line 126, ../../../bag/sass/host/publish_system/published.scss */
+.shujuzx_list li {
+  border-bottom: 1px solid #CDD2D7;
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+/* line 131, ../../../bag/sass/host/publish_system/published.scss */
+.shujuzx_list h4 {
+  color: #333333;
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 36px;
+  margin: 0;
+}
+/* line 137, ../../../bag/sass/host/publish_system/published.scss */
+.shujuzx_list h4 a {
+  color: #041E39;
+  font-size: 15px;
+  font-weight: bold;
+}
+/* line 143, ../../../bag/sass/host/publish_system/published.scss */
+.shujuzx_list span {
+  color: #666666;
+  height: 20px;
+  line-height: 20px;
+  margin-left: 28px;
+}
+/* line 149, ../../../bag/sass/host/publish_system/published.scss */
+.shujuzx_list p {
+  color: #555555;
+  font-size: 14px;
+  line-height: 24px;
+  overflow: hidden;
+  text-indent: 2em;
+}

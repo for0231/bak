@@ -1,0 +1,17 @@
+project.add_form:
+  route_name: project.add_form
+  title: 'Add project'
+  appears_on:
+    - project.admin
+
+contract.add_form:
+  route_name: contract.add_form
+  title: 'Add contract'
+  appears_on:
+    - contract.admin
+
+contract.user.add_form:
+  route_name: contract.user.add_form
+  title: 'Add client'
+  appears_on:
+    - contract.user.admin

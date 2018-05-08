@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Login History module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function login_history_schema() {
+  $schema['login_history'] = array(
+    'fields' => array(
+      'uid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'description' => 'uid of user.',
+      ),
+      'login' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'description' => "Timestamp for user's login.",
+      ),
+      'hostname' => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => "用户登录的远程IP.",
+      ),
+      'one_time' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'tiny',
+        'description' => '表示是否登录是从一次性登录链接（如密码重置）。.',
+      ),
+      'user_agent' => array(
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '在登录使用的装置用户代理（即浏览器)',
+      ),
+    ),
+    'indexes' => array(
+      'login_history_uid' => array('uid'),
+      'login_history_onetime' => array('one_time'),
+      'login_history_uid_host_ua' => array('uid', 'hostname'),
+    ),
+  );
+  return $schema;
+}

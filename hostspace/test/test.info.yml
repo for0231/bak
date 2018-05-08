@@ -1,0 +1,6 @@
+name: Test
+type: module
+core: 8.x
+package: Test
+description: '测试模块'
+version: VERSION

@@ -1,0 +1,53 @@
+{#
+/**
+ * 消费记录
+ *  - records 消费记录的集合
+ *  - comsumer 支出/收入总计
+ */
+#}
+<div class="zhangmuxx">
+      <div class="Order_title"><b class="jiben_title">{{ 'Consumer record'|t }}</b>
+      </div>
+      <div class="blank20"></div>
+      <div class="zonge">
+        <ul>
+          <li><span>{{ 'Revenue'|t }}:</span><i>{{ comsumer['revenue'] }}元</i></li>
+          <li><span>{{ 'consumption'|t }}:</span><i>{{ comsumer['pay'] }}元</i></li>
+          <li><span>{{ 'Balance'|t }}:</span><i class='green'>{{ comsumer.balance }}元</i></li>
+        </ul>
+      </div>
+      <div class="blank20"></div>
+      <table cellspacing="0" cellpadding="0" class="goumai_biaodan">
+        <tbody><tr class="goumai_beijing">
+          <td>{{ 'Numbers'|t }}</td>
+          <td>{{ 'Paid time'|t }}</td>
+          <td>{{ 'Amount'|t }}(:RMB)</td>
+          <td>{{ 'Consumption type'|t }}</td>
+          <td>{{ 'Payment method'|t }}</td>
+          <td>{{ 'Project'|t }}</td>
+        </tr>
+        {% if records %}
+          {% set i=0 %}
+          {% for record in records %}
+            {% set i = i+1 %}
+            <tr>
+              <td>{{ i }}</td>
+              <td>{{ record.created|date('Y-m-d H:i:s') }}</td>
+              <td class="red">{{ record.amount }}</td>
+              <td>{{ record.comsumer_type  }}</td>
+              <td>{{ record.pay_method }}</td>
+              {% if record.type == 1 %}
+                <td>{{ record.message }} / {{ record.order_code }} </td>
+              {% else %}
+                <td><a href='{{ record.order_path }}' target='_blank'>{{ record.message }} / {{ record.order_code }}</a> </td>
+              {% endif %}
+            </tr>
+          {% endfor %}
+        {% else  %}
+          <tr>
+            <td colspan=6>{{ 'There is no data to show!'|t }}</td>
+          </tr>
+        {% endif %}
+      </tbody></table>
+      <div class="blank40"></div>
+    </div>

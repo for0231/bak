@@ -1,0 +1,112 @@
+body, html {
+	margin: 0;
+	overflow: hidden;
+	-webkit-transition: opacity 400ms;
+	-moz-transition: opacity 400ms;
+	transition: opacity 400ms;
+}
+
+.onepage-wrapper {
+	width: 100%;
+	height: 100%;
+	display: block;
+	position: relative;
+	padding: 0;
+}
+.onepage-wrapper .section {
+	width: 100%;
+	height: 100%;
+	position:absolute; top:122px;
+}
+.onepage-pagination {
+	position: absolute;
+	right: 10px;
+	top:30%;
+	z-index: 5;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.onepage-pagination li {
+	padding: 0;
+	text-align: center;
+	width:35px;
+}
+.onepage-pagination li a {
+	display:block;
+	background:url(../images/index_01.png) no-repeat;
+	margin:5px 0;
+	width:35px;
+}
+.onepage-pagination li .gund_01 {
+	background-position:0 0;
+	width:35px;
+	height:35px;
+	float:left;
+}
+.onepage-pagination li .gund_01:hover {
+	background-position:-60px 0;
+}
+.onepage-pagination li .gund_02 {
+	background-position:0 -49px;
+	width:35px;
+	height:35px;
+	float:left;
+}
+.onepage-pagination li .gund_02:hover {
+	background-position:-60px -49px;
+}
+.onepage-pagination li .gund_03 {
+	background-position:0 -98px;
+	width:35px;
+	height:35px;
+	float:left;
+}
+.onepage-pagination li .gund_03:hover {
+	background-position:-60px -98px;
+}
+.onepage-pagination li .gund_04 {
+	background-position:0 -147px;
+	width:35px;
+	height:35px;
+	float:left;
+}
+.onepage-pagination li .gund_04:hover {
+	background-position:-60px -147px;
+}
+.onepage-pagination li .gund_05 {
+	background-position:0 -197px;
+	width:35px;
+	height:35px;
+	float:left;
+}
+.onepage-pagination li .gund_05:hover {
+	background-position:-60px -197px;
+}
+.onepage-pagination li .gund_06 {
+	background-position:0 -246px;
+	width:35px;
+	height:35px;
+	float:left;
+}
+.onepage-pagination li .gund_06:hover {
+	background-position:-60px -246px;
+}
+.onepage-pagination li .gund_07 {
+	background-position:0 -295px;
+	width:35px;
+	height:35px;
+	float:left;
+}
+.onepage-pagination li .gund_07:hover {
+	background-position:-60px -295px;
+}
+.onepage-pagination li .gund_08 {
+	background-position:0 -345px;
+	width:35px;
+	height:35px;
+	float:left;
+}
+.onepage-pagination li .gund_08:hover {
+	background-position:-60px -345px;
+}

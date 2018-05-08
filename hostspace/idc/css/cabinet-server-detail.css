@@ -1,0 +1,29 @@
+div.cabinet-server-detail label {
+  display: inline;
+}
+div.cabinet-server-detail .head-info span {
+  margin-right: 50px;
+}
+
+div.cabinet-server-detail .detail-table table {
+  border-top: 1px solid #E6E4DF;
+  border-left: 1px solid #E6E4DF;
+}
+
+div.cabinet-server-detail .detail-table table th {
+  border-right: 1px solid #E6E4DF;
+  background: none repeat scroll 0 0 #F5F5F2;
+  text-align: center;
+}
+div.cabinet-server-detail .detail-table table td {
+  border-right: 1px solid #E6E4DF;
+  text-align: center;
+}
+div.cabinet-server-detail .detail-table table td.first {
+  width: 20%;
+}
+
+div.cabinet-server-detail .detail-table table td.info {
+  width: 60%;
+}
+

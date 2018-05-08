@@ -1,0 +1,209 @@
+cg_statis.statis.admin:
+  path: 'admin/cg_statis'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: '统计表'
+  requirements:
+    _permission: 'adminsiter paypro collection'
+
+### 采购单价分析表
+cg_statis.entity.paypro.statis.partpricetrend.collection:
+  path: 'admin/cg_statis/statis/partpricetrend/collection'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getStatisPartpricetrendPools'
+    _title: '采购单价分析表'
+  requirements:
+    _permission: 'administer paypro statis collection'
+ajax.cg_statis.entity.paypro.statis.partpricetrend.collection:
+  path: 'ajax/cg_statis/statis/partpricetrend/collection'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getAjaxStatisPartpricetrendAutocomplete'
+    _title: '自动获取采购单价分析表'
+  requirements:
+    _permission: 'administer paypro statis collection'
+
+### 采购统计列表
+cg_statis.entity.purchase.statistic.collection:
+  path: 'admin/cg_statis/purchase/statistic/collection'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getPurchaseStatisticCollection'
+    _title: '采购统计列表'
+  requirements:
+    _permission: 'administer purchase collection'
+ajax.cg_statis.purchase.statistic.collection:
+  path: 'ajax/cg_statis/statis/purchase/statistic/collection'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getPurchaseStatisticAutocomplete'
+    _title: '采购统计自动处理列表'
+  requirements:
+    _permission: 'administer purchase collection'
+
+
+### 采购付款统计列表
+cg_statis.entity.paypre.statistic.collection:
+  path: 'admin/cg_statis/paypre/statistic/collection'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getPaypreStatisticCollection'
+    _title: '采购付款统计列表'
+  requirements:
+    _permission: 'administer paypre collection'
+ajax.cg_statis.paypre.statistic.collection:
+  path: 'ajax/cg_statis/paypre/statistic/collection'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getPaypreStatisticAutocomplete'
+    _title: '采购付款统计自动处理列表'
+  requirements:
+    _permission: 'administer paypre collection'
+
+cg_statis.entity.paypre.contact.statistic.collection:
+  path: 'admin/cg_statis/paypre/contact/statistic/collection'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getPaypreContactStatisticCollection'
+    _title: '合同统计列表'
+  requirements:
+    _permission: 'administer paypre collection'
+ajax.cg_statis.paypre.contact.statistic.collection:
+  path: 'ajax/cg_statis/paypre/contact/statistic/collection'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getPaypreContactStatisticAutocomplete'
+    _title: '合同统计自动处理列表'
+  requirements:
+    _permission: 'administer paypre collection'
+
+
+####收付款统计列表
+entity.paypro.in.statistic.collection:
+  path: 'admin/cg_statis/paypro/in/statistic/collection'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getPayproInStatisticCollection'
+    _title: '收款统计列表'
+  requirements:
+    _permission: 'administer paypro collection'
+
+ajax.entity.paypro.in.statistic.collection:
+  path: 'ajax/cg_statis/paypro/in/statistic/collection'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getPayproInStatisticAutocomplete'
+    _title: '收款统计自动处理'
+  requirements:
+    _permission: 'adminsiter paypro collection'
+
+cg_statis.entity.paypro.out.statistic.collection:
+  path: 'admin/cg_statis/paypro/out/statistic/collection'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getPayproOutStatisticCollection'
+    _title: '付款统计列表'
+  requirements:
+    _permission: 'adminsiter paypro collection'
+
+ajax.cg_statis.paypro.out.statistic.collection:
+  path: 'ajax/cg_statis/paypro/out/statistic/collection'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getPayproOutStatisticAutocomplete'
+    _title: '付款统计自动处理'
+  requirements:
+    _permission: 'adminsiter paypro collection'
+ajax.cg_statis.paypro.out.fk.statistic.collection:
+  path: 'ajax/cg_statis/paypro/out/fk/statistic/collection'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getPayproOutFkStatisticAutocomplete'
+    _title: '我司付款统计自动处理'
+  requirements:
+    _permission: 'adminsiter paypro collection'
+ajax.cg_statis.paypro.zijin.collection:
+  path: 'ajax/cg_statis/paypro/zijin/total/collection'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getPayproZijinTotalAutocomplete'
+    _title: '资金总结表'
+  requirements:
+    _permission: 'administer paypro ajax collection'
+cg_statis.entity.part.closer.collection:
+  path: 'ajax/cg_statis/part/closer'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getPartCloserAutocomplete'
+    _title: '配件明细'
+  requirements:
+    _permission: 'administer part pool'
+
+#统计
+cg_statis.entity.paypro.statis.permonthplan.collection:
+  path: 'admin/cg_statis/statis/permonthplan/collection'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getStatisPermonthplanPools'
+    _title: '每月采购计划表'
+  requirements:
+    _permission: 'administer paypro statis collection'
+
+ajax.cg_statis.entity.paypro.statis.permonthplan.collection:
+  path: 'ajax/cg_statis/paypro/statis/permonthplan/collection'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getAjaxStatisPermonthplanPools'
+    _title: '获取每月采购计划表'
+  requirements:
+    _permission: 'administer paypro statis collection'
+
+
+cg_statis.entity.paypro.statis.details.collection:
+  path: 'admin/cg_statis/statis/details/collection'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getStatisDetailsPools'
+    _title: '每月采购明细表'
+  requirements:
+    _permission: 'administer paypro statis collection'
+
+ajax.cg_statis.entity.paypro.statis.details.collection:
+  path: 'ajax/cg_statis/paypro/statis/details/collection'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getAjaxPayproDetailsPools'
+    _title: '获取每月采购明细表'
+  requirements:
+    _permission: 'administer paypro statis collection'
+cg_statis.entity.paypro.statis.unpaypro.collection:
+  path: 'admin/cg_statis/statis/unpaypro/collection'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getStatisUnpayproPools'
+    _title: '每月采购未支付表'
+  requirements:
+    _permission: 'administer paypro statis collection'
+
+ajax.cg_statis.entity.paypro.statis.unpaypro.collection:
+  path: 'ajax/cg_statis/paypro/statis/unpaypro/collection'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getAjaxStatisUnpayproPools'
+    _title: '获取每月采购未支付表'
+  requirements:
+    _permission: 'administer paypro statis collection'
+
+
+
+cg_statis.entity.paypro.statis.aggretotal.collection:
+  path: 'admin/cg_statis/statis/aggretotal/collection'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getStatisAggretotalPools'
+    _title: '统计汇总表'
+  requirements:
+    _permission: 'administer paypro statis collection'
+
+ajax.cg_statis.entity.paypro.statis.aggretotal.collection:
+  path: 'ajax/paypro/statis/aggretotal/collection'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getAjaxStatisAggretotalAutocomplete'
+    _title: '自动获取物品采购汇总分析表'
+  requirements:
+    _permission: 'administer paypro statis collection'
+
+cg_statis.entity.paypro.statis.peryear.collection:
+  path: 'admin/cg_statis/paypro/statis/peryear/collection'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getStatisPeryearPools'
+    _title: '全年采购清单'
+  requirements:
+    _permission: 'administer paypro statis collection'
+
+ajax.cg_statis.entity.paypro.statis.peryear.collection:
+  path: 'ajax/cg_statis/paypro/statis/peryear/collection'
+  defaults:
+    _controller: 'Drupal\cg_statis\Controller\CgstatisController::getAjaxStatisPeryearPools'
+    _title: '获取全年采购清单'
+  requirements:
+    _permission: 'administer paypro statis collection'

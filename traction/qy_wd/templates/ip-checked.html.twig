@@ -1,0 +1,42 @@
+<table class = 'ip-checked'>
+  <thead>
+  <tr>
+    <th class="list_head">IP</th>
+    <th class="list_head">进入包数</th>
+    <th class="list_head">滤后包数</td>
+    <th class="list_head">进入流量(Mbps)</th>
+    <th class="list_head">滤后流量(Mbps)</th>
+    <th class="list_head">进入tcp数</th>
+    <th class="list_head">进入udp数</th>
+    <th class="list_head">进入的icmp数</th>
+    <th class="list_head">防护状态</th>
+  </tr>
+  </thead>
+  <tbody>
+    {% if hosts %}
+    {% for host in hosts %}
+     <tr>
+       <td class='value'>{{ host.ip }}</td>
+       <td class='value'>{{ host.in_pps }}</td>
+       <td class='value'>{{ host.out_pps }}</td>
+       <td class='value'>{{ host.in_bps }}</td>
+       <td class='value'>{{ host.out_bps }}</td>
+       <td class='value'>{{ host.in_tcp }}</td>
+       <td class='value'>{{ host.in_udp }}</td>
+       <td class='value'>{{ host.in_icmp }}</td>
+       <td class='value'>{{ host.status }}</td>
+     </tr>
+    {% endfor %}
+    {% else %}
+      <tr>
+        <td class='value'>&nbsp;</td>
+        <td class='value'>&nbsp;</td>
+        <td class='value'>&nbsp;</td>
+        <td class='value'>&nbsp;</td>
+        <td class='value'>&nbsp;</td>
+        <td class='value'>&nbsp;</td>
+        <td class='value'>&nbsp;</td>
+      </tr>
+    {% endif %}
+  </tbody>
+</table>

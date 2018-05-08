@@ -1,0 +1,95 @@
+@charset "UTF-8";
+/* line 4, ../../../bag/sass/host/order/user-order.scss */
+.user-order form table .form-item {
+  margin-bottom: 0;
+  margin-top: 1em;
+}
+/* line 8, ../../../bag/sass/host/order/user-order.scss */
+.user-order form table td.first-col {
+  width: 300px;
+}
+/* line 11, ../../../bag/sass/host/order/user-order.scss */
+.user-order form table td label {
+  float: left;
+  text-align: right;
+  width: 80px;
+  font-weight: bold;
+}
+/* line 17, ../../../bag/sass/host/order/user-order.scss */
+.user-order form table td label:after {
+  content: "：";
+}
+/* line 21, ../../../bag/sass/host/order/user-order.scss */
+.user-order form table td.search div {
+  float: left;
+}
+/* line 24, ../../../bag/sass/host/order/user-order.scss */
+.user-order form table td.search div.form-actions {
+  margin-left: 40px;
+  margin-top: 1em;
+}
+/* line 28, ../../../bag/sass/host/order/user-order.scss */
+.user-order form table td.search .button {
+  background: none repeat scroll 0 0 #FF4400;
+  color: #FFFFFF;
+  margin: 0 5px;
+  padding: 5px 20px;
+  border-radius: 3px 3px 3px 3px;
+  border: medium none;
+}
+/* line 39, ../../../bag/sass/host/order/user-order.scss */
+.user-order .empty {
+  background: 0px 0px #DDDDDD;
+  border: 1px solid #CCCCCC;
+  font-weight: 700;
+  height: 30px;
+  padding-left: 10px;
+  padding-top: 15px;
+}
+/* line 48, ../../../bag/sass/host/order/user-order.scss */
+.user-order .order-item .beij {
+  background: none repeat scroll 0 0 #DDDDDD;
+  color: #041E39;
+  font-weight: bold;
+}
+/* line 52, ../../../bag/sass/host/order/user-order.scss */
+.user-order .order-item .beij span {
+  margin-left: 20px;
+}
+/* line 56, ../../../bag/sass/host/order/user-order.scss */
+.user-order .order-item table {
+  border-left: 1px solid #CCCCCC;
+  border-top: 1px solid #CCCCCC;
+}
+/* line 59, ../../../bag/sass/host/order/user-order.scss */
+.user-order .order-item table td {
+  border-bottom: 1px solid #CCCCCC;
+  border-right: 1px solid #CCCCCC;
+  padding: 10px;
+  text-align: left;
+}
+/* line 64, ../../../bag/sass/host/order/user-order.scss */
+.user-order .order-item table td .red_anniu a {
+  background: none repeat scroll 0 0 #FF4400;
+  color: #FFFFFF;
+  margin: 0 5px;
+  padding: 5px 10px;
+}
+/* line 70, ../../../bag/sass/host/order/user-order.scss */
+.user-order .order-item table td .blue_anniu a {
+  background: none repeat scroll 0 0 #3366CC;
+  color: #FFFFFF;
+  padding: 5px 10px;
+}
+/* line 75, ../../../bag/sass/host/order/user-order.scss */
+.user-order .order-item table td .quxiao a {
+  color: #3366CC;
+  margin-left: 5px;
+}
+/* line 80, ../../../bag/sass/host/order/user-order.scss */
+.user-order .order-item table .price {
+  color: #FF0000;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 0 5px;
+}

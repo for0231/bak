@@ -1,0 +1,90 @@
+<?php
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Drupal\Core\Routing\RouteMatch;
+use Drupal\Core\Link;
+use Drupal\Core\Breadcrumb\Breadcrumb;
+
+/**
+ * Implements hook_system_breadcrumb_alter().
+ */
+function qy_jd_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatchInterface $route_match, array $context) {
+  if ($route_match->getRouteName() == 'admin.jd.traction.time' ) {
+    $request = \Drupal::request();
+    $destination = $request->query->get('destination');
+    $context = \Drupal::getContainer()->get('router.request_context');
+    $path = $context->getCompleteBaseUrl() . $destination;
+    $route_request = Request::create($path);
+    $route = \Drupal::service('router')->matchRequest($route_request);
+    $breadcrumb->addLink(Link::createFromRoute($route['_title'], $route['_route']));
+  }
+}
+
+/**
+ * Implement hook_theme().
+ */
+function qy_jd_theme() {
+  return array(
+    'jd_ip_checked' => array(
+      'template' => 'jd-ip-checked',
+      'variables' => array('hosts' => null)
+    )
+  );
+}
+
+/**
+ * 构建模板参数
+ */
+function template_preprocess_jd_ip_checked(&$variables){
+  $hosts = $variables['hosts'];
+  $total = array();
+  //计算总和
+  foreach($hosts as $key => $host) {
+    if(isset($host['check_value'])) {
+      $values = $host['check_value'];
+      foreach($values as $ip => $value) {
+        if(array_key_exists($ip, $total)) {
+          $total[$ip]['input_bps'] += (float)$value->input_bps;
+          $total[$ip]['input_pps'] += $value->input_pps;
+          $total[$ip]['input_submit_bps'] += (float)$value->input_submit_bps;
+          $total[$ip]['input_submit_pps'] += $value->input_submit_pps;
+          $total[$ip]['syn_rate'] += $value->syn_rate;
+          $total[$ip]['ack_rate'] += $value->ack_rate;
+          $total[$ip]['udp_rate'] += $value->udp_rate;
+          $total[$ip]['icmp_rate'] += $value->icmp_rate;
+          $total[$ip]['frag_rate'] += $value->frag_rate;
+          $total[$ip]['nonip_rate'] += $value->nonip_rate;
+          $total[$ip]['new_tcp_rate'] += $value->new_tcp_rate;
+          $total[$ip]['new_udp_rate'] += $value->new_udp_rate;
+          $total[$ip]['tcp_conn_in'] += $value->tcp_conn_in;
+          $total[$ip]['tcp_conn_out'] += $value->tcp_conn_out;
+          $total[$ip]['udp_conn'] += $value->udp_conn;
+        } else {
+          $total[$ip]['input_bps'] = (float)$value->input_bps;
+          $total[$ip]['input_pps'] = $value->input_pps;
+          $total[$ip]['input_submit_bps'] = (float)$value->input_submit_bps;
+          $total[$ip]['input_submit_pps'] = $value->input_submit_pps;
+          $total[$ip]['syn_rate'] = $value->syn_rate;
+          $total[$ip]['ack_rate'] = $value->ack_rate;
+          $total[$ip]['udp_rate'] = $value->udp_rate;
+          $total[$ip]['icmp_rate'] = $value->icmp_rate;
+          $total[$ip]['frag_rate'] = $value->frag_rate;
+          $total[$ip]['nonip_rate'] = $value->nonip_rate;
+          $total[$ip]['new_tcp_rate'] = $value->new_tcp_rate;
+          $total[$ip]['new_udp_rate'] = $value->new_udp_rate;
+          $total[$ip]['tcp_conn_in'] = $value->tcp_conn_in;
+          $total[$ip]['tcp_conn_out'] = $value->tcp_conn_out;
+          $total[$ip]['udp_conn'] = $value->udp_conn;
+        }
+      }
+      if(count($values) == 1) {
+        $variables['hosts'][$key]['check_value'] = reset($values);
+      }
+    }
+  }
+  if(count($total) > 1) {
+    $variables['hosts'] = array();
+  }
+  $variables['totals'] = $total;
+}

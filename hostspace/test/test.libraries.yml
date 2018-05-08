@@ -1,0 +1,7 @@
+drupal.test_dialog:
+  version: VERSION
+  js:
+    js/test-dialog.js: {}
+  dependencies: 
+    - core/drupal.dialog
+    - core/drupal.ajax

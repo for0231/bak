@@ -1,0 +1,123 @@
+div.price label {
+  color: red;
+  font-size: 30px;
+}
+#edit-oid > a{
+  font-size: 15px;
+}
+
+.alipay {
+  background: none repeat scroll 0 0 #fff;
+  border: 1px solid #b9c6d4;
+}
+#edit-title {
+  background: none repeat scroll 0 0 #e7e9eb;
+  border-bottom: 1px solid #b9c6d4;
+  color: #041e39;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 40px;
+  padding-left: 20px;
+}
+.alipay .item{
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.alipay .js-form-type-vertical-tabs {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.alipay #edit-oid {
+ margin-left: 20px;
+ margin-right: 20px;
+}
+fieldset.pay-mode {
+ margin-left: 20px;
+ margin-right: 20px;
+}
+
+.alipay .pay-mode legend {
+  float:left;
+}
+.alipay .pay-mode legend span:after {
+  content: '：';
+}
+
+.alipay .pay-mode div {
+  display: inline;
+  float:left;
+}
+.alipay .pay-mode .form-item {
+   margin: 0 5px;
+}
+
+.alipay .vertical-tabs {
+  margin: 0;
+  border: 0;
+}
+
+.alipay .vertical-tabs .vertical-tabs__menu {
+  margin: 0;
+  border: none;
+  height: 33px;
+  float: none;
+  border-bottom: 1px solid #AAAAAA;
+  width: auto;
+}
+
+.alipay .vertical-tabs .vertical-tabs__menu li {
+   background: -moz-linear-gradient(center top , #EEEEEE, #DDDDDD) repeat scroll 0 0 rgba(0, 0, 0, 0);
+   border: 1px solid #AAAAAA;
+   border-radius: 4px 4px 0 0;
+   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+   cursor: pointer;
+   float: left;
+   font-size: 11px;
+   height: 32px;
+   line-height: 33px;
+   margin: 0 2px 0 0;
+   text-align: center;
+   text-shadow: 0 1px 0 #FFFFFF;
+   width: 150px;
+}
+
+.alipay .vertical-tabs .vertical-tabs__menu li a {
+  padding: 0;
+}
+
+.alipay .vertical-tabs .vertical-tabs__menu li.is-selected {
+  background: -moz-linear-gradient(center top , #E1E1E1, #FFFFFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  border-bottom: 1px solid #FFFFFF;
+  color: #000000;
+  cursor: pointer;
+  text-shadow: 0 1px 0 #FFFFFF;
+}
+
+.alipay .vertical-tabs .vertical-tabs__panes {
+  float: left;
+  border-left: 1px solid #AAAAAA;
+  border-right: 1px solid #AAAAAA;
+  border-bottom: 1px solid #AAAAAA;
+  width:100%;
+}
+
+.alipay .vertical-tabs .vertical-tabs__panes details>div {
+  padding: 0.5em 1.5em;
+}
+
+.alipay .offline-payment {
+  border: 1px solid #AAAAAA;
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px 15px;
+}
+
+.alipay input.button {
+  background: none repeat scroll 0 0 #3366CC;
+  color: #FFFFFF;
+  display: inline-block;
+  margin: 20px 15px 20px 15px;
+  padding: 5px 20px;
+  border-radius: 3px 3px 3px 3px;
+  border: medium none;
+}

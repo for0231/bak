@@ -1,0 +1,14 @@
+ajax smart tips autocomplete:
+  title: "允许自动生成新的消息，并通知所有人" ###这个要考虑如何进行，发送给什么样的角色或用户！暂时保留这个功能
+administration smart tips edit:
+  title: "管理人员的消息编辑功能，即添加和编辑"
+administration smart tips delete all:
+  title: "管理人员的物理删除功能"
+administration smart tips statistics:
+  title: "管理人员的消息统计管理"
+access smart tips delete all:
+  title: "管理人员或个人用户的消息批量删除"
+administrator smart tips list:
+  title: "允许访问msgs的ajax动态列表"
+access smart tips ajax personal list:
+  title: "允许个人访问msgs的ajax动态列表"

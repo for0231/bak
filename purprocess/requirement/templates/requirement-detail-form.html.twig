@@ -1,0 +1,113 @@
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+      <!-- row -->
+      <div class="row">
+        <!-- NEW WIDGET START -->
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+           {{ form.audit_locale }}
+         </article>
+       </div>
+<table class="table table-bordered table-striped" style="clear: both">
+ <tbody>
+
+  <tr>
+   <td colspan=6><h6 class="text-primary">需求单信息</h6></td>
+  </tr>
+  <tr>
+   <td><strong>需求单名称</strong></td>
+   <td>{{ form.title }}</td>
+   <td>数量</td>
+   <td colspan=3>{{ form.num }}</td>
+  </tr>
+  <tr>
+    <td><strong>需求单据编号</strong></td>
+    <td>{{ form.no }}</td>
+    <td width=10%><strong>需求交付时间</strong></td>
+    <td>{{ form.requiredate }}</td>
+    <td><strong>需求类型</strong></td>
+    <td>{{ form.requiretype }}</td>
+  </tr>
+  <tr>
+   <td colspan=6><h6 class="text-primary">申请人信息</h6></td>
+  </tr>
+  <tr>
+    <td><strong>申请人</strong></td>
+    <td>{{ member_info.name }}</td>
+   <td><strong>申请部门</strong></td>
+   <td>{{ member_info.depart }}</td>
+   <td><strong>所属公司</strong></td>
+   <td>{{ member_info.company }}</td>
+  </tr>
+
+  <tr>
+    <td colspan=6><h6 class="text-primary">物品列表<!--物品列表来自配件实体表--></h6></td>
+  </tr>
+  <tr>
+   <td colspan=6>
+      <!-- row -->
+      <div class="row">
+        <!-- NEW WIDGET START -->
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <table id="jqgrid-detail"></table>
+          <div id="pjqgrid-detail"></div>
+        </article>
+        <!-- WIDGET END -->
+      </div>
+      <!-- end row -->
+   </td>
+  </tr>
+
+  <tr>
+    <td>
+      <!-- row -->
+      <div class="row">
+        <!-- NEW WIDGET START -->
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <strong>用途</strong>:
+         </article>
+       </div>
+    </td>
+    <td colspan=2>
+      <!-- row -->
+      <div class="row">
+        <!-- NEW WIDGET START -->
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+           {{ form.purpose }}
+         </article>
+       </div>
+    </td>
+    <td>
+      <!-- row -->
+      <div class="row">
+        <!-- NEW WIDGET START -->
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <strong>备注</strong>:
+         </article>
+       </div>
+    </td>
+    <td colspan=2>
+      <!-- row -->
+      <div class="row">
+        <!-- NEW WIDGET START -->
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+           {{ form.description }}
+         </article>
+       </div>
+    </td>
+  </tr>
+  <tr>
+    <td colspan=6>
+      <!-- row -->
+      <div class="row">
+        <!-- NEW WIDGET START -->
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+           {{ form.fid }}
+         </article>
+       </div>
+    </td>
+  </tr>
+ </tbody>
+</table>
+{{ form.actions }}
+{{ form.preview }}

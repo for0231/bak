@@ -1,0 +1,42 @@
+system.admin_published:
+  title: Website publishing system 
+  description: 'Website publishing systeme'
+  parent: system.admin 
+  route_name: system.admin_published
+  weight: -150
+
+system.admin_news:
+  title: News system 
+  parent: system.admin_published 
+  route_name: system.admin_news
+
+published.news.category:
+  title: News Directory
+  parent: system.admin_news
+  route_name: published.news.category 
+
+published.admin.news.list:
+  title: News list
+  parent: system.admin_news
+  route_name: published.admin.news.list
+
+system.admin_article:
+  title: Article system 
+  parent: system.admin_published 
+  route_name: system.admin_article
+
+published.article.category:
+  title: Article Directory
+  parent: system.admin_article
+  route_name: published.article.category
+
+published.admin.article.list:
+  title: Article list
+  parent: system.admin_article
+  route_name: published.admin.article.list
+
+
+ 
+
+
+

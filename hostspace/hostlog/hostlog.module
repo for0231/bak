@@ -1,0 +1,45 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_entity_insert().
+ */
+function hostlog_entity_insert(EntityInterface $entity) {
+  /** @var \Drupal\hostlog\OperationEntityNotificationSubscriber $subscriber */
+  $subscriber = \Drupal::service('operation.entity_notification.subscriber');
+  $subscriber->onCreate($entity);
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function hostlog_entity_update(EntityInterface $entity) {
+  /** @var \Drupal\hostlog\OperationEntityNotificationSubscriber $subscriber */
+  $subscriber = \Drupal::service('operation.entity_notification.subscriber');
+  $subscriber->onUpdate($entity);
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function hostlog_entity_delete(EntityInterface $entity) {
+  /** @var \Drupal\hostlog\OperationEntityNotificationSubscriber $subscriber */
+  $subscriber = \Drupal::service('operation.entity_notification.subscriber');
+  $subscriber->onDelete($entity);
+}
+
+/**
+ * Implements hook_cron().
+ */
+function hostlog_cron() {
+  $current_user = \Drupal::currentUser();
+  $uid = $current_user->id();
+  $data = db_select('xunyunreminder', 're')
+    ->fields('re')
+    ->condition('re.uid', 1)
+    ->execute()
+    ->fetchAssoc();
+  $status = !empty($data) ? $data : array();
+  //error_log(print_r($uid, 1));
+}

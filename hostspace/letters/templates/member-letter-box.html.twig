@@ -1,0 +1,33 @@
+{#
+  /* 会员中心用户站内信箱
+   * variables:
+   *  - letters 站内信列表数据
+   *  - notreadCount 未读信件的数量
+   */
+#}
+
+<div class="Order_title">
+  <b class="jiben_title">{{ 'The letter station'|t }}</b>
+  <p class="fr font_12">(<span class="count">{{ notReadCount }}</span> {{'Unread'|t}}）</p>
+</div>
+<div class="blank10"></div>
+{% if letters %}
+  {% for letter in letters %}
+  <div class="zhanneix"> 
+    {% if letter.is_read == 0 %}
+    <img class="unread" src="/{{directory}}/images/notred.jpg" />
+    {% else %}
+    <img class="red" src="/{{directory}}/images/hasread.jpg" />
+    {% endif %}
+    <a href="#" class="isShowContent">{{ letter.title }}<span class="time_span">{{ letter.get_time }}</span></a>
+    <div class="zhanneirong" style="display: none;">
+      <input type="hidden" class="is_read" value="{{ letter.is_read }}">
+      <input type="hidden" class="letter_id" value="{{ letter.id }}">
+      {{ letter.content_val }}
+    </div>
+    <div class="split"></div>
+  </div>
+  {% endfor %}
+{% else %}
+  <div class="tip_no_data">{{ 'You have not received a letter!'|t }}</div>
+{% endif %}

@@ -1,0 +1,64 @@
+system.fw_manage:
+  title: '防火墙管理'
+  parent: system.admin
+  route_name: system.fw_manage
+  weight: -201
+
+admin.fw.ip.shield:
+  title: 'IP防护管理'
+  parent: system.fw_manage
+  route_name: admin.fw.ip.shield
+  weight: 1
+
+admin.fw.ip.shield.multiple:
+  title: '批量IP防护操作'
+  parent: system.fw_manage
+  route_name: admin.fw.ip.shield.multiple
+  weight: 2
+ 
+admin.fw.ip.shield.filter:
+  title: 'IP防护查询'
+  parent: system.fw_manage
+  route_name: admin.fw.ip.shield.filter
+  weight: 3
+
+admin.fw.fblink.list:
+  title: '屏弊列表'
+  parent: system.fw_manage
+  route_name: admin.fw.fblink.list
+  weight: 4
+
+admin.fw.conmon.list:
+  title: '连接监控'
+  parent: system.fw_manage
+  route_name: admin.fw.conmon.list
+  weight: 7
+  
+admin.fw.rule.list:
+  title: '规则列表'
+  parent: system.fw_manage
+  route_name: admin.fw.rule.list
+  weight: 8
+
+admin.fw.message.insert:
+  title: '报文捕捉'
+  parent: system.fw_manage
+  route_name: admin.fw.message.insert
+  weight: 9
+  
+admin.fw.config:
+  title: '防火墙配置'
+  parent: system.fw_manage
+  route_name: admin.fw.config
+  weight: 15
+
+admin.fw.log.list:
+  title: '日志管理'
+  parent: system.fw_manage
+  route_name: admin.fw.log.list
+  weight: 16
+admin.fw.hostpolicy.list:
+  title: '唯盾主机策略'
+  parent: system.fw_manage
+  route_name: admin.fw.hostpolicy.list
+  weight: 16

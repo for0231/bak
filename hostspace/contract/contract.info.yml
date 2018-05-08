@@ -1,0 +1,8 @@
+name: Contract
+type: module
+core: 8.x
+package: Hostspaces
+description: 'Management hostspace contracts'
+version: VERSION
+dependencies:
+  - member

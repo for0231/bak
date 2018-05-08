@@ -1,0 +1,51 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * 实现钩子 hook_ENTITY_TYPE_insert()
+ *
+ * @param $entity
+ * @see Drupal\user\user
+ */
+function referer_statist_user_insert(EntityInterface $entity) {
+  $ip = referer_statist_IPaddress();
+  if(!empty($ip)) {
+    $service = \Drupal::service('referer_statist.service');
+    $items = $service->load(array('ip' => $ip), 'id');
+    if(!empty($items)) {
+      $item = reset($items);
+      if(empty($item->user_name)) {
+        $service->update(array(
+          'user_name' => $entity->getUsername(),
+          'register_time' => REQUEST_TIME
+        ), $item->id);
+      }
+    }
+  }
+}
+
+/**
+ * 获取IP
+ */
+function referer_statist_IPaddress() {
+  $IPaddress='';
+  if (isset($_SERVER)){
+    if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])){
+      $IPaddress = $_SERVER["HTTP_X_FORWARDED_FOR"];
+    } else if (isset($_SERVER["HTTP_CLIENT_IP"])) {
+      $IPaddress = $_SERVER["HTTP_CLIENT_IP"];
+    } else {
+      $IPaddress = $_SERVER["REMOTE_ADDR"];
+    }
+  } else {
+    if (getenv("HTTP_X_FORWARDED_FOR")){
+      $IPaddress = getenv("HTTP_X_FORWARDED_FOR");
+    } else if (getenv("HTTP_CLIENT_IP")) {
+      $IPaddress = getenv("HTTP_CLIENT_IP");
+    } else {
+      $IPaddress = getenv("REMOTE_ADDR");
+    }
+  }
+  return $IPaddress;
+}

@@ -1,0 +1,23 @@
+system.admin_letters:
+  title: Station letters
+  description: 'Station letters'
+  parent: system.admin
+  route_name: system.admin_letters
+  weight: -155
+
+letter.admin.send_form:
+  title: Send a station letter
+  parent: system.admin_letters
+  route_name: letter.admin.send_form
+
+letter.outbox:
+  title: 'Outbox'
+  description: 'Outbox'
+  parent: system.admin_letters
+  route_name: letter.outbox
+
+letter.inbox:
+  title: 'Inbox'
+  description: 'Inbox'
+  parent: system.admin_letters
+  route_name: letter.inbox

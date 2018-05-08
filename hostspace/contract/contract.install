@@ -1,0 +1,175 @@
+<?php
+
+use \Drupal\taxonomy\Entity\Vocabulary;
+
+/**
+ * Implements hook_install().
+ */
+function contract_install(){
+  if(!Vocabulary::load('contract_type')) {
+    entity_create('taxonomy_vocabulary', array(
+      'vid' => 'contract_type',
+      'name' => ('Type of cotract'),
+      'hierarchy' => 1,
+      'status' => true,
+      'langcode' => 'en',
+    ))->save();
+    //业务IP类型
+    create_taxonomy_term('服务器租用','contract_type');
+    create_taxonomy_term('服务器托管','contract_type');
+    create_taxonomy_term('机柜租用','contract_type');
+    create_taxonomy_term('其他','contract_type');
+  }
+}
+
+/**
+ * Implements hook_uninstall
+ */
+function contract_uninstall() {
+  $vocabulary = Vocabulary::load('contract_type');
+  if($vocabulary) {
+    $vocabulary->delete();
+  }
+}
+
+/**
+ * Implements hook_schema().
+ */
+function contract_schema() {
+  $schema['host_contract_funds_plan'] = array(
+    'description' => '合同的资金计划',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary Key: unique ID ',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'amount' => array(
+        'type' => 'numeric',
+        'precision' => 10,
+        'scale' => 2,
+        'not null' => TRUE,
+        'default' => 0.0
+      ),
+      'type' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '资金性质  1 => 收款,2 => 付款',
+      ),
+      'created' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '创建时间.',
+      ),
+      'plan_time' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '计划时间.',
+      ),
+      'success_time' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '完成时间.',
+      ),
+      'remark' => array(
+        'type' => 'varchar',
+        'length' => 1000,
+        'not null' => FALSE,
+        'default' => ''
+      ),
+      'status' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '资金状态',
+      ),
+      'contract' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '所属合同id',
+      ),
+      'method' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '结算方式',
+      )    
+    ),
+    'primary key' => array('id'),
+  );
+$schema['host_contract_delivery_plan'] = array(
+    'description' => '合同的交货计划',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary Key: unique ID ',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => ''
+      ),
+      'created' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '创建时间.',
+      ),
+      'delivery_stamp' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '交货时间.',
+      ),
+      'contract' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '所属合同id',
+      ),
+      'method' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => false,
+        'description' => '交货方式',
+      ),
+      'status' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '状态',
+      ),   
+      'remark' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => '说明'
+      ),
+     
+    ),
+    'primary key' => array('id'),
+  );
+  return $schema;
+
+}
+

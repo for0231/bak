@@ -1,0 +1,12 @@
+question.detail:
+  version: VERSION
+  css:
+    theme:
+      css/record.css: {}
+question.declare:
+  version: VERSION
+  js:
+    js/declare_question.js: {}
+  css:
+    theme:
+      css/record.css: {}

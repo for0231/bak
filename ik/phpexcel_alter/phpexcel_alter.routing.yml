@@ -1,0 +1,7 @@
+phpexcel_alter.paypro.statistic.export.operation:
+  path: 'admin/phpexcel_alter/paypro/statistic/export'
+  defaults:
+    _controller: 'Drupal\phpexcel_alter\Controller\PhpexcelAlterController::exportPayproWorkflowData'
+    _title: '支付单统计列表'
+  requirements:
+    _permission: 'administer phpexcel_alter export'

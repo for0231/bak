@@ -1,0 +1,5 @@
+admin.qy.mail.add:
+  route_name: admin.qy.mail.add
+  title: '增加邮箱'
+  appears_on:
+    - admin.qy.mail.list

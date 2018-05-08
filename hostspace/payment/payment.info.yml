@@ -1,0 +1,6 @@
+name: Payment
+type: module
+core: 8.x
+package: Hostspaces - payment
+description: 'Payment settings'
+version: VERSION

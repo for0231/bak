@@ -1,0 +1,16 @@
+hostspace.select_datetime:
+  version: VERSION
+  js:
+    js/date_picker_module.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+
+hostspace.dialog_message:
+  version: VERSION
+  js:
+    js/dialog-message.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupal.dialog

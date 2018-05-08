@@ -1,0 +1,44 @@
+drupal.module_filter:
+  version: VERSION
+  js:
+    js/module_filter.js: { weight: -1 }
+  css:
+    theme:
+      css/module_filter.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/jquery.cookie
+    
+drupal.module:
+  version: VERSION
+  js:
+    js/modules.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    
+drupal.module_filter_tab:
+  version: VERSION 
+  js:
+    js/jquery.ba-bbq.js: {}
+    js/module_filter_tab.js: {}
+  css:
+    theme:
+      css/module_filter_tab.css: {}
+      css/modules.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    
+drupal.dynamic_position:
+  version: VERSION 
+  js:
+    js/dynamic_position.js: {}
+  css:
+    theme:
+      css/dynamic_position.css: {}
+      css/modules.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

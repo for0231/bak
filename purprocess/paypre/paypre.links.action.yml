@@ -1,0 +1,8 @@
+entity.paypre.collection:
+  route_name: entity.paypre.collection
+  title: '付款单工作台'
+  appears_on:
+    - 'audit_locale.rule.overview'
+    - 'audit_locale.rule.specied.overview'
+    - 'cg_integration.admin_workbench'
+  weight: 30

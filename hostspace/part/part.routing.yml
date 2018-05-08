@@ -1,0 +1,179 @@
+system.admin_part:
+  path: 'admin/part'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Part library'
+  requirements:
+    _permission: 'access administration parts pages'
+part.admin:
+  path: '/admin/part/list'
+  defaults:
+    _entity_list: 'part'
+    _title: 'View parts list'
+  requirements:
+    _permission: 'administer parts list'
+
+entity.part.edit_form:
+  path: '/admin/part/{part}/edit'
+  defaults:
+    _controller: 'Drupal\part\Controller\PartController::partEdit'
+  requirements:
+    _permission: 'administer parts edit'
+
+entity.part.delete_form:
+  path: '/admin/part/{part}/delete'
+  defaults:
+    _entity_form: 'part.delete'
+  requirements:
+    _permission: 'administer parts delete'
+
+part.cpu.add_form:
+  path: '/admin/part/cpu/add'
+  defaults:
+    _entity_form: 'part_cpu.default'
+    _title: 'Add CPU'
+  requirements:
+    _permission: 'administer parts add'
+
+part.cpu.edit_form:
+  path: '/admin/part/cpu/{part_cpu}/edit'
+  defaults:
+    _entity_form: 'part_cpu.default'
+    _title: 'Edit CPU'
+  requirements:
+    _permission: 'administer parts edit'
+
+part.memory.add_form:
+  path: '/admin/part/memory/add'
+  defaults:
+    _entity_form: 'part_memory.default'
+    _title: 'Add memory'
+  requirements:
+    _permission: 'administer parts add'
+part.memory.edit_form:
+  path: '/admin/part/memory/{part_memory}/edit'
+  defaults:
+    _entity_form: 'part_memory.default'
+    _title: 'Edit memory'
+  requirements:
+    _permission: 'administer parts edit'
+
+part.chassis.add_form:
+  path: 'admin/part/chassis/add'
+  defaults:
+    _entity_form: 'part_chassis.default'
+    _title: 'Add chassis'
+  requirements:
+    _permission: 'administer parts add'
+
+part.chassis.edit_form:
+  path: 'admin/part/chassis/{part_chassis}/edit'
+  defaults:
+    _entity_form: 'part_chassis.default'
+    _title: 'Edit chassis'
+  requirements:
+    _permission: 'administer parts edit'
+
+part.raid.add_form:
+  path: 'admin/part/raid/add'
+  defaults:
+    _entity_form: 'part_raid.default'
+    _title: 'Add chassis'
+  requirements:
+    _permission: 'administer parts add'
+
+part.raid.edit_form:
+  path: 'admin/part/raid/{part_raid}/edit'
+  defaults:
+    _entity_form: 'part_raid.default'
+    _title: 'Edit raid'
+  requirements:
+    _permission: 'administer parts edit'
+
+part.mainboard.add_form:
+  path: 'admin/part/mainboard/add'
+  defaults:
+    _entity_form: 'part_mainboard.default'
+    _title: 'Add mainboard'
+  requirements:
+    _permission: 'administer parts add'
+
+part.mainboard.edit_form:
+  path: 'admin/part/mainboard/{part_mainboard}/edit'
+  defaults:
+    _entity_form: 'part_mainboard.default'
+    _title: 'Edit mainboard'
+  requirements:
+    _permission: 'administer parts edit'
+
+part.harddisc.add_form:
+  path: '/admin/part/harddisc/add'
+  defaults:
+    _entity_form: 'part_harddisc.default'
+    _title: 'Add harddisc'
+  requirements:
+    _permission: 'administer parts add'
+
+part.harddisc.edit_form:
+  path: '/admin/part/harddisc/{part_harddisc}/edit'
+  defaults:
+    _entity_form: 'part_harddisc.default'
+    _title: 'Edit harddisc'
+  requirements:
+    _permission: 'administer parts edit'
+
+part.network.add_form:
+  path: '/admin/part/network/add'
+  defaults:
+    _entity_form: 'part_network.default'
+    _title: 'Add network card'
+  requirements:
+    _permission: 'administer parts add'
+
+part.network.edit_form:
+  path: '/admin/part/network/{part_network}/edit'
+  defaults:
+    _entity_form: 'part_network.default'
+    _title: 'Edit network card'
+  requirements:
+    _permission: 'administer parts edit'
+
+part.optical.add_form:
+  path: '/admin/part/optical/add'
+  defaults:
+    _entity_form: 'part_optical.default'
+    _title: 'Add optical module'
+  requirements:
+    _permission: 'administer parts add'
+
+part.optical.edit_form:
+  path: '/admin/part/optical/{part_optical}/edit'
+  defaults:
+    _entity_form: 'part_optical.default'
+    _title: 'Edit optical module'
+  requirements:
+    _permission: 'administer parts edit'
+
+part.switch.add_form:
+  path: '/admin/part/switch/add'
+  defaults:
+    _entity_form: 'part_switch.default'
+    _title: 'Add switch'
+  requirements:
+    _permission: 'administer parts add'
+
+part.switch.edit_form:
+  path: '/admin/part/switch/{part_switch}/edit'
+  defaults:
+    _entity_form: 'part_switch.default'
+    _title: 'Edit switch'
+  requirements:
+    _permission: 'administer parts edit'
+
+part.purchase.detail:
+  path: '/admin/part/purchase/detail'
+  defaults:
+    _controller: '\Drupal\part\Controller\PartController::purchaseDetail'
+    _title: 'Purchasing list'
+  requirements:
+    _permission: 'administer parts purchasing list'

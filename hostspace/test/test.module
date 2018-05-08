@@ -1,0 +1,5 @@
+<?php
+/*
+function test_cron() {
+  error_log(date("H:i:s") . "\r\n", 3, '/var/www/html/drupal/log');   
+}*/

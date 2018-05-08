@@ -1,0 +1,50 @@
+{#
+/**
+ * @file
+ * 网站用户详情 
+ * 
+ *  Available variables:
+ *   -member
+ */
+#}
+
+<div class="zhanghu_right fr">
+        <div class="jibenziliao">
+          <div class="Order_title"><b class="jiben_title">{{ 'Basic information'|t }}</b>
+            <p class="fr font_12">{{ 'Please complete the following information to help us better serve you.'|t }}</p>
+          </div>
+          <div class="blank10"></div>
+          <div class="huiytitle_01"><b>{{ 'Basic personal information'|t }}</b>
+            <ul>
+              <li><b><i>*</i>{{ 'Membership'|t }}:</b><span>{{ member.ship }}</span></li>
+              <li><b><i>*</i>{{ 'Agent'|t }}:</b> <span>
+              {% for role in member.agent %}
+               {{ role }} <br />
+              {% endfor %}</span>
+              </li>
+              <li><b><i>*</i>{{ 'Company'|t }}:</b><span>{{ member.company }}</span></li>
+              <li><b><i>*</i>{{ 'Full name'|t }}:</b><span>{{ member.full_name }}</span></li>
+              <li><b><i>*</i>{{ 'E-mail'|t }}:</b><span>{{ member.mail.value }}</span></li>
+            </ul>
+            <b class="jiben_title">{{ 'Business Information'|t }}</b>
+            <ul>
+              <li><b><i>*</i>{{ 'Industry'|t }}:</b><span>{{ member.industry }}</span></li>
+              <li><b><i>*</i>{{ 'Major bussiness'|t }}:</b><span>{{ member.business }}</span></li>
+            </ul>
+            <b class="jiben_title">{{ 'Contact Information'|t }}</b>
+            <ul>
+              <li><b><i>*</i>{{ 'Location'|t }}:</b><span>
+                {{ member.province }} {{ member.city }} {{ member.region }}
+                </span></li>
+              <li><b><i>*</i>{{ 'Address'|t }}:</b><span>{{ member.address }}</span></li>
+              <li><b><i>*</i>{{ 'TelePhone'|t }}:</b><span>{{ member.phone }}</span></li>
+              <li><b><i>*</i>QQ:</b><span>{{ member.qq }}</span></li>
+              <li><b><i>*</i>{{ 'Fax'|t }}:</b><span>{{ member.fax }}</span></li>
+            </ul>
+            <Div class="blank20"></Div>
+            <div class="huiyuan_input">
+              <a href="{{ member.edit_url }}">Modify</a>
+            </div>
+          </div>
+        </div>
+      </div>

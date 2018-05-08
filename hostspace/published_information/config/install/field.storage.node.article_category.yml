@@ -1,0 +1,17 @@
+id: node.article_category
+name: article_category
+type: entity_reference
+field_name: article_category
+module: taxonomy
+entity_type: node
+locked: false
+cardinality: 1
+translatable: true
+status: true
+langcode: en
+settings:
+  target_type: taxonomy_term
+dependencies:
+  module:
+    - node
+    - taxonomy

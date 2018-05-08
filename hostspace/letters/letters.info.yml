@@ -1,0 +1,8 @@
+name: Station letters
+type: module
+core: 8.x
+package: Hostspaces
+description: 'Station letters'
+version: VERSION
+dependencies:
+  - member

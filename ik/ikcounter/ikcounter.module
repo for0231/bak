@@ -1,0 +1,16 @@
+<?php
+/**
+ * @file 重定义各种单据的编码的计数规则
+ */
+
+function getIkNumberCounterCode() {
+  $config = \Drupal::configFactory()->getEditable('ikcounter.settings');
+
+  $counter = $config->get('start');
+  $next_counter = $counter + 1;
+  $config->set('counter', $next_counter);
+  $config->save();
+
+  $new_no = date($config->get('formatter'), time()) . $next_counter;
+  return $new_no;
+}

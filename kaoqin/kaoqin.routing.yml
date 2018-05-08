@@ -1,0 +1,152 @@
+entity.kaoqin.admin:
+  path: '/admin/kaoqin'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: '考勤管理'
+  requirements:
+    _permission: 'administer kaoqin overview'
+
+entity.kaoqin.add_form:
+  path: 'admin/kaoqin/add'
+  defaults:
+    _entity_form: 'kaoqin.default'
+    _title: 'Kaoqin'
+  requirements:
+    _permission: 'administer kaoqin edit'
+
+entity.kaoqin.edit_form:
+  path: 'admin/kaoqin/{kaoqin}/edit'
+  defaults:
+    _entity_form: 'kaoqin.default'
+    _title: 'Kaoqin'
+  requirements:
+    _permission: 'administer kaoqin edit'
+
+entity.kaoqin.listbuilder:
+  path: 'admin/kaoqin/list'
+  defaults:
+    _entity_list: 'kaoqin'
+    _title: 'Kaoqin List'
+  requirements:
+    _permission: 'administer kaoqin list builder'
+
+entity.kaoqin.import:
+  path: 'admin/kaoqin/import'
+  defaults:
+    _form: '\Drupal\kaoqin\Form\KaoqinImportForm'
+    _title: '导入考勤数据'
+  requirements:
+    _permission: 'administer kaoqin overview'
+
+admin.kaoqin.download:
+  path: 'admin/kaoqin/export'
+  defaults:
+    _controller: '\Drupal\kaoqin\Controller\KaoqinController::exportKaoqin'
+    _title: '考勤数据模板'
+  requirements:
+    _permission: 'administer kaoqin overview'
+
+entity.kaoqin.config_form:
+  path: 'admin/kaoqin/config'
+  defaults:
+    _form: '\Drupal\kaoqin\Form\KaoqinSettingsForm'
+    _title: '考勤设置'
+  requirements:
+    _permission: 'administer kaoqin edit'
+
+entity.upon.add_form:
+  path: 'admin/kaoqin/upon/add'
+  defaults:
+    _entity_form: 'upon.default'
+    _title: '上班管理'
+  requirements:
+    _permission: 'administer kaoqin edit'
+
+entity.upon.edit_form:
+  path: 'admin/kaoqin/upon/{upon}/edit'
+  defaults:
+    _entity_form: 'upon.default'
+    _title: '上班管理'
+  requirements:
+    _permission: 'administer kaoqin edit'
+
+entity.kaoqin.upon.listbuilder:
+  path: 'admin/kaoqin/upon/list'
+  defaults:
+    _entity_list: 'upon'
+    _title: '上班管理列表'
+  requirements:
+    _permission: 'administer kaoqin list builder'
+
+entity.kaoqin.upon.update:
+  path: 'admin/kaoqin/upon/setting'
+  defaults:
+    _controller: '\Drupal\kaoqin\Controller\KaoqinController::settingUpon'
+    _title: '排班设置'
+  requirements:
+    _permission: 'administer kaoqin overview'
+
+entity.upon.delete_form:
+  path: 'admin/kaoqin/upon/{upon}/delete'
+  defaults:
+    _entity_form: 'upon.delete'
+    _title: '添加排班'
+  requirements:
+    _permission: 'administer kaoqin upon edit'
+
+entity.kaoqin.upon.add:
+  path: 'admin/kaoqin/upon/add'
+  defaults:
+    _form: '\Drupal\kaoqin\Form\KaoqinAddEmpForm'
+    _title: '添加排班'
+  requirements:
+    _permission: 'administer kaoqin upon edit'
+
+ajax.entity.kaoqin.upon.create:
+  path: 'ajax/kaoqin/upon/create'
+  defaults:
+    _controller: '\Drupal\kaoqin\Controller\KaoqinController::createUpon'
+    _title: 'Ajax添加新的排班计划'
+  requirements:
+    _permission: 'administer kaoqin upon edit'
+
+ajax.entity.kaoqin.upon.list:
+  path: 'ajax/kaoqin/upon/list'
+  defaults:
+    _controller: '\Drupal\kaoqin\Controller\KaoqinController::listUpon'
+    _title: 'Ajax排班计划列表'
+  requirements:
+    _permission: 'administer kaoqin upon edit'
+
+ajax.entity.kaoqin.upon.update:
+  path: 'ajax/kaoqin/upon/update'
+  defaults:
+    _controller: '\Drupal\kaoqin\Controller\KaoqinController::updateUpon'
+    _title: 'Ajax更新排班'
+  requirements:
+    _permission: 'administer kaoqin upon edit'
+
+ajax.entity.kaoqin.upon.detail:
+  path: 'ajax/kaoqin/upon/detail'
+  defaults:
+    _controller: '\Drupal\kaoqin\Controller\KaoqinController::detailUpon'
+    _title: '排班详情'
+  requirements:
+    _permission: 'administer kaoqin upon edit'
+
+entity.kaoqin.diff:
+  path: 'admin/kaoqin/diff'
+  defaults:
+    _controller: '\Drupal\kaoqin\Controller\KaoqinController::getDiffKaoqin'
+    _title: '考勤差异'
+  requirements:
+    _permission: 'administer kaoqin overview'
+
+entity.kaoqin.statistic:
+  path: 'admin/kaoqin/statistic'
+  defaults:
+    _controller: '\Drupal\kaoqin\Controller\KaoqinController::getStatistic'
+    _title: '考勤统计'
+  requirements:
+    _permission: 'administer kaoqin statistic'
+

@@ -1,0 +1,16 @@
+administer purchase edit:
+  title: 'Administer purchase edit'
+administer purchase delete:
+  title: 'Administer purchase delete'
+administer purchase detail:
+  title: 'Administer purchase detail'
+administer purchase collection:
+  title: 'Administer Purchase collection'
+administer purchase pool:
+  title: 'Administer purchase pool'
+administer purchase data modes:
+  title: 'administer purchase data modes'
+administer purchase audit history:
+  title: 'administer purchase audit history'
+administer purchase all history:
+  title: 'administer purchase all history'

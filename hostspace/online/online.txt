@@ -1,0 +1,52 @@
+在线联系
+目的：
+为更好的解决客户需求，及时处理客户提出的问题
+设计思路
+前台页面：用户提交个人信息，发送开始洽谈的请求，后台查询当前还有多少用户发送的
+洽谈请求未接受，前台将提醒用户等待，在用户发送开始洽谈请求的时候后台生成一条新的
+会话，设置会话状态为未接受，后台客服接受用户洽谈后，改变会话状态为接受，前台用户开始和后台客服进行洽谈，洽谈内容存入数据库的
+表中
+
+请求设计
+前台
+home/online  用户发送洽谈请求
+home/online/content/reply 用户发送洽谈内容
+
+
+后台
+admin/online  在线洽谈
+admin/online/list 在线洽谈用户会话列表
+admin/online/content/{online_content}/show
+在线洽谈会话内容详情
+admin/online/content/{online_content}/delete
+屏蔽当前会话
+admin/online/content/reply
+后台客服回复会话内容
+
+数据库设计
+
+会话表
+id: 用户id
+name: 用户名
+email:用户邮箱
+datatime: 创建时间
+remote_ip: 用户ip地址
+status: 会话接受状态
+reply_uid： 后台客服id
+
+
+会话内容表
+id: 用户id
+admin_uid:后台客服id
+ask_content: 用户提交内容
+reply_content: 客服回复内容
+
+
+
+
+
+
+
+
+
+

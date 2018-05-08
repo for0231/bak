@@ -1,0 +1,33 @@
+<div class="zhanghu_right fr">
+        <div class="anquanxinx">
+          <div class="Order_title"><b>{{ 'Safety information'|t }}</b> </div>
+          <div class="anquan_01">
+            {% if img %}
+            {{ img }}
+            {% else %}
+            <img src ="/{{ directory }}/images/header.jpg">
+            {% endif %}
+
+            <dl>
+              <dt><b>{{ 'user name'|t }}：</b><i>{{ user_obj.name.value }}</i><a class="jibenzl" href="{{ user_obj.base_info_url }}">{{ 'Basic information'|t }}</a></dt>
+              <dd><b>{{ 'Company'|t }}：</b> <i>{% if user_obj.company %}{{ user_obj.company }} {% else %} {{ 'Contact client service to change it'|t }}{% endif %}</i> </dd>
+              <dd><b>{{ 'Registration time'|t }}：</b> <i>{{ user_obj.reg_time }} </i></dd>
+            </dl>
+          </div>
+          <div class="jindutiao"> <b>{{ 'Your security degree'|t }}：</b><span><img src="/{{ directory }}/images/jindutiao.png"></span><b>{{ 'level of security'|t }}:<i>{{ 'Fair'|t }}</i></b>&nbsp;&nbsp;&nbsp; {{ 'Continue to work hard'|t }}</div>
+          <ul class="anquan_02">
+            <li><b>{{ 'password'|t }}</b>
+              <p>{{ 'High security password can make account safer. It is recommended that you change your password regularly.'|t }}</p>
+              <span class="set">{{ 'Has been set'|t }}</span><a href="{{ user_obj.modify_pwd_url }}">{{ 'Modify'|t }}</a></li>
+            <li><b>{{ 'Security'|t }} </b>
+              <p>{{ 'Is one of the way you retrieve login password. It is recommended that you set up three easy to remember, and most are not easy to be others
+                Questions and answers obtained.'|t }}</p>
+              {% if user_obj.isset_safe_question == 'yes' %}
+              <span class="set">{{ 'Has been set'|t }}</span>
+              {% else %}
+              <span class="not_set">{{ 'Not set'|t }} </span>
+              {% endif %}
+              <a href="{{ user_obj.security_url }}">{{ 'Administration'|t }}</a></li>
+          </ul>
+        </div>
+      </div>

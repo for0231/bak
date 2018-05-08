@@ -1,0 +1,93 @@
+#后台显示列表
+admin.online.list:
+  path: 'admin/online/list'
+  defaults:
+    _controller: '\Drupal\online\Controller\OnlineController::onlineView'
+    _title: '在线洽谈列表'
+  requirements:
+    _permission: 'admin online content view'
+#ajax异步请求加载会话列表
+admin.online.list.content:
+  path: 'admin/online/list/content'
+  defaults: 
+    _controller: \Drupal\online\Controller\OnlineController::listContent
+  requirements:
+    _permission: 'admin online content view'
+
+#后台点击详情页
+entity.online_content.show_form:
+  path: 'admin/online/content/{online_content}/show'
+  defaults:
+    _entity_form: 'online_content.default'
+    _title: 'Online show'
+  requirements:
+    _permission: 'admin online content show'
+    
+#后台内容异步加载
+admin.ajax.online.content:
+  path: 'admin/ajax/online/content'
+  defaults: 
+    _controller: \Drupal\online\Controller\OnlineController::question
+  requirements:
+    _permission: 'admin online content view' 
+    
+#后台发送消息内容       
+admin.ajax.online.adminsend:
+  path: 'admin/ajax/online/adminsend'
+  defaults:
+    _controller: '\Drupal\online\Controller\OnlineController::adminSend'
+    _title: 'ajax online'
+  requirements:
+    _permission: 'admin online content view'
+    
+#后台屏蔽消息  
+entity.online_content.delete_form:
+  path: 'admin/online/content/{online_content}/delete'
+  defaults:
+    _entity_form: 'online_content.delete'
+    _title: 'Online Delete'
+  requirements:
+    _permission: 'admin online content delete'
+
+#前台发起会话    
+home.ajax.online:
+  path: 'home/ajax/online'
+  defaults:
+    _controller: '\Drupal\online\Controller\OnlineController::ajaxOnline'
+    _title: 'ajax online'
+  requirements:
+    _access: 'TRUE'
+#前台发送的消息    
+home.ajax.online.send:
+  path: 'home/ajax/online/send'
+  defaults:
+    _controller: '\Drupal\online\Controller\OnlineController::Send'
+    _title: 'ajax online'
+  requirements:
+    _access: 'TRUE'
+#前台读取内容
+home.ajax.online.content:
+  path: 'home/ajax/online/content'
+  options:
+    no_cache: TRUE
+  defaults:
+    _controller: '\Drupal\online\Controller\OnlineController::question'
+    _title: 'ajax online content'
+  requirements:
+    _access: 'TRUE'
+#前台点赞功能 
+home.ajax.online.like:
+  path: 'home/ajax/online/like'
+  defaults:
+    _controller: '\Drupal\online\Controller\OnlineController::like'
+    _title: 'ajax online like'
+  requirements:
+    _access: 'TRUE'    
+#前台
+home.ajax.online.dislike:
+  path: 'home/ajax/online/dislike'
+  defaults:
+    _controller: '\Drupal\online\Controller\OnlineController::dislike'
+    _title: 'ajax online dislike'
+  requirements:
+    _access: 'TRUE' 

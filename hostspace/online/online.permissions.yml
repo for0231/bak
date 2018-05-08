@@ -1,0 +1,26 @@
+
+#后台显示列表
+admin online content view:
+  title: 'admin online content view'
+admin online content add:
+  title: 'admin online content add'
+admin online content edit:
+  title: 'admin online content show'
+admin online content delete:
+  title: 'admin online content delete'
+admin online content reply:
+  title: 'admin online content reply'
+home online content reply:
+  title: 'home online content reply'
+   #前台用户填写个人信息  
+home online ajax:
+  title: 'home online ajax'
+admin online list:
+  title: 'admin online list'
+home online content ajax:
+  title: 'home online content ajax'
+
+  
+  
+
+

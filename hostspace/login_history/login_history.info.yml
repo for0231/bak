@@ -1,0 +1,6 @@
+name: Login History
+type: module
+core: 8.x
+package: Hostspaces
+description: 'login history'
+version: VERSION

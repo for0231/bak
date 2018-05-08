@@ -1,0 +1,22 @@
+id: node.news.category
+entity_type: node
+bundle: news
+field_name: category
+field_type: entity_reference
+label: News Category
+description: ' Category of news'
+required: true
+settings: 
+  handler: default
+  handler_settings:
+    target_bundles:
+      category: newsCategory
+    sort:
+      field: _none
+    auto_create: true
+status: true
+langcode: en
+dependencies:
+  config:
+    - field.storage.node.category
+    - node.type.news

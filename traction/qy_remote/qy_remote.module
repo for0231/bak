@@ -1,0 +1,32 @@
+<?php
+
+use Drupal\Core\Database\Database;
+
+/**
+ * 获取开启的防火墙数据服务
+ */
+function qy_remote_firewall_dbserver() {
+  $dbserver = array();
+  $config = \Drupal::config('qy_remote.settings');
+  $traction_database = $config->get('traction_database');
+  if($traction_database == 'default') {
+    $module_handler = \Drupal::moduleHandler();
+    if($module_handler->moduleExists('qy_wd')) {
+      $dbserver['qy_wd'] = \Drupal::service('qy_wd.db_service');
+    }
+    if($module_handler->moduleExists('qy_jd')) {
+      $dbserver['qy_jd'] = \Drupal::service('qy_jd.db_service');
+    }
+  } else {
+    $firewalls = $config->get('traction_open_firewall');
+    foreach($firewalls as $firewall) {
+      if($firewall) {
+        $module_path = $_SERVER['DOCUMENT_ROOT'] . '/' . drupal_get_path('module', $firewall);
+        require $module_path . '/src/DbService.php';
+        $class = 'Drupal\\' . $firewall . '\\DbService';
+        $dbserver[$firewall] = new $class(Database::getConnection($traction_database));
+      }
+    }
+  }
+  return $dbserver;
+}

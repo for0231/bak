@@ -1,0 +1,24 @@
+<?php
+use Drupal\Component\Utility\SafeMarkup;
+
+/**
+ * Implement hook_theme().
+ */
+function letters_theme() {
+  return array(
+    'member_letter_box' => array(
+      'template' => 'member-letter-box',
+      'variables' => array('letters' => null, 'notReadCount' => null)
+    ),
+   );
+}
+
+function template_preprocess_member_letter_box(&$variables){
+  $letters = $variables['letters'];
+  foreach($letters as $letter) {
+    // 该用户未读邮件的数量
+    $letter->get_time = format_date($letter->receive_time, 'custom', 'Y-m-d H:i');
+    $letter->content_val = SafeMarkup::format($letter->content, array());
+  }
+}
+

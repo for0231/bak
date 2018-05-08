@@ -1,0 +1,104 @@
+framework:
+  version: VERSION
+  css:
+    theme:
+      css/layout/layout-extra.css: {}
+  js:
+    js/workin/workin.js: {}
+    js/workin/tools.js: {}
+    js/workin/menu-icon.js: {}
+  dependencies:
+    - workin/pace
+    - core/jquery
+    - core/jquery.ui
+    - core/drupal
+    - core/drupal.announce
+    - workin/notification
+    - workin/jarvis.widget
+    - workin/jarvis.widget.javismenu
+    - workin/jquery.eachpie.chart
+    - workin/jquery.sparkline
+    - workin/jquery.validate
+    - workin/jquery.maskedinput
+    - workin/select2
+    - workin/bootstrap.slider
+    - workin/msie.fix
+    - workin/fastclick
+    - workin/basecomponent
+basecomponent:
+  version: VERSION
+  css:
+    theme:
+      css/component/component.css: {}
+notification:
+  js:
+    js/plugin/notification/SmartNotification.js: {}
+  dependencies:
+    - core/jquery
+jarvis.widget:
+  js:
+    js/plugin/smartwidgets/jarvis.widget.js: {}
+  dependencies:
+    - core/jquery
+jarvis.widget.javismenu:
+  js:
+    js/workin/javismenu.js: {}
+  dependencies:
+    - core/jquery
+pace:
+  js:
+    js/plugin/pace/pace.js: {'data-pace-options':'restartOnRequestAfter:true'}
+  dependencies:
+    - core/jquery
+jquery.eachpie.chart:
+  js:
+    js/plugin/easy-pie-chart/jquery.easy-pie-chart.js: {}
+  dependencies:
+    - core/jquery
+jquery.sparkline:
+  js:
+    js/plugin/sparkline/jquery.sparkline.js: {}
+  dependencies:
+    - core/jquery
+jquery.validate:
+  js:
+    js/plugin/jquery-validate/jquery.validate.js: {}
+  dependencies:
+    - core/jquery
+jquery.maskedinput:
+  js:
+    js/plugin/masked-input/jquery.maskedinput.js: {}
+  dependencies:
+    - core/jquery
+select2:
+  js:
+    js/plugin/select2/select2.js: {}
+  dependencies:
+    - core/jquery
+bootstrap.slider:
+  js:
+    js/plugin/bootstrap-slider/bootstrap-slider.js: {}
+  dependencies:
+    - core/jquery
+msie.fix:
+  js:
+    js/plugin/msie-fix/jquery.mb.browser.js: {}
+  dependencies:
+    - core/jquery
+fastclick:
+  js:
+    js/plugin/fastclick/fastclick.js: {}
+  dependencies:
+    - core/jquery
+    
+worksheet:
+  version: VERSION
+  css:
+    theme:
+      css/modules/worksheet/worksheet.css: {}
+  js:
+    js/workin/widget-min.js: {}
+    js/workin/dialog-min.js: {}
+    js/workin/dialog.jquery-ui.js: {}
+    js/workin/dialog.js: {}
+

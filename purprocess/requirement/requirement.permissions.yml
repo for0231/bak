@@ -1,0 +1,14 @@
+administer requirement edit:
+  title: 'Administer requirement Edit'
+administer requirement delete:
+  title: 'Administer requirement Delete'
+administer requirement collection:
+  title: 'administer requirement collection'
+administer requirement detail:
+  title: 'Administer requirement detail'
+administer requirement data modes:
+  title: 'administer requirement data modes'
+administer requirement all history:
+  title: 'administer requirement all history'
+administer requirement audit history:
+  title: 'administer requirement audit history'

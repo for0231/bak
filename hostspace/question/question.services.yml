@@ -1,0 +1,4 @@
+services:
+  question.questionservice:
+    class: Drupal\question\QuestionService
+    arguments: ['@database']

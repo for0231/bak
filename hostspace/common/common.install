@@ -1,0 +1,141 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the common module.
+ */
+
+use \Drupal\taxonomy\Entity\Vocabulary;
+
+
+/**
+ * Implements hook_module_preinstall().
+ */
+function common_module_preinstall() {
+  common_preinstall_taxonomy('server_rent_type', 'Server rent type', array('Hire', 'Deposit'));
+  common_preinstall_taxonomy('server_shelf_type', 'Server shelf type', array('On', 'Off'));
+  common_preinstall_taxonomy('server_used_type', 'Server used type', array('Used', 'Unuse', 'Keep', 'Fault'));
+  common_preinstall_taxonomy('server_system', 'Operating system', array('window 2003', 'Linux', 'NUIX'));
+}
+
+/**
+ *
+ *  @desc Preinstall taxonomy for hostspace enviorment.
+ *
+ *  @param string $vocabulary
+ *   The vocabulary machine name.
+ *  @param string $name
+ *   The vocabulary human name.
+ *  @param array $items
+ *   The vocabulary first childs level items.
+ */
+function common_preinstall_taxonomy($vocabulary, $name, array $items) {
+  $exist = Vocabulary::load($vocabulary);
+  if (!$exist) {
+    entity_create('taxonomy_vocabulary', array(
+      'vid' => $vocabulary,
+      'name' => t($name),
+      'hierarchy' => 1,
+      'status' => true,
+      'langcode' => 'en',
+    ))->save();
+    $weight = 0;
+    foreach ($items as $item) {
+      $weight += 2;
+      $term = entity_create('taxonomy_term', array(
+        'name' => t($item),
+        'parent' => array(0),
+        'vid' => $vocabulary,
+        'weight' => $weight,
+      ))->save();
+    }
+  }
+}
+
+/**
+ * Implements hook_install()
+ */
+function common_install() {
+  // 创建基础角色信息
+  user_role_base_data();
+}
+/**
+ * 初始化网站用户角色组
+ */
+function user_role_base_data() {
+  $base_data = array(
+    array(
+      'id' => 'agent_1',
+      'label' => t('Agent I'),
+      'weight' => 30,
+    ),
+    array(
+      'id' => 'agent_2',
+      'label' => t('Agent II'),
+      'weight' => 35,
+    ),
+    array(
+      'id' => 'agent_3',
+      'label' => t('Agent III'),
+      'weight' => 40,
+    ),
+    array(
+      'id' => 'agent_4',
+      'label' => t('Agent IV'),
+      'weight' => 45,
+    ),
+    array(
+      'id' => 'superman',
+      'label' => t('Super man'),
+      'weight' => 50,
+    ),
+    array(
+      'id' => 'finance',
+      'label' => t('Finance'),
+      'weight' => 55,
+    ),
+    array(
+      'id' => 'management',
+      'label' => t('Management'),
+      'weight' => 60,
+    ),
+    array(
+      'id' => 'technical',
+      'label' => t('Technical'),
+      'weight' => 65,
+    ),
+    array(
+      'id' => 'customer',
+      'label' => t('Customer'),
+      'weight' => 70,
+    ),
+    array(
+      'id' => 'operation',
+      'label' => t('Operation'),
+      'weight' => 75,
+    ),
+    array(
+      'id' => 'website_promotion',
+      'label' => t('Website promotion'),
+      'weight' => 80,
+    ),
+    array(
+      'id' => 'productor',
+      'label' => t('Productor'),
+      'weight' => 35,
+    ),
+  );
+  foreach ($base_data as $row) {
+    $exist = entity_load('user_role', $row['id']);
+    if (empty($exist)) {
+      entity_create('user_role',array(
+        'id' => $row['id'],
+        'label' => $row['label'],
+        'weight' => $row['weight'],
+      ))->save();
+    }
+    else {
+      drupal_set_message(t('The machine name %id is already exist!', array('%id' => $row['id'])));
+    }
+  }
+}

@@ -1,0 +1,22 @@
+fw.rule_add:
+  route_name: admin.fw.rule.add
+  title: '新建规则'
+  appears_on:
+    - admin.fw.rule.list
+fw.hostpolicy_add:
+  route_name: admin.fw.hostpolicy.add
+  title: '新增策略'
+  appears_on:
+    - admin.fw.hostpolicy.list
+    
+fw.hostpolicy_tongbu:
+  route_name: admin.fw.hostpolicy.tongbu
+  title: '工单同步全部策略到web'
+  appears_on:
+    - admin.fw.hostpolicy.list
+
+admin.fw.hostpolicy.synctoworksheet:
+  route_name: admin.fw.hostpolicy.synctoworksheet
+  title: 'web同步全部策略到工单'
+  appears_on:
+    - admin.fw.hostpolicy.list

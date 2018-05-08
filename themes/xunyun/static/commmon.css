@@ -1,0 +1,346 @@
+@charset "utf-8";
+/* CSS Document */
+@charset "utf-8";
+body {
+	width:100%;
+	height:100%;
+	margin:0px;
+	padding:0px;
+	color:#333;
+	font-size:12px;
+	margin-left:auto;
+	margin-right:auto;
+	font-family:"Microsoft YaHei";
+	font-style:normal;
+	background:url(../images/beijing.jpg) repeat;
+}
+html {
+	overflow-y:scroll;
+	overflow-x:hidden;
+}
+body, ul, ol, li, p, h1, h2, h3, h4, h5, h6, form, fieldset, table, td, img, div, dl, dd, input {
+	margin:0;
+	padding:0;
+}
+* {
+	margin:0px;
+	padding:0px;
+}
+ul, ol {
+	list-style-type:none;
+}
+select, input, img {
+	vertical-align:middle;
+}
+i {
+	font-style:normal;
+}
+img {
+	border:0;
+}
+a, u {
+	text-decoration:none;
+	font-size:12px;
+}
+.fl {
+	float:left;
+}
+.fr {
+	float:right;
+}
+.clear {
+	clear:both;
+	overflow:hidden;
+	font-size:0px;
+	line-height:0px;
+	height:0px;
+}
+.fix {
+ *zoom:1;
+}
+.fix:after {
+	display:block;
+	content:"clear";
+	height:0;
+	clear:both;
+	overflow:hidden;
+	visibility:hidden;
+}
+address {
+	font-style:normal;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {
+	display: block;
+}
+em {
+	font-style: normal;
+}
+html {
+	-webkit-font-smoothing: antialiased;
+}
+.blank5 {
+	height:5px;
+	width:auto;
+	clear:both;
+	overflow:hidden;
+}
+.blank10 {
+	height:10px;
+	width:auto;
+	clear:both;
+	overflow:hidden;
+}
+.blank12 {
+	height:12px;
+	width:auto;
+	clear:both;
+	overflow:hidden;
+}
+.blank15 {
+	height:15px;
+	width:auto;
+	clear:both;
+	overflow:hidden;
+}
+.blank20 {
+	height:20px;
+	width:auto;
+	clear:both;
+	overflow:hidden;
+}
+.blank30 {
+	height:30px;
+	width:auto;
+	clear:both;
+	overflow:hidden;
+}
+.blank35 {
+	height:35px;
+	width:auto;
+	clear:both;
+	overflow:hidden;
+}
+.blank40 {
+	height:40px;
+	width:auto;
+	clear:both;
+	overflow:hidden;
+}
+.blank50 {
+	height:50px;
+	width:auto;
+	clear:both;
+	overflow:hidden;
+}
+.blank80 {
+	height:80px;
+	width:auto;
+	clear:both;
+	overflow:hidden;
+}
+.top {
+	height:30px;
+	line-height:30px;
+	text-align:right;
+	font-size:12px;
+}
+.top a {
+	margin:0 5px;
+	color:#041e39;
+	font-size:12px;
+}
+.top a:hover {
+	text-decoration:underline;
+}
+.top .yinwen {
+	margin:0 10px;
+	border:#041e39 solid 1px;
+	padding:2px 10px;
+}
+.top .yinwen:hover {
+	color:#ee330a;
+	border:#ee330a solid 1px;
+	text-decoration:none;
+}
+.navbar-inner {
+	background:#041e39;
+	height:120px;
+	width:100%;
+}
+[class*="container"] {
+ width:1100px;
+margin-right: auto;
+margin-left: auto;
+}
+.container div #block-xunyun-branding,.container div #block-sitebranding {
+  margin-top: 20px;
+}
+.container div #block-xunyun-branding a,
+.container div #block-xunyun-branding a:visited,
+.container div #block-xunyun-branding a:hover,
+.container div #block-sitebranding a,
+.container div #block-sitebranding a:visited,
+.container div #block-sitebranding a:hover,{
+  color: white;
+}
+nav.menu--main {
+	float:right;
+	height:120px;
+}
+nav.menu--main ul.menu li.leaf {
+	background:url(../images/xian_01.png) right no-repeat;
+	width:120px;
+	float:left;
+	height:118px;
+	text-align:center;
+}
+nav.menu--main ul li {
+	background:url(../images/xian_01.png) right no-repeat;
+	width:120px;
+	float:left;
+	height:118px;
+	text-align:center;
+}
+nav.menu--main ul.menu li.leaf a {
+	color:#fff;
+	font-size:18px;
+	height:40px;
+	float:left;
+	text-align:center;
+	width:120px;
+	margin-top:50px;
+}
+nav.menu--main ul li a {
+	color:#fff;
+	font-size:18px;
+	height:40px;
+	float:left;
+	text-align:center;
+	width:120px;
+	margin-top:50px;
+}
+nav.menu--main ul.menu li.leaf u {
+	color:#ccc;
+	font-size:10px;
+	text-transform:uppercase;
+}
+nav.menu--main ul li u {
+	color:#ccc;
+	font-size:10px;
+	text-transform:uppercase;
+}
+nav.menu--main ul.menu .active-trail, nav.menu--main ul.menu li.leaf:hover {
+	background:#021222;
+}
+nav.main-menu ul .now, nav.main-menu ul li:hover {
+	background:#021222;
+}
+nav.menu--main ul.menu .active-trail a, nav.menu--main ul.menu li.leaf a:hover {
+	color:#ffc000;
+}
+nav.menu--main ul .now a, nav.menu--main ul li a:hover {
+	color:#ffc000;
+}
+footer .pic_01 img {
+	width:100%;
+	height:104px;
+}
+.state_item ul li {
+	float:left;
+	width:220px;
+}
+.state_item ul li dl a {
+	height:40px;
+	line-height:40px;
+	border-bottom:#041e39 solid 2px;
+	font-size:18px;
+	color:#041e39;
+	margin-left:50px;
+}
+.state_item ul li dt a {
+	background:url(../images/dian.png) 0 8px no-repeat;
+	padding-left:10px;
+	margin-left:50px;
+	height:30px;
+	line-height:30px;
+	color:#041e39;
+	font-size:14px;
+}
+.banquan {
+	background:#fff;
+	text-align:center;
+}
+.banquan p {
+	line-height:30px;
+	font-size:14px;
+}
+.f22e00 {
+  color: #f22e00;
+}
+
+/* line 2, ../../bag/sass/block/block.scss */
+#block-tips {
+  font-family: "Microsoft YaHei";
+  font-size: 12px;
+  background: url("../images/huiyuan_beijing.jpg") repeat-x scroll 0 0 transparent;
+  height: 38px;
+  line-height: 38px;
+}
+/* line 8, ../../bag/sass/block/block.scss */
+#block-tips i, #block-tips u {
+  color: #ccc;
+  margin: 0 5px;
+}
+/* line 12, ../../bag/sass/block/block.scss */
+#block-tips i {
+  font-style: normal;
+}
+/* line 15, ../../bag/sass/block/block.scss */
+#block-tips a {
+  font-family: "Microsoft YaHei";
+  font-size: 12px;
+  color: #333;
+  text-decoration: none;
+}
+/* line 20, ../../bag/sass/block/block.scss */
+#block-tips a:hover {
+  color: #f22e00;
+  text-decoration: underline;
+}
+/* line 24, ../../bag/sass/block/block.scss */
+#block-tips a u {
+  color: #f22e00;
+}
+
+/* line 29, ../../bag/sass/block/block.scss */
+#block-tips-top {
+  height: 30px;
+  line-height: 30px;
+  text-align: right;
+}
+/* line 33, ../../bag/sass/block/block.scss */
+#block-tips-top a, #block-tips-top u {
+  text-decoration: none;
+}
+/* line 36, ../../bag/sass/block/block.scss */
+#block-tips-top a {
+  color: #041e39;
+  font-size: 14px;
+  margin: 0 5px;
+}
+/* line 40, ../../bag/sass/block/block.scss */
+#block-tips-top a:hover {
+  text-decoration: underline;
+}
+/* line 44, ../../bag/sass/block/block.scss */
+#block-tips-top .yinwen {
+  border: 1px solid #041e39;
+  margin: 0 10px;
+  padding: 2px 10px;
+}
+/* line 48, ../../bag/sass/block/block.scss */
+#block-tips-top .yinwen:hover {
+  border: 1px solid #ee330a;
+  color: #ee330a;
+  text-decoration: none;
+}

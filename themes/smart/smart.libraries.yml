@@ -1,0 +1,69 @@
+global:
+  css:
+    theme:
+      https://fonts.cat.net/css?family=Open+Sans:400italic,700italic,300,400,700: { type: external }
+      css/style.css: {}
+  js:
+    js/app.js: {}
+    js/system/modules.details.js: {}
+  dependencies:
+    - smart/tools
+
+bootstrap:
+  js:
+    bootstrap/js/affix.js: {}
+    bootstrap/js/alert.js: {}
+    bootstrap/js/button.js: {}
+    bootstrap/js/carousel.js: {}
+    bootstrap/js/collapse.js: {}
+    bootstrap/js/dropdown.js: {}
+    bootstrap/js/modal.js: {}
+    bootstrap/js/tooltip.js: {}
+    bootstrap/js/popover.js: {}
+    bootstrap/js/scrollspy.js: {}
+    bootstrap/js/tab.js: {}
+    bootstrap/js/transition.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/jquery.ui
+    - core/jquery.ui.effects.core
+    - core/jquery.ui.sortable
+    - core/jquery.ui.datepicker
+tools:
+  js:
+    js/demo.js: {}
+    js/libraries/smartwidgets/jarvis.widget.js: {}
+    js/libraries/notification/SmartNotification.js: {}
+    #    js/libraries/smart-chat-ui/smart.chat.manager.js: {}
+    #    js/libraries/smart-chat-ui/smart.chat.ui.js: {}
+    #    js/libraries/speech/voicecommand.js: {}
+  dependencies:
+    - smart/bootstrap
+    - smart/plugins
+plugins:
+  css:
+    theme:
+      js/libraries/plugin/fancybox/dist/jquery.fancybox.css: {}
+  js:
+    js/libraries/plugin/sparkline/jquery.sparkline.js: {}
+    js/libraries/plugin/pace/pace.js: { pace-options:{ "restartOnRequestAfter": true } }
+    js/libraries/plugin/jqgrid/jquery.jqGrid.js: {}
+    js/libraries/plugin/jqgrid/grid.locale-en.js: {}
+    js/libraries/plugin/moment/moment.min.js: {}
+    #js/libraries/plugin/fullcalendar/jquery.fullcalendar.min.js: {}
+    js/libraries/plugin/fullcalendar/fullcalendar.js: {}
+    js/libraries/plugin/fancybox/dist/jquery.fancybox.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+font-awesome:
+  css:
+    theme:
+      css/font-awesome.css: {}
+
+z_tree:
+  js:
+    js/libraries/plugin/zTree/jquery.ztree.core.js: {}
+  dependencies:
+    - core/jquery

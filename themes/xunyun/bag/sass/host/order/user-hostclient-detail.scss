@@ -1,0 +1,65 @@
+.hostclient-detail {
+  font-size: 14px;
+  .title {
+    border-bottom: 2px solid #CDD2D7;
+    color: #333333;
+    font-size: 16px;
+    height: 30px;
+    line-height: 30px;
+    b {
+      border-bottom: 2px solid #041E39;
+      color: #041E39;
+      float: left;
+      height: 30px;
+      line-height: 30px;
+      padding: 0 10px;
+    }
+  }
+  .server-info {
+    tr.info {
+      height: 40px;
+      line-height: 40px;
+    }
+    tr.beij {
+      background: none repeat scroll 0 0 #F2F4F5;
+    }
+    tr.ip {
+      p {
+        margin: 0;
+        span {
+          color:#FF0000;
+          margin-left: 2px;
+        }
+      }
+    }
+    td.name {
+      font-weight: bold;
+      text-align: right;
+      width: 150px; 
+    }
+    tr.business {
+      table {
+        border-left: 1px solid #CCCCCC;
+        border-top: 1px solid #CCCCCC;
+        th {
+          background: none repeat scroll 0 0 #DDDDDD;
+          color: #041E39;
+          font-weight: bold;
+          height: 40px;
+          line-height: 40px;
+          border-bottom: 1px solid #CCCCCC;
+          border-right: 1px solid #CCCCCC;
+          text-align: center;
+        }
+        td {
+          height: 40px;
+          line-height: 40px;
+          border-bottom: 1px solid #CCCCCC;
+          border-right: 1px solid #CCCCCC;
+          text-align: center;
+          background: none repeat scroll 0 0 #FFFFFF;
+        }
+      }
+    }
+  }
+}

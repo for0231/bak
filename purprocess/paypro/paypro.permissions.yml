@@ -1,0 +1,23 @@
+administer paypro edit:
+  title: 'Administer paypro Edit'
+administer paypro delete:
+  title: 'Administer paypro Delete'
+administer paypro detail:
+  title: 'Administer paypro detail'
+adminsiter paypro collection:
+  title: 'Adminsiter paypro Collection'
+administer paypro record delete:
+  title: 'Administer paypro record delete'
+administer paypro pool:
+  title: 'Administer paypro pool'
+### for paypre detail ajax data.
+administer paypro ajax collection:
+  title: 'Administer paypro ajax collection'
+administer paypro statis collection:
+  title: 'Administer paypro statis collection'
+administer paypro data modes:
+  title: 'administer paypro data modes'
+administer paypro audit history:
+  title: 'administer paypro audit history'
+administer paypro all history:
+  title: 'administer paypro all history'

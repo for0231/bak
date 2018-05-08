@@ -1,0 +1,17 @@
+admin.idc:
+  title: 'Room management'
+  parent: system.admin
+  route_name: admin.idc
+  weight: -180
+
+admin.idc.room:
+  title: 'Room list'
+  parent: admin.idc
+  route_name: admin.idc.room
+  weight: 1
+
+admin.idc.server.stat:
+  title: 'Server stat list'
+  parent: admin.idc
+  route_name: admin.idc.server.stat
+  weight: 5

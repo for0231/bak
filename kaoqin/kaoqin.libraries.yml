@@ -1,0 +1,10 @@
+paibanconfig:
+  version: VERSION
+  js:
+    js/kaoqin_calendar.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.spinner
+    - core/drupal
+    - core/drupalSettings

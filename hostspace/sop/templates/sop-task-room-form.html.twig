@@ -1,0 +1,45 @@
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+<div class="row">
+  <div class="col-xs-8">
+    <div class="row">
+      <div class="col-xs-4">
+        {{ form.mip }}
+      </div>
+      <div class="col-xs-4">
+        {{ form.sop_type }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-4">
+        {{ form.pid }}
+      </div>
+      <div class="col-xs-4">
+        {{ form.cabinet }}
+      </div>
+      <div class="col-xs-4">
+        {{ form.port }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        {{ form.description }}
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-4">
+    <div class="row">
+      <div class="col-xs-11">
+        <h5>提示</h5>
+        1. 选择管理IP<br/>
+        *. 管理IP是全部上柜服务器的管理IP<br/>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    {{ form.actions }}
+  </div>
+</div>

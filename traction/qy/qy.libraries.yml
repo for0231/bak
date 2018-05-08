@@ -1,0 +1,29 @@
+drupal.ajax-content:
+  version: VERSION
+  js:
+    js/ajax-content.js: {}
+  css:
+    theme:
+      css/ajax-content.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+
+drupal.attack-chart:
+  version: VERSION
+  js:
+    js/highstock.js: {}
+    js/exporting.js: {}
+    js/attack-chart.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+
+drupal.sync-data:
+  version: VERSION
+  js:
+    js/sync-data.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupal.dialog

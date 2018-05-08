@@ -1,0 +1,109 @@
+entity.requirement.admin:
+  path: '/admin/requirement'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Administration'
+  requirements:
+    _permission: 'administer requirement collection'
+
+entity.requirement.add_form:
+  path: 'admin/requirement/add'
+  defaults:
+    _entity_form: 'requirement.default'
+    _title: '需求单'
+  requirements:
+    _permission: 'administer requirement edit'
+
+entity.requirement.edit_form:
+  path: 'admin/requirement/{requirement}/edit'
+  defaults:
+    _entity_form: 'requirement.default'
+    _title: '需求单'
+  requirements:
+    _permission: 'administer requirement edit'
+
+entity.requirement.detail_form:
+  path: 'admin/requirement/{requirement}/detail'
+  defaults:
+    _entity_form: 'requirement.detail'
+    _title: '需求单'
+  requirements:
+    _permission: 'administer requirement detail'
+
+entity.requirement.collection:
+  path: '/admin/requirement/collection'
+  defaults:
+    _entity_list: 'requirement'
+    _title: '需求单工作台'
+  requirements:
+    _permission: 'administer requirement collection'
+
+entity.requirement.history.collection:
+  path: 'admin/requirement/collection/history'
+  defaults:
+    _controller: 'Drupal\requirement\Controller\RequirementController::getHistoryData'
+    _title: '需求单历史数据表'
+  requirements:
+    _permission: 'administer requirement collection'
+
+entity.requirement.audit.history.collection:
+  path: 'admin/requirement/collection/history/audit'
+  defaults:
+    _controller: 'Drupal\requirement\Controller\RequirementController::getAuditHistoryData'
+    _title: '需求单审批历史数据表'
+  requirements:
+    _permission: 'administer requirement audit history'
+
+entity.requirement.circle.collection:
+  path: 'admin/requirement/circle/collection'
+  defaults:
+    _controller: 'Drupal\requirement\Controller\RequirementController::getRequirementCircleData'
+    _title: '需求单周期性数据表'
+  requirements:
+    _permission: 'administer requirement collection'
+
+entity.requirement.plan.collection:
+  path: 'admin/requirement/plan/collection'
+  defaults:
+    _controller: 'Drupal\requirement\Controller\RequirementController::getRequirementPlanData'
+    _title: '需求单计划性数据表'
+  requirements:
+    _permission: 'administer requirement collection'
+
+### requirement edit page
+ajax.requirement.parts.collection:
+  path: 'ajax/requirement/{requirement}/parts'
+  defaults:
+    _controller: 'Drupal\requirement\Controller\RequirementController::getRequirementPartsAutocomplete'
+    _title: '配件列表'
+  requirements:
+    _permission: 'administer requirement edit'
+    requirement: '\d+'
+
+### requirement detail page
+ajax.requirement.parts.detail.collection:
+  path: 'ajax/requirement/{requirement}/parts/detail'
+  defaults:
+    _controller: 'Drupal\requirement\Controller\RequirementController::getRequirementPartsDetailAutocomplete'
+    _title: '配件详情列表'
+  requirements:
+    _permission: 'administer requirement collection'
+    requirement: '\d+'
+
+### requirement edit page
+ajax.requirement.parts.delete:
+  path: 'ajax/requirement/{requirement}/parts/delete'
+  defaults:
+    _controller: 'Drupal\requirement\Controller\RequirementController::deleteRequirementPartsAutocomplete'
+    _title: '需求配件删除'
+  requirements:
+    _permission: 'administer requirement edit'
+    requirement: '\d+'
+
+admin.requirement.collection.data:
+  path: 'admin/requirement/collection/data'
+  defaults:
+    _controller: 'Drupal\requirement\Controller\RequirementController::getRequirementDataCollection'
+    _title: '未完成需求单列表数据'
+  requirements:
+    _permission: 'administer requirement collection'

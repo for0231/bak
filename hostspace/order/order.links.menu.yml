@@ -1,0 +1,39 @@
+system.admin_order:
+  title: Order management
+  parent: system.admin
+  route_name: system.admin_order
+  weight: -170
+
+admin.order.list:
+  title: Order list
+  parent: system.admin_order
+  route_name: admin.order.list
+  description: 'View all orders'
+  weight: 1
+
+admin.change_price.list:
+  title: Change the price list
+  parent: system.admin_order
+  route_name: admin.change_price.list
+  description: 'View all change the price records'
+  weight: 2
+
+admin.order.trial.list:
+  title: Trial order list
+  parent: system.admin_order
+  route_name: admin.order.trial.list
+  description: 'View all the servers in the trial'
+  weight: 3
+
+admin.hostclient.stop.list:
+  title: 停用服务器
+  parent: admin.sop.list
+  route_name: admin.hostclient.stop.list
+  description: 'View stop the online server'
+  weight: 7
+
+admin.hostclient.list:
+  title: 所有服务器
+  parent: admin.sop.list
+  route_name: admin.hostclient.list
+  weight: 5

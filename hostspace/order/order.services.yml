@@ -1,0 +1,20 @@
+services:
+  user.cart:
+    class: Drupal\order\UserCartService
+    arguments: ['@database']
+
+  order.product:
+    class: Drupal\order\OrderProductService
+    arguments: ['@database']
+
+  order.orderservice:
+    class: Drupal\order\OrderService
+    arguments: ['@database']
+
+  hostclient.serverservice:
+    class: Drupal\order\HostclientService
+    arguments: ['@database']
+
+  hostclient.handleservice:
+    class: Drupal\order\HostclientHandleService
+    arguments: ['@database']

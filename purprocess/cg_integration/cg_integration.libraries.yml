@@ -1,0 +1,9 @@
+workbench:
+  version: VERSION
+  js:
+    js/workbench.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.spinner
+    - core/drupal

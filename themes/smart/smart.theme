@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Bootstrap sub-theme.
+ */
+
+/**
+ *
+ */
+function smart_preprocess_menu__admin(&$variables) {
+  $id = \Drupal::currentUser()->id();
+  $entity = entity_load('user', $id);
+  $user = $entity->get('name')->value;
+  $variables['user'] = $user;
+}
+
+/**
+ * Function smart_preprocess_menu_local_tasks(&$variables) {
+ * kint($variables);
+ * // 使用twig覆写
+ * }.
+ */

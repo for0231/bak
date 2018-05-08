@@ -1,0 +1,6 @@
+name: Voice
+type: module
+core: 8.x
+package: Hostspaces
+description: 'Voice'
+version: VERSION

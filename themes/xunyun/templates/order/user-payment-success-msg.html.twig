@@ -1,0 +1,46 @@
+{#
+/**
+ * @file
+ * 显业自动生成的IP
+ * 
+ *  Available variables:
+ *   -order
+ *   -page_self
+ *  @see
+ *   -template_preprocess_user_payment_success_msg
+ */
+#}
+<div class="success-msg">
+  <div class="Order_title"><b>{{ 'Payment success'|t }}</b> </div>
+  <div class="blank20"></div>
+  <p class="xuqiu">{{page_self.title}}</p>
+  <div class="blank20"></div>
+  <div class="fukuanchg">
+    <table cellspacing="0" cellpadding="0" class="fuk_chenggu">
+      <tr class="fuk_beijing">
+        <td>{{'Server code'|t}}</td>
+        <td>{{'Product name'|t}}</td>
+        <td>IP</td>
+      </tr>
+      {% for hostclient in page_self.hostclients %}
+      {% set i = loop.index % 2  %}
+      {% if (i == 1) %}
+      <tr class = 'odd'>
+      {% else %}
+      <tr class = 'even'>
+      {% endif %}
+        <td>{{hostclient.server_code}}</td>
+        <td>{{hostclient.product_name}}</td>
+        <td>
+          {% for ip in hostclient.ip %}
+           <p>{{ip}}</p>
+          {% endfor %}
+        </td>
+       </tr>
+       {% endfor %}
+    </table>
+    <div class="blank20"></div>
+    <p class="xuqiu">{{ page_self.my_server }}</p>
+  </div>
+  <div class="blank20"></div>
+</div>

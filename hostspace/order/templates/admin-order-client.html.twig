@@ -1,0 +1,36 @@
+{#
+/**
+ * @file
+ * 订单摘要
+ *
+ *  Available variables:
+ *   -client_obj
+ */
+#}
+
+<!-- 订单摘要 -->
+<div class='order-info'>
+  <table>
+    <tr>
+      <td colspan=6><h3>{{ 'Client info'|t }}</h3></td>
+    </tr>
+    <tr>
+      <td class="col1">{{ 'Company or person name'|t }}</td>
+      <td>{{ client_obj.client }}</td>
+      <td class="col1">{{ 'Contact person'|t }}</td>
+      <td>{{ client_obj.contact }}</td>
+    </tr>
+    <tr>
+      <td class="col1">{{ 'Agent'|t }}</td>
+      <td>
+        <ul>
+          {% for role in client_obj.agent %}
+            <li>{{role}} </li>
+          {% endfor %}
+        </ul>
+      </td>
+      <td class="col1">{{ 'Phone'|t }}</td>
+      <td>{{ client_obj.phone }}</td>
+    </tr>
+  </table>
+</div>

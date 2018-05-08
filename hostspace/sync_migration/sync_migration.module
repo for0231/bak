@@ -1,0 +1,16 @@
+<?php
+
+/**
+ *
+ */
+function module_load_phpexcel($index = 0) {
+  include_once __DIR__ . '/PHPExcel/Classes/PHPExcel.php';
+  $filePath = DRUPAL_ROOT . '/sites/default/files/room_info.xlsx';
+  $PHPReader = new PHPExcel_Reader_Excel2007();
+  if(file_exists($filePath)) {
+    $PHPExcel = $PHPReader->load($filePath);
+    $currentSheet = $PHPExcel->getSheet($index);
+    return $currentSheet;
+  }
+  return false;
+}

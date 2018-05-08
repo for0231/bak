@@ -1,0 +1,164 @@
+<?php
+
+/**
+ * @file
+ * Malfunction declare
+ */
+use Drupal\Core\Entity\EntityInterface;
+use \Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Drupal\Component\Utility\SafeMarkup;
+
+
+/**
+ * Implement hook_theme().
+ */
+function question_theme() {
+  return array(
+    //故障分类模板
+    'admin_category_list' => array(
+      'template' => 'admin-category-list',
+      'variables' => array('category'=> null,'add'=>null)
+    ),
+    // 我处理的问题统计
+    'my_statistics' => array(
+      'template' => 'my-statistics',
+      'variables' => array('statistics'=> null, 'year' => null , 'month' => null)
+    ),
+// ============ 前台模板定义 =============
+    // 我申报的故障 --会员中心适用
+    'user_question_list' => array(
+      'render element' => 'element',
+      'template' => 'user-question-list'
+    ),
+    // 前台客户故障列表 -- 会员中心适用
+    'client_question_list' => array(
+      'template' => 'client-question-list',
+      'variables' => array('question_list'=> null)
+    ),
+    // 故障详情  -- 前台适用
+    'question_client_detail_form' => array(
+      'render element' => 'form',
+      'template' => 'client-question-detail'
+    ),
+    //故障申报
+    'declare_question_form' => array(
+      'render element' => 'form',
+      'template' => 'declare-question'
+    ),
+  );
+}
+
+/**
+ * 在准备表单之前将session中存放的选择好的IP组成的数组清除
+ *
+ * @param $entity
+ * @param $operation
+ * @param $form_state
+ *
+ */
+function question_entity_prepare_form(EntityInterface $entity, $operation , FormStateInterface $form_state) {
+
+  $_SESSION['isTransfer'] = '';
+}
+
+/**
+ * 得到服务类
+ */
+function getQuestionService(){
+    return \Drupal::service('question.questionservice');
+ }
+
+/**
+ * 构建显示客户申报信息列表模板所需的参数
+ */
+function template_preprocess_client_question_list(&$variables) {
+
+  $all_question = $variables['question_list'];
+
+  foreach($all_question as $key=>$question) {
+    $question->detail_url = \Drupal::l(t('Detail'), new Url('question.client.question.detail',array('question' => $question->id)));
+    $question->category = entity_load('question_class',$question->parent_question_class)->label();
+    $question->created_label = format_date($question->created, 'custom', 'Y-m-d H:i');
+    $question->status_label = $question->status ? questionStatus()[$question->status] : t('Unfinished');
+    $question->ip =  SafeMarkup::format(str_replace("\r\n","<br/>", $question->ipstring), array());
+  }
+  $variables['question_list'] =  $all_question;
+}
+
+/**
+ * 构建显示故障类型列表模板所需的参数
+ */
+function template_preprocess_admin_category_list(&$variables) {
+
+  $question_class = $variables['category'];
+
+  $category_parent = array();
+  foreach ($question_class as $k=>$v) {
+		$category_parent[$k] = $v->label();
+	}
+
+  ksort($category_parent);
+
+  //根据各个父节点加载该节点下面的子分类
+  $category_arr = array();
+  foreach($category_parent as $key=>$value){
+    $entity = entity_load_multiple_by_properties('question_class',array('parent' => $key));
+    foreach($entity as $k=>$v) {
+      $v->edit = \Drupal::l(t('Edit'), new Url('question.category.edit_form',array('question_class' => $v->id())));
+      $v->delete = \Drupal::l(t('Delete'), new Url('question.category.delelte_form',array('question_class' => $v->id())));
+      //统计各个分类下存有的故障数量
+      $question_arr = entity_load_multiple_by_properties('question',array('parent_question_class' => $v->id()));
+      $v->question_number = count($question_arr);
+    }
+    $category_arr[$key] = array(
+      'title' => $value,
+      'child' =>  $entity
+    );
+  }
+   $variables['category'] = $category_arr;
+}
+
+/**
+ * 构建显示我经手的故障统计模板所需的参数
+ */
+function template_preprocess_my_statistics(&$variables) {
+  // 故障分类父类实体集合
+  $parent = $variables['statistics'];
+  //要统计的年份
+  $year = $variables['year'];
+  // 要统计的月份
+  $month = $variables['month'];
+
+  $out=0;   // 所有类型问题的转出数
+  $in = 0;  // 所有类型问题的转入数
+  $on = 0;  // 所有类型问题的按时晚成数
+  $out_time = 0;  // 所有类型问题的超时完成数
+
+  if(!empty($parent)) {
+    foreach ($parent as $k=>$p) {
+      $childs = entity_load_multiple_by_properties('question_class', array('parent' => $k));
+		  foreach($childs as $key =>$child) {
+        $child->treansfer_out = getQuestionService()->getTransferRecordCountByCondition(\Drupal::currentUser()->id(),'out',$child->id(),$year,$month);
+        $child->income = getQuestionService()->getTransferRecordCountByCondition(\Drupal::currentUser()->id(),'in',$child->id(),$year,$month);
+        $child->on_time = getQuestionService()->getTimeOutQuestionCount(\Drupal::currentUser()->id(),'on_time',$child->id(),$year,$month);
+        $child->time_out = getQuestionService()->getTimeOutQuestionCount(\Drupal::currentUser()->id(),'out_time',$child->id(),$year,$month);
+
+        $out +=$child->treansfer_out;
+        $in +=$child->income;
+        $on +=$child->on_time;
+        $out_time +=$child->time_out;
+
+      }
+      $p->child =  $childs;
+      $p->child_count = count($p->child);
+
+	  }
+    $variables['out'] = $out;
+    $variables['in'] = $in;
+    $variables['on'] = $on;
+    $variables['out_time'] = $out_time;
+    $variables['on'] = $on;
+  }
+}
+

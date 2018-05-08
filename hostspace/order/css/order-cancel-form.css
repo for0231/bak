@@ -1,0 +1,12 @@
+main#content h1#page-title {
+  display: block;
+}
+
+div.form-actions input {
+  background: none repeat scroll 0 0 #FF4400;
+  border: medium none;
+  border-radius: 3px 3px 3px 3px;
+  color: #FFFFFF;
+  margin: 0 5px;
+  padding: 5px 20px;
+}

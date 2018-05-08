@@ -1,0 +1,486 @@
+system.admin_worksheet:
+  path: '/admin/worksheet'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: '工单系统'
+  requirements:
+    _permission: 'access worksheet admin'
+
+admin.xunyun.url:
+  path: '/admin/xunyun/url'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::getXunyunUrl'
+    _title: '讯云网址导航'
+  requirements:
+    _permission: 'access worksheet admin'
+    
+admin.worksheet.add:
+  path: '/admin/worksheet/add'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: '创建工单'
+  requirements:
+    _permission: 'administer adding work sheet'
+    
+admin.worksheet.statistics:
+  path: '/admin/worksheet/statistics'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: '统计功能'
+  requirements:
+    _permission: 'access worksheet sop statistic'
+    
+admin.worksheet.add.frame:
+  path: '/admin/worksheet/add/frame'
+  defaults:
+    _entity_form: 'work_sheet_frame.add'
+    _title: '上下架 or 重装'
+  requirements:
+    _permission: 'administer adding work sheet'
+
+admin.worksheet.add.ip:
+  path: '/admin/worksheet/add/ip'
+  defaults:
+    _entity_form: 'work_sheet_ip.add'
+    _title: 'IP or 带宽'
+  requirements:
+    _permission: 'administer adding work sheet'
+
+admin.worksheet.add.switch:
+  path: '/admin/worksheet/add/switch'
+  defaults:
+    _entity_form: 'work_sheet_switch.add'
+    _title: '开关机'
+  requirements:
+    _permission: 'administer adding work sheet'
+
+admin.worksheet.add.room:
+  path: '/admin/worksheet/add/room'
+  defaults:
+    _entity_form: 'work_sheet_room.add'
+    _title: '机房事务'
+  requirements:
+    _permission: 'administer adding work sheet'
+
+admin.worksheet.add.fault:
+  path: '/admin/worksheet/add/fault'
+  defaults:
+    _entity_form: 'work_sheet_fault.add'
+    _title: '故障工单'
+  requirements:
+    _permission: 'administer adding work sheet'
+
+admin.worksheet.add.logistics:
+  path: '/admin/worksheet/add/logistics'
+  defaults:
+    _entity_form: 'work_sheet_logistics.add'
+    _title: '物流工单'
+  requirements:
+    _permission: 'administer adding work sheet'
+
+admin.worksheet.sop:
+  path: '/admin/worksheet/sop/list'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::SopList'
+    _title: '未完成工单'
+  requirements:
+    _permission: 'access worksheet sop list'
+
+admin.worksheet.sop.data:
+  path: '/admin/worksheet/sop/data'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::SopListData'
+    _title: '未完成工单列表数据'
+  requirements:
+    _permission: 'access worksheet sop list'
+
+admin.worksheet.sop.frame.operation:
+  path: '/admin/worksheet/sop/frame/{work_sheet_frame}/operation'
+  defaults:
+    _entity_form: 'work_sheet_frame.operation'
+    _title: '操作'
+  requirements:
+    _permission: administer operation work sheet
+
+admin.worksheet.sop.ip.operation:
+  path: '/admin/worksheet/sop/ip/{work_sheet_ip}/operation'
+  defaults:
+    _entity_form: 'work_sheet_ip.operation'
+    _title: '操作'
+  requirements:
+    _permission: administer operation work sheet
+
+admin.worksheet.sop.switch.operation:
+  path: '/admin/worksheet/sop/switch/{work_sheet_switch}/operation'
+  defaults:
+    _entity_form: 'work_sheet_switch.operation'
+    _title: '操作'
+  requirements:
+    _permission: administer operation work sheet
+    
+admin.worksheet.sop.room.operation:
+  path: '/admin/worksheet/sop/room/{work_sheet_room}/operation'
+  defaults:
+    _entity_form: 'work_sheet_room.operation'
+    _title: '操作'
+  requirements:
+    _permission: administer operation work sheet
+    
+admin.worksheet.sop.fault.operation:
+  path: '/admin/worksheet/sop/fault/{work_sheet_fault}/operation'
+  defaults:
+    _entity_form: 'work_sheet_fault.operation'
+    _title: '操作'
+  requirements:
+    _permission: administer operation work sheet
+
+admin.worksheet.sop.cycle.operation:
+  path: '/admin/worksheet/sop/cycle/{work_sheet_cycle}/operation'
+  defaults:
+    _entity_form: 'work_sheet_cycle.operation'
+    _title: '操作'
+  requirements:
+    _permission: administer operation work sheet
+
+admin.worksheet.sop.logistics.operation:
+  path: '/admin/worksheet/sop/logistics/{work_sheet_logistics}/operation'
+  defaults:
+    _entity_form: 'work_sheet_logistics.operation'
+    _title: '操作'
+  requirements:
+    _permission: administer operation work sheet
+
+admin.worksheet.sop.majorfault.operation:
+  path: '/admin/worksheet/sop/majorfault/{work_sheet_major_fault}/operation'
+  defaults:
+    _entity_form: 'work_sheet_major_fault.operation'
+    _title: '操作'
+  requirements:
+    _permission: administer operation work sheet
+
+admin.worksheet.statistic:
+  path: '/admin/worksheet/statistic'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::SopStatistic'
+    _title: '工单统计'
+  requirements:
+    _permission: 'access worksheet sop statistic'
+
+admin.worksheet.comment.statistic:
+  path: '/admin/worksheet/comment/statistic'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::CommentStatistic'
+    _title: '评论统计'
+  requirements:
+    _permission: 'access worksheet sop statistic'
+
+admin.worksheet.question.statistic:
+  path: '/admin/worksheet/question/statistic'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::QuestionStatistic'
+    _title: '工单问题类型统计'
+  requirements:
+    _permission: 'access worksheet sop statistic'
+
+    
+admin.worksheet.history:
+  path: '/admin/worksheet/history'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::history'
+    _title: '已完成工单'
+  requirements:
+    _permission: 'access worksheet sop list'
+
+admin.worksheet.history.export:
+  path: '/admin/worksheet/history/export'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::historyExport'
+    _title: '导出工单'
+  requirements:
+    _permission: 'access worksheet sop list'
+
+admin.worksheet.abnormal:
+  path: '/admin/worksheet/abnormal'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::abnormal'
+    _title: '异常工单'
+  requirements:
+    _permission: 'access worksheet sop list'
+
+admin.worksheet.abnormal.export:
+  path: '/admin/worksheet/abnormal/export'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::abnormalExport'
+    _title: '异常工单导出'
+  requirements:
+    _permission: 'access worksheet sop list'
+    
+admin.worksheet.sop.detail:
+  path: '/admin/worksheet/sop/{entity_type}/{wid}/detail'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::detail'
+    _title: '工单详情'
+  requirements:
+    _permission: 'access worksheet sop list'
+
+admin.worksheet.sop.delete:
+  path: '/admin/worksheet/sop/{entity_type}/{wid}/delete'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::sopDelete'
+    _title: '工单详情'
+  requirements:
+    _permission: 'access worksheet sop delete'
+
+admin.worksheet.abnormal.cancel:
+  path: '/admin/worksheet/abnormal/{work_sheet_handle}/cancel'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::cancelAbnormal'
+    _title: '取消异常'
+  requirements:
+    _permission: 'access worksheet abnormal cancel'
+
+admin.worksheet.sop.remind:
+  path: '/admin/worksheet/sop/{entity_type}/{wid}/remind'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::voiceRemind'
+    _title: '声音提醒'
+  requirements:
+    _permission: 'access worksheet sop list'
+   
+admin.worksheet.setting:
+  path: '/admin/worksheet/setting'
+  defaults:
+    _form: '\Drupal\worksheet\Form\SettingForm'
+    _title: '工单设置'
+  requirements:
+    _permission: 'access worksheet sop setting'
+    
+admin.worksheet.room.setting:
+  path: 'admin/worksheet/room/setting'
+  defaults:
+    _form: '\Drupal\worksheet\Form\RoomSettingForm'
+    _title: '机房工时设置'
+  requirements:
+    _permission: 'access worksheet room setting'
+    
+admin.worksheet.room.time.save:
+  path: 'admin/worksheet/room/time/save'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::saveRoomTime'
+    _title: '机房工时保存'
+  requirements:
+    _permission: 'access worksheet room setting'
+
+admin.worksheet.task.assigner:
+  path: 'admin/worksheet/task/assigner'
+  defaults:
+    _form: '\Drupal\worksheet\Form\TaskAssignerForm'
+    _title: '任务分配人申请'
+  requirements:
+    _permission: 'access worksheet task assigner apply'
+
+admin.worksheet.options:
+  path: 'admin/worksheet/options'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::optionList'
+    _title: '工单选项设置'
+  requirements:
+    _permission: 'access worksheet options view'
+
+admin.worksheet.filter:
+  path: '/admin/worksheet/filter'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::sopFilter'
+    _title: '工单查询'
+  requirements:
+    _permission: 'access worksheet sop list'
+
+admin.worksheet.cycle.add:
+  path: '/admin/worksheet/cycle/add'
+  defaults:
+    _form: '\Drupal\worksheet\Form\WorkSheetCycleAddForm'
+    _title: '创建周期性工单'
+  requirements:
+    _permission: 'access worksheet sop list'
+
+admin.worksheet.cycle.exec:
+  path: '/admin/cycle/exec'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::cycleExec'
+    _title: '定时执行'
+  requirements:
+    _access: 'TRUE'
+
+admin.worksheet.sop.cycle.edit:
+  path: '/admin/worksheet/cycle/{work_sheet_cycle_key}/edit'
+  defaults:
+    _form: '\Drupal\worksheet\Form\WorkSheetCycleEditForm'
+    _title: '编辑周期工单'
+  requirements:
+    _permission: 'access worksheet sop list'
+
+admin.worksheet.sop.cycle.delete:
+  path: '/admin/worksheet/cycle/{work_sheet_cycle_key}/delete'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::cycleDelete'
+    _title: '删除周期工单'
+  requirements:
+    _permission: 'access worksheet sop list'
+
+admin.worksheet.sop.person.duty:
+  path: '/admin/worksheet/sop/person/{uid}/duty/{op}'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::dutyPerson'
+    _title: '值班人员设置'
+  requirements:
+    _permission: 'access worksheet task assigner apply'
+admin.worksheet.sop.allo:
+  path: '/admin/worksheet/sop/allo/{time}/delete'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::alloDelete'
+    _title: '分配时间段删除'
+  requirements:
+    _permission: 'access worksheet task assigner apply'
+
+admin.worksheet.room.list:
+  path: '/admin/worksheet/room/list'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::roomList'
+    _title: '机房事务工单'
+  requirements:
+    _permission: 'access worksheet sop list'
+
+admin.worksheet.room.data:
+  path: '/admin/worksheet/room/data'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::roomListData'
+    _title: '机房事务数据'
+  requirements:
+    _permission: 'access worksheet sop list'
+
+admin.worksheet.room.export.remember:
+  path: '/admin/worksheet/room/export/remember'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::exportRemember'
+    _title: '导出备注'
+  requirements:
+    _permission: 'access worksheet sop list'
+    
+admin.worksheet.logistics.list:
+  path: '/admin/worksheet/logistics/list'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::logisticsList'
+    _title: '物流工单'
+  requirements:
+    _permission: 'access worksheet sop list'
+    
+admin.worksheet.logistics.data:
+  path: '/admin/worksheet/logistics/data'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::logisticsListData'
+    _title: '物流工单数据'
+  requirements:
+    _permission: 'access worksheet sop list'
+
+admin.worksheet.room.relation.sop:
+  path: '/admin/worksheet/room/relation/{code}/sop'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::relationSop'
+    _title: '查看关联工单'
+  requirements:
+    _permission: 'access worksheet sop list'
+
+admin.worksheet.comment:
+  path: 'admin/worksheet/comment'
+  defaults:
+    _form: '\Drupal\worksheet\Form\CommentForm'
+    _title: '工单评论'
+  requirements:
+    _permission: 'access worksheet sop setting'
+
+admin.worksheet.add.majorfault:
+  path: '/admin/worksheet/add/majorfault'
+  defaults:
+    _entity_form: 'work_sheet_major_fault.add'
+    _title: '重大故障工单'
+  requirements:
+    _permission: 'administer adding work sheet'
+
+admin.worksheet.allot.statistic:
+  path: '/admin/worksheet/allot/statistic'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::AllotStatistic'
+    _title: '工单分配系数统计'
+  requirements:
+    _permission: 'access worksheet sop statistic'
+
+admin.worksheet.statistic.putaway:
+  path: '/admin/worksheet/statistic/putaway'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::ServerPutawayStatistic'
+    _title: '服务器上架统计'
+  requirements:
+    _permission: 'access worksheet sop statistic'
+
+admin.worksheet.statistic.reset:
+  path: '/admin/worksheet/statistic/reset'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::ServerResetStatistic'
+    _title: '服务器重装统计'
+  requirements:
+    _permission: 'access worksheet sop statistic'
+
+admin.worksheet.statistic.soldout:
+  path: '/admin/worksheet/statistic/soldout'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::ServerSoldoutStatistic'
+    _title: '服务器下架统计'
+  requirements:
+    _permission: 'access worksheet sop statistic'
+
+admin.worksheet.statistic.iporbandwidth:
+  path: '/admin/worksheet/statistic/iporbandwidth'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::IporBandwidthStatistic'
+    _title: 'Ip or 带宽'
+  requirements:
+    _permission: 'access worksheet sop statistic'
+
+admin.worksheet.statistic.port:
+  path: '/admin/worksheet/statistic/port'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::PortStatistic'
+    _title: 'UP&DOWN端口'
+  requirements:
+    _permission: 'access worksheet sop statistic'
+
+admin.worksheet.statistic.serviceroom:
+  path: '/admin/worksheet/statistic/serviceroom'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::ServiceRoomStatistic'
+    _title: '机房事务'
+  requirements:
+    _permission: 'access worksheet sop statistic'
+
+admin.worksheet.statistic.abnormal:
+  path: '/admin/worksheet/statistic/abnormal'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::AbnormalStatistic'
+    _title: '工单异常统计'
+  requirements:
+    _permission: 'access worksheet sop statistic'
+    
+admin.worksheet.number.curve:
+  path: '/admin/worksheet/number/curve'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::NumberCurveStatistic'
+    _title: '工单个数曲线统计'
+  requirements:
+    _permission: 'access worksheet sop numbercurve'
+admin.worksheet.sop.curvedata:
+  path: '/admin/worksheet/sop/curvedata'
+  defaults:
+    _controller: '\Drupal\worksheet\Controller\SopController::NumberCurveData'
+    _title: '工单个数曲线数据'
+  requirements:
+    _permission: 'access worksheet sop numbercurve'

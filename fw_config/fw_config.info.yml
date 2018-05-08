@@ -1,0 +1,8 @@
+name: Firewall configuration
+type: module
+core: 8.x
+package: Work Sheet
+description: '防火墙配置'
+version: VERSION
+dependencies:
+  - dblog

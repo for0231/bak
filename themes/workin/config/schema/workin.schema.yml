@@ -1,0 +1,5 @@
+# Schema for the theme setting configuration file of the Bootstrap base theme.
+
+workin.settings:
+  type: theme_settings
+  label: 'Workin settings'

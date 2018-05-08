@@ -1,0 +1,5 @@
+services:
+  ikcounter.ikcounterservice:
+    class: Drupal\ikcounter\IkcounterService
+    arguments: ['@database']
+

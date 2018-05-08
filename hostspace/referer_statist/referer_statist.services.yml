@@ -1,0 +1,11 @@
+services:
+  referer_statist.service:
+    class: Drupal\referer_statist\RefererStatistService
+    arguments: ['@database']
+
+  referer_statist.subscriber:
+    class: Drupal\referer_statist\EventSubscriber\RefererSubscriber
+    arguments: ['@referer_statist.service']
+    tags:
+      - { name: event_subscriber }
+

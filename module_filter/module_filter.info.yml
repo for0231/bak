@@ -1,0 +1,8 @@
+name: Module filter
+type: module
+core: 8.x
+package: Administration
+description: 'Filter the modules list.'
+version: VERSION
+dependencies:
+  - system

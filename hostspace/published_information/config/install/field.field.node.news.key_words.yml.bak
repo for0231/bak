@@ -1,0 +1,16 @@
+#id: node.news.key_words
+#entity_type: node
+#bundle: news
+#field_name: key_words
+#field_type: string
+#label: 'Key words'
+#description: ' 关键字，多个以半角逗号隔开'
+#required: true
+#readOnly: true
+#settings: {  }
+#status: true
+#langcode: en
+#dependencies:
+  #config:
+#    - field.storage.node.key_words
+ #   - node.type.news

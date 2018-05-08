@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * @file 
+ * Manage part description.
+ */
+
+/**
+ * 获取配件实体类型
+ */
+function part_entity_type_list() {
+   return array(
+     'part_memory' => t('Memory'),
+     'part_harddisc' => t('Hard disk')
+   );
+}
+
+/**
+ * 获取实体类型得到类型名称
+ */
+function part_entity_type_name($type) {
+  switch($type) {
+    case 'part_cpu':
+      return 'CPU';
+    case 'part_memory':
+      return t('Memory');
+    case 'part_harddisc':
+      return t('Hard disk');
+    case 'part_mainboard':
+      return t('Mainboard');
+    case 'part_chassis':
+      return t('Chassis');
+    case 'part_raid':
+      return 'Raid';
+    case 'part_network':
+      return t('Network card');
+    case 'part_optical':
+      return t('Optical module');
+    case 'part_switch':
+      return t('Switch');
+  }
+  return '';
+}

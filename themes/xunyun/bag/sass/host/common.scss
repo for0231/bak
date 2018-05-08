@@ -1,0 +1,108 @@
+@import "block/block";
+@import "host/publish_system/published";
+@import "host/order/product-list";
+@import "host/order/custom-business-form";
+@import "host/order/user-cart-form";
+@import "host/member/user-login";
+@import "host/order/build-order-form";
+@import "host/order/user-payment-success-msg";
+@import "host/member/base-user";
+@import "host/order/server-product-info";
+@import "host/order/user-order";
+@import "host/question/question";
+@import "host/order/user-server-list-form";
+@import "host/order/user-order-detail";
+@import "host/order/user-hostclient-detail";
+
+////========================== 页脚 ====================
+footer .pic_01 img {
+	width:100%;
+	height:104px;
+}
+.foot-host .state_item ul li {
+	float:left;
+	width: 20%;
+  list-style: none;
+}
+.foot-host .state_item ul li dl a {
+	height:40px;
+	line-height:40px;
+	border-bottom:#041e39 solid 2px;
+	font-size:18px;
+	color:#041e39;
+	margin-left:50px;
+}
+.foot-host .state_item ul li dt a {
+	background:url(../../images/dian.png) 0 8px no-repeat;
+	padding-left:10px;
+	margin-left:50px;
+	height:30px;
+	line-height:30px;
+	color:#041e39;
+	font-size:14px;
+}
+.banquan {
+	background:#fff;
+	text-align:center;
+}
+.banquan p {
+	line-height:30px;
+	font-size:14px;
+}
+
+h1#page-title {
+  display: none;
+}
+// 页面加载进度显示图标效果
+#page-loader {
+	position:fixed;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;
+	background:#E6E8EC;
+	z-index:1020;
+//	width: 100%;
+//	height: 50px;
+}
+#page-loader.fade {
+	display:none
+}
+#page-loader.fade.in {
+	display:block
+}
+
+table.user-table {
+  border-left: 1px solid #CCCCCC;
+  border-top: 1px solid #CCCCCC;
+  margin-bottom: 15px;
+  width: 100%;
+  tr {
+    height: 40px;
+    line-height: 40px;
+    th:last-child {
+      width:95px;
+    }
+    th, td {
+      border-bottom: 1px solid #CCCCCC;
+      border-right: 1px solid #CCCCCC;
+      text-align: center;
+    }
+    td .dropbutton-wrapper {
+      padding-right: 0;
+      margin-left: 10px;
+      li {
+        margin: 0;
+      }
+    }
+    span.qy-logo {
+      color: #FF0000;
+      margin-left: 2px;
+    }
+  }
+  thead tr {
+    background: none repeat scroll 0 0 #DDDDDD;
+    color: #041E39;
+    font-weight: bold;
+  }
+}

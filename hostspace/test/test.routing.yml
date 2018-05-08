@@ -1,0 +1,23 @@
+test.dialog:
+  path: 'test/dialog'
+  defaults:
+    _form: '\Drupal\test\Form\TestDialogForm'
+    _title: 'Test dialog'
+  requirements:
+    _access: 'TRUE'
+
+test.dialog.return:
+  path: 'test/dialog/return'
+  defaults:
+    _form: '\Drupal\test\Form\TestDialogReturnForm'
+    _title: 'Test dialog'
+  requirements:
+    _access: 'TRUE'
+    
+test.ajax.polling:
+  path: 'test/ajax/polling'
+  defaults: 
+    _controller: '\Drupal\test\Controller\TestController::testPolling'
+    _title: 'Test Polling'
+  requirements:
+    _access: 'TRUE'

@@ -1,0 +1,9 @@
+name: Work Sheet
+type: module
+core: 8.x
+package: Work Sheet
+description: '工单模块'
+version: VERSION
+dependencies:
+  - options
+  - voice

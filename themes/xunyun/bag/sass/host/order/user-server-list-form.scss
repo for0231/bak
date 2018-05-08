@@ -1,0 +1,134 @@
+#user-server-list-form {
+  .vertical-tabs {
+    margin: 0;
+    border: 0;
+    .vertical-tabs__menu {
+      margin: 0;
+      border: none;
+      height: 33px;
+      float: none;
+      border-bottom: 1px solid #AAAAAA;
+      width: auto;
+      li {
+        background: -moz-linear-gradient(center top , #EEEEEE, #DDDDDD) repeat scroll 0 0 rgba(0, 0, 0, 0);
+        border: 1px solid #AAAAAA;
+        border-radius: 4px 4px 0 0;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+        cursor: pointer;
+        float: left;
+        font-size: 11px;
+        height: 32px;
+        line-height: 33px;
+        margin: 0 2px 0 0;
+        text-align: center;
+        text-shadow: 0 1px 0 #FFFFFF;
+        width: 125px;
+        a {
+          padding: 0;
+        }
+      }
+      li.is-selected {
+        background: -moz-linear-gradient(center top , #E1E1E1, #FFFFFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+        border-bottom: 1px solid #FFFFFF;
+        color: #000000;
+        cursor: pointer;
+        text-shadow: 0 1px 0 #FFFFFF;
+      }
+    }
+    .vertical-tabs__panes {
+      float: left;
+      border-left: 1px solid #AAAAAA;
+      border-right: 1px solid #AAAAAA;
+      border-bottom: 1px solid #AAAAAA;
+      width:100%;
+      details>div {
+        padding: 0.5em 1.5em;
+      }
+      ul {
+        margin: 0; 
+      }
+      .server-search {
+        .form-item {
+          float: left;
+          margin-top:10px;
+          margin-bottom: 1em;
+          width:50%;
+        }
+        .button {
+          color: #FFFFFF;
+          background: none repeat scroll 0 0 #FF4400;
+          margin: 0 5px;
+          padding: 5px 20px;
+          border-radius: 3px 3px 3px 3px;
+          border: medium none;
+        }
+      }
+      table {
+        border-left: 1px solid #CCCCCC;
+        border-top: 1px solid #CCCCCC;
+        width: 100%;
+        tr {
+          height: 40px;
+          line-height: 40px;
+          th:last-child {
+            width:95px;
+          }
+          th, td {
+            border-bottom: 1px solid #CCCCCC;
+            border-right: 1px solid #CCCCCC;
+            text-align: center;
+          }
+          td .dropbutton-wrapper {
+            padding-right: 0;
+            margin-left: 10px;
+            li {
+              margin: 0;
+            }
+          }
+          span.qy-logo {
+            color: #FF0000;
+            margin-left: 2px;
+          }
+        }
+        thead tr {
+          background: none repeat scroll 0 0 #DDDDDD;
+          color: #041E39;
+          font-weight: bold;
+        }
+      }
+      .pager {
+        float: right;
+        margin-top: 15px;
+        width: auto;
+        li {
+          border: 1px solid #CCCCCC;
+          padding: 4px 12px;
+          text-decoration: none;
+          margin-left: 4px;
+          a {
+            color: #041E39;
+          }
+        }
+        li.is-active {
+          background: none repeat scroll 0 0 #041E39;
+          border: 1px solid #041E39;
+          a {
+            color: #FFFFFF;
+          }
+        }
+      }
+      .form-actions {
+        float: left;
+        input {
+          background: none repeat scroll 0 0 #3366CC;
+          color: #FFFFFF;
+          display: inline-block;
+          margin: 0 15px 0 0;
+          padding: 5px 20px;
+          border-radius: 3px 3px 3px 3px;
+          border: medium none;
+        }
+      }
+    }
+  }
+}

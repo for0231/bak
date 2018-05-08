@@ -1,0 +1,143 @@
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+{{form.room_check}}
+{{form.room}}
+<div class="row">
+  <div class="col-xs-8">
+    <div class="row">
+      <div class="col-xs-4">
+        {{ form.mips }}
+      </div>
+      <div class="col-xs-4">
+        {{ form.client_uid }}
+      </div>
+      <div class="col-xs-4">
+        {{ form.created }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-4">
+        {{ form.edit_info.business_ip.bips }}
+      </div>
+      <div class="col-xs-4">
+        {{ form.edit_info.business_ip.aips }}
+      </div>
+      <div class="col-xs-4">
+        {{ form.edit_info.business_ip.sips }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-4">
+        {{ form.pid }}
+      </div>
+      <div class="col-xs-4">
+        {{ form.equipment_date }}
+      </div>
+      <div class="col-xs-4">
+        {{ form.sop_type }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-4">
+        {{ form.pre_solving_uid }}
+      </div>
+      <div class="col-xs-4">
+        {{ form.sop_op_type }}
+      </div>
+      <div class="col-xs-4">
+        {{ form.os }}
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-xs-4">
+        <div class="row">
+          <div class="col-xs-12">
+            {{ form.tech_iband_edit_info }}
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="row">
+          <div class="col-xs-12">
+            {{ form.tech_iband_check_info }}
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="row">
+          <div class="col-xs-12">
+            {{ form.tech_edit_info }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      {{ form.actions }}
+    </div>
+  </div>
+  <div class="col-xs-4">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="row">
+          <div class="col-xs-12">
+            <p class="text-primary">{{ form.markup_sop_room }}</p>
+            <p class="text-info">{{ form.markup_sop_status }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <p class="text-danger">{{ form.markup_server_status }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <p class="text-warning">{{ form.client_description }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            {{ form.additonal_bussiness }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        {{ form.edit_info.business_ip.bip_segment }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        {{ form.bip_type }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        {{ form.edit_info.business_ip.ipb_search.ipb_search_wrapper }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        {{ form.edit_info.business_ip.ipb_search.ipb_search_text }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-4 col-xs-offset-3">
+        {{ form.edit_info.business_ip.ipb_search.ipb_search_submit }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        {{ form.description }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        {{ form.result_description }}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<div id="news_category">
+  <div class="title_02">新闻动态</div>
+  <ul class="lanmu_list">
+    {% set i = 1%}
+    {% for catg in category_data %}
+      <li>
+        <a href="{{ catg.list_url }}"><img src="/{{ directory }}/images/icon_0{{ i }}.png">{{ catg.name }}</a>
+      </li>
+      {% set i=i+1%}
+    {% endfor %}
+  </ul>
+</div>

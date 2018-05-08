@@ -1,0 +1,26 @@
+<?php
+
+function getPaiBanType() {
+  return [
+    1 => '正常班次',
+    3 => '弹性工作',
+    5 => '排班班次',
+  ];
+}
+
+/**
+ * Implement hook_theme().
+ */
+function kaoqin_theme() {
+  return [
+    'upon_update' => [
+      'render element' => 'elements',
+      'template' => 'upon-update',
+    ],
+  ];
+}
+
+function kaoqin_form_kaoqin_addemp_form_alert(&$form, &$form_state, $form_id) {
+  $form['name']['#form_placeholder'] = TRUE;
+  $form['description']['#form_placeholder'] = TRUE;
+}

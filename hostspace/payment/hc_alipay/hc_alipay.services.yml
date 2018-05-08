@@ -1,0 +1,4 @@
+services:
+  alipay.alipayservice:
+    class: Drupal\hc_alipay\AlipayService
+    arguments: ['@database']

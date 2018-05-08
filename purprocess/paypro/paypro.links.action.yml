@@ -1,0 +1,15 @@
+entity.requirement.add_form:
+  route_name: entity.requirement.add_form
+  title: '+需求单'
+  appears_on:
+    - 'entity.requirement.collection'
+
+
+entity.paypro.collection:
+  route_name: entity.paypro.collection
+  title: '支付单工作台'
+  appears_on:
+    - 'audit_locale.rule.overview'
+    - 'audit_locale.rule.specied.overview'
+    - 'cg_integration.admin_workbench'
+  weight: 40

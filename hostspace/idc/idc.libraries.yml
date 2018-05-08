@@ -1,0 +1,27 @@
+drupal.cabinet-item:
+  version: VERSION
+  css:
+    theme:
+      css/cabinet-item.css: {}
+
+drupal.RadiosNumberWidget:
+  version: VERSION
+  css:
+    theme:
+      css/RadiosNumberWidget.css: {}
+
+drupal.autocompleteServerWidget:
+  version: VERSION
+  js:
+    js/AutocompleteServerWidget.js: {}
+  css:
+    theme:
+      css/AutocompleteServerWidget.css: {}
+  dependencies:
+    - core/drupal.autocomplete
+
+drupal.cabinet-server-detail:
+  version: VERSION
+  css:
+    theme:
+      css/cabinet-server-detail.css: {}

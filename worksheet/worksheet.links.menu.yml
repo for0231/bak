@@ -1,0 +1,177 @@
+system.admin_worksheet:
+  title: '工单系统'
+  parent: system.admin
+  route_name: system.admin_worksheet
+  weight: -202
+  
+admin.xunyun.url:
+  title: '讯云网址导航'
+  parent: system.admin
+  route_name: admin.xunyun.url
+  weight: -177
+  
+admin.worksheet.add:
+  title: '创建工单'
+  parent: system.admin_worksheet
+  route_name: admin.worksheet.add
+  weight: 2
+admin.worksheet.statistics:
+  title: '统计功能'
+  parent: system.admin_worksheet
+  route_name: admin.worksheet.statistics
+  weight: 2
+
+admin.worksheet.statistic:
+  title: '工单统计'
+  parent: admin.worksheet.statistics
+  route_name: admin.worksheet.statistic
+  weight: 1
+
+admin.worksheet.comment.statistic:
+  title: '评论统计'
+  parent: admin.worksheet.statistics
+  route_name: admin.worksheet.comment.statistic
+  weight: 2
+
+admin.worksheet.question.statistic:
+  title: '工单问题类型统计'
+  parent: admin.worksheet.statistics
+  route_name: admin.worksheet.question.statistic
+  weight: 3
+
+admin.worksheet.allot.statistic:
+  title: '分配系数统计'
+  parent: admin.worksheet.statistics
+  route_name: admin.worksheet.allot.statistic
+  weight: 4
+
+admin.worksheet.add.frame:
+  title: '上下架 or 重装'
+  parent: admin.worksheet.add
+  route_name: admin.worksheet.add.frame
+  weight: 1
+
+admin.worksheet.add.ip:
+  title: 'IP or 带宽'
+  parent: admin.worksheet.add
+  route_name: admin.worksheet.add.ip
+  weight: 2
+
+admin.worksheet.add.switch:
+  title: '开关机'
+  parent: admin.worksheet.add
+  route_name: admin.worksheet.add.switch
+  weight: 3
+
+admin.worksheet.add.room:
+  title: '机房事务'
+  parent: admin.worksheet.add
+  route_name: admin.worksheet.add.room
+  weight: 4
+
+admin.worksheet.add.fault:
+  title: '故障'
+  parent: admin.worksheet.add
+  route_name: admin.worksheet.add.fault
+  weight: 5
+
+admin.worksheet.add.logistics:
+  title: '物流工单'
+  parent: admin.worksheet.add
+  route_name: admin.worksheet.add.logistics
+  weight: 6
+
+admin.worksheet.cycle.add:
+  title: '周期性工单'
+  parent: admin.worksheet.add
+  route_name: admin.worksheet.cycle.add
+  weight: 7
+
+admin.worksheet.sop:
+  title: '未完成工单'
+  parent: system.admin_worksheet
+  route_name: admin.worksheet.sop
+  weight: 5
+
+admin.worksheet.history:
+  title: '已完成工单'
+  parent: system.admin_worksheet
+  route_name: admin.worksheet.history
+  weight: 6
+
+admin.worksheet.abnormal:
+  title: '异常工单'
+  parent: system.admin_worksheet
+  route_name: admin.worksheet.abnormal
+  weight: 7
+
+admin.worksheet.filter:
+  title: '工单查询'
+  parent: system.admin_worksheet
+  route_name: admin.worksheet.filter
+  weight: 8
+
+admin.worksheet.setting:
+  title: '工单设置'
+  parent:  system.admin_worksheet
+  route_name: admin.worksheet.setting
+  weight: 21
+
+admin.worksheet.room.setting:
+  title: '机房工时设置'
+  parent: system.admin_worksheet
+  route_name: admin.worksheet.room.setting
+  weight: 22
+  
+admin.worksheet.task.assigner:
+  title: '分配人申请'
+  parent: system.admin_worksheet
+  route_name: admin.worksheet.task.assigner
+  weight: 23
+
+admin.worksheet.add.majorfault:
+  title: '重大故障'
+  parent: admin.worksheet.add
+  route_name: admin.worksheet.add.majorfault
+  weight: 24
+admin.worksheet.statistic.putaway:
+  title: '服务器上架统计'
+  parent: admin.worksheet.statistics
+  route_name: admin.worksheet.statistic.putaway
+  weight: 4
+admin.worksheet.statistic.reset:
+  title: '服务器重装统计'
+  route_name: admin.worksheet.statistic.reset
+  weight: 5
+admin.worksheet.statistic.soldout:
+  title: '服务器下架统计'
+  route_name: admin.worksheet.statistic.soldout
+  weight: 6
+
+admin.worksheet.statistic.iporbandwidth:
+  title: 'Ip or带宽统计'
+  parent: admin.worksheet.statistics
+  route_name: admin.worksheet.statistic.iporbandwidth
+  weight: 7
+admin.worksheet.statistic.port:
+  title: 'UP&DOWN端口统计'
+  parent: admin.worksheet.statistics
+  route_name: admin.worksheet.statistic.port
+  weight: 8
+admin.worksheet.statistic.serviceroom:
+  title: '机房事务统计'
+  parent: admin.worksheet.statistics
+  route_name: admin.worksheet.statistic.serviceroom
+  weight: 9
+
+admin.worksheet.statistic.abnormal:
+  title: '工单异常统计'
+  parent: admin.worksheet.statistics
+  route_name: admin.worksheet.statistic.abnormal
+  weight: 10
+  
+admin.worksheet.number.curve:
+  title: '工单个数曲线统计'
+  parent: admin.worksheet.statistics
+  route_name: admin.worksheet.number.curve
+  weight: 11

@@ -1,0 +1,28 @@
+poollist:
+  version: VERSION
+  css:
+    theme:
+      css/partpool.css: {}
+  js:
+    js/partpool.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupal.ajax
+unparts:
+  version: VERSION
+  js:
+    js/unparts.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+purchase_parts_pool_list:
+  version: VERSION
+  js:
+    js/purchase-part-pool.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal

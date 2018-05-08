@@ -1,0 +1,7 @@
+client:
+  industry: 10
+dept:
+  development: 10
+  finance: 10
+  business: 10
+  maintenance: 10

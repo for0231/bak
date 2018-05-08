@@ -1,0 +1,19 @@
+id: node.articles.views
+entity_type: node
+bundle: articles
+field_name: views
+field_type: integer
+label: 'Views'
+description: 'views of article'
+required: true
+readOnly: true
+default_value:
+  -
+    value: 0
+settings: {  }
+status: true
+langcode: en
+dependencies:
+  config:
+    - field.storage.node.views
+    - node.type.articles

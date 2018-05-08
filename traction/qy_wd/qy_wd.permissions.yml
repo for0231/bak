@@ -1,0 +1,34 @@
+access flow lead wd admin:
+  title: 'access flow lead wd admin'
+administer qy wd policy view:
+  title: 'administer qy wd policy view'
+administer qy wd policy edit:
+  title: 'administer qy wd policy edit'
+administer qy wd traction view:
+  title: 'administer qy wd traction view'
+administer qy wd traction edit:
+  title: 'administer qy wd traction edit'
+administer qy wd logs view:
+  title: 'administer qy wd logs view'
+administer qy wd ip checked:
+  title: 'administer qy wd ip checked'
+administer qy wd route view:
+  title: 'administer qy wd route view'
+administer qy wd route edit:
+  title: 'administer qy wd route edit'
+administer qy wd alarm view:
+  title: 'administer qy wd alarm view'
+administer qy wd alarm edit:
+  title: 'administer qy wd alarm edit'
+administer qy wd open firewall listen:
+  title: 'administer qy wd open firewall listen'
+administer qy wd Flow monitor:
+  title: 'administer qy wd Flow monitor'
+administer qy wd system config:
+  title: 'administer qy wd system config'
+administer qy wd traction index:
+  title: 'administer qy wd traction index'
+administer qy wd chart:
+  title: 'administer qy wd chart'
+administer qy wd chart setting:
+  title: 'administer qy wd chart setting'

@@ -1,0 +1,61 @@
+table.cart .number {
+  width:10%;
+}
+
+table.cart .price {
+  width:12%;
+}
+table.cart .property {
+  width:15%;
+}
+
+table.cart th table.cart-header {
+   margin: 0;
+}
+
+table.cart th table.cart-header tr {
+  border: 0 none;
+  background: none
+}
+
+table.cart th table.cart-header th {
+  border: 0 none;
+  background: none
+}
+
+table.cart td table.cart-item {
+   margin: 0;
+}
+
+table.cart td table.cart-item tr.base-info {
+  border: 0 none;
+  background: none;
+  height: 60px;
+}
+
+table.cart td table.cart-item td {
+  border: 0 none;
+}
+
+table.cart td table.cart-item tr.price-info {
+  border: 0 none;
+  background: none;
+  height: 70px;
+}
+
+table.cart td table.cart-item tr.price-info label:after{
+  content: "：";
+}
+
+table.cart td table.cart-item tr.price-info  div.price-item div{
+  float: left;
+  margin-right: 10px;
+}
+table.cart td table.cart-item tr.price-info  div.price-item div.symbol {
+  line-height: 40px;
+  padding-top: 5px;
+}
+
+table.cart td table.cart-item tr.price-info div.form-item label:after{
+  content: "";
+}

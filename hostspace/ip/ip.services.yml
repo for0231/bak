@@ -1,0 +1,5 @@
+services:
+  ip.ipservice:
+    class: Drupal\ip\IpService
+    arguments: ['@database']
+

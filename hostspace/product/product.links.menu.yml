@@ -1,0 +1,23 @@
+admin.product:
+  title: 'Product management'
+  parent: system.admin
+  route_name: admin.product
+  weight: -175 
+
+admin.product.business:
+  title: 'Business list'
+  parent: admin.product
+  route_name: admin.product.business
+  weight: 1
+
+admin.product.business_price:
+  title: 'Business price'
+  parent: admin.product
+  route_name: admin.product.business_price
+  weight: 2
+
+admin.product.list:
+  title: 'Product list'
+  parent: admin.product
+  route_name: admin.product.list
+  weight: 3

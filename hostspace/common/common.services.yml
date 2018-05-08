@@ -1,0 +1,4 @@
+services:
+  common.color_menu_tree:
+    class: Drupal\common\MenuColorLinkTree
+    arguments: ['@menu.tree_storage', '@plugin.manager.menu.link', '@router.route_provider', '@menu.active_trail', '@controller_resolver']

@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ *  显示知识的详情
+ *
+ *  Available variables:
+ *   - knowledge: 当前知知识(knowledge_content)实体
+ */
+ #}
+<div>
+  <h3>{{ knowledge.title.value }}</h3>
+  <div>
+    <span>{{ knowledge.uid.entity.name.value }}</span>
+    <span>{{ knowledge.created.value|format_date('html_date') }}</span>
+    <span>{{ knowledge.browse_number.value}}</span>
+  </div>
+  <div> {{ {'#type':'processed_text', '#text': knowledge.content.value, '#format': knowledge.content.format}|render }} </div>
+</div>

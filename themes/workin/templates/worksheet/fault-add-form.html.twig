@@ -1,0 +1,70 @@
+{#
+/**
+ * @file
+ * 创建故障工单表单
+ *
+ * Available variables:
+ * - form: 创建故障工单表单
+ *   - client: 联系人
+ * 
+ */
+#}
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+{{ attach_library('workin/worksheet') }}
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+    <h2 class="page-title txt-color-blueDark"> <i class="fa-fw fa fa-pencil-square-o"></i> 工单系统 <span>&gt; 故障</span> </h2>
+  </div>
+  <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
+    <div data-widget-custombutton="false" data-widget-editbutton="false" id="wid-id-6" class="jarviswidget jarviswidget-sortable" role="widget">
+      <header role="heading">
+        <div class="jarviswidget-ctrls" role="menu">
+          <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"> <i class="fa fa-minus "></i> </a>
+          <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-fullscreen-btn" href="javascript:void(0);" data-original-title="Fullscreen"> <i class="fa fa-expand "></i> </a>
+          <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-delete-btn" href="javascript:void(0);" data-original-title="Delete"> <i class="fa fa-times"></i></a>
+        </div>
+        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+        <h2>故障处理表单</h2>
+        <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
+      </header>
+      <div role="content">
+        <div class="jarviswidget-editbox">
+        </div>
+        <div class="widget-body no-padding">
+          <div class="smart-form" id="comment-form" method="post" action="php/demo-comment.php" novalidate="novalidate">
+            <fieldset>
+              <div class="row">
+                <section class="col col-4">
+                  <div class="input"> {{form['code']}} <i class="icon-append fa glyphicon-cloud"></i></div>
+                </section>
+                <section class="col col-4">
+                  <label class="label select">{{form['tid']}}</label>
+                </section>
+                <section class="col col-4">
+                  <label class="input">{{form['client']}}<i class="icon-append fa fa-user "></i></label>
+                </section>
+              </div>
+              <div class="row">
+                <section class="col col-4">
+                  <label class="input">{{form['ip']}}<i class="icon-append fa glyphicon-cloud"></i></label>
+                </section>
+              </div>
+              <section>
+                <label class="label select">{{form['phenomenon']}}</label>
+              </section>
+            </fieldset>
+            <footer>
+              {{form['actions']}}
+            </footer>
+            <div class="message">
+              <i class="fa fa-check fa-lg"></i>
+              <p> Your comment was successfully added! </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>

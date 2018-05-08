@@ -1,0 +1,77 @@
+admin.qy.error:
+  path: 'admin/qy/error'
+  defaults:
+    _controller: '\Drupal\qy\Controller\QyController::requeryError'
+  requirements:
+    _access: 'TRUE'
+
+admin.qy.ajax.list:
+  path: '/admin/qy/{module_provider}/ajax/{list_type}/list'
+  defaults:
+    _controller: '\Drupal\qy\Controller\QyController::ajaxList'
+  requirements:
+    _permission: 'administer traction common'
+
+admin.qy.mail.list:
+  path: '/admin/qy/mail'
+  defaults:
+    _controller: '\Drupal\qy\Controller\QyController::mailList'
+  requirements:
+    _permission: 'administer qy mail view'
+
+admin.qy.mail.add:
+  path: '/admin/qy/mail/add'
+  defaults:
+    _form: '\Drupal\qy\Form\EmailAddForm'
+    _title: 'Add mail'
+  requirements:
+    _permission: 'administer qy mail edit'
+
+admin.qy.mail.edit:
+  path: '/admin/qy/mail/{mail_id}/edit'
+  defaults:
+    _form: '\Drupal\qy\Form\EmailAddForm'
+    _title: 'Edit mail'
+  requirements:
+    _permission: 'administer qy mail edit'
+
+admin.qy.mail.delete:
+  path: '/admin/qy/mail/{mail_id}/delete'
+  defaults:
+    _controller: '\Drupal\qy\Controller\QyController::mailDelete'
+  requirements:
+    _permission: 'administer qy mail edit'
+
+admin.qy.mail.send:
+  path: '/admin/qy/mail/send/{key}'
+  defaults:
+    _controller: '\Drupal\qy\Controller\QyController::sendMail'
+  options:
+    no_cache: TRUE
+  requirements:
+    _access: 'TRUE'
+
+admin.qy.log.clear:
+  path: '/admin/qy/log/clear/{key}'
+  defaults:
+    _controller: '\Drupal\qy\Controller\QyController::logsClear'
+  options:
+    no_cache: TRUE
+  requirements:
+    _access: 'TRUE'
+    
+admin.qy.sync.data:
+  path: 'admin/qy/sync/data'
+  defaults:
+    _form: '\Drupal\qy\Form\SyncDataForm'
+    _title: 'Sync'
+  requirements:
+    _permission: 'administer qy sync data'
+
+admin.qy.sync.data.exec:
+  path: 'admin/qy/sync/data/exec'
+  defaults:
+    _controller: '\Drupal\qy\Controller\QyController::syncDataExec'
+    _title: 'Sync'
+  requirements:
+    _access: 'TRUE'

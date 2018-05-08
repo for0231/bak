@@ -1,0 +1,10 @@
+name: Order
+type: module
+core: 8.x
+package: Hostspaces
+description: 'Order'
+version: VERSION
+dependencies:
+  - product
+  - member
+  - idc

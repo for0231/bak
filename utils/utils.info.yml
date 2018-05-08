@@ -1,0 +1,6 @@
+name: utils
+type: module
+core: 8.x
+package: Work Sheet
+description: '实用工具包模块'
+version: VERSION

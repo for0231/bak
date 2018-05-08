@@ -1,0 +1,78 @@
+system.admin_jd:
+  title: '牵引系统(金盾防火墙)'
+  parent: system.admin
+  route_name: system.admin_jd
+  weight: -201
+
+admin.jd.index:
+  title: '后台首页'
+  parent: system.admin_jd
+  route_name: admin.jd.index
+  weight: 0
+
+admin.jd.traction:
+  title: '流量清洗牵引状态'
+  parent: system.admin_jd
+  route_name: admin.jd.traction
+  weight: 1
+
+admin.jd.traction_filter:
+  title: '滤后牵引状态'
+  parent: system.admin_jd
+  route_name: admin.jd.traction_filter
+  weight: 2
+
+admin.jd.ip_stop:
+  title: 'IP封停状态'
+  parent: system.admin_jd
+  route_name: admin.jd.ip_stop
+  weight: 3
+
+admin.jd.monitor:
+  title: '流量监控'
+  parent: system.admin_jd
+  route_name: admin.jd.monitor
+  weight: 10
+
+admin.jd.ip_check:
+  title: '独立IP检查'
+  parent: system.admin_jd
+  route_name: admin.jd.ip_check
+  weight: 11
+
+admin.jd.policy:
+  title: '流量牵引策略'
+  parent: system.admin_jd
+  route_name: admin.jd.policy
+  weight: 15
+
+admin.jd.policy_tmp:
+  title: '临时牵引策略'
+  parent: system.admin_jd
+  route_name: admin.jd.policy_tmp
+  weight: 16
+
+admin.jd.route:
+  title: '线路管理'
+  parent: system.admin_jd
+  route_name: admin.jd.route
+  weight: 20
+
+admin.jd.configure:
+  title: '牵引系统配置'
+  parent: system.admin_jd
+  route_name: admin.jd.configure
+  weight: 21
+
+admin.jd.logs.ip_stop:
+  title: 'IP封停历史'
+  parent: system.admin_jd
+  route_name: admin.jd.logs.ip_stop
+  weight: 22
+
+admin.jd.logs.traction:
+  title: '牵引历史'
+  parent: system.admin_jd
+  route_name: admin.jd.logs.traction
+  weight: 22
+

@@ -1,0 +1,52 @@
+<?php
+
+use Drupal\Core\Field\BaseFieldDefinition;
+
+/**
+ * Implements hook_schema().
+ */
+function fw_config_schema() {
+  $schema['fw_config_hostpolicy'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'ip' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => '主机IP'
+      ),
+      'value' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => '唯一值'
+      ),
+      'policy' => array(
+        'type' => 'int',
+        'unsigned' => FALSE,
+        'not null' => FALSE,
+        'description' => '策略'
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  return $schema;
+}
+
+/**
+ * 增加主机策略表
+ */
+function fw_config_update_8003() {
+  $table = db_table_exists('fw_config_hostpolicy');
+  if(!$table) {
+    $schema = fw_config_schema();
+    db_create_table('fw_config_hostpolicy', $schema['fw_config_hostpolicy']);
+  }
+}
+
+
+  

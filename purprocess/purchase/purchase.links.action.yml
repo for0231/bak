@@ -1,0 +1,8 @@
+entity.purchase.collection:
+  route_name: entity.purchase.collection
+  title: '采购单工作台'
+  appears_on:
+    - 'audit_locale.rule.overview'
+    - 'audit_locale.rule.specied.overview'
+    - 'cg_integration.admin_workbench'
+  weight: 20

@@ -1,0 +1,5 @@
+test.dialog:
+  route_name: test.dialog
+  group: 'block'
+  title: 'Test'
+  weight: 10

@@ -1,0 +1,193 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the dblog module.
+ */
+use Drupal\Core\Database\Database;
+/**
+ * Implements hook_schema().
+ */
+function hostlog_schema() {
+  $schema['operation_log'] = array(
+    'fields' => array(
+      'lid' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'timestamp' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'action' => array(
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'message' => array(
+        'type' => 'text',
+        'not null' => TRUE,
+        'size' => 'big',
+      ),
+      'entity_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'entity_name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => '',
+      ),
+      'data_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'data_name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => '',
+      ),
+      'data' => array(
+        'type' => 'blob',
+        'not null' => TRUE,
+        'size' => 'big',
+      ),
+    ),
+    'primary key' => array('lid'),
+  );
+  //网站提醒
+  $schema['xunyunreminder'] = array(
+    'description' => 'Stores global reminder.',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'uuid' => array(
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'type' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'object' => array(
+        'type' => 'text',
+        'not null' => TRUE,
+        'size' => 'big',
+      ),
+      'expiration' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'rank' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'isaudio' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'retips' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'role' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  //网站提醒监控类型
+  $schema['xunyunreminder_type'] = array(
+    'description' => 'Stores global reminder type.',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'uuid' => array(
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'type' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'timestamp' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'description' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  return $schema;
+}
+
+/**
+ * 升级全局日志跟踪数据表
+ */
+function hostlog_update_8220(&$sandbox) {
+  $schema = hostlog_schema();
+  $table_exist_xunyunreminder = Database::getConnection()->schema()->tableExists('xunyunreminder');
+  $table_exist_xunyunreminder_type = Database::getConnection()->schema()->tableExists('xunyunreminder_type');
+  if (!$table_exist_xunyunreminder_type) {
+    Database::getConnection()->schema()->createTable('xunyunreminder_type', $schema['xunyunreminder_type']);
+  }
+  if (!$table_exist_xunyunreminder) {
+    Database::getConnection()->schema()->createTable('xunyunreminder', $schema['xunyunreminder']);
+  }
+}
+
+/**
+ * 删除多余的日志表
+ */
+function hostlog_update_8225() {
+  db_drop_table('xunyunlog');
+}

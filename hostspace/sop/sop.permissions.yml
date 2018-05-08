@@ -1,0 +1,8 @@
+administrator bussiness sop permission:
+  title: 'SOP业务权限'
+administrator technology sop permission:
+  title: 'SOP技术权限'
+administrator bus and tech sop permission:
+  title: 'SOP技术和业务权限'
+administrator special sop permission:
+  title: 'SOP特殊权限'

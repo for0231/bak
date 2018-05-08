@@ -1,0 +1,11 @@
+type: articles
+name: Articles
+description: 'For publishing articles on the site'
+help: ' '
+title_label: 'Article title'
+new_revision: false
+display_submitted: true
+preview_mode: 1
+status: true
+langcode: en
+

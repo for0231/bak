@@ -1,0 +1,192 @@
+system.admin_member:
+  path: '/admin/member'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Member management'
+  requirements:
+    _permission: 'access member administration pages'
+
+member.employee.admin:
+  path: '/admin/member/employ'
+  defaults:
+    _controller: '\Drupal\member\Controller\MemberController::employeeList'
+    _title: 'List of employees'
+  requirements:
+    _permission: 'administer member list'
+
+member.client.admin:
+  path: '/admin/member/client'
+  defaults:
+    _controller: '\Drupal\member\Controller\MemberController::clientList'
+    _title: 'List of clients'
+  requirements:
+    _permission: 'administer member list'
+
+member.founds.credit.up:
+  path: '/admin/{user}/founds/credit/up'
+  defaults:
+    _form: '\Drupal\member\Form\AdjustCreditForm'
+    _title: 'Enhance credit'
+    adjust: 'up'
+  requirements:
+    _permission: 'administer credit adjust'
+
+member.founds.credit.low:
+  path: '/admin/{user}/founds/credit/low'
+  defaults:
+    _form: '\Drupal\member\Form\AdjustCreditForm'
+    _title: 'Reduce credit'
+    adjust: 'low'
+  requirements:
+    _permission: 'administer credit adjust'
+
+member.funds.credit:
+  path: '/admin/founds/credit'
+  defaults:
+    _controller: '\Drupal\member\Controller\MemberController::creditAdmin'
+    _title: 'Credit'
+  requirements:
+    _permission: 'administer credit adjust'
+
+member.founds.credit.set:
+  path: '/admin/{user}/founds/credit/set'
+  defaults:
+    _form: '\Drupal\member\Form\SetCreditForUserForm'
+    _title: 'Set credit for user'
+  requirements:
+    _permission: 'administer credit adjust'
+member.sudoer.login:
+  path: '/admin/sudoer/{user}/login'
+  defaults:
+    _controller: 'Drupal\member\Controller\MemberController::sudoClientLogin'
+    _title: 'Sudo客户'
+  requirements:
+    _permission: 'administer sudo users'
+
+# 客户的充值记录
+member.funds.recharge_record:
+  path: '/admin/recharge/record'
+  defaults:
+    _controller: '\Drupal\member\Controller\MemberController::rechargeRecord'
+    _title: 'Recharge record.'
+    type: 1
+  requirements:
+    _permission: 'administer recharge record'
+# 客户的消费记录
+member.funds.Consume_record:
+  path: '/admin/Consume/record'
+  defaults:
+    _controller: '\Drupal\member\Controller\MemberController::rechargeRecord'
+    _title: 'Consume record.'
+    type: 2
+  requirements:
+    _permission: 'administer recharge record'
+
+
+#===========前台路由========================
+member.account_center:
+  path: '/user/center'
+  defaults:
+    _controller: '\Drupal\member\Controller\MemberController::member_center'
+    _title: 'Member center.'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+member.my.account:
+  path: 'user/account'
+  defaults:
+    _controller: '\Drupal\member\Controller\MemberController::myAccount'
+    _title: 'My account'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+member.my.safe_info:
+  path: 'user/account/safe'
+  defaults:
+    _controller: '\Drupal\member\Controller\MemberController::safeInfo'
+    _title: 'My safe message.'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+#我的信息
+member.my.info:
+  path: 'user/account/info'
+  defaults:
+    _controller: '\Drupal\member\Controller\MemberController::basinInfo'
+    _title: 'My infomation.'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+#子帐号管理
+member.my.child_account:
+  path: 'user/account/child_account'
+  defaults:
+    _controller: '\Drupal\member\Controller\MemberController::childAccount'
+    _title: 'Child account management.'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+#消费记录
+member.my.consumer_record:
+  path: 'user/account/consumer'
+  defaults:
+    _controller: '\Drupal\member\Controller\MemberController::consumerRecord'
+    _title: 'Records of consumption.'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+#购买凭证管理
+member.my.certificate:
+  path: 'user/account/certificate'
+  defaults:
+    _form: '\Drupal\member\Form\CertificateManageForm'
+    _title: 'Certificate management'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+member.my.certificate.build:
+  path: 'user/account/certificate/build/{key}'
+  defaults:
+    _controller: '\Drupal\member\Controller\BuildPdfController::certificateBuild'
+    _title: 'Certificate browse'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+member.my.edit:
+  path: 'user/account/{user}/edit'
+  defaults:
+    _controller: '\Drupal\member\Controller\MemberController::editInfo'
+    _title: 'Modify information.'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+member.user.recharge:
+  path: 'user/onlinepay'
+  defaults:
+    #_controller: '\Drupal\member\Controller\MemberController::recharge'
+    _form: 'Drupal\member\Front\MemberRechargeForm'
+    _title: 'Recharge'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+member.set_balance_alarm:
+  path: 'user/account/alarm'
+  defaults:
+    _controller: '\Drupal\member\Controller\MemberController::balanceAlarm'
+    _title: 'Balance alarm.'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+# 修改密保问题
+member.account.safe_question:
+  path: 'user/account/security' 
+  defaults:
+    _form: 'Drupal\member\Front\SecurityQuestion'
+    _title: 'Safe question.'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+# 修改密码
+member.account.pwd_modify:
+  path: 'user/account/pwd/modify'
+  defaults:
+    _form: 'Drupal\member\Front\PwdModifyForm'
+    _title: 'Modify password.'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+

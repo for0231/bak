@@ -1,0 +1,29 @@
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+<div class="zhanghu_right fr">
+  <div class="Order_title">
+    <b class="jiben_title">{{ 'Submit the repair order'|t }} </b>
+  </div>
+  <div class="blank20"></div>
+  <div class="blank20">{{ form.tips }}</div>
+  <table cellspacing="0" cellpadding="0" class="tijiaogongdan">
+    <tbody>
+      <tr>
+        <td class="width_100" colspan="2">{{ form.category }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.server }}</td>
+        <td>{{ form.ip_search }}</td>
+      </tr>
+      <tr>
+        <td class="width_100" colspan="2">{{ form.content }}</td>
+      </tr>
+      <tr>
+        <td class="width_100" colspan="2">{{ form.actions }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+

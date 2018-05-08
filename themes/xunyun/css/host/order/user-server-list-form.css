@@ -1,0 +1,155 @@
+/* line 2, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs {
+  margin: 0;
+  border: 0;
+}
+/* line 5, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs .vertical-tabs__menu {
+  margin: 0;
+  border: none;
+  height: 33px;
+  float: none;
+  border-bottom: 1px solid #AAAAAA;
+  width: auto;
+}
+/* line 12, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs .vertical-tabs__menu li {
+  background: -moz-linear-gradient(center top, #EEEEEE, #DDDDDD) repeat scroll 0 0 transparent;
+  border: 1px solid #AAAAAA;
+  border-radius: 4px 4px 0 0;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+  cursor: pointer;
+  float: left;
+  font-size: 11px;
+  height: 32px;
+  line-height: 33px;
+  margin: 0 2px 0 0;
+  text-align: center;
+  text-shadow: 0 1px 0 #FFFFFF;
+  width: 125px;
+}
+/* line 26, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs .vertical-tabs__menu li a {
+  padding: 0;
+}
+/* line 30, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs .vertical-tabs__menu li.is-selected {
+  background: -moz-linear-gradient(center top, #E1E1E1, #FFFFFF) repeat scroll 0 0 transparent;
+  border-bottom: 1px solid #FFFFFF;
+  color: #000000;
+  cursor: pointer;
+  text-shadow: 0 1px 0 #FFFFFF;
+}
+/* line 38, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs .vertical-tabs__panes {
+  float: left;
+  border-left: 1px solid #AAAAAA;
+  border-right: 1px solid #AAAAAA;
+  border-bottom: 1px solid #AAAAAA;
+  width: 100%;
+}
+/* line 44, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs .vertical-tabs__panes details > div {
+  padding: 0.5em 1.5em;
+}
+/* line 47, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs .vertical-tabs__panes ul {
+  margin: 0;
+}
+/* line 51, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs .vertical-tabs__panes .server-search .form-item {
+  float: left;
+  margin-top: 10px;
+  margin-bottom: 1em;
+  width: 50%;
+}
+/* line 57, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs .vertical-tabs__panes .server-search .button {
+  color: #FFFFFF;
+  background: none repeat scroll 0 0 #FF4400;
+  margin: 0 5px;
+  padding: 5px 20px;
+  border-radius: 3px 3px 3px 3px;
+  border: medium none;
+}
+/* line 66, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs .vertical-tabs__panes table {
+  border-left: 1px solid #CCCCCC;
+  border-top: 1px solid #CCCCCC;
+  width: 100%;
+}
+/* line 70, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs .vertical-tabs__panes table tr {
+  height: 40px;
+  line-height: 40px;
+}
+/* line 73, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs .vertical-tabs__panes table tr th:last-child {
+  width: 95px;
+}
+/* line 76, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs .vertical-tabs__panes table tr th, #user-server-list-form .vertical-tabs .vertical-tabs__panes table tr td {
+  border-bottom: 1px solid #CCCCCC;
+  border-right: 1px solid #CCCCCC;
+  text-align: center;
+}
+/* line 81, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs .vertical-tabs__panes table tr td .dropbutton-wrapper {
+  padding-right: 0;
+  margin-left: 10px;
+}
+/* line 84, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs .vertical-tabs__panes table tr td .dropbutton-wrapper li {
+  margin: 0;
+}
+/* line 88, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs .vertical-tabs__panes table tr span.qy-logo {
+  color: #FF0000;
+  margin-left: 2px;
+}
+/* line 93, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs .vertical-tabs__panes table thead tr {
+  background: none repeat scroll 0 0 #DDDDDD;
+  color: #041E39;
+  font-weight: bold;
+}
+/* line 99, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs .vertical-tabs__panes .pager {
+  float: right;
+  margin-top: 15px;
+  width: auto;
+}
+/* line 103, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs .vertical-tabs__panes .pager li {
+  border: 1px solid #CCCCCC;
+  padding: 4px 12px;
+  text-decoration: none;
+  margin-left: 4px;
+}
+/* line 108, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs .vertical-tabs__panes .pager li a {
+  color: #041E39;
+}
+/* line 112, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs .vertical-tabs__panes .pager li.is-active {
+  background: none repeat scroll 0 0 #041E39;
+  border: 1px solid #041E39;
+}
+/* line 115, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs .vertical-tabs__panes .pager li.is-active a {
+  color: #FFFFFF;
+}
+/* line 120, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs .vertical-tabs__panes .form-actions {
+  float: left;
+}
+/* line 122, ../../../bag/sass/host/order/user-server-list-form.scss */
+#user-server-list-form .vertical-tabs .vertical-tabs__panes .form-actions input {
+  background: none repeat scroll 0 0 #3366CC;
+  color: #FFFFFF;
+  display: inline-block;
+  margin: 0 15px 0 0;
+  padding: 5px 20px;
+  border-radius: 3px 3px 3px 3px;
+  border: medium none;
+}

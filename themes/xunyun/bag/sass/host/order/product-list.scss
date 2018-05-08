@@ -1,0 +1,101 @@
+.product-list {
+  height: 600px;
+  .title {
+    border-bottom: 2px solid #CDD2D7;
+    color: #333333;
+    font-size: 16px;
+    height: 30px;
+    line-height: 30px;
+    b {
+      border-bottom: 2px solid #041E39;
+      color: #041E39;
+      float: left;
+      height: 30px;
+      line-height: 30px;
+      padding: 0 10px;
+    }
+  }
+  .fuwuqi_01 {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #DADADA;
+    border-radius: 5px 5px 5px 5px;
+    float: left;
+    margin: 5px 20px;
+    overflow: hidden;
+    width: 21%;
+    .rwq_title {
+      background: none repeat scroll 0 0 #F1F1F1;
+      border-bottom: 1px solid #DADADA;
+      border-top: 1px solid #FFFFFF;
+      font-size: 16px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      span {
+        float:right;
+        cursor: pointer;
+        font-size: 17px;
+        margin-right: 7px;
+      }
+    }
+    ul, ol {
+      list-style-type: none;
+      margin: 0;
+    }
+    ul li {
+      border-bottom: 1px solid #DADADA;
+      font-size: 14px;
+      height: 48px;
+      line-height: 48px;
+      margin: 0;
+      display: table;
+      width: 100%;
+      span {
+         border-right: 1px solid #DADADA;
+         color: #041E39;
+         float: left;
+         font-weight: bold;
+         margin-right: 5px;
+         text-align: center;
+         width: 60px;
+      }
+      p {
+        display: table-cell;
+        vertical-align: middle;
+        margin: 0;
+        width: 100%;
+      }
+    }
+    .hide {
+       display: none;
+     }
+     .show {
+       display: block;
+     }
+    .jiage {
+      font-size: 16px;
+      height: 48px;
+      line-height: 48px;
+      text-align: center;
+    }
+    .goumai a {
+      background: none repeat scroll 0 0 #999999;
+      color: #FFFFFF;
+      display: block;
+      font-size: 18px;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      text-decoration: none;
+      img {
+        vertical-align: middle;
+      }
+    }
+    .goumai a:hover {
+      background: none repeat scroll 0 0 #CC0000;
+      text-decoration: none;
+    }
+  }
+}
+
+

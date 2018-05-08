@@ -1,0 +1,5 @@
+entity.audit.history.collection:
+  title: 审批历史
+  parent: entity.audit_locale.admin
+  route_name: entity.audit.history.collection
+  weight: 2

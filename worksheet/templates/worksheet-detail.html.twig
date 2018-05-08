@@ -1,0 +1,35 @@
+{#
+/**
+ * @file
+ * 查看工单名细
+ *
+ * Available variables:
+ * - elements: 工单名细元素
+ *
+ */
+#}
+{{attach_library('worksheet/drupal.worksheet-default') }}
+{{elements.list}}
+<table class="detail">
+  <tr>
+    <td>{{elements.code}}</td>
+    <td>{{elements.status}}</td>
+    <td rowspan="5">{{elements.abnormal_res}}</td>
+  </tr>
+  <tr>
+    <td>{{elements.type}}</td>
+    <td>{{elements.ip}}</td>
+  </tr>
+  <tr>
+    <td>{{elements.created}}</td>
+    <td>{{elements.client}}</td>
+  </tr>
+  <tr>
+    <td>{{elements.abnormal}}</td>
+    <td>{{elements.person}}</td>
+  </tr>
+  <tr>
+    <td colspan="2" class="pinjia">{{elements.comment}}</td>
+  </tr>
+</table>
+<div style="padding-left: 25px;">{{elements.button}}</div>

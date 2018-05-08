@@ -1,0 +1,248 @@
+{#
+/**
+ * @file
+ * Xunyun's theme implementation to display a single page.
+ *
+ * The doctype, html, head and body tags are not in this template. Instead they
+ * can be found in the html.html.twig template normally located in the
+ * core/modules/system directory.
+ *
+ * Available variables:
+ *
+ * General utility variables:
+ * - base_path: The base URL path of the Drupal installation. Will usually be
+ *   "/" unless you have installed Drupal in a sub-directory.
+ * - is_front: A flag indicating if the current page is the front page.
+ * - logged_in: A flag indicating if the user is registered and signed in.
+ * - is_admin: A flag indicating if the user has permission to access
+ *   administration pages.
+ *
+ * Site identity:
+ * - front_page: The URL of the front page. Use this instead of base_path when
+ *   linking to the front page. This includes the language domain or prefix.
+ * - logo: The url of the logo image, as defined in theme settings.
+ * - site_name: The name of the site. This is empty when displaying the site
+ *   name has been disabled in the theme settings.
+ * - site_slogan: The slogan of the site. This is empty when displaying the site
+ *   slogan has been disabled in theme settings.
+ * - hide_site_name: A flag indicating if the site name has been toggled off on
+ *   the theme settings page. If hidden, the "visually-hidden" class is added
+ *   to make the site name visually hidden, but still accessible.
+ * - hide_site_slogan: A flag indicating if the site slogan has been toggled off
+ *   on the theme settings page. If hidden, the "visually-hidden" class is
+ *   added to make the site slogan visually hidden, but still accessible.
+ *
+ * Navigation:
+ * - breadcrumb: The breadcrumb trail for the current page.
+ *
+ * Page content (in order of occurrence in the default page.html.twig):
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title: The page title, for use in the actual content.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - messages: Status and error messages. Should be displayed prominently.
+ * - tabs: Tabs linking to any sub-pages beneath the current page (e.g., the
+ *   view and edit tabs when displaying a node).
+ * - action_links: Actions local to the page, such as "Add menu" on the menu
+ *   administration interface.
+ * - node: Fully loaded node, if there is an automatically-loaded node
+ *   associated with the page and the node ID is the second argument in the
+ *   page's path (e.g. node/12345 and node/12345/revisions, but not
+ *   comment/reply/12345).
+ *
+ * Regions:
+ * - page.header: 页面顶部区域.
+ * - page.brand: logo
+ * - page.menubar: 页面主导航区域.
+ * - page.breadcrumb: 页面面包屑.
+ * - page.banner_top: 页面幻灯片区域.
+ * - page.top_column_first: 导航下第一.
+ * - page.top_column_second: 导航下第二.
+ * - page.top_column_third: 导航下第三.
+ * - page.top_column_fourth: 导航下第四.
+ * - page.highlighted: 高亮提示信息区域.
+ * - page.help: 用于提示帮助信息，多用于管理页面.
+ * - page.content: 显示当前页面主要内容区域.
+ * - page.sidebar_first: 左侧边栏.
+ * - page.sidebar_second: 右侧边栏.
+ * - page.botom_column_first: 页面底部内容第一栏.
+ * - page.botom_column_second: 页面底部内容第二栏.
+ * - page.botom_column_third: 页面底部内容第三栏.
+ * - page.botom_column_fourth: 页面底部内容第四栏.
+ * - page.banner_bottom: 页面底部内容，用于友情链接区域.
+ * - page.footer: 页脚内容.
+ *
+ * @see template_preprocess_page()
+ * @see xunyun_preprocess_page()
+ * @see html.html.twig
+ */
+#}
+<header>
+  <div class="top">
+   {{ page.header }}
+  </div>
+  <div class="navbar-inner">
+    <div class="container">
+        {{ page.brand }}
+      {{ page.menubar }}
+    </div>
+  </div>
+</header>
+{% if (messages) %}
+<div id="messages">
+  {{ messages }}
+</div>
+{% endif %}
+<div class="wrapper">
+  <div class="main">
+    <section class="page1" >
+      <div class="pagetop_01">
+        <h1>Itace一直提供高品质的云服务器</h1>
+        <p>使用Itace太棒了！</p>
+        <ul>
+          <li><a href="#"  class="img_01 gund_02"><b>服务器租用</b></a></li>
+          <li><a href="#" class="img_02"><b>云服务器</b></a></li>
+          <li><a href="#" class="img_03"><b>解决方案</b></a></li>
+          <li><a href="#" class="img_04"><b>代理加盟</b></a></li>
+          <li><a href="#" class="img_05"><b>我们的网络</b></a></li>
+        </ul>
+        <div class="blank20"></div>
+        <div class="shubiao"><a href="#"><img src="/{{ directory }}/images/mousescroller-anim.gif" width="42" height="91"></a></div>
+      </div>
+    </section>
+    <section class="page2">
+      <div class="fuwuq_zuyong">
+        <h2>服务器租用</h2>
+        <h3>Server rental</h3>
+        <p> 拥有强大的自我配置能力的专用虚拟主机服务器</p>
+        <ul>
+          <li><a href="#">商务一级服务器</a></li>
+          <li><a href="#">商务二级服务器</a></li>
+          <li><a href="#">商务三级服务器</a></li>
+          <li><a href="#">商务四级服务器</a></li>
+        </ul>
+        <img src="/{{ directory }}/images/index_06.png"> </div>
+    </section>
+    <section class="page3">
+      <div class="yunfuwuq">
+        <h2>云服务器</h2>
+        <h3>The cloud server</h3>
+        <p> 云服务器和线程池可以根据
+          您的需要扩展与增强</p>
+        <img src="/{{ directory }}/images/index_08.png"> </div>
+    </section>
+    <section class="page4">
+      <div class="jiejuefan">
+        <h2>解决方案</h2>
+        <h3>The solution</h3>
+        <p>有多种选择方案增强您的专用和
+          云服务器的企业应用套件</p>
+        <ul>
+          <li><img src="/{{ directory }}/images/indexpic_01.jpg"><a href="#">存储</a></li>
+          <li><img src="/{{ directory }}/images/indexpic_02.jpg"><a href="#">高级防火墙</a></li>
+        </ul>
+      </div>
+    </section>
+    <section class="page5">
+      <div class="dailijiamneg">
+        <h2>代理加盟</h2>
+        <h3>Agent to join</h3>
+        <p> 基于Itace的基础设施和支持,
+          建立和发展您的服务器业务。</p>
+        <span><img src="/{{ directory }}/images/indexpic_03.jpg" class="img_06"> <img src="/{{ directory }}/images/indexpic_04.jpg" class="img_07"><img src="/{{ directory }}/images/indexpic_05.jpg" class="img_08"></span> </div>
+    </section>
+    <section class="page6">
+      <div class="wangluo">
+        <h2>我们的网络</h2>
+        <h3>Our network</h3>
+        <p> Itace运行在VPLS网络中拥有超过容量200Gbps和超过同行。我们和大型电信运营商的多元化直接过境范围，确保我们在世界各地的客户的网络的稳定和快速的速度。Itace有能力重新路由通过我们的任何中转站流量。 </p>
+        <a href="#">阅读更多</a> </div>
+    </section>
+    <section class="page7">
+      <div class="aboutus">
+        <h2>关于我们</h2>
+        <h3>About us</h3>
+        <p> Itace一直提供高品质的主机，因为我们在2011年成立以来，为什么世界各地的数千名客户的选择，并依靠Itace的原因是因为我们的基础设施，网络，技术和我们的高素质的员工。了解更多关于什么使Itace太棒了！ </p>
+        <a href="#">阅读更多</a>
+        <div class="about_01"><img src="/{{ directory }}/images/index_09.png"></div>
+      </div>
+    </section>
+    <section class="page8">
+      <div class="wangluo">
+        <h2>云邮件</h2>
+        <h3>Cloud mail</h3>
+        <p> 看它如何应对竟争<br>
+          功能丰富的托管解决方案，这将提高公司的生产效率和增加协作。不需要关心自己的邮件服务的运行，由我们来处理技术，同时您可更集中精力发展公司业务。 </p>
+        <a href="#">开始吧</a> </div>
+    </section>
+    <section class="page9">
+      <footer>
+        <div class="pic_01"><img src="/{{ directory }}/images/pic_01.png"></div>
+        <div class="container">
+          <div class="blank30"></div>
+          <div class="state_item">
+            <ul>
+              <li>
+                <dl>
+                  <a href="#">我们的产品</a>
+                </dl>
+                <dt><i class="11"></i><a href="/server">服务器租用 </a></dt>
+              </li>
+              <li>
+                <dl>
+                  <a href="#">解决方案</a>
+                </dl>
+                <dt><i class="11"></i><a href="/node/3">网络速度 </a></dt>
+                <dt><i class="11"></i><a href="/node/4">网络防御</a></dt>
+              </li>
+              <li>
+                <dl>
+                  <a href="#">代理加盟</a>
+                </dl>
+                <dt><i class="11"></i><a href="/node/2">加盟方式</a></dt>
+              </li>
+              <li>
+                <dl>
+                  <a href="#">关于我们</a>
+                </dl>
+                <dt><i class="11"></i><a href="/node/5">公司介绍 </a></dt>
+                <dt><i class="11"></i><a href="#">联系我们</a></dt>
+                <dt><i class="11"></i><a href="#">在线客服</a></dt>
+              </li>
+              <li>
+                <dl>
+                  <a href="#">客户服务 </a>
+                </dl>
+                <dt><i class="11"></i><a href="/node/6">条款协议 </a></dt>
+                <dt><i class="11"></i><a href="/node/7">帮助中心</a></dt>
+                <dt><i class="11"></i><a href="/node/8">售后问题</a></dt>
+              </li>
+            </ul>
+          </div>
+          <div class="blank30"></div>
+        </div>
+        <div class="banquan">
+          <div class="blank30"></div>
+          <p>Itace.cc 是一家香港服务器行业中DDOS防御的领袖。同时，Itace集成了该行业的最佳技术，</p>
+          <p>为每个客户提供一切服务器需要.我们的核心产品包括服务器高防、管理服务器托管,云托管等</p>
+          <p> © 2001 – 2014  All Rights Reserved</p>
+          <span><img src="/{{ directory }}/images/banquan.jpg"></span>
+          <div class="blank30"></div>
+        </div>
+      </footer>
+    </section>
+  </div>
+</div>
+<!--footer-->
+<ul class="onepage-pagination">
+  <li><a data-index="1" href="#1" class="gund_01"></a></li>
+  <li><a data-index="2" href="#2" class="gund_02"></a></li>
+  <li><a data-index="3" href="#3" class="gund_03"></a></li>
+  <li><a data-index="4" href="#4" class="gund_04"></a></li>
+  <li><a data-index="5" href="#5" class="gund_05"></a></li>
+  <li><a data-index="6" href="#6" class="gund_06"></a></li>
+  <li><a data-index="7" href="#7" class="gund_07"></a></li>
+  <li><a data-index="8" href="#8" class="gund_08"></a></li>
+  <li><a data-index="9" href="#9" class="gund_01"></a></li>
+</ul>

@@ -1,0 +1,110 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall function for the product module.
+ */
+
+use \Drupal\taxonomy\Entity\Vocabulary;
+use Drupal\Core\Field\BaseFieldDefinition;
+
+/**
+ * Implements hook_install().
+ */
+function product_install() {
+  $exist = Vocabulary::load('product_business_Catalog');
+  if (!$exist) {
+    entity_create('taxonomy_vocabulary', array(
+      'vid' => 'product_business_Catalog',
+      'name' => t('Product business Catalog'),
+      'description' => t('Product business Catalog'),
+      'hierarchy' => 1,
+      'status' => true,
+      'langcode' => 'en',
+    ))->save();
+   
+    $term = entity_create('taxonomy_term', array(
+      'name' => t('Network'),
+      'parent' => array(0),
+      'vid' => 'product_business_Catalog'
+    ));
+    $term->save();
+  
+    $term = entity_create('taxonomy_term', array(
+      'name' => t('Hardware'),
+      'parent' => array(0),
+      'vid' => 'product_business_Catalog'
+    ));
+    $term->save();
+
+    $term = entity_create('taxonomy_term', array(
+      'name' => t('System'),
+      'parent' => array(0),
+      'vid' => 'product_business_Catalog'
+    ));
+    $term->save();
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function product_uninstall() {
+  $vocabulary = Vocabulary::load('product_business_Catalog');
+  if($vocabulary) {
+    $vocabulary->delete();
+  }
+}
+
+/**
+ * Implements hook_schema().
+ */
+function product_schema() {
+  $schema['product_default_business'] = array(
+    'fields' => array(
+      'productId' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The default business their products'
+      ),
+      'businessId' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'he default business id'
+
+      ),
+      'business_content' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => '',
+        'description' => 'Business content, may be ID, may be edited content'
+      ),
+    ),
+    'primary key' => array('productId', 'businessId')
+  );
+  return $schema;
+}
+
+/**
+ * 增加原价字段
+ */
+function product_update_8001() {
+  $storage_definition = BaseFieldDefinition::create('decimal')
+    ->setLabel(t('Original price'))
+    ->setTranslatable(TRUE)
+    ->setSetting('min', 0)
+    ->setDisplayOptions('form', array(
+      'type' => 'number',
+      'weight' => 15
+    ))
+    ->setDisplayConfigurable('form', True);
+
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('original_price', 'product_price', 'product', $storage_definition);
+}
+

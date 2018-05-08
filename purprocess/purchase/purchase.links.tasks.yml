@@ -1,0 +1,5 @@
+entity.purchase.add_form:
+  title: 采购单
+  route_name: entity.purchase.add_form
+  base_route: entity.purchase.add_form
+  weight: 1

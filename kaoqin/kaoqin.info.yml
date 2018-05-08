@@ -1,0 +1,6 @@
+name: 考勤管理
+description: '用于人事考勤统计管理'
+type: module
+version: VERSION
+core: 8.x
+package: 考勤管理

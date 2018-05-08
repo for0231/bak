@@ -1,0 +1,8 @@
+name: 付款单
+type: module
+description: 管理付款单相关流程
+core: 8.x
+package: '采购管理系统'
+dependencies:
+  - cshs
+  - currency

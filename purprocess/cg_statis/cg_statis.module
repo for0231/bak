@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * @file
+ * Contains cg_statis.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function cg_statis_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the cg_statis module.
+    case 'help.page.cg_statis':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('采购统计') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function cg_statis_theme() {
+  return [
+    'cg_statis' => [
+      'render element' => 'children',
+    ],
+    'cg_statis_paypro_part_trend_statistic' => [
+      'render element' => 'elements',
+      'template' => 'cg-statis-paypro-part-trend-statistic',
+    ],
+    'cg_statis_purchase_statistic' => [
+      'render element' => 'elements',
+      'template' => 'cg-statis-purchase-statistic',
+    ],
+    'cg_statis_paypre_statistic' => [
+      'render element' => 'elements',
+      'template' => 'cg-statis-paypre-statistic',
+    ],
+    'cg_statis_paypre_contact_statistic' => [
+      'render element' => 'elements',
+      'template' => 'cg-statis-paypre-contact-statistic',
+    ],
+    'cg_statis_paypro_in_statistic' => [
+      'render element' => 'elements',
+      'template' => 'cg-statis-paypro-in-statistic',
+    ],
+    'cg_statis_paypro_out_statistic' => [
+      'render element' => 'elements',
+      'template' => 'cg-statis-paypro-out-statistic',
+    ],
+    'cg_statis_paypro_aggretotal_statistic' => [
+      'render element' => 'elements',
+      'template' => 'cg-statis-paypro-aggretotal-statistic',
+    ],
+  ];
+}

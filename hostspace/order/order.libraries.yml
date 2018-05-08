@@ -1,0 +1,43 @@
+drupal.custom-business:
+  version: VERSION
+  js:
+    js/custom-business.js: {}
+  dependencies: 
+    - core/jquery
+    - core/drupal
+
+drupal.user-cart:
+  version: VERSION
+  js:
+    js/user-cart.js: {}
+  css:
+    theme:
+      css/user-cart.css: {}
+  dependencies: 
+    - core/drupal.tableselect
+
+drupal.business-dept-form:
+  version: VERSION
+  js:
+    js/business-dept-form.js: {}
+  css:
+    theme:
+      css/business-dept-form.css: {}
+  dependencies: 
+    - core/jquery
+    - core/drupal
+
+drupal.hostclient-list-builder:
+  version: VERSION
+  js:
+    js/hostclient-list-builder.js: {}
+  dependencies: 
+    - core/jquery
+    - core/drupal
+
+drupal.order-cancel-form:
+  version: VERSION
+  css:
+    theme:
+      css/order-cancel-form.css: {}
+

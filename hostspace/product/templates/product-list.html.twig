@@ -1,0 +1,44 @@
+{#
+/**
+ * @file
+ * 产品显示列表
+ *
+ * Available variables:
+ * -products:
+ *
+ * @see template_preprocess_product_list()
+ */
+#}
+<div>
+{% for product in products %}
+ <ul>
+  <li><h3>{{ product.name.value }}</h3></li>
+  <li>CPU: {{ product.display_cpu.value }}</li>
+  <li>RAM: {{product.display_memory.value}}</li>
+  <li>HD: {{product.display_harddisk.value}}</li>
+  {% for bus in product.business  %}
+    <li>{{bus.title}}:{{bus.value}}</li>
+  {% endfor %}
+  <li>OS: {{product.display_system.value}}</li>
+  <li>机房: {{product.room}}1</li>
+  {% if product.is_login %}
+    {% if product.price %}
+      {% if product.original_price %}
+        <li>Price: {{ product.price }}</li>
+      {% else %}
+        <li>Price: {{ product.price }}</li>
+      {% endif %}
+      {% if product.op_url %}
+        {% if product.is_stock %}
+           <li><a href='{{ product.op_url }}'>{{ 'Click to buy'|t }}</a></li>
+        {% else %}
+           <li><a href='javascript:void(0)'>{{'No stock'|t}}</a></li>
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  {% else %}
+    <li><a href="{{ path('user.login', {}, {query: {destination : '/server'}}) }}">{{'Click login'|t}}</a></li>
+  {% endif %}
+ </ul>
+{% endfor %}
+</div>

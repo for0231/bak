@@ -1,0 +1,74 @@
+<?php
+
+use Drupal\field\Entity\FieldStorageConfig;
+
+
+/**
+ * Implements hook_install().
+ */
+function published_information_install() {
+
+    $term = entity_create('taxonomy_term', array(
+        'name' => t('Industry News'), //Industry News
+        'description' => '',
+        'parent' => array(0),
+        'vid' => 'newsCategory',
+    ));
+    $term->save();
+    
+    $term = entity_create('taxonomy_term', array(
+        'name' => t('Company News'), //Company News
+        'description' => '',
+        'parent' => array(0),
+        'vid' => 'newsCategory',
+    ));
+    $term->save();
+
+    $term = entity_create('taxonomy_term', array(
+        'name' => t('Product News'), //Product News
+        'description' => '',
+        'parent' => array(0),
+        'vid' => 'newsCategory',
+    ));
+    $term->save();
+
+ 	  $term = entity_create('taxonomy_term', array(
+        'name' => t('Solutions'),
+        'description' => '',
+        'parent' => array(0),
+        'vid' => 'articleCategory',
+    ));
+    $term->save();
+    
+    $term = entity_create('taxonomy_term', array(
+        'name' => t('Technical Documentation'),
+        'description' => '',
+        'parent' => array(0),
+        'vid' => 'articleCategory',
+    ));
+    $term->save();
+
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function published_information_uninstall() {
+  if ($views = FieldStorageConfig::loadByName('node', 'views')) {
+    $views->delete();
+  }
+  if ($summary = FieldStorageConfig::loadByName('node', 'summary')) {
+    $summary->delete();
+  }
+  if ($copyright = FieldStorageConfig::loadByName('node', 'copyright')) {
+    $copyright->delete();
+  }
+  if ($category = FieldStorageConfig::loadByName('node', 'category')) {
+    $category->delete();
+  }
+  if ($article_category = FieldStorageConfig::loadByName('node', 'article_category')) {
+    $article_category->delete();
+  }
+ }
+
+

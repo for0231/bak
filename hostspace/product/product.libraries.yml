@@ -1,0 +1,7 @@
+drupal.product-default-business:
+  version: VERSION
+  js:
+    js/product-default-business.js: {}
+  dependencies: 
+    - core/jquery
+    - core/drupal

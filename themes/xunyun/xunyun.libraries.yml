@@ -1,0 +1,66 @@
+global-styling:
+  version: VERSION
+  css:
+    theme:
+      css/host/layout.css: {}
+      css/host/common.css: {}
+  js:
+    js/pace.min.js: {}
+
+nav-common:
+  version: VERSION
+  css:
+    theme:
+      css/host/nav-common.css: {}
+
+nav-user:
+  version: VERSION
+  css:
+    theme:
+      css/host/nav-user.css: {}
+
+front:
+  version: VERSION
+  css:
+    theme:
+      static/commmon.css: {}
+      static/index.css: {}
+      static/onepage-scroll.css: {}
+      css/host/nav-common.css: {}
+  js:
+    js/onepage.js: {}
+    js/index.js: {}
+    js/html5.js: {}
+  dependencies:
+    - core/jquery
+    - core/html5shiv
+contact:
+  version: VERSION
+  css:
+    theme:
+      css/host/contact.css: {}
+
+bootstrap:
+  version: VERSION
+  css:
+    theme:
+      ### Base css ####
+      bootstrap/dist/css/bootstrap.min.css: {}
+  js:
+    bootstrap/dist/js/bootstrap.min.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.cookie
+    - core/jquery.ui
+    - core/drupal.ajax
+    - core/drupal
+    - core/drupalSettings
+
+product-list-page:
+  version: VERSION
+  js:
+    js/product-list.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+

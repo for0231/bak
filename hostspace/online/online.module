@@ -1,0 +1,45 @@
+<?php
+
+function online_theme() {
+  return array(
+  	'admin_online_list' => array(
+  		'template' => 'admin-online-list',
+      'variables' => array('onlines' => null)
+  	),
+  	'admin_online_info' => array(
+  		'template' => 'admin-online-info',
+      'variables' => array('onlineinfo' => null)
+  	),
+    'home_online'=> array(
+      'render element' => 'form',
+      'template'=> 'home-online',
+    ),
+  );
+}
+
+/**
+ * Implements hook_page_bottom().
+ */
+function online_page_bottom(&$page_bottom) {
+  $url = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+	if(!stripos($url,'admin')){
+	  $page_bottom['online'] = array(
+    '#theme' => 'home_online',
+    '#attached' => array(
+      'library' => array('online/online-styling')
+    )
+  );
+	}
+	/*
+  $page_bottom['online'] = \Drupal::getContainer()->get('form_builder')->getForm('\Drupal\online\Form\TestForm'); 
+  $page_bottom['online']['#attached']['library'][] = 'online/online-styling';
+  */
+}
+/**
+*hook_preprocess_Hook()
+* 构建模板参数
+*/
+
+function template_preprocess_admin_online_info(){
+	
+}

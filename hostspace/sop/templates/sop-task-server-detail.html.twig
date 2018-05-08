@@ -1,0 +1,98 @@
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+<div class="row">
+  <div class="col-xs-9">
+    <div class="row">
+      <div class="col-xs-3">
+        {{ form.mip }}
+      </div>
+      <div class="col-xs-3">
+        {{ form.client_uid }}
+      </div>
+      <div class="col-xs-3">
+        {{ form.pid }}
+      </div>
+      <div class="col-xs-3">
+       {{ form.sop_type }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-5">
+        <div class="row">
+          <div class="col-xs-12">
+            {{ form.bips }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            {{ form.management_card }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            {{ form.additonal_bussiness }}
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-7">
+        <div class="row">
+         <div class="col-xs-6">
+            {{ form.os }}
+          </div>
+          <div class="col-xs-6">
+            {{ form.bandwidth }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6">
+            {{ form.created }}
+          </div>
+          <div class="col-xs-6">
+            {{ form.sop_op_type }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6">
+            {{ form.uid }}
+          </div>
+          <div class="col-xs-6">
+            {{ form.solving_uid }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            {{ form.base_description }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            {{ form.description }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-3">
+    <div class="row">
+      <div class="col-xs-11">
+        {{ form.result_description }}
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-3">
+    <button class="btn btn-success" type="submit">修改</button>
+  </div>
+  <div class="col-xs-3">
+    <button class="btn btn-danger" type="submit">审核异常</button>
+  </div>
+  <div class="col-xs-3">
+    <button class="btn btn-primary" type="submit">接受工单</button>
+  </div>
+  <div class="col-xs-3">
+    <button class="btn btn-warning" type="submit">撤消工单</button>
+  </div>
+</div>

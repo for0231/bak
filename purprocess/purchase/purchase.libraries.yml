@@ -1,0 +1,23 @@
+purchase-form:
+  version: VERSION
+  css:
+    theme:
+      css/purchase.css: {}
+  js:
+    js/purchase.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.spinner
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.ui.datepicker
+purchasespool:
+  version: VERSION
+  js:
+    js/purchasespool.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupal.ajax

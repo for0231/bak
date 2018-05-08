@@ -1,0 +1,73 @@
+body,html {
+	min-width: 320px
+}
+
+* {
+	margin: 0;
+	padding: 0
+}
+
+ul li {
+	list-style: none
+}
+
+.clear:after {
+	content: ".";
+	visibility: hidden;
+	clear: both;
+	height: 0;
+	display: block
+}
+
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box
+}
+
+a,a:active,a:focus,a:hover {
+	text-decoration: none
+}
+.tablelist{
+	border-bottom-width: 50px;
+	border-bottom-style: solid;
+	border-collapse:collapse;
+	width: 500px;
+	font-size: 20px;
+}
+td{
+
+	padding: 2px;
+	margin: 2px;
+	border:2px solid white;
+}
+tr{
+	font-size: 20px;
+	
+}
+.status{
+	background-color: #aa7755;
+	
+}
+.caozuo  input{
+	background-color: red;
+}
+.list-group{
+	width: 900px;
+	
+}
+.online-content{
+	margin-top: 80px;
+}
+.form-control{
+	width: 300px;
+	
+	
+}
+.return_content{
+	border-bottom-style: 4px red solid;
+}
+
+
+

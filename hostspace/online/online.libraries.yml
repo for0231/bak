@@ -1,0 +1,28 @@
+online-styling:
+  version: VERSION
+  js:
+    js/public.js: {}
+    js/onlinechart.js: {}
+    js/html5.js: {}
+    js/bootstrap.js: {}
+  css:
+    theme:
+      css/media.css: {}
+      css/style.css: {}
+      css/bootstrap.css: {}
+      css/public.css: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.cookie
+    - core/jquery.ui
+    - core/drupal.ajax
+    - core/drupal
+    - core/drupalSettings
+
+admin-online-content:
+  version: VERSION
+  js:
+    js/online-content.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

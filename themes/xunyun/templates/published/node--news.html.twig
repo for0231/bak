@@ -1,0 +1,19 @@
+{#
+/**
+ * @file
+ * 新闻详情
+ *
+ *  Available variables:
+ * -news_obj: 新闻对象
+ */
+#}
+
+<div class="shujuzx fl">
+      <div class="Order_title"><b>首页&gt;<a href='/publish/news/all'>{{ 'News'|t }}</a>&gt;{{ label }} </b> </div>
+      <div class="wenzhang">
+        <div class="blank30"></div>
+        <h4>{{ label }}</h4>
+        <div class="fabiao" style="text-align:center; ">发布时间：{{ node.created.value|date('Y-m-d H:i:s') }}  作者：{{ author_name }} &#12288;浏览次数：{{ node.views.value }}</div>
+        <div class="con"> {{ content }} </div>
+      </div>
+    </div>

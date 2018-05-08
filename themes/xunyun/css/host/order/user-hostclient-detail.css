@@ -1,0 +1,70 @@
+/* line 1, ../../../bag/sass/host/order/user-hostclient-detail.scss */
+.hostclient-detail {
+  font-size: 14px;
+}
+/* line 3, ../../../bag/sass/host/order/user-hostclient-detail.scss */
+.hostclient-detail .title {
+  border-bottom: 2px solid #CDD2D7;
+  color: #333333;
+  font-size: 16px;
+  height: 30px;
+  line-height: 30px;
+}
+/* line 9, ../../../bag/sass/host/order/user-hostclient-detail.scss */
+.hostclient-detail .title b {
+  border-bottom: 2px solid #041E39;
+  color: #041E39;
+  float: left;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+}
+/* line 19, ../../../bag/sass/host/order/user-hostclient-detail.scss */
+.hostclient-detail .server-info tr.info {
+  height: 40px;
+  line-height: 40px;
+}
+/* line 23, ../../../bag/sass/host/order/user-hostclient-detail.scss */
+.hostclient-detail .server-info tr.beij {
+  background: none repeat scroll 0 0 #F2F4F5;
+}
+/* line 27, ../../../bag/sass/host/order/user-hostclient-detail.scss */
+.hostclient-detail .server-info tr.ip p {
+  margin: 0;
+}
+/* line 29, ../../../bag/sass/host/order/user-hostclient-detail.scss */
+.hostclient-detail .server-info tr.ip p span {
+  color: #FF0000;
+  margin-left: 2px;
+}
+/* line 35, ../../../bag/sass/host/order/user-hostclient-detail.scss */
+.hostclient-detail .server-info td.name {
+  font-weight: bold;
+  text-align: right;
+  width: 150px;
+}
+/* line 41, ../../../bag/sass/host/order/user-hostclient-detail.scss */
+.hostclient-detail .server-info tr.business table {
+  border-left: 1px solid #CCCCCC;
+  border-top: 1px solid #CCCCCC;
+}
+/* line 44, ../../../bag/sass/host/order/user-hostclient-detail.scss */
+.hostclient-detail .server-info tr.business table th {
+  background: none repeat scroll 0 0 #DDDDDD;
+  color: #041E39;
+  font-weight: bold;
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid #CCCCCC;
+  border-right: 1px solid #CCCCCC;
+  text-align: center;
+}
+/* line 54, ../../../bag/sass/host/order/user-hostclient-detail.scss */
+.hostclient-detail .server-info tr.business table td {
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid #CCCCCC;
+  border-right: 1px solid #CCCCCC;
+  text-align: center;
+  background: none repeat scroll 0 0 #FFFFFF;
+}

@@ -1,0 +1,506 @@
+<?php
+/**
+ * @file resource pool.
+ */
+
+use Drupal\Core\Field\BaseFieldDefinition;
+
+/**
+ * Implements hook_schema().
+ */
+function resourcepool_schema() {
+  $schema['resource_switch_ip'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'switch_name' => array(
+        'type' => 'varchar',
+        'length' => 250,
+        'not null' => TRUE,
+        'description' => '交换机名称'
+      ),
+      'switch_ip' => array(
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => FALSE,
+        'description' => 'IP'
+      ),
+    ),
+    'primary key' => array('id')
+  );
+  $schema['resource_server_connection'] = array(
+    'fields' => array(
+      'no' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'server_id' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'description' => '服务器编号'
+      ),
+      'location_u' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => 'U位'
+      ),
+      'node' => array(
+        'type' => 'int',
+        'description' => 'Node',
+        'default' => 0,
+      ),
+      'nic1_address' => array(
+        'type' => 'varchar',
+        'length' => 30,
+        'description' => 'NIC1公网地址'
+      ),
+      'ic_address' => array(
+        'type' => 'varchar',
+        'length' => 30,
+        'description' => '交换机1地址'
+      ),
+      'cacti1' => array(
+        'type' => 'varchar',
+        'length' => 500,
+        'description' => 'Cacti1'
+      ),
+      'nic1' => array(
+        'type' => 'varchar',
+        'length' => 30,
+        'not null' => FALSE,
+        'description' => 'NIC1'
+      ),
+      'nic1_bandwidth' => array(
+        'type' => 'varchar',
+        'length' => 30,
+        'description' => 'NIC1 带宽'
+      ),
+      'nic1_vlan' => array(
+        'type' => 'int',
+        'description' => 'NIC1 VLAN',
+        'default' => 0,
+      ),
+      'ic2_address' => array(
+        'type' => 'varchar',
+        'length' => 30,
+        'description' => '交换机2地址'
+      ),
+      'cacti2' => array(
+        'type' => 'varchar',
+        'length' => 500,
+        'description' => 'Cacti2'
+      ),
+      'nic2' => array(
+        'type' => 'varchar',
+        'length' => 30,
+        'description' => 'NIC2'
+      ),
+      'nic2_bandwidth' => array(
+        'type' => 'varchar',
+        'length' => 30,
+        'description' => 'NIC2 带宽'
+      ),
+      'nic2_vlan' => array(
+        'type' => 'int',
+        'description' => 'NIC2 VLAN',
+        'default' => 0,
+      ),
+      'one_line_no' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => '使用专线编号'
+      ),
+      'server_part' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => '服务器配置'
+      ),
+      'onsale_status' => array(
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => FALSE,
+        'description' => '在售状态'
+      ),
+      'client_name' => array(
+        'type' => 'varchar',
+        'length' => 50,
+        'description' => '客户'
+      ),
+      'room' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => '机房'
+      ),
+      'rack_no' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => '机柜号'
+      ),
+      'contract_no' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => '合同编号'
+      ),
+      'rent_time' => array(
+        'type' => 'int',
+        'description' => '租用时间'
+      ),
+      'end_time' => array(
+        'type' => 'int',
+        'description' => '到期时间'
+      ),
+      'note' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => '备注'
+      ),
+      'price' => array(
+        'type' => 'int',
+        'description' => '价格'
+      ),
+    ),
+    'primary key' => array('no')
+  );
+  $schema['resource_dedicated_resources'] = array(
+    'fields' => array(
+      'no' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'type' => array(
+        'type' => 'int',
+        'not null' => FALSE,
+        'unsigned' => TRUE,
+        'description' => '类型'
+      ),
+      'link_id' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'description' => '链路ID'
+      ),
+      'supplier' => array(
+        'type' => 'varchar',
+        'length' => 50,
+        'description' => '供应商'
+      ),
+      'supplier_info' => array(
+        'type' => 'varchar',
+        'length' => 1000,
+        'description' => '供应商信息'
+      ),
+      'link_code' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => '链路代号'
+      ),
+      'commit_bandwidth' => array(
+        'type' => 'varchar',
+        'length' => 55,
+        'description' => 'commit带宽'
+      ),
+      'brust_bandwidth' => array(
+        'type' => 'varchar',
+        'length' => 55,
+        'description' => 'brust带宽'
+      ),
+      'A_end' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => 'A-end'
+      ),
+      'Z_end' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => 'Z-end'
+      ),
+      'note' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => '备注'
+      ),
+      'sell_bw_percent' => array(
+        'type' => 'int',
+        'description' => '出售带宽比例'
+      ),
+      'reality_bw_percent' => array(
+        'type' => 'varchar',
+        'length' => 50,
+        'description' => '月度实际流量'
+      ),
+      'cacti1' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => 'Cacti1'
+      ),
+      'cacti2' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => 'Cacti2'
+      ),
+      'cacti3' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => 'Cacti3'
+      ),
+      'vlan' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'description' => 'Vlan'
+      ),
+      'client_name' => array(
+        'type' => 'varchar',
+        'length' => 55,
+        'description' => '客户名称'
+      ),
+      'rent_time' => array(
+        'type' => 'int',
+        'description' => '起租日期'
+      ),
+      'end_time' => array(
+        'type' => 'int',
+        'description' => '截止日期'
+      ),
+      'price' => array(
+        'type' => 'int',
+        'description' => '价格'
+      ),
+      'contract_no' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => '合同编号'
+      ),
+    ),
+    'primary key' => array('no')
+  );
+  $schema['resource_table3'] = array(
+    'fields' => array(
+      'no' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'affiliation_res' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'description' => '归属资源'
+      ),
+      'affiliation_pro' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => '归属产品'
+      ),
+      'subsection_res' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => '分段资源编号'
+      ),
+      'cacti_mbps' => array(
+        'type' => 'varchar',
+        'length' => 50,
+        'description' => '计费流量'
+      ),
+    ),
+    'primary key' => array('no')
+  );
+  $schema['resource_supplier'] = array(
+    'fields' => array(
+      'no' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => '编号'
+      ),
+      'supplier_name' => array(
+        'type' => 'varchar',
+        'length' => 250,
+        'description' => '供应商名称'
+      ),
+      'supplier_type' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => '供应商类型'
+      ),
+      'supplier_info' => array(
+        'type' => 'varchar',
+        'length' => 1000,
+        'description' => '供应商信息'
+      ),
+      'notice' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => '注意事项'
+      ),
+      'note' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => '备注'
+      ),
+    ),
+    'primary key' => array('no')
+  );
+  $schema['resource_log'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'description' => '用户id'
+      ),
+      'created' => array(
+        'type' => 'int',
+        'description' => '创建时间'
+      ),
+      'command' => array(
+        'type' => 'varchar',
+        'length' => 1000,
+        'description' => '日志信息'
+      ),
+      'type' => array(
+        'type' => 'varchar',
+        'length' => 50,
+        'description' => '类型'
+      ),
+    ),
+    'primary key' => array('id')
+  );
+  return $schema;
+}
+
+/**
+ * 增加业务网卡一的远程链接地址.
+ */
+function resourcepool_update_8005() {
+  $storage_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('业务网卡Cacti'))
+    ->setDescription(t('业务网卡Cacti'));
+
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('href_network_card', 'work_sheet_rackpart', 'resourcepool', $storage_definition);
+}
+
+/**
+ * 增加业务网卡二的远程链接地址.
+ */
+function resourcepool_update_8006() {
+  $storage_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('业务网卡Cacti-2'))
+    ->setDescription(t('业务网卡Cacti-2'));
+
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('href_network_card_two', 'work_sheet_rackpart', 'resourcepool', $storage_definition);
+}
+
+
+/**
+ * 增加交换机名称和ip对应关系表
+ */
+function resourcepool_update_8012() {
+  $table = db_table_exists('resource_switch_ip');
+  $schema = resourcepool_schema();
+  if(!$table) {
+    db_create_table('resource_switch_ip', $schema['resource_switch_ip']);
+    $data=db_query("SELECT ma_ic_name from work_sheet_rackpart where ma_ic_name is not null
+      UNION
+      SELECT ye_icname from work_sheet_rackpart  where ye_icname is not null
+      UNION
+      SELECT networkcard_icname  from work_sheet_rackpart where networkcard_icname is not null");
+    foreach($data as $item){
+      db_insert('resource_switch_ip')->fields(array('switch_name'=> $item->ma_ic_name))->execute();
+    }
+  }
+}
+
+/**
+ * 增加管理网卡的远程链接地址.
+ */
+function resourcepool_update_8018() {
+  $storage_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('管理网卡Cacti'))
+    ->setDescription(t('管理网卡Cacti'));
+
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('href_manage_network_card', 'work_sheet_rackpart', 'resourcepool', $storage_definition);
+}
+
+
+
+//增加专线
+
+/**
+ * 增加服务器连接
+ */
+function resourcepool_update_8019(){
+  $table = db_table_exists('resource_server_connection');
+  $schema = resourcepool_schema();
+  if(!$table) {
+    db_create_table('resource_server_connection', $schema['resource_server_connection']);
+  }
+}
+/**
+ * 增加专线资源
+ */
+function resourcepool_update_8020(){
+  $table = db_table_exists('resource_dedicated_resources');
+  $schema = resourcepool_schema();
+  if(!$table) {
+    db_create_table('resource_dedicated_resources', $schema['resource_dedicated_resources']);
+  }
+}
+/**
+ * 增加表三
+ */
+function resourcepool_update_8021(){
+  $table = db_table_exists('resource_table3');
+  $schema = resourcepool_schema();
+  if(!$table) {
+    db_create_table('resource_table3', $schema['resource_table3']);
+  }
+}
+
+/**
+ * 增加供应商表
+ */
+function resourcepool_update_8022(){
+  $table = db_table_exists('resource_supplier');
+  $schema = resourcepool_schema();
+  if(!$table) {
+    db_create_table('resource_supplier', $schema['resource_supplier']);
+  }
+}
+function resourcepool_update_8023(){
+  $table = db_table_exists('resource_log');
+  $schema = resourcepool_schema();
+  if(!$table){
+    db_create_table('resource_log',$schema['resource_log']);
+  }
+}
+/**
+ * 增加备记字段
+ */
+function resourcepool_update_8024() {
+  db_query('alter table `work_sheet_rackpart` drop column part');
+  $notes = BaseFieldDefinition::create('string_long')
+    ->setLabel('备注')
+    ->setDefaultValue('')
+    ->setDisplayOptions('form', array(
+      'type' => 'string_textarea',
+      'weight' => 17
+    ))
+    ->setDisplayConfigurable('form', TRUE);
+  $entity_update = \Drupal::entityDefinitionUpdateManager();
+  $entity_update->installFieldStorageDefinition('notes', 'work_sheet_rackpart', 'resourcepool', $notes);
+}

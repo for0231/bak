@@ -1,0 +1,12 @@
+<?php
+
+/**
+ * Implement hook_options_list_alter()
+ */
+function server_options_list_alter(array &$options, array $context) {
+   $fieldName = $context['fieldDefinition']->toArray()['field_name'];
+   if($fieldName == 'memory' || $fieldName == 'harddisk' || $fieldName == 'cpu') {
+     $new_options = array('_none' => '- None -') + $options; 
+     $options =  $new_options;
+   }
+}

@@ -1,0 +1,12 @@
+administer parts list:
+  title: 'Administer parts list'
+administer parts edit:
+  title: 'Administer parts edit'
+administer parts delete:
+  title: 'Administer parts delete'
+administer parts add:
+  title: 'Administer parts add'
+administer server compose:
+  title: 'Compose server'
+access administration parts pages:
+  title: 'access administration parts pages'

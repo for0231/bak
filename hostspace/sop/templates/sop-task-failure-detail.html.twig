@@ -1,0 +1,72 @@
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+<div class="row">
+  <div class="col-xs-11">
+    <div class="row">
+      <div class="col-xs-8">
+        <div class="row">
+          <div class="col-xs-6">
+            {{ form.mips }}
+          </div>
+          <div class="col-xs-6">
+            {{ form.created }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-4">
+            {{ form.sop_type }}
+          </div>
+          <div class="col-xs-4">
+            {{ form.uid }}
+          </div>
+          <div class="col-xs-4">
+            {{ form.solving_uid }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6">
+            {{ form.diff_time }}
+          </div>
+          <div class="col-xs-6">
+            {{ form.level }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="row">
+              <div class="col-xs-6">
+                {{ form.base_description }}
+              </div>
+              <div class="col-xs-6">
+                {{ form.result_description }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="row">
+          <div class="col-xs-12">
+            {{ form.markup_sop_status }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            {{ form.description }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            {{ form.deal }}
+            {{ form.question }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      {{ form.actions }}
+    </div>
+  </div>
+</div>

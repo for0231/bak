@@ -1,0 +1,6 @@
+name: online
+type: module
+core: 8.x
+package: Hostspaces
+description: 'online base'
+version: VERSION

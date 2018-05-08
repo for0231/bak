@@ -1,0 +1,74 @@
+{#
+/**
+ * @file
+ * 前台显示客户服务器信息
+ * 
+ *  Available variables:
+ *    -hostclient
+ */
+#}
+<div class='hostclient-detail'>
+  <div class='title'><b>{{'Server info'|t}}</b></div>
+  <div class="blank20"></div>
+  <table class='server-info'>
+    <tr class='info'>
+      <td class='name'>{{ 'Server code'|t }}：</td>
+      <td>{{ hostclient.server_code }}</td>
+    </tr>
+    <tr class='info beij'>
+      <td class='name'>{{'Product name'|t}}：</td>
+      <td>{{ hostclient.product_name}}</td>
+    </tr>
+    <tr class='info ip'>
+      <td class='name'>IP：</td>
+      <td>
+        {% if hostclient.ips %}
+          {% for ip in hostclient.ips %}
+            <p>{{ ip.ip }}</p>
+          {% endfor %}
+        {% else %}
+          {{'Processing'|t}}
+        {% endif%}
+      </td>
+    </tr>
+    <tr class='info beij'>
+      <td class='name'>{{ 'Shelf time'|t }}：</td>
+      <td>{{ hostclient.equipment_format }}</td>
+    </tr>
+    <tr class='info'>
+      <td class='name'>{{ 'Expiration time'|t }}：</td>
+      <td>{{ hostclient.expired_format }}</td>
+    </tr>
+    <tr class='info beij'>
+      <td class='name'>{{ 'Machine room'|t }}：</td>
+      <td>{{ hostclient.room }}</td>
+    </tr>
+    <tr class='info'>
+      <td class='name'>{{ 'Status'|t }}：</td>
+      <td>{{ hostclient.status_name }}</td>
+    </tr>
+      {% if hostclient.trial.value %}
+    <tr class='info beij'>
+      <td class='name'>{{'Trial'|t}}：</td>
+      <td>{{'Yes'|t}}</td>
+    <tr>
+      {% endif %}
+    <tr class='business'>
+      <td class='name'>{{'Business list'|t}}：</td>
+      <td>
+        <table>
+         <tr>
+           <th>{{'Service items'|t }}</th>
+           <th>{{'Description'|t}}</th>
+         </tr>
+         {% for business in hostclient.business_list %}
+         <tr>
+           <td>{{ business.name }}</td>
+           <td>{{ business.value }}</td>
+         </tr>
+         {% endfor %}
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>

@@ -1,0 +1,35 @@
+admin.worksheet.sop:
+  title: 未完成工单
+  route_name: admin.worksheet.sop
+  base_route: admin.worksheet.sop
+  weight: 1
+
+admin.worksheet.room.list:
+  title: 机房事务工单
+  route_name: admin.worksheet.room.list
+  base_route: admin.worksheet.sop
+  weight: 2
+  
+admin.worksheet.logistics.list:
+  title: 物流工单
+  route_name: admin.worksheet.logistics.list
+  base_route: admin.worksheet.sop
+  weight: 3
+
+admin.worksheet.statistic.putaway:
+  title: 服务器上架统计
+  route_name: admin.worksheet.statistic.putaway
+  base_route: admin.worksheet.statistic.putaway
+  weight: 1
+
+admin.worksheet.statistic.reset:
+  title: 服务器重装统计
+  route_name: admin.worksheet.statistic.reset
+  base_route: admin.worksheet.statistic.putaway
+  weight: 2
+
+admin.worksheet.statistic.soldout:
+  title: 服务器下架统计
+  route_name: admin.worksheet.statistic.soldout
+  base_route: admin.worksheet.statistic.putaway
+  weight: 3

@@ -1,0 +1,63 @@
+{#
+/**
+ * @file
+ * 显示客户服务器信息
+ *
+ *  Available variables:
+ *   -handle_info
+ *   -is_distribution
+ *   -hostclient_info
+ */
+#}
+
+<div class = 'hostclient-info'>
+  <table>
+   <tr>
+     <td class="col1">{{'Order code'|t}}</td>
+     <td>{{handle_info.order_code}}</td>
+   </tr>
+   <tr>
+    <td class="col1">{{'Product name'|t}}</td>
+    <td>{{handle_info.product_name}}</td>
+   </tr>
+   <tr>
+    <td class="col1">{{'Client guestbook'|t}}</td>
+    <td>{{handle_info.client_description}}</td>
+   </tr>
+   <tr>
+    <td class="col1">{{'Type'|t}}</td>
+    <td>{{handle_info.type_label}}</td>
+   </tr>
+   <tr>
+    <td class="col1">{{'Additional business'|t}}</td>
+    <td>
+      <table>
+        <tr>
+          <th>{{'Service items'|t }}</th>
+          <th>{{'Description'|t}}</th>
+        </tr>
+        {% for business in handle_info.business %}
+        <tr>
+          <td>{{business.name}}</td>
+          <td>{{business.value}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </td>
+   </tr>
+   {% if(is_distribution==1) %}
+   <tr>
+     <td class="col1">{{'Management ip'|t}}</td>
+     <td>{{hostclient_info.ipm_label}}</td>
+   </tr>
+   <tr>
+     <td class="col1">{{'Business ip'|t}}</td>
+     <td><ul>
+      {% for ipb in hostclient_info.ipb_list %}
+        <li>{{ipb}}</li>
+      {% endfor %}
+     </ul></td>
+   </tr>
+   {% endif %}
+  </table>
+</div>

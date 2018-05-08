@@ -1,0 +1,30 @@
+entity.product.add_form:
+  route_name: entity.product.add_form
+  title: 'Add product'
+  appears_on:
+    - admin.product.list
+
+entity.product_business.add_form:
+  route_name: entity.product_business.add_form
+  title: 'Add business'
+  appears_on:
+    - admin.product.business
+
+entity.business_price.add_form:
+  route_name: entity.business_price.add_form
+  title: 'Add business price'
+  appears_on:
+    - admin.product.business_price
+
+entity.product_price.add_form:
+  route_name: entity.product_price.add_form
+  title: 'Add product price'
+  appears_on:
+    - entity.product.price_view
+
+entity.product_business_price.add_form:
+  route_name: entity.product_business_price.add_form
+  title: 'Add business'
+  appears_on:
+    - entity.product.business_price_view
+

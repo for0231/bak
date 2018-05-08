@@ -1,0 +1,326 @@
+system.admin_wd:
+  path: '/admin/wd'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: '牵引系统'
+  requirements:
+    _permission: 'access flow lead wd admin'
+
+admin.wd.policy:
+  path: 'admin/wd/policy'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\WdController::policyList'
+    _title: 'Traction policy'
+  requirements:
+    _permission: 'administer qy wd policy view'
+
+admin.wd.policy.add:
+  path: 'admin/wd/policy/add'
+  defaults:
+    _form: '\Drupal\qy_wd\Form\PolicyAddForm'
+    _title: 'Add traction policy'
+  requirements:
+    _permission: 'administer qy wd policy edit'
+    
+admin.wd.policy.segment.add:
+  path: 'admin/wd/policy/segment/add'
+  defaults:
+    _form: '\Drupal\qy_wd\Form\PolicyMultipleAddForm'
+    _title: 'Add traction policy'
+  requirements:
+    _permission: 'administer qy wd policy edit'
+
+admin.wd.policy.edit:
+  path: 'admin/wd/policy/{policy_id}/edit'
+  defaults:
+    _form: '\Drupal\qy_wd\Form\PolicyAddForm'
+    _title: 'Edit traction policy'
+  requirements:
+    _permission: 'administer qy wd policy edit'
+
+admin.wd.policy.delete:
+  path: 'admin/wd/policy/{policy_id}/delete'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\WdController::policyDelete'
+  requirements:
+    _permission: 'administer qy wd policy edit'
+
+admin.wd.policy.segment.delete:
+  path: 'admin/wd/policy/{policy_id}/segment/delete'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\WdController::SegmentDelete'
+  requirements:
+    _permission: 'administer qy wd policy edit'
+
+admin.wd.policy_tmp:
+  path: 'admin/wd/policy_tmp'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\WdController::policyTmpList'
+    _title: 'Traction policy tmp'
+  requirements:
+    _permission: 'administer qy wd policy view'
+
+admin.wd.policy_tmp.add:
+  path: 'admin/wd/policy_tmp/add'
+  defaults:
+    _form: '\Drupal\qy_wd\Form\PolicyTmpAddForm'
+    _title: 'Add tmp traction policy'
+  requirements:
+    _permission: 'administer qy wd policy edit'
+
+admin.wd.policy_tmp.edit:
+  path: 'admin/wd/policy_tmp/{policy_id}/edit'
+  defaults:
+    _form: '\Drupal\qy_wd\Form\PolicyTmpAddForm'
+    _title: 'Edit tmp traction policy'
+  requirements:
+    _permission: 'administer qy wd policy edit'
+
+admin.wd.policy_tmp.status:
+  path: 'admin/wd/policy_tmp/{policy_id}/status/{status}'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\WdController::policyStatus'
+  requirements:
+    _permission: 'administer qy wd policy edit'
+
+admin.wd.traction:
+  path: 'admin/wd/traction'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\WdController::tractionList'
+    _title: 'Traction list'
+  requirements:
+    _permission: 'administer qy wd traction view'
+
+admin.wd.traction_filter:
+  path: 'admin/wd/traction_filter'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\WdController::tractionFilterList'
+    _title: 'Traction filter list'
+  requirements:
+    _permission: 'administer qy wd traction view'
+
+admin.wd.traction.add:
+  path: 'admin/wd/traction/add'
+  defaults:
+    _form: '\Drupal\qy_wd\Form\TractionAddForm'
+    _title: 'Add manual traction'
+  requirements:
+    _permission: 'administer qy wd traction edit'
+
+admin.wd.ip_stop:
+  path: 'admin/wd/ip_stop'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\WdController::ipStopList'
+    _title: 'Ip stop list'
+  requirements:
+    _permission: 'administer qy wd traction view'
+
+admin.wd.ip_stop.add:
+  path: 'admin/wd/ip_stop/add'
+  defaults:
+    _form: '\Drupal\qy_wd\Form\IpStopAddForm'
+    _title: 'Add ip stop'
+  requirements:
+    _permission: 'administer qy wd traction edit'
+
+admin.wd.traction.remove:
+  path: 'admin/wd/traction/{traction_id}/remove'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\WdController::tractionRemove'
+    _title: 'Remove traction'
+  requirements:
+    _permission: 'administer qy wd traction edit'
+
+admin.wd.traction.time:
+  path: 'admin/wd/traction/{traction_id}/time'
+  defaults:
+    _form: '\Drupal\qy_wd\Form\TractionTimeEditForm'
+    _title: 'Edit traction time'
+  requirements:
+    _permission: 'administer qy wd traction edit'
+
+admin.wd.traction.remove.alarm:
+  path: 'admin/wd/traction/remove/alarm'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\WdController::removeAlarm'
+  requirements:
+    _permission: 'administer qy wd traction edit'
+
+admin.wd.logs.traction:
+  path: 'admin/wd/logs/traction'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\WdController::logsTraction'
+    _title: 'Logs traction'
+  requirements:
+    _permission: 'administer qy wd logs view'
+
+admin.wd.logs.ip_stop:
+  path: 'admin/wd/logs/ip_stop'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\WdController::logsIpStop'
+    _title: 'Logs ip stop'
+  requirements:
+    _permission: 'administer qy wd logs view'
+
+admin.wd.ip_check:
+  path: 'admin/wd/ip_check'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\WdController::ipChecked'
+    _title: 'Ip checked'
+  requirements:
+    _permission: 'administer qy wd ip checked'
+
+admin.wd.ip_check.ajax:
+  path: 'admin/wd/ip_check/ajax'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\WdController::ipCheckAjax'
+  requirements:
+    _permission: 'administer qy wd ip checked'
+
+admin.wd.index:
+  path: 'admin/wd/index'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\WdController::adminIndex'
+    _title: 'Admin home'
+  requirements:
+    _permission: 'administer qy wd traction index'
+
+admin.wd.route:
+  path: 'admin/wd/route'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\WdController::qyRouteList'
+    _title: 'Route'
+  requirements:
+    _permission: 'administer qy wd route view'
+
+admin.wd.route.add:
+  path: 'admin/wd/route/add'
+  defaults:
+    _form: '\Drupal\qy_wd\Form\RouteAddForm'
+    _title: 'Add route'
+  requirements:
+    _permission: 'administer qy wd route edit'
+
+admin.wd.route.edit:
+  path: 'admin/wd/route/{id}/edit'
+  defaults:
+    _form: '\Drupal\qy_wd\Form\RouteAddForm'
+    _title: 'Edit route'
+  requirements:
+    _permission: 'administer qy wd route edit'
+
+admin.wd.route.delete:
+  path: 'admin/wd/route/{id}/delete'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\WdController::RouteDelete'
+    _title: 'Delete route'
+  requirements:
+    _permission: 'administer qy wd route edit'
+
+admin.wd.monitor:
+  path: 'admin/wd/monitor'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\WdController::FlowMonitor'
+    _title: 'Flow monitor'
+  requirements:
+    _permission: 'administer qy wd Flow monitor'
+
+admin.wd.monitor.info:
+  path: 'admin/wd/monitor/{wall_id}/info'
+  defaults: 
+    _controller: '\Drupal\qy_wd\Controller\WdController::FlowInfo'
+    _title: 'Ip info'
+  requirements:
+    _permission: 'administer qy wd Flow monitor'
+
+admin.wd.alarm:
+  path: 'admin/wd/alarm'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\WdController::AlarmList'
+    _title: 'Alarm view'
+  requirements:
+    _permission: 'administer qy wd alarm view'
+
+admin.wd.alarm.edit:
+  path: 'admin/wd/alarm/{id}/edit'
+  defaults:
+    _form: '\Drupal\qy_wd\Form\AlarmEditForm'
+    _title: 'Edit Alarm'
+  requirements:
+    _permission: 'administer qy wd alarm edit'
+
+admin.wd.config:
+  path: 'admin/wd/config'
+  defaults:
+    _form: '\Drupal\qy_wd\Form\ConfigSystemForm'
+    _title: 'System configuration'
+  requirements:
+    _permission: 'administer qy wd system config'
+
+admin.wd.listen.wall:
+  path: 'admin/wd/listen/{route_id}/wall'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\FirewallController::listenWall'
+  requirements:
+    _permission: 'administer qy wd open firewall listen'
+
+admin.wd.listen.blackhole:
+  path: 'admin/wd/listen/{route_id}/blackhole'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\FirewallController::listenBlackhole'
+  requirements:
+    _permission: 'administer qy wd open firewall listen'
+
+admin.wd.listen.close:
+  path: 'admin/wd/listen/{route_id}/close'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\WdController::colseListen'
+  requirements:
+    _permission: 'administer qy wd open firewall listen'
+
+admin.wd.listen.kill:
+  path: 'admin/wd/listen/kill'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\FirewallController::listenkill'
+  requirements:
+    _permission: 'administer qy wd open firewall listen'
+  
+admin.wd.chart:
+  path: 'admin/wd/chart'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\WdController::flowChart'
+    _title: 'Flow chart'
+  requirements:
+    _permission: 'administer qy wd chart'
+
+admin.wd.chart.data:
+  path: 'admin/wd/chart/data'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\WdController::getData'
+  requirements:
+    _permission: 'administer qy wd chart'
+
+admin.wd.chart.setting:
+  path: 'admin/wd/chart/setting'
+  defaults:
+    _form: '\Drupal\qy_wd\Form\ChartSettingForm'
+    _title: 'Chart Ip'
+  requirements:
+    _permission: 'administer qy wd chart setting'
+    
+admin.wd.chart.collect:
+  path: '/admin/wd/chart/collect/{key}'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\WdController::collectData'
+  options:
+    no_cache: TRUE
+  requirements:
+    _access: 'TRUE'
+    
+admin.wd.logs.export:
+  path: 'admin/wd/logs/export'
+  defaults:
+    _controller: '\Drupal\qy_wd\Controller\WdController::logsExport'
+    _title: 'Logs export'
+  requirements:
+    _permission: 'administer qy wd logs view'

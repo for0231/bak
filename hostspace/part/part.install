@@ -1,0 +1,339 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall function for the part module.
+ */
+
+use \Drupal\taxonomy\Entity\Vocabulary;
+
+/**
+ * Implements hook_schema().
+ */
+function part_schema() {
+  $schema['part_purchase_detail'] = array(
+    'fields' => array(
+      'did' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'pid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '所属配件'
+      ),
+      'stock' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0
+      ),
+      'created' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      )
+    ),
+    'primary key' => array('did')
+  );
+  return $schema;
+}
+
+/**
+ * Implements hook_uninstall
+ */
+function part_uninstall() {
+  $vocabulary = Vocabulary::load('part');
+  if($vocabulary) {
+    $vocabulary->delete();
+  }
+}
+
+/**
+ * Implements hook_install()
+ */
+function part_install() {
+  //初始化配件的分类词汇
+  $exist = Vocabulary::load('part');
+  if (!$exist) {
+    entity_create('taxonomy_vocabulary', array(
+      'vid' => 'part',
+      'name' => t('Part'),
+      'description' => t('For the part classify'),
+      'hierarchy' => 1,
+      'status' => true,
+      'langcode' => 'en',
+    ))->save();
+    taxonomy_part_cpu();
+    taxonomy_part_memory();
+    taxonomy_part_hard_disc();
+    taxonomy_part_mainboard();
+  }
+}
+
+/**
+ * 初始化CPU相关的分类术语
+ */
+function taxonomy_part_cpu() {
+
+  $config = \Drupal::configFactory()->getEditable('part.settings');
+  // 配件分类下术语CPU
+
+  $term = entity_create('taxonomy_term', array(
+    'name' => t('CPU'),
+    'parent' => array(0),
+    'vid' => 'part',
+    'weight' => 10,
+  ));
+  $term->save();
+  $cpu_term = $term->id();
+
+  // 分类CPU下术语的定义
+  /* 品牌
+  $term = entity_create('taxonomy_term', array(
+    'name' => t('品牌'),
+    'parent' => $cpu_term,
+    'vid' => 'part',
+    'weight' => 11,
+  ));
+  $term->save();*/
+    // 基本参数
+  $term = entity_create('taxonomy_term', array(
+    'name' => t('基本参数'),
+    'parent' => $cpu_term,
+    'vid' => 'part',
+    'weight' => 14,
+  ));
+  $term->save();
+  $base_parameter = $term->id();
+
+	//适用类型
+	taxonomy_loop_child($config, 'part', 'part.cpu.base_parameter_type', 'Suitable type', $base_parameter, array('台式机', '笔记本'));
+	//CPU系列
+	taxonomy_loop_child($config, 'part', 'part.cpu.base_parameter_family', 'Family', $base_parameter, array('酷睿i5三代', '酷睿i5 4570','FX'));
+
+	// 术语CPU插槽
+  $term = entity_create('taxonomy_term', array(
+    'name' => t('CPU插槽'),
+    'parent' => $cpu_term,
+    'vid' => 'part',
+    'weight' => 18,
+  ));
+  $term->save();
+  $cpu_slug = $term->id();
+	//插槽类型
+	taxonomy_loop_child($config, 'part', 'part.cpu.cpu_slug_type', 'Slot Type', $cpu_slug, array('Socket AM3+', '酷睿i5 4570'));
+
+	// 术语CPU kernel
+  $term = entity_create('taxonomy_term', array(
+    'name' => t('CPU内核'),
+    'parent' => $cpu_term,
+    'vid' => 'part',
+    'weight' => 20,
+  ));
+  $term->save();
+  $cpu_kernel = $term->id();
+
+	//核心代号
+	taxonomy_loop_child($config, 'part', 'part.cpu.cpu_kernel_code', 'Kernel Code', $cpu_kernel, array('Vishera'));
+	//核心数量
+	taxonomy_loop_child($config, 'part', 'part.cpu.cpu_kernel_num', 'Kernel Num', $cpu_kernel, array('八核心', '六核心','四核心','三核心','双核心','单核心'));
+	//线程数
+	taxonomy_loop_child($config, 'part', 'part.cpu.cpu_kernel_threads', 'Thread Num', $cpu_kernel, array('八线程'));
+
+  // CPU缓存
+  $term = entity_create('taxonomy_term', array(
+    'name' => t('CPU缓存'),
+    'parent' => $cpu_term,
+    'vid' => 'part',
+    'weight' => 22,
+  ));
+  $term->save();
+  $cpu_cache = $term->id();
+
+	//一级缓存
+	taxonomy_loop_child($config, 'part', 'part.cpu.cpu_cache_level_1', 'Cache Level 1', $cpu_cache, array('128KB', '256KB','512KB'));
+	//二级缓存
+	taxonomy_loop_child($config, 'part', 'part.cpu.cpu_cache_level_2', 'Cache Level 2', $cpu_cache, array('8M', '16M'));
+	//三级缓存
+	taxonomy_loop_child($config, 'part', 'part.cpu.cpu_cache_level_3', 'Cache Level 3', $cpu_cache, array('128KB', '256KB','512KB'));
+
+  // 术语CPU 技术参数
+  $term = entity_create('taxonomy_term', array(
+    'name' => t('技术参数'),
+    'parent' => $cpu_term,
+    'vid' => 'part',
+    'weight' => 25,
+  ));
+  $term->save();
+  $cpu_tech_param = $term->id();
+
+	//64位处理器
+	taxonomy_loop_child($config, 'part', 'part.cpu.cpu_is_64', 'Processor 64bit', $cpu_tech_param, array('是','否'));
+
+  $config->save();
+}
+
+/**
+ * 初始化内存相关的分类术语
+ */
+function taxonomy_part_memory() {
+
+	$config = \Drupal::configFactory()->getEditable('part.settings');
+
+  $term = entity_create('taxonomy_term', array(
+    'name' => t('Memory'),
+    'parent' => array(0),
+    'vid' => 'part',
+    'weight' => 10,
+  ));
+  $term->save();
+  $memory_term = $term->id();
+
+
+  // 内存下术语的定义
+  /* 品牌
+  $term = entity_create('taxonomy_term', array(
+    'name' => t('品牌'),
+    'parent' => $memory_term,
+    'vid' => 'part',
+    'weight' => 11,
+  ));
+  $term->save();*/
+  // 基本参数
+  $term = entity_create('taxonomy_term', array(
+    'name' => t('基本参数'),
+    'parent' => $memory_term,
+    'vid' => 'part',
+    'weight' => 14,
+  ));
+  $term->save();
+  $base_parameter = $term->id();
+
+	//适用类型
+	taxonomy_loop_child($config, 'part', 'part.memory.suitable_base_parameter', 'Suitable type', $base_parameter, array('台式机', '笔记本'));
+	//内存容量
+	taxonomy_loop_child($config, 'part', 'part.memory.capacity_base_parameter', 'Memory capacity', $base_parameter, array('1G', '2G','4G', '8G', '16G'));
+	//内存类型
+	taxonomy_loop_child($config, 'part', 'part.memory.type_base_parameter', 'Memory type', $base_parameter, array('DDR3', 'DDR4'));
+	//内存主频
+	taxonomy_loop_child($config, 'part', 'part.memory.clocked_base_parameter', 'Memory clocked', $base_parameter, array('1600MZh', '3200MZh'));
+
+	//技术参数
+  $term = entity_create('taxonomy_term', array(
+    'name' => t('技术参数'),
+    'parent' => $memory_term,
+    'vid' => 'part',
+    'weight' => 25,
+  ));
+  $term->save();
+  $base_parameter = $term->id();
+	//颗粒配置
+	taxonomy_loop_child($config, 'part', 'part.memory.practicle_base_parameter', 'practicle configuration', $base_parameter, array('单面8颗', '单面32颗'));
+	//生产工艺
+	taxonomy_loop_child($config, 'part', 'part.memory.process_base_parameter', 'Memory production process', $base_parameter, array('30mm', '40mm'));
+
+  $config->save();
+}
+
+/**
+ * 初始化硬盘相关的分类术语
+ */
+function taxonomy_part_hard_disc() {
+
+	$config = \Drupal::configFactory()->getEditable('part.settings');
+
+  $term = entity_create('taxonomy_term', array(
+    'name' => t('HardDisc'),
+    'parent' => array(0),
+    'vid' => 'part',
+    'weight' => 10,
+  ));
+  $term->save();
+  $harddisc_term = $term->id();
+
+  // 硬盘下术语的定义
+  // 品牌
+  /*$term = entity_create('taxonomy_term', array(
+    'name' => t('品牌'),
+    'parent' => $harddisc_term,
+    'vid' => 'part',
+    'weight' => 11,
+  ));
+  $term->save();*/
+
+  // 基本参数
+  $term = entity_create('taxonomy_term', array(
+    'name' => t('基本参数'),
+    'parent' => $harddisc_term,
+    'vid' => 'part',
+    'weight' => 14,
+  ));
+  $term->save();
+  $base_parameter = $term->id();
+
+	//适用类型
+	taxonomy_loop_child($config, 'part', 'part.harddisc.suitable_base_parameter', 'Suitable typ', $base_parameter, array('台式机', '笔记本'));
+	//硬盘尺寸
+	taxonomy_loop_child($config, 'part', 'part.harddisc.size_base_parameter', 'Hard disc size', $base_parameter, array('3.5英寸', '4.0英寸'));
+	//硬盘容量
+	taxonomy_loop_child($config, 'part', 'part.harddisc.capacity_base_parameter', 'Hard disc capacity', $base_parameter, array('250G','500G', '1TB', '2TB'));
+	//盘片数量
+	taxonomy_loop_child($config, 'part', 'part.harddisc.disc_number_base_parameter', 'Hard disc number', $base_parameter, array('2', '3'));
+	//单碟容量
+	taxonomy_loop_child($config, 'part', 'part.harddisc.per_disc_capacity_base_parameter', 'Per disc capacity', $base_parameter, array('40G', '60G', '80G'));
+	//磁头数量
+	taxonomy_loop_child($config, 'part', 'part.harddisc.head_number_capacity_base_parameter', 'Hard disc head number', $base_parameter, array('1', '2'));
+	//缓存
+	taxonomy_loop_child($config, 'part', 'part.harddisc.cache_capacity_base_parameter', 'Hard disc cach', $base_parameter, array('80M', '100M'));
+	//转速
+	taxonomy_loop_child($config, 'part', 'part.harddisc.speed_capacity_base_parameter', 'Hard disc Rmp speed', $base_parameter, array('3600Rpm', '7200Rpm'));
+	//接口类型
+	taxonomy_loop_child($config, 'part', 'part.harddisc.interface_type_capacity_base_parameter', 'Hard disc interface type', $base_parameter, array('SATA3.0'));
+	//接口速率
+	taxonomy_loop_child($config, 'part', 'part.harddisc.interface_speed_capacity_base_parameter', 'Hard disc interface speed', $base_parameter, array('6GB/s', '100M'));
+
+  $config->save();
+}
+
+function taxonomy_part_mainboard() {
+  $config = \Drupal::configFactory()->getEditable('part.settings');
+
+  $term = entity_create('taxonomy_term', array(
+    'name' => t('Mainboard'),
+    'parent' => array(0),
+    'vid' => 'part',
+    'weight' => 100,
+  ));
+  $term->save();
+  $mainboard_term = $term->id();
+ 
+  taxonomy_loop_child($config, 'part', 'part.mainboard.chipmaker', 'Chipmaker', $mainboard_term, array('Intel', 'AMD'));
+  taxonomy_loop_child($config, 'part', 'part.mainboard.chipset', 'Chipset', $mainboard_term, array('Intel B85'));
+  taxonomy_loop_child($config, 'part', 'part.mainboard.chipset_display', 'Chipset Display', $mainboard_term, array('CUP内置显示芯片(需要CUP支持)'));
+  taxonomy_loop_child($config, 'part', 'part.mainboard.chipset_audio', 'Chipset Audio', $mainboard_term, array('集成Realtek ALC892 8声道音效芯片'));
+  taxonomy_loop_child($config, 'part', 'part.mainboard.chipset_network', 'Chipset Network', $mainboard_term, array('板载千兆网卡'));
+  taxonomy_loop_child($config, 'part', 'part.mainboard.cpu_platform', 'CPU Platform', $mainboard_term, array('Intel', 'AMD'));
+  taxonomy_loop_child($config, 'part', 'part.mainboard.cpu_type', 'CPU Type', $mainboard_term, array('Core i7','Core i5', 'Core i3', 'Pentium', 'Celeron'));
+  taxonomy_loop_child($config, 'part', 'part.mainboard.cpu_slot', 'CPU Slot', $mainboard_term, array('LGA 1150'));
+  taxonomy_loop_child($config, 'part', 'part.mainboard.memory_slot', 'Memory Slot', $mainboard_term, array('DDR2', 'DDR3'));
+  taxonomy_loop_child($config, 'part', 'part.mainboard.pcie_slot', 'PCI-E Slot', $mainboard_term, array('PCI-E X16', 'PCI-E X1'));
+  taxonomy_loop_child($config, 'part', 'part.mainboard.pci_slot', 'PCI Slot', $mainboard_term, array('PCI'));
+  taxonomy_loop_child($config, 'part', 'part.mainboard.sata_Interface', 'SATA Interface', $mainboard_term, array('SATA II', 'SATA III'));
+  taxonomy_loop_child($config, 'part', 'part.mainboard.hdmi_Interface', 'HDMI Interface', $mainboard_term, array('HDMI'));
+  taxonomy_loop_child($config, 'part', 'part.mainboard.outer port', 'Outer Port', $mainboard_term, array('DVI', 'VGA'));
+  taxonomy_loop_child($config, 'part', 'part.mainboard.other_Interface', 'Other Interface', $mainboard_term, array('RJ45'));
+  taxonomy_loop_child($config, 'part', 'part.mainboard.mainboard_type', 'Mainboard Type', $mainboard_term, array('ATX', 'Mini-ITX', 'Micro ATX', 'E-ATX'));
+  taxonomy_loop_child($config, 'part', 'part.mainboard.system_not', 'System Not', $mainboard_term, array('Windows Server 2003', 'Centos'));
+  
+  $config->save();
+}

@@ -1,0 +1,120 @@
+entity.part.admin:
+  path: '/admin/part'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Administration'
+  requirements:
+    _permission: 'administer taxonomy part overview'
+
+entity.part.add_form:
+  path: 'admin/part/add'
+  defaults:
+    _entity_form: 'part.default'
+    _title: 'Part'
+  requirements:
+    _permission: 'administer part edit'
+entity.part.edit_form:
+  path: 'admin/part/{part}/edit'
+  defaults:
+    _entity_form: 'part.default'
+    _title: 'Part'
+  requirements:
+    _permission: 'administer part edit'
+## 下面这个似乎没有用
+entity.part.list:
+  path: 'admin/part/list'
+  defaults:
+    _entity_list: 'part'
+    _title: 'Part工作台'
+  requirements:
+    _permission: 'administer part collection'
+### 需求池列表
+entity.part.collection:
+  path: 'admin/part/collection'
+  defaults:
+    _controller: 'Drupal\part\Controller\PartController::getPartCollection'
+    _title: '需求池'
+  requirements:
+    _permission: 'administer part pool'
+
+
+### 需求池列表
+entity.part.pool.collection:
+  path: 'ajax/part/pool'
+  defaults:
+    _controller: 'Drupal\part\Controller\PartController::getPartsAutocomplete'
+    _title: '需求池列表'
+  requirements:
+    _permission: 'administer part pool'
+
+### 需求池统计
+entity.part.pool.collection.statis:
+  path: 'ajax/part/pool/statis'
+  defaults:
+    _controller: 'Drupal\part\Controller\PartController::getPartsStatisAutocomplete'
+    _title: '需求池统计表'
+  requirements:
+    _permission: 'administer part pool'
+
+### 需求添加配件页面
+entity.part.requirement.add_form:
+  path: 'admin/part/requirement/{requirement}/add'
+  defaults:
+    _entity_form: 'part.default'
+    _title: '需求物品'
+  requirements:
+    _permission: 'administer part edit'
+    requirement: '\d+'
+
+
+### 清洗池
+entity.part.un.collection:
+  path: 'admin/part/un/collection'
+  defaults:
+    _controller: 'Drupal\part\Controller\PartController::getUnPartCollection'
+    _title: '清洗池'
+  requirements:
+    _permission: 'administer part pool'
+### ajax清洗池数据列表
+entity.part.pool.un.collection:
+  path: 'ajax/part/un/pool'
+  defaults:
+    _controller: 'Drupal\part\Controller\PartController::getUnPartsAutocomplete'
+    _title: '清洗池列表'
+  requirements:
+    _permission: 'administer part pool'
+
+### ajax清洗池数据列表
+ajax.part.pool.delete:
+  path: 'ajax/part/un/pool/delete'
+  defaults:
+    _controller: 'Drupal\part\Controller\PartController::deletePartsPoolAutocomplete'
+    _title: '清洗池需求配件删除'
+  requirements:
+    _permission: 'administer part pool'
+
+### 采购单添加的需求池列表
+entity.purchase.part.collection:
+  path: 'admin/purchase/part/collection'
+  defaults:
+    _controller: 'Drupal\part\Controller\PartController::getPurchasePartCollection'
+    _title: '采购单需求池列表'
+  requirements:
+    _permission: 'administer part pool'
+
+### 采购单添加的需求池的ajax列表
+ajax.purchase.part.collection:
+  path: 'ajax/purchase/{purchase}/part/collection'
+  defaults:
+    _controller: 'Drupal\part\Controller\PartController::getPurchasePartsAutocomplete'
+    _title: '采购单需求池列表'
+  requirements:
+    _permission: 'administer part pool'
+
+part.taxonomy_vocabulary.collection:
+  path: '/admin/caigou/config/vocabulary/overview'
+  defaults:
+    _controller: 'Drupal\part\Controller\PartController::getVocabularyList'
+    _title: 'Vocabulary'
+  requirements:
+    _permission: 'administer taxonomy part overview'

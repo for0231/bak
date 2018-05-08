@@ -1,0 +1,278 @@
+<?php
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+use Drupal\Core\Link;
+use Drupal\Core\Breadcrumb\Breadcrumb;
+
+/**
+ * Implement hook_theme().
+ */
+function product_theme() {
+  return array(
+    'product_list' => array(
+      'template' => 'product-list',
+      'variables' => array('products' => null)
+    )
+  );
+}
+
+
+/**
+ * Implements hook_system_breadcrumb_alter().
+ */
+function product_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatchInterface $route_match, array $context) {
+  $route_name = $route_match->getRouteName();
+  switch ($route_name) {
+  	case 'entity.product.add_form':
+  	case 'entity.product.edit_form':
+   	case 'entity.product.price_view':
+   	case 'entity.product.business_price_view':
+      $breadcrumb->addLink(Link::createFromRoute(t('Product view'), 'admin.product.list'));
+   	  break;
+   	case 'entity.product_price.add_form':
+      $breadcrumb->addLink(Link::createFromRoute(t('Product view'), 'admin.product.list'));
+   	  $productId = $route_match->getParameter('product');
+      $breadcrumb->addLink(Link::createFromRoute(t('Product price view'), 'entity.product.price_view', array('product' => $productId)));
+   	  break;
+   	case 'entity.product_price.edit_form':
+      $breadcrumb->addLink(Link::createFromRoute(t('Product view'), 'admin.product.list'));
+   	  $productPrice = $route_match->getParameter('product_price');
+   	  $productId = $productPrice->getObjectId('productId');
+      $breadcrumb->addLink(Link::createFromRoute(t('Product price view'), 'entity.product.price_view', array('product' => $productId)));
+   	  break;
+   	case 'entity.product_business_price.add_form':
+      $breadcrumb->addLink(Link::createFromRoute(t('Product view'), 'admin.product.list'));
+   	  $productId = $route_match->getParameter('product');
+      $breadcrumb->addLink(Link::createFromRoute(t('Product business price view'), 'entity.product.business_price_view', array('product' => $productId)));
+   	  break;
+   	  case 'entity.product_business_price.edit_form':
+        $breadcrumb->addLink(Link::createFromRoute(t('Product view'), 'admin.product.list'));
+   	    $productPrice = $route_match->getParameter('product_business_price');
+   	    $productId = $productPrice->getObjectId('productId');
+        $breadcrumb->addLink(Link::createFromRoute(t('Product business price view'), 'entity.product.business_price_view', array('product' => $productId)));
+   	    break;
+   }
+}
+
+/**
+ * 构建模板参数
+ */
+function template_preprocess_product_list(&$variables) {
+  $user = \Drupal::currentUser();
+  $products = $variables['products'];
+
+  foreach($products as $key => $product) {
+    $options = array();
+    $default_business = \Drupal::service('product.default.business')->getListByProduct($key);
+    foreach($default_business as $item) {
+      $business = entity_load('product_business', $item->businessId);
+      $text = product_business_value_text($business, $item->business_content);
+      $options[] = array(
+        'title' => $business->label(),
+        'value' => $text
+      );
+    }
+    $rids = $product->getSimplevalue('rids');
+    $rids_arr = json_decode($rids);
+    $option_room = array();
+    if (!empty($rids_arr)) {
+      foreach ($rids_arr as $k => $v) {
+        if ($v) {
+          $option_room[$k] = entity_load('room', $k)->label();
+        }
+      }
+    }
+    $variables['products'][$key]->room = implode(',', $option_room);
+    $variables['products'][$key]->business = $options;
+    if($user->id() > 0) {
+      $variables['products'][$key]->is_login = true;
+      $price_all = product_user_price_all($product, $user);
+      $variables['products'][$key]->price = $price_all['price'];
+      $variables['products'][$key]->original_price = $price_all['original_price'];
+    } else {
+      $variables['products'][$key]->is_login = false;
+    }
+  }
+}
+
+/**
+ * 获取用户产品的价格
+ */
+function product_user_price($product, $user) {
+  $roles = $user->getRoles();
+  $price = 0;
+  $price_list = entity_load_multiple_by_properties('product_price', array(
+    'productId' => $product->id()
+  ));
+  foreach($price_list as $price_obj) {
+    $role = $price_obj->getObjectId('user_level');
+    if(in_array($role, $roles)) {
+      $price_value = $price_obj->getSimpleValue('price');
+      if($price == 0 || $price_value < $price) {
+        $price = $price_value;
+      }
+    }
+  }
+  return $price;
+}
+
+function product_user_price_all($product, $user) {
+  $roles = $user->getRoles();
+  $price = 0;
+  $original_price = 0;
+  $price_list = entity_load_multiple_by_properties('product_price', array(
+    'productId' => $product->id()
+  ));
+  foreach($price_list as $price_obj) {
+    $role = $price_obj->getObjectId('user_level');
+    if(in_array($role, $roles)) {
+      $price_value = $price_obj->getSimpleValue('price');
+      $original_price_value = $price_obj->getSimpleValue('original_price');
+      if($price == 0 || $price_value < $price) {
+        $price = $price_value;
+        if($original_price_value > 0) {
+          $original_price = $original_price_value;
+        }
+      }
+    }
+  }
+  return array('price' => $price, 'original_price' => $original_price);
+}
+
+
+/**
+ * 获取用户的业务价格
+ * @param $business
+ */
+function getProductBusinessPrice($business, $business_value, $user) {
+
+}
+
+/**
+ * 业务控件种类
+ */
+function getBusinessControl() {
+  return array(
+    'select_content' => t('Select control'),
+    'edit_number' => t('Number control'),
+    'select_and_number' => t('Select and Number control'),
+  );
+}
+
+/**
+ * 业务关链的库
+ */
+function getBusinessLib() {
+  return array(
+    'none' => t('None'),
+    'create' => t('Create data'), 
+    'ipb_lib' => t('Related to business ip library'),
+    'part_lib' => t('Related to part library')    
+  );
+}
+
+/**
+ * 获取产品业务控件
+ */
+function product_business_control($business) {
+  $operate = $business->getSimpleValue('operate');
+  $ctl = array();
+  if($operate == 'edit_number') {
+    $ctl = array(
+      '#type' => 'number',
+      '#placeholder' => t('Please enter a number'),
+      '#size' => 20,
+      '#attributes' => array(
+        'class' => array('business-ctl')
+      )
+    );
+  } else if ($operate == 'select_content') {
+    $options = array('' => '-- select --' );
+    $business_id = $business->id();
+    $lib = $business->getSimpleValue('resource_lib');
+    if($lib == 'create') {
+      $business_content = entity_load_multiple_by_properties('product_business_content',array('businessId' => $business_id));
+      foreach($business_content as $content) {
+        $options[$content->id()] = $content->label();
+      }
+    } else if ($lib == 'ipb_lib' || $lib == 'part_lib') {
+      $business_content = entity_load_multiple_by_properties('product_business_entity_content',array('businessId' => $business_id));
+      foreach($business_content as $content) {
+        $value_entity = entity_load($content->getSimpleValue('entity_type'),$content->getSimpleValue('target_id'));
+        $options[$content->id()] = $value_entity->label();
+      }
+    }
+    $ctl = array(
+      '#type' => 'select',
+      '#options' => $options,
+      '#attributes' => array(
+        'class' => array('business-ctl')
+      )
+    );
+  } else if ($operate == 'select_and_number') {
+    $options = array('' => '-- select --' );
+    $business_id = $business->id();
+    $lib = $business->getSimpleValue('resource_lib');
+    if($lib == 'create') {
+      $business_content = entity_load_multiple_by_properties('product_business_content',array('businessId' => $business_id));
+      foreach($business_content as $content) {
+        $options[$content->id()] = $content->label();
+      }
+    } else if ($lib == 'ipb_lib' || $lib == 'part_lib') {
+      $business_content = entity_load_multiple_by_properties('product_business_entity_content',array('businessId' => $business_id));
+      foreach($business_content as $content) {
+        $value_entity = entity_load($content->getSimpleValue('entity_type'),$content->getSimpleValue('target_id'));
+        $options[$content->id()] = $value_entity->label();
+      }
+    }
+    $ctl['select'] = array(
+      '#type' => 'select',
+      '#options' => $options,
+      '#attributes' => array(
+        'class' => array('business-ctl')
+      )
+    );
+    $ctl['number'] = array(
+      '#type' => 'number',
+      '#size' => 5,
+      '#min' => 1,
+      '#attributes' => array(
+        'class' => array('business-ctl')
+      )
+    );
+  }
+  return $ctl;
+}
+
+/**
+ * 通过业务value获取文本值
+ */
+function product_business_value_text($business, $value) {
+  $operate = $business->getSimpleValue('operate');
+  if($operate == 'edit_number') {
+    return $value;
+  } else if ($operate == 'select_content') {
+    $lib = $business->getSimpleValue('resource_lib');
+    if($lib == 'create') {
+       $content = entity_load('product_business_content', $value);
+       return $content->label();
+    } else if ($lib == 'ipb_lib' || $lib == 'part_lib') {
+       $content = entity_load('product_business_entity_content', $value);
+       $value_entity = entity_load($content->getSimpleValue('entity_type'),$content->getSimpleValue('target_id'));
+       return $value_entity->label();
+    }
+  } else if ($operate == 'select_and_number') {
+    $values = explode(':', $value);
+    $lib = $business->getSimpleValue('resource_lib');
+    if($lib == 'create') {
+      $content = entity_load('product_business_content', $values[0]);
+      return $content->label() . 'X' . $values[1]; 
+    } else if ($lib == 'ipb_lib' || $lib == 'part_lib') {
+       $content = entity_load('product_business_entity_content', $values[0]);
+       $value_entity = entity_load($content->getSimpleValue('entity_type'),$content->getSimpleValue('target_id'));
+       return $value_entity->label() . 'X' . $values[1];
+    }
+  }
+  return '';
+}

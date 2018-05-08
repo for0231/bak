@@ -1,0 +1,9 @@
+services:
+  utils.networkconfig:
+    class: Drupal\utils\NetworkConfigService
+    arguments: ['@database']
+    
+  utils.DialogOptionSubscriber:
+    class: Drupal\utils\EventSubscriber\DialogOptionSubscriber
+    tags:
+      - { name: event_subscriber }

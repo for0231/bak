@@ -1,0 +1,8 @@
+access utils admin:
+  title: 'access utils admin'
+administer utils network config:
+  title: 'administer utils network config'
+administer utils network config logs:
+  title: 'administer utils network config logs'
+administer utils port config:
+  title: 'administer utils port config'

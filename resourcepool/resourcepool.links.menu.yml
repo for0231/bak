@@ -1,0 +1,102 @@
+system.admin_resourcepool:
+  title: '资源池'
+  parent: system.admin
+  route_name: system.admin_resourcepool
+  weight: -202
+
+system.admin_ddn_resourcepool:
+  title: '专线业务系统'
+  parent: system.admin
+  route_name: system.admin_ddn_resourcepool
+  weight: -201
+
+admin.resourcepool.rackpart:
+  title: '机柜配置'
+  parent: system.admin_resourcepool
+  route_name: admin.resourcepool.rackpart
+  weight: 2
+  
+admin.resourcepool.rackpart.list:
+  title: '机柜配置列表'
+  parent: admin.resourcepool.rackpart
+  route_name: admin.resourcepool.rackpart.list
+  weight: 1
+  
+admin.resourcepool.vlan.statistic:
+  title: 'VLAN使用数量统计'
+  parent: admin.resourcepool.rackpart
+  route_name: admin.resourcepool.vlan.statistic
+  weight: 2
+admin.rackpart.import:
+  title: '机柜配置导入'
+  parent: admin.resourcepool.rackpart
+  route_name: admin.rackpart.import
+  weight: 4
+admin.resource.hostip:
+  title: '交换机名和IP对应关系'
+  parent: admin.resourcepool.rackpart
+  route_name: admin.resource.hostip
+  weight: 5
+  
+#添加专线
+admin.resourcepool.businesslink:
+  title: '专线资源'
+  parent: system.admin_ddn_resourcepool
+  route_name: admin.resourcepool.businesslink
+  weight: 1
+
+admin.resourcepool.dedicatedres:
+  title: '基础专线资源'
+  parent: admin.resourcepool.businesslink
+  route_name: admin.resourcepool.dedicatedres
+  weight: 1
+admin.resourcepool.businesslist:
+  title: '专线客户产品信息'
+  parent: admin.resourcepool.businesslink
+  route_name: admin.resourcepool.businesslist
+  weight: 2
+admin.resourcepool.splitproduct:
+  title: '产品分段资源列表'
+  parent: admin.resourcepool.businesslink
+  route_name: admin.resourcepool.splitproduct
+  weight: 3
+admin.resourcepool.bwsubsection.list:
+  title: '共享带宽分段统计表'
+  parent: admin.resourcepool.businesslink
+  route_name: admin.resourcepool.bwsubsection.list
+  weight: 4
+
+admin.server.resource:
+  title: '国内服务器资源'
+  parent: system.admin_ddn_resourcepool
+  route_name: admin.server.resource
+  weight: 2
+
+admin.resource.serverconn.list:
+  title: '服务器基础资源'
+  parent: admin.server.resource
+  route_name: admin.resource.serverconn.list
+  weight: 1
+admin.resource.server.resource:
+  title: '服务器客户产品信息'
+  parent: admin.server.resource
+  route_name: admin.resource.server.resource
+  weight: 2
+  
+admin.resourcepool.generalinfo:
+  title: '综合信息'
+  parent: system.admin_ddn_resourcepool
+  route_name: admin.resourcepool.generalinfo
+  weight: 3
+  
+admin.resourcepool.contract.find:
+  title: '客户合同编号查询'
+  parent: admin.resourcepool.generalinfo
+  route_name: admin.resourcepool.contract.find
+  weight: 1
+admin.resourcepool.supplierlist:
+  title: '供应商资料'
+  parent: admin.resourcepool.generalinfo
+  route_name: admin.resourcepool.supplierlist
+  weight: 2
+

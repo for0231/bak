@@ -1,0 +1,38 @@
+id: tour-dialog
+label: 'Tour test dialog'
+langcode: en
+routes:
+  - route_name: test.dialog
+tips:
+  tour-dialog-1:
+    id: tour-dialog-1
+    plugin: text
+    label: '弹出层的实现方法'
+    body: '弱出层的三种应用场景，分对对应三个实例'
+    weight: 1
+  tour-dialog-2:
+    id: tour-dialog-2
+    plugin: text
+    label: '实现方法一'
+    body: '用js静态创建内容,代码请看test-dialog.js'
+    weight: 2
+    attributes:
+      data-id: edit-test1
+  tour-dialog-3:
+    id: tour-dialog-3
+    plugin: text
+    label: '实现方法二'
+    body: '用js动态创建内容,代码请看test-dialog.js'
+    weight: 3
+    attributes:
+      data-id: edit-test2
+  tour-dialog-4:
+    id: tour-dialog-4
+    plugin: text
+    label: '实现方法三'
+    body: '用php直接创建ajax请求路径来获取动态内容,代码请看testDialogForm.js'
+    weight: 4
+    attributes:
+      data-id: edit-test3
+
+

@@ -1,0 +1,6 @@
+name: ikcounter
+type: module
+description: 用于生成公司单据编号的计数器
+core: 8.x
+package: '采购管理系统-可用'
+

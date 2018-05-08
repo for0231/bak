@@ -1,0 +1,8 @@
+name: hostspace log
+type: module
+core: 8.x
+package: Hostspaces
+description: 'hostspace log'
+version: VERSION
+dependencies:
+  - user

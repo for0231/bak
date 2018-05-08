@@ -1,0 +1,5 @@
+admin.worksheet.room.export.remember:
+  route_name: admin.worksheet.room.export.remember
+  title: '导出备注'
+  appears_on:
+    - admin.worksheet.room.list

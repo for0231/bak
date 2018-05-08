@@ -1,0 +1,11 @@
+<?php
+/**
+ * Implements hook_page_bottom().
+ */
+function voice_page_bottom(&$page_bottom) {
+  $page_bottom['voice'] = array(
+    '#attached' => array(
+      'library' => array('voice/voice')
+     )
+  );
+}

@@ -1,0 +1,16 @@
+administer taxonomy_menu_page menu:
+  title: 'administer taxonomy_menu_page menu'
+administer taxonomy_menu_page enterprises menu:
+  title: 'administer enterprises menu'
+administer taxonomy_menu_page supply menu:
+  title: 'administer supply menu'
+administer taxonomy_menu_page unit menu:
+  title: 'administer unit menu'
+administer taxonomy_menu_page located menu:
+  title: 'administer located menu'
+administer taxonomy_menu_page ships menu:
+  title: 'administer ships menu'
+administer taxonomy_menu_page parts menu:
+  title: 'administer parts menu'
+administer taxonomy_menu_page add:
+  title: 'administer taxonomy_menu_page add'

@@ -1,0 +1,133 @@
+@charset "UTF-8";
+/* line 2, ../../../bag/sass/host/order/build-order-form.scss */
+.build-order .title {
+  border-bottom: 2px solid #CDD2D7;
+  color: #333333;
+  font-size: 16px;
+  height: 30px;
+  line-height: 30px;
+  width: 100%;
+}
+/* line 9, ../../../bag/sass/host/order/build-order-form.scss */
+.build-order .title b {
+  border-bottom: 2px solid #041E39;
+  color: #041E39;
+  float: left;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+}
+/* line 17, ../../../bag/sass/host/order/build-order-form.scss */
+.build-order .title p {
+  float: right;
+  font-size: 14px;
+}
+/* line 21, ../../../bag/sass/host/order/build-order-form.scss */
+.build-order .title label {
+  border-bottom: 2px solid #041E39;
+  color: #041E39;
+  float: left;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+}
+/* line 30, ../../../bag/sass/host/order/build-order-form.scss */
+.build-order div {
+  margin: 0;
+}
+/* line 33, ../../../bag/sass/host/order/build-order-form.scss */
+.build-order .form-item {
+  margin-top: 20px;
+}
+/* line 35, ../../../bag/sass/host/order/build-order-form.scss */
+.build-order .form-item input {
+  border: 1px solid #818E9C;
+  height: 30px;
+  line-height: 30px;
+  margin: 0 10px 0 0;
+  padding: 0 5px;
+  width: 300px;
+}
+/* line 43, ../../../bag/sass/host/order/build-order-form.scss */
+.build-order .form-item .description {
+  color: #FF4400;
+  line-height: 30px;
+}
+/* line 47, ../../../bag/sass/host/order/build-order-form.scss */
+.build-order .form-item table {
+  margin-top: 20px;
+  margin-bottom: 0;
+  background: none repeat scroll 0 0 #FFFFFF;
+  border: 1px solid #B9C6D4;
+}
+/* line 52, ../../../bag/sass/host/order/build-order-form.scss */
+.build-order .form-item table tr.even {
+  background: none repeat scroll 0 0 #FFF8E1;
+}
+/* line 55, ../../../bag/sass/host/order/build-order-form.scss */
+.build-order .form-item table th {
+  background: none repeat scroll 0 0 #E7E9EB;
+  color: #041E39;
+  font-size: 14px;
+  font-weight: bold;
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid #B9C6D4;
+  border-right: 1px solid #B9C6D4;
+}
+/* line 65, ../../../bag/sass/host/order/build-order-form.scss */
+.build-order .form-item table td {
+  border-bottom: 1px solid #B9C6D4;
+  border-right: 1px solid #B9C6D4;
+  text-align: center;
+}
+/* line 70, ../../../bag/sass/host/order/build-order-form.scss */
+.build-order .form-item table td.business-info {
+  text-align: left;
+}
+/* line 72, ../../../bag/sass/host/order/build-order-form.scss */
+.build-order .form-item table td.business-info p {
+  display: block;
+  line-height: 28px;
+  padding-left: 10px;
+}
+/* line 77, ../../../bag/sass/host/order/build-order-form.scss */
+.build-order .form-item table td.business-info label:after {
+  content: "：";
+}
+/* line 81, ../../../bag/sass/host/order/build-order-form.scss */
+.build-order .form-item table td.price {
+  color: #FF0000;
+  font-size: 14px;
+}
+/* line 87, ../../../bag/sass/host/order/build-order-form.scss */
+.build-order .build-bottom {
+  font-size: 14px;
+  height: 70px;
+  line-height: 70px;
+  text-align: right;
+  border-left: 1px solid #B9C6D4;
+  border-right: 1px solid #B9C6D4;
+  border-bottom: 1px solid #B9C6D4;
+}
+/* line 95, ../../../bag/sass/host/order/build-order-form.scss */
+.build-order .build-bottom div {
+  display: inline;
+}
+/* line 98, ../../../bag/sass/host/order/build-order-form.scss */
+.build-order .build-bottom .item label {
+  color: #FF0000;
+  font-size: 14px;
+}
+/* line 102, ../../../bag/sass/host/order/build-order-form.scss */
+.build-order .build-bottom input {
+  background: none repeat scroll 0 0 #FF4400;
+  color: #FFFFFF;
+  font-size: 18px;
+  height: 50px;
+  margin: 0 20px;
+  text-align: center;
+  width: 180px;
+  border-radius: 3px 3px 3px 3px;
+  border: medium none;
+}

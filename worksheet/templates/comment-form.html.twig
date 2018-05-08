@@ -1,0 +1,29 @@
+{#
+/**
+ * @file
+ * 创建故障工单表单
+ *
+ * Available variables:
+ * - form: 创建故障工单表单
+ *   - client: 联系人
+ *
+ */
+#}
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+<table class="detail-small">
+  <tr>
+    <td class="pingjia">
+    {{form.filters.if_question}}
+    {{form.filters.if_right}}
+    {{form.filters.if_deal}}
+    {{form.filters.if_quality}}
+    {{form.filters.performance}}
+    {{form.filters.comment_uid}}
+    </td>
+    <td>{{form.filters.comment_note}}</td>
+  </tr>
+</table>
+{{form.actions}}
+{{form.filters.submit}}

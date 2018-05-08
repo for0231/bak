@@ -1,0 +1,60 @@
+<?php
+
+/**
+ * @file
+ */
+
+use Drupal\Core\Field\BaseFieldDefinition;
+/**
+ * 增加一个财务组编号.
+ */
+function part_update_8002() {
+  $storage_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('财务组编号'))
+    ->setDescription(t('财务组编号.'));
+
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('caiwunos', 'part', 'part', $storage_definition);
+}
+
+/**
+ * @description 金额字段，精确到float类型
+ */
+function part_update_8003() {
+  // Create the definition for the field.
+  $new_field = [
+    'type' => 'float',
+    'precision' => 10,
+    'scale' => 2,
+  ];
+
+  db_change_field('part', 'unitprice', 'unitprice', $new_field);
+}
+
+/**
+ * @description 增加物流费用字段.
+ */
+function part_update_8004() {
+  $storage_definition = BaseFieldDefinition::create('float')
+    ->setLabel(t('物流费'))
+    ->setDefaultValue(0)
+    ->setDescription(t('物流费用.'));
+
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('wuliufee', 'part', 'part', $storage_definition);
+}
+
+/**
+ * @description 金额字段，精确到float类型
+
+function part_update_8005() {
+  // Create the definition for the field.
+  $new_field = [
+    'type' => 'float',
+    'precision' => 10,
+    'scale' => 2,
+  ];
+
+  db_change_field('part', 'wuliufee', 'wuliufee', $new_field);
+}
+ */

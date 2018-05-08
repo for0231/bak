@@ -1,0 +1,79 @@
+system.server:
+  path: 'admin/server'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Server library'
+  requirements:
+    _permission: 'administer server overview'
+
+admin.server_type:
+  path: 'admin/server/type'
+  defaults:
+    _entity_list: 'server_type'
+    _title: 'Server catalog list'
+  requirements:
+    _permission: 'administer server overview'
+
+admin.server_type.add_form:
+  path: 'admin/server/type/add'
+  defaults:
+    _entity_form: 'server_type.default'
+    _title: 'Add server catalog'
+  requirements:
+    _permission: 'administer server edit'
+
+entity.server_type.edit_form:
+  path: 'admin/server/type/{server_type}/edit'
+  defaults:
+    _entity_form: 'server_type.default'
+    _title: 'Edit Server catalog'
+  requirements:
+    _permission: 'administer server edit'
+
+entity.server_type.delete_form:
+  path: 'admin/server/type/{server_type}/delete'
+  defaults:
+    _entity_form: 'server_type.delete'
+    _title: 'Delete server catalog'
+  requirements:
+    _permission: 'administer server delete'
+
+entity.server_type.add_server_form:
+  path: 'admin/server/type/{server_type}/server/add'
+  defaults:
+    _entity_form: 'server_type.add_server'
+    _title: 'Add Server'
+  requirements:
+    _permission: 'administer server edit'
+
+server.overview:
+  path: '/admin/server/overview'
+  defaults:
+    _entity_list: 'server'
+    _title: 'Server list'
+  requirements:
+    _permission: 'administer server overview'
+
+entity.server.edit_form:
+  path: '/admin/server/overview/{server}/edit'
+  defaults:
+    _entity_form: 'server.default'
+    _title: 'Edit server'
+  requirements:
+    _permission: 'administer server edit'
+
+entity.server.delete_form:
+  path: '/admin/server/overview/{server}/delete'
+  defaults:
+    _entity_form: 'server.delete'
+    _title: 'Delete server'
+  requirements:
+    _permission: 'administer server delete'
+
+entity.server.details:
+  path: '/admin/server/details'
+  defaults:
+    _controller: '\Drupal\server\Controller\ServerController::serverDetails'
+    _title: 'Server detail'
+  requirements:
+    _permission: 'administer server overview'

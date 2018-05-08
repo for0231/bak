@@ -1,0 +1,13 @@
+.business-ip select {
+  width:200px;
+}
+.business-ip .form-item-ipb-values {
+  display: table-cell;
+  padding-right: 80px;
+}
+.business-ip .business-search {
+  display: table-cell;
+}
+.business-search .form-item-ipb-search-text {
+  display: inline;
+}

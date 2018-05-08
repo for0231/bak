@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function tip_theme() {
+  return [
+    'msg_list' => [
+      'template' => 'msg-list',
+      'variables' => ['entities_msg' => NULL],
+    ],
+  ];
+}
+
+/**
+ * Implements template_preprocess_Hook()
+ */
+function template_preprocess_msg_list(&$variables) {
+  $msgs = $variables['entities_msg'];
+
+  foreach ($msgs as $key => $val) {
+    $variables['entities_msg'][$key] = [
+      'id' => $val->id(),
+      'title' => $val->get('title')->value,
+      'content' => $val->get('content')->value,
+      'created' => $val->get('created')->value,
+    ];
+  }
+
+}

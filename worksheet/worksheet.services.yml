@@ -1,0 +1,21 @@
+services:
+  worksheet.redirectsubscriber:
+    class: Drupal\worksheet\EventSubscriber\RedirectSubscriber
+    arguments: ['@current_user', '@url_generator']
+    tags:
+      - { name: event_subscriber }
+  worksheet.type:
+    class: Drupal\worksheet\WorkSheetTypeService
+    arguments: ['@database']
+  worksheet.option:
+    class: Drupal\worksheet\WorksheetOptionService
+    arguments: ['@database']
+  worksheet.dbservice:
+    class: Drupal\worksheet\WorkSheetDbService
+    arguments: ['@database']
+  worksheet.statistic:
+    class: Drupal\worksheet\WorkSheetStatisticService
+    arguments: ['@database']
+  worksheet.date:
+    class: Drupal\worksheet\WorkSheetDateService
+    arguments: ['@database']

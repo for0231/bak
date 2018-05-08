@@ -1,0 +1,3 @@
+services:
+  voice.voice_server:
+    class: Drupal\voice\VoiceService

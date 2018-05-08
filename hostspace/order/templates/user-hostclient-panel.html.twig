@@ -1,0 +1,95 @@
+{#
+/*
+ * Available variables:
+ * - hostclient: 服务器信息.
+ */
+#}
+<div class="row">
+  <div class="col-xs-12">
+    <h1>HOSTSPACE控制台</h1>
+  </div>
+</div>
+
+</div>
+<div class="row">
+  <div class="col-xs-8">
+    <div class="row">
+      <div class="col-xs-4">
+        <div class="row">
+          <div class="col-xs-12">
+          <h3>Hi, <font color="#ff9933">{{ hostclient.username }}</font> 你好!</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+          <h3>服务器:<font color="#ff9933">{{ hostclient.server_code }}</font></h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-5">
+        <div class="row">
+          <div class="col-xs-12">
+            <h3>服务器操作</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="row">
+              <div class="col-xs-12">
+                <a href="#" target="_self">开机</a>&nbsp;&nbsp; &nbsp;&nbsp; <a href="#" target="_self">关机</a>&nbsp;&nbsp; &nbsp;&nbsp;   <a href="#" target="_self">重启服务器</a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <a href="#" target="_self">KVM控制台</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href="#" target="_self">故障申报</a> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-3">
+        <div class="row">
+          <div class="col-xs-12">
+            <h3>服务器信息</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            配置:<font color=#ff9933" size=3>{{ hostclient.product_name }}</font>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-4">
+    <div class="row">
+      <div class="col-xs-12">
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr>
+              <th colspan=2 class="bg-primary">业务IP</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in hostclient.ips %}
+            <tr>
+              <td scope="row">{{ loop.index }}</td>
+              <td>{{ i.ip }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12" style="text-align: center">
+    <a href="#" target="_self">返回上一页</a>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+name: Common
+type: module
+core: 8.x
+package: Hostspaces
+description: '基础模块'
+version: VERSION
+dependencies:
+  - taxonomy
+  - language
+  - locale
+  - editor
+  - ckeditor
+  - hostlog
+  - image

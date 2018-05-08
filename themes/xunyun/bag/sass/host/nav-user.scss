@@ -1,0 +1,74 @@
+#menubar,.menubar{
+  height: 63px;
+}
+.float-left-fix {
+  height: 60px;
+}
+#logo {
+  float: left;
+  margin-top: 5px;
+  img {
+    width: 60%;
+  }
+}
+#content {
+  font-family: Arial,Helvetica,sans-serif;
+  background: none repeat scroll 0 0 #FFFFFF;
+  border-left: 2px solid #EFEFEF;
+  padding: 25px;
+  width: 738px;
+}
+//==============会员中心主导航====================
+.menubar nav {
+  float: right;
+  height: 60px;
+  ul {
+    li {
+    	background:#021222;
+      a.is-active{
+        color:#ffc000;
+        &:hover {
+          color:#ffc000;
+        }
+      }
+    }
+    li{
+    	background:url(../../images/xian_01.png) right no-repeat;
+  	  width:120px;
+      height: 55px;
+    	float:left;
+    	text-align:center;
+      &:hover{
+        background:#021222;
+        a {
+          color:#ffc000;
+        }
+      }
+      a {
+      	color:#fff;
+      	font-size:18px;
+      	float:left;
+      	text-align:center;
+      	margin-top:20px;
+        width: 100%;
+      }
+      u {
+      	color:#ccc;
+      	font-size:10px;
+      	text-transform:uppercase;
+      }
+    }
+  }
+}
+#block-xunyun-branding > a {
+  color: white;
+  &:visited, &:focus, &:hover {
+    color: white;
+  }
+}
+#block-sitebranding > a {
+  color: white;
+  &:visited, &:focus, &:hover {
+    color: white;
+  }
+}

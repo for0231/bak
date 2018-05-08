@@ -1,0 +1,13 @@
+<div id="news_category">
+  <div class="title_02">栏目列表</div>
+  <ul class="lanmu_list">
+    {% set i = 1%}
+    {% for catg in categorys %}      
+      <li><a href="{{ catg.list_url }}"><img src="/{{ directory }}/images/icon_0{{ i }}.png">{{ catg.name }}</a></li>
+      {% if i == 9 %}
+        {% set i =0 %}
+      {% endif %}
+      {% set i=i+1%}
+    {% endfor %}
+  </ul>
+</div>

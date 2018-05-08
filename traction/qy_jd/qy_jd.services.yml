@@ -1,0 +1,4 @@
+services:
+  qy_jd.db_service:
+    class: Drupal\qy_jd\DbService
+    arguments: ['@database']

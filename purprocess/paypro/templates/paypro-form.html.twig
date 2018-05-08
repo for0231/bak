@@ -1,0 +1,100 @@
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+<table class="table table-bordered table-striped" style="clear: both">
+   <tbody>
+    <tr>
+     <td colspan=4><h6 class="text-primary">支付单信息</h6></td>
+    </tr>
+    <tr>
+      <td><strong>支付单据编号</strong></td>
+      <td>{{ form.no }}</td>
+      <td><strong>支付单名称</strong></td>
+      <td>{{ form.title }}</td>
+    </tr>
+    <tr>
+     <td colspan=4><h6 class="text-primary">申请人信息</h6></td>
+    </tr>
+    <tr>
+      <td><strong>申请人</strong></td>
+      <td>{{ member_info.name }}</td>
+     <td><strong>申请部门</strong></td>
+     <td>{{ member_info.depart }}</td>
+    </tr>
+    <tr>
+       <td><strong>所属公司</strong></td>
+     <td colspan=3>{{ member_info.company }}</td>
+    </tr>
+    <tr>
+      <td colspan=4><h6 class="text-primary">付款单列表</h6><font color=red>提示:下面付款单的币种或收款账号有异常时，可取消本支付单。</font></td>
+    </tr>
+     <tr>
+       <td colspan=4>
+        <!-- row -->
+        <div class="row">
+          <!-- NEW WIDGET START -->
+          <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <table id="payprodetails"></table>
+            <div id="payprodetailsnav"></div>
+          </article>
+          <!-- WIDGET END -->
+        </div>
+        <!-- end row -->
+       </td>
+     </tr>
+    <tr>
+     <td colspan=6><h6 class="text-primary">收付款信息</h6></td>
+    </tr>
+
+    <tr>
+      <td> <strong>付款银行</strong></td>
+      <td width=35%>{{ form.fbank }}</td>
+      <td colspan=1> <strong>币种</strong></td>
+      <td  width=35% colspan=1>{{ paypre.ftype }}</td>
+    </tr>
+    <tr>
+      <td> <strong>付款金额</strong></td>
+      <td>{{ form.amount }}</td>
+
+     <td><strong>金额</strong></td>
+     <td>{{ paypre.amount }}</td>
+ </tr>
+    <tr>
+      <td> <strong>付款账户</strong></td>
+      <td>{{ form.faccount }}</td>
+     <td><strong>大写</strong></td>
+     <td>{{ paypre.big_amount }}</td>
+    </tr>
+    <tr>
+      <td colspan=2></td>
+     <td><strong>收款账户名</strong></td>
+     <td>{{ paypre.acceptname }}</td>
+    </tr>
+    <tr>
+      <td colspan=2></td>
+     <td><strong>收款账号</strong></td>
+     <td>{{ paypre.acceptaccount }}</td>
+    </tr>
+    <tr>
+      <td colspan=2></td>
+     <td><strong>收款开户行</strong></td>
+     <td>{{ paypre.acceptbank }}</td>
+    </tr>
+    <tr>  <td> <strong>付款备注</strong></td>
+      <td colspan=3>{{ form.description }}</td>
+    </tr>
+    <tr>
+      <td colspan=4>
+				<!-- row -->
+				<div class="row">
+					<!-- NEW WIDGET START -->
+					<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+             {{ form.fid }}
+           </article>
+         </div>
+      </td>
+    </tr>
+   </tbody>
+  </table>
+  {{ form.actions }}
+    </tr>

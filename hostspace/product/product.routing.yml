@@ -1,0 +1,224 @@
+admin.product:
+  path: 'admin/product'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Product management'
+  requirements:
+    _permission: 'access administration product pages'
+
+admin.product.list:
+  path: 'admin/product/list'
+  defaults:
+    _entity_list: 'product'
+    _title: 'Product view'
+  requirements:
+    _permission: 'administer product view'
+
+entity.product.add_form:
+  path: 'admin/product/add'
+  defaults:
+    _entity_form: 'product.default'
+    _title: 'Add product'
+  requirements:
+    _permission: 'administer product edit'
+
+entity.product.edit_form:
+  path: 'admin/product/{product}/edit'
+  defaults:
+    _entity_form: 'product.default'
+    _title: 'Edit product'
+  requirements:
+    _permission: 'administer product edit'
+
+entity.product.edit_clone_form:
+  path: 'admin/product/{product}/clone'
+  defaults:
+    _entity_form: 'product.clone'
+    _title: 'Clone product and price settings'
+  requirements:
+    _permission: 'administer product edit'
+
+entity.product.delete_form:
+  path: 'admin/product/{product}/delete'
+  defaults:
+    _entity_form: 'product.delete'
+    _title: 'Edit product'
+  requirements:
+    _permission: 'administer product delete'
+
+admin.product.business:
+  path: 'admin/product/business'
+  defaults:
+    _entity_list: 'product_business'
+    _title: 'Product business view'
+  requirements:
+    _permission: 'administer product business view'
+
+entity.product_business.add_form:
+  path: 'admin/product/business/add'
+  defaults:
+    _entity_form: 'product_business.default'
+    _title: 'Add business'
+  requirements:
+    _permission: 'administer product business edit'
+
+entity.product_business.edit_form:
+  path: 'admin/product/business/{product_business}/edit'
+  defaults:
+    _entity_form: 'product_business.default'
+    _title: 'Edit business'
+  requirements:
+    _permission: 'administer product business edit'
+
+entity.product_business.delete_form:
+  path: 'admin/product/business/{product_business}/delete'
+  defaults:
+    _entity_form: 'product_business.delete'
+    _title: 'Edit business'
+  requirements:
+    _permission: 'administer product business edit'
+
+entity.product_business.content_form:
+  path: 'admin/product/business/{product_business}/content/add'
+  defaults:
+    _entity_form: 'product_business_content.default'
+    _title: 'Add business conent'
+  requirements:
+    _permission: 'administer product business edit'
+
+entity.product_business_content.edit_form:
+  path: 'admin/product/business/content/{product_business_content}/edit'
+  defaults:
+    _entity_form: 'product_business_content.default'
+    _title: 'Edit business conent'
+  requirements:
+    _permission: 'administer product business edit'
+
+entity.product_business_content.delete_form:
+  path: 'admin/product/business/content/{product_business_content}/delete'
+  defaults:
+    _entity_form: 'product_business_content.delete'
+    _title: 'Delete business conent'
+  requirements:
+    _permission: 'administer product business delete'
+
+entity.product_business.entity_content_form:
+  path: 'admin/product/business/{product_business}/entity/content/add'
+  defaults:
+    _entity_form: 'product_business_entity_content.default'
+    _title: 'Add business conent'
+  requirements:
+    _permission: 'administer product business edit'
+
+entity.product_business_entity_content.edit_form:
+  path: 'admin/product/business/entity/content/{product_business_entity_content}/edit'
+  defaults:
+    _entity_form: 'product_business_entity_content.default'
+    _title: 'Edit business conent'
+  requirements:
+    _permission: 'administer product business edit'
+
+entity.product_business_entity_content.delete_form:
+  path: 'admin/product/business/entity/content/{product_business_entity_content}/delete'
+  defaults:
+    _entity_form: 'product_business_entity_content.delete'
+    _title: 'Delete business conent'
+  requirements:
+    _permission: 'administer product business edit'
+
+admin.product.business_price:
+  path: 'admin/product/business_price'
+  defaults:
+    _entity_list: 'business_price'
+    _title: 'Business price view'
+  requirements:
+    _permission: 'administer product price view'
+
+entity.business_price.add_form:
+  path: 'admin/product/business_price/add'
+  defaults:
+    _entity_form: 'business_price.default'
+    _title: 'Add business price'
+  requirements:
+    _permission: 'administer product price edit'
+
+entity.business_price.edit_form:
+  path: 'admin/product/business_price/{business_price}/edit'
+  defaults:
+    _entity_form: 'business_price.default'
+    _title: 'Add business price'
+  requirements:
+    _permission: 'administer product price edit'
+
+entity.business_price.delete_form:
+  path: 'admin/product/business_price/{business_price}/delete'
+  defaults:
+    _entity_form: 'business_price.delete'
+    _title: 'Delete business price'
+  requirements:
+    _permission: 'administer product price delete'
+
+entity.product.price_view:
+  path: 'admin/product/{product}/price/list'
+  defaults:
+    _entity_list: 'product_price'
+    _title: 'Product price view'
+  requirements:
+    _permission: 'administer product price view'
+
+entity.product_price.add_form:
+  path: 'admin/product/{product}/price/add'
+  defaults:
+    _entity_form: 'product_price.default'
+    _title: 'Add product price'
+  requirements:
+    _permission: 'administer product price edit'
+
+entity.product_price.edit_form:
+  path: 'admin/product/price/{product_price}/edit'
+  defaults:
+    _entity_form: 'product_price.default'
+    _title: 'Edit product price'
+  requirements:
+    _permission: 'administer product price edit'
+
+entity.product_price.delete_form:
+  path: 'admin/product/price/{product_price}/delete'
+  defaults:
+    _entity_form: 'product_price.delete'
+    _title: 'Delete product price'
+  requirements:
+    _permission: 'administer product price delete'
+
+entity.product.business_price_view:
+  path: 'admin/product/{product}/business/price/list'
+  defaults:
+    _entity_list: 'product_business_price'
+    _title: 'Product business price view'
+  requirements:
+    _permission: 'administer product price view'
+
+entity.product_business_price.add_form:
+  path: 'admin/product/{product}/business/price/add'
+  defaults:
+    _entity_form: 'product_business_price.default'
+    _title: 'Add business price'
+  requirements:
+    _permission: 'administer product price edit'
+
+entity.product_business_price.delete_form:
+  path: 'admin/product/business/price/{product_business_price}/delete'
+  defaults:
+    _entity_form: 'product_business_price.delete'
+    _title: 'Delete business price'
+  requirements:
+    _permission: 'administer product price delete'
+
+server.product.list:
+  path: 'server'
+  defaults:
+    _controller: '\Drupal\product\Controller\ProductController::serverList'
+    _title: 'Server list'
+  requirements:
+    _access: 'TRUE'
+

@@ -1,0 +1,190 @@
+system.fw_manage:
+  path: '/admin/fw'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: '防火墙管理'
+  requirements:
+    _permission: 'access firewall admin'
+
+admin.fw.ip.shield:
+  path: 'admin/fw/ip/shield'
+  defaults:
+    _form: '\Drupal\fw_config\Form\IpShieldForm'
+    _title: 'IP防护管理'
+  requirements:
+    _permission: 'administer fw ip shield manage'
+
+admin.fw.ip.shield.query:
+  path: 'admin/fw/ip/shield/query'
+  defaults:
+    _controller: '\Drupal\fw_config\Controller\ShieldController::shieldQuery'
+    _title: 'IP防护查询'
+  requirements:
+    _permission: 'administer fw ip shield filter'
+
+admin.fw.ip.shield.save:
+  path: 'admin/fw/ip/shield/save'
+  defaults:
+    _controller: '\Drupal\fw_config\Controller\ShieldController::shieldSave'
+    _title: 'IP防护保存'
+  requirements:
+    _permission: 'administer fw ip shield manage'
+
+admin.fw.ip.shield.multiple:  
+  path: 'admin/fw/ip/shield/multiple'
+  defaults:
+    _form: '\Drupal\fw_config\Form\IpShieldMultipleForm'
+    _title: '批量IP防护操作'
+  requirements:
+    _permission: 'administer fw ip shield manage'
+
+admin.fw.ip.shield.filter:
+  path: 'admin/fw/ip/shield/filter'
+  defaults:
+    _controller: '\Drupal\fw_config\Controller\ShieldController::shieldFilter'
+    _title: 'IP防护查询'
+  requirements:
+    _permission: 'administer fw ip shield filter'
+    
+admin.fw.fblink.list:
+  path: 'admin/fw/fblink/list'
+  defaults:
+    _controller: '\Drupal\fw_config\Controller\ShieldController::fblinkList'
+    _title: '屏弊列表'
+  requirements:
+    _permission: 'administer fw ip fblink list'
+
+admin.fw.fblink.query:
+  path: 'admin/fw/fblink/query'
+  defaults:
+    _controller: '\Drupal\fw_config\Controller\ShieldController::fblinkQuery'
+    _title: '屏弊查询'
+  requirements:
+    _permission: 'administer fw ip fblink list'
+
+admin.fw.fblink.reset:
+  path: 'admin/fw/fblink/reset'
+  defaults:
+    _controller: '\Drupal\fw_config\Controller\ShieldController::fblinkReset'
+    _title: '屏弊重置'
+  requirements:
+    _permission: 'administer fw ip fblink list'
+
+admin.fw.config:
+  path: 'admin/fw/config'
+  defaults:
+    _form: '\Drupal\fw_config\Form\FwConfigForm'
+    _title: '防火墙配置'
+  requirements:
+    _permission: 'administer fw config'
+
+admin.fw.ip.library:
+  path: 'admin/fw/ip/library'
+  defaults:
+    _controller: '\Drupal\fw_config\Controller\ShieldController::ipLibrary'
+    _title: '更新IP库'
+  requirements:
+    _permission: 'administer fw ip library'
+
+admin.fw.log.list:
+  path: 'admin/fw/log'
+  defaults:
+    _controller: '\Drupal\fw_config\Controller\ShieldController::logList'
+    _title: '日志管理'
+  requirements:
+    _permission: 'administer fw log'
+
+admin.fw.log.info:
+  path: 'admin/fw/log/{event_id}'
+  defaults:
+    _controller: '\Drupal\dblog\Controller\DbLogController::eventDetails'
+    _title: '明细'
+  requirements:
+    _permission: 'administer fw log'
+
+admin.fw.conmon.list:
+  path: 'admin/fw/conmon/list'
+  defaults:
+    _controller: '\Drupal\fw_config\Controller\ShieldController::conmonList'
+    _title: '连接监控列表'
+  requirements:
+    _permission: 'administer fw ip conmon list'
+
+admin.fw.conmon.query:
+  path: 'admin/fw/conmon/query'
+  defaults:
+    _controller: '\Drupal\fw_config\Controller\ShieldController::conmonQuery'
+    _title: '连接监控查询'
+  requirements:
+    _permission: 'administer fw ip conmon list'
+
+admin.fw.rule.list:
+  path: 'admin/fw/rule'
+  defaults:
+    _controller: '\Drupal\fw_config\Controller\ShieldController::ruleList'
+    _title: '规则列表'
+  requirements:
+    _permission: 'administer fw ip rule list'
+
+admin.fw.rule.add:
+  path: 'admin/fw/rule/add'
+  defaults:
+    _form: '\Drupal\fw_config\Form\RuleAddForm'
+    _title: '规则新增'
+  requirements:
+    _permission: 'administer fw ip rule list'
+
+admin.fw.rule.delete:
+  path: 'admin/fw/rule/delete'
+  defaults:
+    _controller: '\Drupal\fw_config\Controller\ShieldController::ruleDelete'
+    _title: '规则删除'
+  requirements:
+    _permission: 'administer fw ip rule list'
+
+admin.fw.message.insert:
+  path: 'admin/fw/message/insert'
+  defaults:
+    _form: '\Drupal\fw_config\Form\MessageAddForm'
+    _title: '报文捕捉'
+  requirements:
+    _permission: 'administer fw message add'
+
+admin.fw.hostpolicy.list:
+  path: 'admin/fw/hostpolicy'
+  defaults:
+    _controller: '\Drupal\fw_config\Controller\ShieldController::hostpolicyList'
+    _title: '主机策略列表'
+  requirements:
+    _permission: 'administer fw hostpolicy list'
+    
+admin.fw.hostpolicy.delete:
+  path: 'admin/fw/hostpolicy/delete'
+  defaults:
+    _controller: '\Drupal\fw_config\Controller\ShieldController::hostpolicyDelete'
+    _title: '主机策略删除'
+  requirements:
+    _permission: 'administer fw hostpolicy list'
+admin.fw.hostpolicy.add:
+  path: 'admin/fw/hostpolicy/add'
+  defaults:
+    _form: '\Drupal\fw_config\Form\hostpolicyAddForm'
+    _title: '主机策略新增'
+  requirements:
+    _permission: 'administer fw hostpolicy list'
+    
+admin.fw.hostpolicy.tongbu:
+  path: 'admin/fw/hostpolicy/tongbu'
+  defaults:
+    _controller: '\Drupal\fw_config\Controller\ShieldController::hostpolicyTongbu'
+    _title: '工单同步全部策略到web'
+  requirements:
+    _permission: 'administer fw hostpolicy list'
+    
+admin.fw.hostpolicy.synctoworksheet:
+  path: 'admin/fw/hostpolicy/synctoworksheet'
+  defaults:
+    _controller: '\Drupal\fw_config\Controller\ShieldController::synctoWorksheet'
+    _title: 'web同步全部策略到工单'
+  requirements:
+    _permission: 'administer fw hostpolicy list'

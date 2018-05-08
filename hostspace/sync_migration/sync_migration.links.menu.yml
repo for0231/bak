@@ -1,0 +1,5 @@
+admin.sync.hostclient:
+  title: Sync hostclient 
+  parent: system.admin_common
+  route_name: admin.sync.hostclient
+  weight: 3

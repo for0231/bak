@@ -1,0 +1,23 @@
+system.admin_common:
+  path: '/admin/common'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Common'
+  requirements:
+    _permission: 'access administration common pages'
+
+common.area.import:
+  path: '/admin/comon/area/import'
+  defaults:
+    _controller: 'Drupal\common\Controller\CommonAreaController::import'
+    _title: 'Import the area data'
+  requirements:
+    _permission: 'administer area import'
+
+common.global_settings:
+  path: '/admin/common/global_settings'
+  defaults:
+    _form: 'Drupal\common\Form\GlobalSettings'
+    _title: 'Global settings'
+  requirements:
+    _permission: 'administer global settings'

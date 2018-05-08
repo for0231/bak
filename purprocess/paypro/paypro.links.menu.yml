@@ -1,0 +1,35 @@
+entity.paypro.admin:
+  title: 支付单
+  parent: system.admin
+  route_name: entity.paypro.admin
+  weight: -70
+entity.paypro.collection:
+  title: 支付单工作台
+  parent: entity.paypro.admin
+  route_name: entity.paypro.collection
+  weight: 2
+# 临时取消显示
+#entity.paypro.statistic.collection:
+#  title: 支付单工作台
+#  parent: entity.paypro.admin
+#  route_name: entity.paypro.statistic.collection
+#  weight: 5
+
+entity.paypro.history.collection:
+  title: 历史支付单
+  parent: entity.paypro.admin
+  route_name: entity.paypro.history.collection
+  weight: 6
+
+entity.paypro.audit.history.collection:
+  title: 历史审批支付单
+  parent: entity.paypro.admin
+  route_name: entity.paypro.audit.history.collection
+  weight: 8
+
+
+entity.paypro.pools.collection:
+  title: 付款池
+  parent: entity.paypro.admin
+  route_name: entity.paypro.pools.collection
+  weight: 2

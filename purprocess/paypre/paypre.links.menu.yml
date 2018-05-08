@@ -1,0 +1,23 @@
+entity.paypre.admin:
+  title: 付款单
+  parent: system.admin
+  route_name: entity.paypre.admin
+  weight: -90
+
+entity.paypre.collection:
+  title: 付款单工作台
+  parent: entity.paypre.admin
+  route_name: entity.paypre.collection
+  weight: 2
+
+entity.paypre.history.collection:
+  title: 历史付款单
+  parent: entity.paypre.admin
+  route_name: entity.paypre.history.collection
+  weight: 6
+
+entity.paypre.audit.history.collection:
+  title: 历史审批付款单
+  parent: entity.paypre.admin
+  route_name: entity.paypre.audit.history.collection
+  weight: 6

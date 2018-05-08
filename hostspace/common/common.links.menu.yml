@@ -1,0 +1,19 @@
+system.admin_common:
+  title: Common
+  parent: system.admin
+  route_name: system.admin_common
+  weight: -145
+
+common.area.import:
+  title: Area
+  description: 'All area data import'
+  parent: system.admin_common
+  route_name: common.area.import
+  weight: 1
+
+common.global_settings:
+  title: 'Global setting'
+  description: 'Global setting'
+  parent: system.admin_common
+  route_name: common.global_settings
+  weight: 2

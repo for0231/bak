@@ -1,0 +1,18 @@
+member.employee.user.admin_create:
+  title: 'Add user'
+  route_name: user.admin_create
+  appears_on:
+    - member.employee.admin
+
+member.entity.taxonomy_vocabulary.overview_form:
+  title: 'Department management'
+  route_name: entity.taxonomy_vocabulary.overview_form
+  route_parameters: {taxonomy_vocabulary: dept_employee}
+  appears_on:
+    - member.employee.admin
+    
+member.client.user.admin_create:
+  title: 'Add user'
+  route_name: user.admin_create
+  appears_on:
+    - member.client.admin

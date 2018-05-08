@@ -1,0 +1,70 @@
+system.admin_published:
+  path: '/admin/published'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Website publishing system'
+  requirements:
+    _permission: 'access administration published pages'
+
+system.admin_news:
+  path: '/admin/published/news'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'News system'
+  requirements:
+    _permission: 'access administration published pages'
+
+system.admin_article:
+  path: '/admin/published/article'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Article system'
+  requirements:
+    _permission: 'access administration published pages'
+published.news.category:
+  path: '/admin/news/directory'
+  defaults:
+    _form: '\Drupal\published_information\Form\DirectoryForm'
+    d_type: 'news'
+    _title: 'News Directory'
+  requirements:
+    _permission: 'access administration published pages'
+
+published.article.category:
+  path: '/admin/article/directory'
+  defaults:
+    _form: '\Drupal\published_information\Form\DirectoryForm'
+    d_type: 'article'
+    _title: 'News Directory'
+  requirements:
+    _permission: 'access administration published pages'
+
+published.admin.article.list:
+  path: '/admin/article/list'
+  defaults:
+    _form: '\Drupal\published_information\PublishListBuilder'
+    node_type: 'articles'
+    _title: 'Article list'
+  requirements:
+    _permission: 'access administration published pages'
+
+published.admin.news.list:
+  path: '/admin/news/list'
+  defaults:
+    _form: '\Drupal\published_information\PublishListBuilder'
+    node_type: 'news'
+    _title: 'News list'
+  requirements:
+    _permission: 'access administration published pages'
+
+#=============前台===============
+
+published.front.list:
+  path: '/publish/{node_type}/{p_category}'
+  defaults:
+    _controller: '\Drupal\published_information\Controller\PublishSystemController::PublishList'
+    node_type: null 
+    p_category: null #目录
+    _title: 'News list.'
+  requirements:
+    _access: 'TRUE'

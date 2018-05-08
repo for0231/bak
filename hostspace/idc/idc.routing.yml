@@ -1,0 +1,160 @@
+admin.idc:
+  path: 'admin/idc'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Room'
+  requirements:
+    _permission: 'access administration idc pages'
+
+admin.idc.room:
+  path: 'admin/idc/room'
+  defaults:
+    _entity_list: 'room'
+    _title: 'View room list'
+  requirements:
+    _permission: 'administer idc room view'
+
+entity.room.add_form:
+  path: 'admin/idc/room/add'
+  defaults:
+    _entity_form: 'room.default'
+    _title: 'Add room'
+  requirements:
+    _permission: 'administer idc room edit'
+
+entity.room.edit_form:
+  path: 'admin/idc/room/{room}/edit'
+  defaults:
+    _entity_form: 'room.default'
+    _title: 'Edit room '
+  requirements:
+    _permission: ' administer idc room edit'
+
+entity.room.delete_form:
+  path: 'admin/idc/room/{room}/delete'
+  defaults:
+    _entity_form: 'room.delete'
+    _title: 'Delete room'
+  requirements:
+    _permission: 'administer idc room delete'
+
+entity.room.loke_over:
+  path: 'admin/idc/room/{room}/cabinet'
+  defaults:
+    _controller: '\Drupal\idc\Controller\RoomCabinetController::viewCabinet'
+    _title: 'View cabinet list'
+  requirements:
+    _permission: 'administer idc room view'
+
+entity.room_cabinet.add_form:
+  path: 'admin/idc/cabinet/add'
+  defaults:
+    _entity_form: 'room_cabinet.default'
+    _title: 'Add cabinet'
+  requirements:
+    _permission: 'administer idc room edit'
+
+entity.room_cabinet.edit_form:
+  path: 'admin/idc/cabinet/{room_cabinet}/edit'
+  defaults:
+    _entity_form: 'room_cabinet.default'
+    _title: 'Edit cabinet'
+  requirements:
+    _permission: 'administer idc room edit'
+
+entity.room_cabinet.delete_form:
+  path: 'admin/idc/cabinet/{room_cabinet}/delete'
+  defaults:
+    _entity_form: 'room_cabinet.delete'
+    _title: 'Delete cabinet'
+  requirements:
+    _permission: 'administer idc room delete'
+
+admin.idc.cabinet.seat:
+  path: 'admin/idc/cabinet/{room_cabinet}/seat'
+  defaults:
+    _controller: '\Drupal\idc\Controller\RoomCabinetController::viewSeat'
+    _title: 'View server list'
+  requirements:
+    _permission: 'administer idc room view'
+
+admin.idc.cabinet.seat.server.add:
+  path: 'admin/idc/cabinet/{room_cabinet}/seat/{seat}/server/add'
+  defaults:
+    _entity_form: 'cabinet_server.default'
+    _title: 'Add server'
+  requirements:
+    _permission: 'administer idc room edit'
+
+admin.idc.cabinet.seat.group.add:
+  path: 'admin/idc/cabinet/{room_cabinet}/seat/{seat}/group/add'
+  defaults:
+    _entity_form: 'cabinet_server.group'
+    _title: 'Add Group'
+  requirements:
+    _permission: 'administer idc room edit'
+
+admin.idc.cabinet.seat.group.server:
+  path: 'admin/idc/cabinet/{room_cabinet}/group/{group_id}/server'
+  defaults:
+    _entity_form: 'cabinet_server.groupserver'
+    _title: 'Add server'
+  requirements:
+    _permission: 'administer idc room edit'
+
+admin.idc.seat.server.delete:
+  path: 'admin/idc/seat/server/{cabinet_server}/delete'
+  defaults:
+    _entity_form: 'cabinet_server.delete'
+    _title: 'Delete server'
+  requirements:
+    _permission: 'administer idc room delete'
+
+admin.idc.seat.server.group:
+  path: 'admin/idc/seat/server/group/{groupId}'
+  defaults:
+    _form: '\Drupal\idc\Form\ServerGroupForm'
+    _title: 'Server Group list'
+  requirements:
+    _permission: 'administer idc room delete'
+
+admin.idc.seat.server.move:
+  path: 'admin/idc/seat/server/{cabinet_server}/move'
+  defaults:
+    _form: '\Drupal\idc\Form\CabinetServerMoveForm'
+    _title: 'Move machine'
+  requirements:
+    _permission: 'administer idc room edit'
+
+admin.idc.cabinet.server.detail:
+  path: 'admin/idc/cabinet/server/{cabinet_server}/detail'
+  defaults:
+    _controller: '\Drupal\idc\Controller\RoomCabinetController::CabinetServerDetail'
+    _title: 'Server Detail'
+  requirements:
+    _permission: 'administer idc room view'
+
+admin.idc.cabinet.seat.switch.add:
+  path: 'admin/idc/cabinet/{room_cabinet}/seat/{seat}/switch/add'
+  defaults:
+    _entity_form: 'cabinet_switch.default'
+    _title: 'Add switch'
+  requirements:
+    _permission: 'administer idc room edit'
+
+admin.idc.seat.switch.delete:
+  path: 'admin/idc/seat/switch/{cabinet_switch}/delete'
+  defaults:
+    _entity_form: 'cabinet_switch.delete'
+    _title: 'Delete switch'
+  requirements:
+    _permission: 'administer idc room delete'
+
+admin.idc.server.stat:
+  path: 'admin/idc/server/stat'
+  defaults:
+    _form: '\Drupal\idc\Form\CabinetServerStatForm'
+    _title: 'Server stat list'
+  requirements:
+    _permission: 'administer idc server stat'
+

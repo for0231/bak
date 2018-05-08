@@ -1,0 +1,26 @@
+administer peoject add:
+  title: 'administer peoject add'
+
+administer project list:
+  title: 'administer project list'
+
+administer peoject delete:
+  title: 'administer peoject delete'
+
+access administration contract pages:
+  title: 'access administration contract pages'
+
+administer contract add:
+  title: 'administer contract add'
+
+administer contract list:
+  title: 'administer contract list'
+
+administer contratc client add:
+  title: 'administer contratc client add'
+
+administer contratc client list:
+  title: 'administer contratc client list'
+
+administer contratc client delete:
+  title: 'administer contratc client delete'

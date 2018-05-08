@@ -1,0 +1,192 @@
+/* line 2, ../../bag/sass/block/block.scss */
+#block-tips {
+  font-family: "Microsoft YaHei";
+  font-size: 12px;
+  height: 38px;
+  line-height: 38px;
+}
+/* line 8, ../../bag/sass/block/block.scss */
+#block-tips i, #block-tips u {
+  color: #A7A7A7;
+  margin: 0 5px;
+}
+/* line 12, ../../bag/sass/block/block.scss */
+#block-tips i {
+  font-style: normal;
+}
+/* line 15, ../../bag/sass/block/block.scss */
+#block-tips a {
+  font-family: "Microsoft YaHei";
+  font-size: 12px;
+  color: #333;
+  text-decoration: none;
+}
+/* line 20, ../../bag/sass/block/block.scss */
+#block-tips a:hover {
+  color: #f22e00;
+  text-decoration: underline;
+}
+/* line 24, ../../bag/sass/block/block.scss */
+#block-tips a u {
+  color: #f22e00;
+}
+
+/* line 29, ../../bag/sass/block/block.scss */
+#block-tips-top {
+  height: 30px;
+  line-height: 30px;
+  text-align: right;
+}
+/* line 33, ../../bag/sass/block/block.scss */
+#block-tips-top a, #block-tips-top u {
+  text-decoration: none;
+}
+/* line 36, ../../bag/sass/block/block.scss */
+#block-tips-top a {
+  color: #041e39;
+  font-size: 14px;
+  margin: 0 5px;
+}
+/* line 40, ../../bag/sass/block/block.scss */
+#block-tips-top a:hover {
+  text-decoration: underline;
+}
+/* line 44, ../../bag/sass/block/block.scss */
+#block-tips-top .yinwen {
+  border: 1px solid #041e39;
+  margin: 0 10px;
+  padding: 2px 10px;
+}
+/* line 48, ../../bag/sass/block/block.scss */
+#block-tips-top .yinwen:hover {
+  border: 1px solid #ee330a;
+  color: #ee330a;
+  text-decoration: none;
+}
+
+/* line 56, ../../bag/sass/block/block.scss */
+#contact-us {
+  width: 100%;
+}
+/* line 58, ../../bag/sass/block/block.scss */
+#contact-us .title {
+  background: url("../../images/title_03.png") repeat-x scroll 0 0 transparent;
+  border-radius: 3px 3px 0 0;
+  color: #fff;
+  float: left;
+  font-size: 14px;
+  font-weight: bold;
+  height: 40px;
+  line-height: 40px;
+  padding-left: 20px;
+  width: 100%;
+}
+/* line 70, ../../bag/sass/block/block.scss */
+#contact-us .lianxi_list {
+  background: none repeat scroll 0 0 #fff;
+  border: 1px solid #cdd2d7;
+  float: left;
+  padding: 10px;
+  width: 100%;
+}
+/* line 76, ../../bag/sass/block/block.scss */
+#contact-us .lianxi_list p {
+  border-bottom: 1px dotted #ccc;
+  font-size: 14px;
+  line-height: 24px;
+  margin: 10px 0;
+}
+
+/* line 86, ../../bag/sass/block/block.scss */
+.title_02 {
+  background: url("../../images/title_03.png") repeat-x scroll 0 0 transparent;
+  border-radius: 3px 3px 0 0;
+  color: #FFFFFF;
+  float: left;
+  font-size: 14px;
+  font-weight: bold;
+  height: 40px;
+  line-height: 40px;
+  padding-left: 20px;
+  width: 230px;
+  margin: 0 0 0 10px;
+}
+
+/* line 100, ../../bag/sass/block/block.scss */
+#news_category {
+  width: 100%;
+}
+/* line 102, ../../bag/sass/block/block.scss */
+#news_category .lanmu_list {
+  background: none repeat scroll 0 0 #FFFFFF;
+  border: 1px solid #CDD2D7;
+  float: left;
+  width: 248px;
+}
+/* line 107, ../../bag/sass/block/block.scss */
+#news_category .lanmu_list li {
+  border-bottom: 1px solid #CDD2D7;
+  height: 36px;
+  line-height: 36px;
+  width: 100%;
+  list-style-type: none;
+  margin: 0;
+}
+/* line 115, ../../bag/sass/block/block.scss */
+#news_category .lanmu_list li a {
+  color: #041E39;
+  font-size: 14px;
+  margin-left: 10px;
+}
+/* line 119, ../../bag/sass/block/block.scss */
+#news_category .lanmu_list li a img {
+  height: 18px;
+  margin: 0 5px;
+  width: 18px;
+}
+/* line 125, ../../bag/sass/block/block.scss */
+#news_category .lanmu_list li a:hover {
+  color: #041E39;
+  font-weight: bold;
+}
+
+/* line 134, ../../bag/sass/block/block.scss */
+.blank20 {
+  clear: both;
+  height: 20px;
+  overflow: hidden;
+  width: auto;
+}
+
+/* line 140, ../../bag/sass/block/block.scss */
+#recommend_message {
+  width: 100%;
+}
+/* line 142, ../../bag/sass/block/block.scss */
+#recommend_message .neirong_list {
+  padding: 10px;
+  width: 228px;
+  background: none repeat scroll 0 0 #FFFFFF;
+  border: 1px solid #CDD2D7;
+  float: left;
+}
+/* line 148, ../../bag/sass/block/block.scss */
+#recommend_message .neirong_list li {
+  border-bottom: 1px dotted #CCCCCC;
+  margin-top: 10px;
+  list-style-type: none;
+}
+/* line 152, ../../bag/sass/block/block.scss */
+#recommend_message .neirong_list li h3 a {
+  color: #041E39;
+  font-size: 14px;
+  height: 30px;
+  line-height: 30px;
+}
+/* line 158, ../../bag/sass/block/block.scss */
+#recommend_message .neirong_list li p {
+  font-size: 14px;
+  height: 72px;
+  line-height: 24px;
+  overflow: hidden;
+}

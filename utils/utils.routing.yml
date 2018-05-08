@@ -1,0 +1,79 @@
+system.admin_utils:
+  path: 'admin/utils'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: '实用工具'
+  requirements:
+    _permission: 'access utils admin'
+
+admin.utils.network.config:
+  path: 'admin/utils/network/config'
+  defaults:
+    _form: '\Drupal\utils\Form\NetworkConfigForm'
+    _title: '网络配置'
+  requirements:
+    _permission: 'administer utils network config'
+    
+admin.utils.network.config.logs:
+  path: 'admin/utils/network/config/logs'
+  defaults:
+    _controller: '\Drupal\utils\Controller\NetworkConfigController::logView'
+    _title: '配置日志'
+  requirements:
+    _permission: 'administer utils network config logs'
+
+admin.utils.port.config:
+  path: 'admin/rackpartlist/utils/port/config'
+  defaults:
+    _form: '\Drupal\utils\Form\PortConfigForm'
+    _title: '端口配置'
+  requirements:
+    _permission: 'administer utils port config'
+
+admin.utils.port.config.broadband:
+  path: 'admin/utils/port/config/broadband'
+  defaults:
+    _form: '\Drupal\utils\Form\PortBroadbandForm'
+    _title: '调整带宽'
+  requirements:
+    _permission: 'administer utils port config'
+    
+admin.utils.port.config.vlan:
+  path: 'admin/utils/port/config/vlan'
+  defaults:
+    _form: '\Drupal\utils\Form\PortVlanForm'
+    _title: '调整Vlan'
+  requirements:
+    _permission: 'administer utils port config'
+    
+admin.utils.port.config.switchport:
+  path: 'admin/utils/port/config/switchport'
+  defaults:
+    _form: '\Drupal\utils\Form\PortSwitchForm'
+    _title: '开关端口'
+  requirements:
+    _permission: 'administer utils port config'
+    
+admin.utils.port.config.shield:
+  path: 'admin/utils/port/config/shield'
+  defaults:
+    _form: '\Drupal\utils\Form\PortShieldForm'
+    _title: '源防护'
+  requirements:
+    _permission: 'administer utils port config'
+
+admin.utils.port.config.desc:
+  path: 'admin/utils/port/config/desc'
+  defaults:
+    _form: '\Drupal\utils\Form\PortDescForm'
+    _title: '描述'
+  requirements:
+    _permission: 'administer utils port config'
+    
+admin.utils.port.config.save:
+  path: 'admin/utils/port/config/save'
+  defaults:
+    _controller: '\Drupal\utils\Controller\NetworkConfigController::saveConfig'
+    _title: '保存'
+  requirements:
+    _permission: 'administer utils port config'

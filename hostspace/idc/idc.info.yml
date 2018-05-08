@@ -1,0 +1,10 @@
+name: IDC Room
+type: module
+core: 8.x
+package: Hostspaces
+description: 'IDC Room Management'
+version: VERSION
+dependencies:
+  - server
+  - ip
+  - image

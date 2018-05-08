@@ -1,0 +1,43 @@
+{#
+/**
+ * @file
+ * 我的故障列表 
+ * 
+ *  Available variables:
+ *   -question_list:
+ *   -header: 
+ */
+#}
+<table cellspacing="0" cellpadding="0" class="goumai_biaodan">
+        <tbody>
+          <tr class="goumai_beijing">
+            <td>{{ 'Number'|t }}</td>
+            <td>{{ 'IP'|t }}</td>
+            <td>{{ 'Problem'|t }}</td>
+            <td>{{ 'Status'|t }}</td>
+            <td>{{ 'Declare time '|t }}</td>
+            <td>{{ 'Operation'|t }}</td>
+          </tr>
+           {% if question_list %}
+             {% set i = 1 %}
+             {% for question in question_list %}
+               <tr>
+                 <td>{{ i }}</td>
+                 <td>{{ question.category }}</td>
+                 <td>{{ question.ip }}</td>
+                 <td>{{ question.status_label }}</td>
+                 <td>{{ question.created_label }}</td>
+                 <td>{{ question.detail_url }}</td>
+              </tr>
+             {% set i = i+1 %}
+             {% endfor %}
+           {% else %}
+      <tr>
+        <td colspan=6> {{ 'There is no data to show!'|t }}</td>
+      </tr>
+    {% endif %}         
+    </tbody>
+  </table>
+
+
+

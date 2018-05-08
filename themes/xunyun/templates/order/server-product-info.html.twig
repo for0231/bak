@@ -1,0 +1,35 @@
+{#
+/*
+ * Available variables:
+ * - form: The confirm form.
+ */
+#}
+
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+<div class='content-left'>
+  <div class='title'>{{form.product_name}}</div>
+  <div class= 'one'>
+    {{form.parameters}}
+  </div>
+  <div class='title'><label>{{'Server description'|t}}</label></div>
+  <div class = "two">
+    {{form.description}}
+  </div>
+  {% if form.room_name %}
+  <div class='title'><label>{{'所属机房'|t}}</label></div>
+  <div class="three">
+    {{ form.room_name }}
+  </div>
+  {% endif %}
+</div>
+<div class='content-right'>
+  <div class='title'><label>{{'Price'|t}}</label></div>
+  <div class= "price">
+    {{form.price}}
+  </div>
+  <div class="blank20"></div>
+ {{form.op}}
+</div>
+<div class="clearfix cfie"></div>

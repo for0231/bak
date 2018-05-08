@@ -1,0 +1,10 @@
+services:
+  operation.log:
+    class: Drupal\hostlog\OperationLogService
+    arguments: ['@database']
+  operation.reminder:
+    class: Drupal\hostlog\OperationReminderService
+    arguments: ['@database', '@config.factory']
+  operation.entity_notification.subscriber:
+    class: Drupal\hostlog\OperationEntityNotificationSubscriber
+    arguments: ['@config.factory']

@@ -1,0 +1,165 @@
+<?php
+/**
+ * @file
+ * Bootstrap sub-theme.
+ *
+ * Place your custom PHP code in this file.
+ */
+
+use Drupal\Component\Utility\UrlHelper;
+
+/**
+ * Implements hook_preprocess_HOOK() for HTML document templates.
+ *
+ * Adds body classes if certain regions have content.
+ */
+function workin_preprocess_html(&$variables) {
+  // Attach favicon.
+  /*
+  if (theme_get_setting('features.favicon')) {
+    $favicon = theme_get_setting('favicon.url');
+    $type = theme_get_setting('favicon.mimetype');
+    $page['#attached']['html_head_link'][][] = array(
+      'rel' => 'shortcut icon',
+      'href' => UrlHelper::stripDangerousProtocols($favicon),
+      'type' => $type,
+    );
+    $page['#attached']['html_head_link'][][] = array(
+      'rel' => 'icon',
+      'href' => UrlHelper::stripDangerousProtocols($favicon),
+      'type' => $type,
+    );
+  }*/
+  //**/
+  //dpr($variables);
+  $version = 818;
+  $meta_smart = array(
+    'system_meta_generator' => array(
+      '#type' => 'html_tag',
+      '#tag' => 'meta',
+      '#attributes' => array(
+        'name' => 'Generator',
+        'content' => 'Drupal Enterprise' . $version . ' (https://www.drupal.org)',
+      ),
+    ),
+    'smart_meta_author' => array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        'name' => 'author',
+        'content' => 'Smart theme',
+      ),
+      '#weight' => -800,
+    ),
+    'meta_smart_description' => array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        'name' => 'description',
+        'content' => 'Smart theme descripion',
+      ),
+      '#weight' => -800,
+    ),
+    'viewport' => array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        'name' => 'viewport',
+        'content' => 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
+      ),
+      '#weight' => -800,
+    ),
+    // Start		<!-- iOS web-app metas : hides Safari UI Components and Changes Status Bar Appearance -->
+    'meta_apple_mobile_web_app_capable' => array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        'name' => 'apple-mobile-web-app-capable',
+        'content' => 'Yes',
+      ),
+      '#weight' => -800,
+    ),
+    'meta_apple_mobile_web_app_status_bar_style' => array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        'name' => 'apple-mobile-web-app-status-bar-style',
+        'content' => 'black',
+      ),
+      '#weight' => -800,
+    ),
+    // end		<!-- iOS web-app metas : hides Safari UI Components and Changes Status Bar Appearance -->
+  );
+  foreach ($meta_smart as $key => $value) {
+    $variables['#attached']['html_head'][] = [$value, $key];
+  }
+
+
+  $variables['#attached']['html_head_link'][][] = array(
+    'rel' => 'apple-touch-icon',
+    'href' => '/' . $variables['theme']['path'].'/images/splash/sptouch-icon-iphone.png',
+  );
+  $variables['#attached']['html_head_link'][][] = array(
+    'rel' => 'apple-touch-icon',
+    'size' => '76x76',
+    'href' => '/' . $variables['theme']['path'].'/images/splash/touch-icon-ipad.png',
+  );
+  $variables['#attached']['html_head_link'][][] = array(
+    'rel' => 'apple-touch-icon',
+    'size' => '120x120',
+    'href' => '/' . $variables['theme']['path'].'/images/splash/touch-icon-iphone-retina.png',
+  );
+  $variables['#attached']['html_head_link'][][] = array(
+    'rel' => 'apple-touch-icon',
+    'size' => '152x152',
+    'href' => '/' . $variables['theme']['path'].'/images/splash/touch-icon-ipad-retina.png',
+  );
+	//<!-- Startup image for web apps -->
+  $variables['#attached']['html_head_link'][][] = array(
+    'rel' => 'apple-touch-startup-image',
+    'href' => '/' . $variables['theme']['path'].'/images/splash/ipad-landscape.png',
+    'media' => 'screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)',
+  );
+  $variables['#attached']['html_head_link'][][] = array(
+    'rel' => 'apple-touch-startup-image',
+    'href' => '/' . $variables['theme']['path'].'/images/splash/ipad-portrait.png',
+    'media' => 'screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)',
+  );
+  $variables['#attached']['html_head_link'][][] = array(
+    'rel' => 'apple-touch-startup-image',
+    'href' => '/' . $variables['theme']['path'].'/images/splash/iphone.png',
+    'media' => 'screen and (max-device-width: 320px)',
+  );
+
+
+  //<!-- #GOOGLE FONT -->
+  $variables['#attached']['html_head_link'][][] = array(
+    'rel' => 'stylesheet',
+    'href' => 'http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700',
+  );
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function workin_preprocess_page(&$variables) {
+  if (empty($variables['page']['sidebar_first'])) {
+    $variables['column_content'] = 't-single-content';
+  } else {
+    $variables['column_content'] = 't-right-content';
+  }
+  $libraries['#attached']['library'][] = 'workin/worksheet';
+  $libraries['#attached']['library'][] = 'workin/framework';
+  drupal_render($libraries);
+}
+function workin_preprocess_menu__admin(&$variables) {
+ 	$id = \Drupal::currentUser()->id();
+ 	$entity=entity_load('user',$id);
+ 	$user = $entity->get('name')->value;
+ 	$variables['user']=$user;
+}
+
+/**
+ * Impements hook_form_FORM_ID_alert().
+ */
+function workin_form_menu_link_edit_alert(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  $form['description'] = array(
+    '#type' => 'value',
+    '#value' => 'client'
+  );
+}

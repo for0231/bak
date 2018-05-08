@@ -1,0 +1,10 @@
+services:
+  qy.redirectsubscriber:
+    class: Drupal\qy\EventSubscriber\RedirectSubscriber
+    arguments: ['@current_user', '@url_generator']
+    tags:
+      - { name: event_subscriber }
+
+  qy.emial_service:
+    class: Drupal\qy\EmailDbService
+    arguments: ['@database']

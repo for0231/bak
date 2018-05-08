@@ -1,0 +1,177 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall function for the question module.
+ */
+
+use \Drupal\taxonomy\Entity\Vocabulary;
+
+/**
+ * Implements hook_install().
+ */
+function question_install() {
+  $config = \Drupal::configFactory()->getEditable('question.settings');
+
+  $exist = Vocabulary::load('question_category');
+  if (!$exist) {
+    entity_create('taxonomy_vocabulary', array(
+      'vid' => 'question_category',
+      'name' => t('Category of question'),
+      'description' => t('For the question classify'),
+      'hierarchy' => 1,
+      'status' => true,
+      'langcode' => 'en',
+    ))->save();
+  $termid = array(0);
+  //故障分类
+	taxonomy_loop_child($config, 'question_category', 'question.category', 'Category of question',$termid , array('系统问题','网络问题','其他'));
+  $config->save();
+
+ }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function question_uninstall() {
+  $vocabulary = Vocabulary::load('question_category');
+  if($vocabulary) {
+    $vocabulary->delete();
+  }
+}
+
+
+/**
+ * Implements hook_schema().
+ */
+function question_schema() {
+  //创建问题详情表
+  $schema['server_question_detail'] = array(
+    'description' => 'Question reply infomation',
+    'fields' => array(
+      'question_id' => array(
+        'description' => 'Id of the question.',
+        'unsigned' => TRUE,
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'creat' => array(
+        'description' => 'Time of the message created.',
+        'type' => 'int',
+        'default' => 0,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The user id of the reply message created.',
+      ),
+      'content' => array(
+        'description' => 'Content of the reply message.',
+        'type' => 'text',
+        'mysql_type' => 'longtext',
+        'not null' => TRUE,
+      ),
+      'flags' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The type of this reply message.',
+      ),
+    ),
+    'foreign keys' => array(
+      'uid' => array(
+        'table' => 'users',
+        'columns' => array(
+         'uid' => 'uid',
+       ),
+     ),
+     'question_id' => array(
+        'table' => 'server_question_class_field_data',
+        'columns' => array(
+         'question_id' => 'id',
+       ),
+     ),
+    ),
+  );
+
+  //创建问题转交记录表
+  $schema['server_question_convert'] = array(
+    'description' => 'Primary Key',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary Key: unique ID ',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'question_id' => array(
+        'description' => 'Id of the question.',
+        'unsigned' => TRUE,
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'from_uid' => array(
+        'description' => 'User that the question transferred out.',
+        'unsigned' => TRUE,
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'to_uid' => array(
+        'description' => 'User that the question transferred to .',
+        'type' => 'int',
+        'default' => 0,
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'from_stamp' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Time that the question transferred out.',
+      ),
+      'to_stamp' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Time that the question transferred to.',
+      ),
+      'description' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'length' => 225,
+        'default' => '',
+        'description' => 'The description of the record.',
+      ),
+    ),
+    'primary key' => array('id'),
+    'foreign keys' => array(
+      'question_id' => array(
+        'table' => 'server_question_class_field_data',
+        'columns' => array(
+          'question_id' => 'id',
+        ),
+      ),
+      'from_uid' => array(
+        'table' => 'users',
+        'columns' => array(
+          'from_uid' => 'uid',
+        ),
+      ),
+      'to_uid' => array(
+        'table' => 'users',
+        'columns' => array(
+          'to_uid' => 'uid',
+        ),
+      ),
+    ),
+  );
+
+   return $schema;
+}
+

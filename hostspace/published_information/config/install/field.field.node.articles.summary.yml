@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.summary
+    - node.type.articles
+  module:
+    - text
+id: node.articles.summary
+field_name: summary
+entity_type: node
+bundle: articles
+label: Summary
+description: 'summary of article'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+third_party_settings: {  }
+field_type: text_with_summary

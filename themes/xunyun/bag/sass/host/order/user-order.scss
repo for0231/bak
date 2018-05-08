@@ -1,0 +1,88 @@
+.user-order {
+  form {
+    table {
+      .form-item {
+        margin-bottom: 0;
+        margin-top: 1em;
+      }
+      td.first-col {
+        width: 300px;
+      }
+      td label {
+        float: left;
+        text-align: right;
+        width: 80px;
+        font-weight: bold;
+      }
+      td label:after {
+        content: "："
+      }
+      td.search {
+        div {
+          float: left;
+        }
+        div.form-actions {
+          margin-left: 40px;
+          margin-top: 1em;
+        }
+        .button {
+          background: none repeat scroll 0 0 #FF4400;
+          color: #FFFFFF;
+          margin: 0 5px;
+          padding: 5px 20px;
+          border-radius: 3px 3px 3px 3px;
+          border: medium none;
+        }
+      }
+    } 
+  }
+  .empty {
+    background: 0px 0px #DDDDDD;
+    border: 1px solid #CCCCCC;
+    font-weight: 700;
+    height: 30px;
+    padding-left: 10px;
+    padding-top: 15px;
+  }
+  .order-item {
+    .beij {
+      background: none repeat scroll 0 0 #DDDDDD;
+      color: #041E39;
+      font-weight: bold;
+      span {
+        margin-left: 20px;
+      }
+    }
+    table {
+      border-left: 1px solid #CCCCCC;
+      border-top: 1px solid #CCCCCC;
+      td {
+        border-bottom: 1px solid #CCCCCC;
+        border-right: 1px solid #CCCCCC;
+        padding: 10px;
+        text-align: left;
+        .red_anniu a {
+          background: none repeat scroll 0 0 #FF4400;
+          color: #FFFFFF;
+          margin: 0 5px;
+          padding: 5px 10px;
+        }
+        .blue_anniu a {
+          background: none repeat scroll 0 0 #3366CC;
+          color: #FFFFFF;
+          padding: 5px 10px;
+        }
+        .quxiao a {
+          color: #3366CC;
+          margin-left: 5px;
+        }
+      }
+      .price {
+        color: #FF0000;
+        font-size: 12px;
+        font-weight: 600;
+        margin: 0 5px;
+      }
+    }
+  }  
+}

@@ -1,0 +1,76 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a menu.
+ *
+ * Available variables:
+ * - menu_name: The machine name of the menu.
+ * - items: A nested list of menu items. Each menu item contains:
+ *   - attributes: HTML attributes for the menu item.
+ *   - below: The menu item child items.
+ *   - title: The menu link title.
+ *   - url: The menu link url, instance of \Drupal\Core\Url
+ *   - localized_options: Menu link localized options.
+ *
+ * @ingroup themeable
+ */
+#}
+{% set style = ['fa-laptop'] %}
+{% import _self as menus %}
+<ul class="nav">
+  {% for k,item in items %}
+    {% if k=='admin_user' %}
+      <li class="nav-profile">
+        <div class="image">
+          <a href="javascript:;">
+              {% if item.img %}
+                {{ item.img }}
+                {% else %}
+                <img src ="/{{ directory }}/images/header.jpg">
+              {% endif %}
+          </a>
+        </div>
+        <div class="info">
+           {{ item.name }}
+          <small></small>
+        </div>
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>
+{#
+  We call a macro which calls itself to render the full tree.
+  @see http://twig.sensiolabs.org/doc/tags/macro.html
+#}
+<ul class="nav">
+  <li class="nav-header">Navigation</li>
+  {{ menus.menu_links(items, attributes, 0) }}
+  <li><a data-click="sidebar-minify" class="sidebar-minify-btn" href="javascript:;"><i class="fa fa-angle-double-left"></i></a></li>
+</ul>
+{% macro menu_icon(id) %}
+  {% import _self as icon %}
+{% endmacro %}
+{% macro menu_links(items, attributes, menu_level) %}
+  {% import _self as menus %}
+  {% if items %}
+    {% for k,item in items %}
+      {% if k=='system.admin' %}
+        {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+      {% elseif k=='admin_user' %}
+      {% else %}
+        {% if item.below %}
+        <li{{ item.attributes.addClass('has-sub') }}>
+          <a href="javascript:;" title="{{ item.title }}"><b class="caret pull-right"></b><i class="fa"></i><span>{{ item.title }} </span></a>
+          <ul{{ item.attributes.removeClass('has-sub').addClass('sub-menu') }}>
+            {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+          </ul>
+        </li>
+        {% else %}
+        <li{{ item.attributes }}>
+          <a href="{{ item.url }}" title="{{ item.title }}"><i class="fa"></i> <span>{{ item.title }}</span></a>
+        </li>
+        {% endif %}  {# end if item.below #}
+      {% endif %} {# end if k == system.admin #}
+    {% endfor %} {# end for items #}
+  {% endif %} {# end items #}
+{% endmacro %}

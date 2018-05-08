@@ -1,0 +1,15 @@
+services:
+  member.memberservice:
+    class: Drupal\member\MemberService
+    arguments: ['@database']
+
+  member_subscriber:
+    class: Drupal\member\EventSubscriber\MemberSubscriber
+    arguments: ['@current_user', '@url_generator']
+    tags:
+      - { name: event_subscriber }
+
+  member.route_subscriber:
+    class: Drupal\member\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }

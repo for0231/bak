@@ -1,0 +1,723 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall function for the user module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function order_schema() {
+  $schema['cart'] = array(
+    'fields' => array(
+      'cid' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'action' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '行为类型：1租用2续费3升级'
+      ),
+      'product_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0
+      ),
+      'product_num' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0
+      ),
+      'product_limit' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1
+      ),
+      'base_price' => array(
+        'type' => 'numeric',
+        'precision' => 10,
+        'scale' => 2,
+        'not null' => TRUE,
+        'default' => 0.0
+      ),
+      'custom_price' => array(
+        'type' => 'numeric',
+        'precision' => 10,
+        'scale' => 2,
+        'not null' => TRUE,
+        'default' => 0.0
+      ),
+      'description' => array(
+        'type' => 'varchar',
+        'length' => 1000,
+        'not null' => FALSE,
+        'default' => ''
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0
+      ),
+      'created' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'rid' => array(
+        'description' => '机房编号',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('cid')
+  );
+
+  $schema['cart_business_data'] = array(
+    'fields' => array(
+      'cbid' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'business_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '所属业务'
+      ),
+      'business_content' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => '',
+        'description' => '业务所选择的值'
+      ),
+      'business_price' => array(
+        'type' => 'numeric',
+        'precision' => 10,
+        'scale' => 2,
+        'not null' => TRUE,
+        'default' => 0.0,
+        'description' => '此业务的价格'
+      ),
+      'business_default' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'description' => '是否默认业务，1是0不是'
+      ),
+      'cartId' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '所属构物车项'
+      )
+    ),
+    'primary key' => array('cbid')
+  );
+  $schema['order_product'] = array(
+    'fields' => array(
+      'opid'  => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'action' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '行为类型：1租用2续费3升级'
+      ),
+      'product_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0
+      ),
+      'product_name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => '',
+        'description' => '产品名称'
+      ),
+      'product_type' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '所属产品分类'
+      ),
+      'product_num' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0
+      ),
+      'product_limit' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1
+      ),
+      'base_price' => array(
+        'type' => 'numeric',
+        'precision' => 18,
+        'scale' => 4,
+        'not null' => TRUE,
+        'default' => 0.0
+      ),
+      'custom_price' => array(
+        'type' => 'numeric',
+        'precision' => 18,
+        'scale' => 4,
+        'not null' => TRUE,
+        'default' => 0.0
+      ),
+      'description' => array(
+        'type' => 'varchar',
+        'length' => 1000,
+        'not null' => FALSE,
+        'default' => '',
+        'description' => '客户留言',
+      ),
+      'order_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0
+      ),
+      'rid' => array(
+        'description' => '机房编号',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('opid')
+  );
+
+  $schema['order_product_detail'] = array(
+    'fields' => array(
+      'opdid' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'business_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '所属业务'
+      ),
+      'business_name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => '',
+        'description' => '业务名称' 
+      ),
+      'business_content' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => '',
+        'description' => '业务所选择的值'
+      ),
+      'business_content_name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => '',
+        'description' => '业务名称' 
+      ),
+      'business_price' => array(
+        'type' => 'numeric',
+        'precision' => 10,
+        'scale' => 2,
+        'not null' => TRUE,
+        'default' => 0.0,
+        'description' => '此业务的价格'
+      ),
+      'business_default' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'description' => '是否默认业务，1是0不是'
+      ),
+      'combine_mode' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => '',
+        'description' => '与默认业务合并方式' 
+      ),
+      'order_product_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '所属订单产品Id'
+      )
+    ),
+    'primary key' => array('opdid') 
+  );
+
+  $schema['order_change_price'] = array(
+    'description' => 'Awaiting moderation change the price of the order',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary Key: unique ID ',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ), 
+      'order_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The order id of this extra field data',
+      ),
+      'order_code' => array(
+        'type' => 'varchar',
+        'not null' => false,
+        'length' => 50,
+        'default' => '',
+        'description' => '订单编码'
+      ),
+      'client_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '客户'
+      ),
+      'order_price' =>array(
+        'type' => 'numeric',
+        'precision' => 10,
+        'scale' => 2,
+        'not null' => TRUE,
+        'default' => 0.0,
+        'description' => '改价前的金额，已减去原来优惠金额'
+      ),
+      'change_price' =>array(
+        'type' => 'numeric',
+        'precision' => 10,
+        'scale' => 2,
+        'not null' => TRUE,
+        'default' => 0.0,
+        'description' => '优惠价格'
+      ),
+      'ask_uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '申请改价的用户',
+      ),
+      'created' => array(
+        'description' => '申请时间.',
+        'type' => 'int',
+        'default' => 0,
+        'not null' => TRUE,
+      ),
+      'audit_stamp' => array(
+        'description' => '审核时间.',
+        'type' => 'int',
+        'default' => 0,
+        'not null' => TRUE,
+      ),
+      'audit_uid' => array(
+        'description' => '审核用户.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'description' => array(
+        'type' => 'varchar',
+        'not null' => false,
+        'length' => 1000,
+        'default' => '',
+        'description' => '改价描述.',
+      ),
+      'status' => array(
+        'description' => '审核状态',
+        'type' => 'int',
+        'default' => 0,
+        'not null' => TRUE,
+      ), 
+      'addit_remark' => array(
+        'type' => 'varchar',
+        'not null' => false,
+        'length' => 1000,
+        'default' => '',
+        'description' => '审核描述.',
+      ),
+    ),
+    'primary key' => array('id'),
+    'foreign keys' => array(
+       'order_id' => array(
+         'table' => 'idc_order',
+         'columns' => array(
+          'order_id' => 'oid',
+        ),
+      ), 
+      'ask_uid' => array(
+         'table' => 'users',
+         'columns' => array(
+          'ask_uid' => 'uid',
+        ),
+      ),  
+      'audit_uid' => array(
+         'table' => 'users',
+         'columns' => array(
+          'audit_uid' => 'uid',
+        ),
+      ), 
+    ), 
+  );
+
+  $schema['order_server_trial'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'order_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '所属订单'
+      ),
+      'order_code' => array(
+        'type' => 'varchar',
+        'not null' => false,
+        'length' => 50,
+        'default' => '',
+        'description' => '订单编码'
+      ),
+      'client_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '客户'
+      ),
+      'product_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '所属产品'
+      ),
+      'order_product_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '所属订单产品'
+      ),
+      'ask_uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '申请人'
+      ),
+      'ask_date' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '申请时间'
+      ),
+      'ask_description' => array(
+        'type' => 'varchar',
+        'not null' => false,
+        'length' => 1000,
+        'default' => '',
+        'description' => '申请描述'
+      ),
+      'audit_uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '审核人'
+      ),
+      'audit_date' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '审核日期'
+      ),
+      'audit_description' => array(
+        'type' => 'varchar',
+        'not null' => false,
+        'length' => 1000,
+        'default' => '',
+        'description' => '审核描述'
+      ),
+      'status' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '1.等审核,2通过,3未通过'
+      ),
+      'rid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '机房ID'
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  $schema['hostclient_business'] = array(
+    'fields' => array(
+      'hostclient_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '所属客户服务器'
+      ),
+      'business_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '所属业务'
+      ),
+      'business_content' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => '',
+        'description' => '业务所选择的值'
+      )
+    ),
+    'primary key' => array('hostclient_id', 'business_id')
+  );
+  $schema['hostclient_handle_info'] = array(
+    'fields' => array(
+      'hid' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'handle_order_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'handle_order_product_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'handle_action' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '类型，1租用2续费3升级4试用',
+      ),
+      'client_description' => array(
+        'type' => 'varchar',
+        'not null' => false,
+        'length' => 1000,
+        'default' => '',
+        'description' => '客户描述'
+      ),
+      'busi_uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '业务部处理人'
+      ),
+      'busi_accept_data' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '受理日期'
+      ),
+      'busi_complete_data' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '完成日期'
+      ),
+      'busi_status' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '业务部状态'
+      ),
+      'tech_uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '技术部处理人'
+      ),
+      'tech_accept_data' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '受理日期'
+      ),
+      'tech_complete_data' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '完成日期'
+      ),
+      'tech_check_item' => array(
+        'type' => 'varchar',
+        'not null' => false,
+        'length' => 200,
+        'default' => '',
+      ),
+      'tech_description' => array(
+        'type' => 'varchar',
+        'not null' => false,
+        'length' => 1000,
+        'default' => '',
+        'description' => '技术部描述'
+      ),
+      'tech_status' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '技术部状态'
+      ),
+      'hostclient_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      )
+    ),
+    'primary key' => array('hid')
+  );
+
+  $schema['hostclient_stop_info'] = array(
+    'fields' => array(
+      'sid' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'apply_uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default'  => 0,
+        'description' => '申请人'
+      ),
+      'apply_date' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '申请时间'
+      ),
+      'operation' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'client_uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default'  => 0,
+        'description' => '客户'
+      ),
+      'storage_date' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '可入库时间'
+      ),
+      'status' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '状态0未处理1已入库2恢复'
+      ),
+      'handle_uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default'  => 0,
+        'description' => '处理人'
+      ),
+      'handle_date' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '处理时间'
+      ),
+      'hostclient_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default'  => 0,
+        'description' => '客户服务器Id'
+      ),
+      'info' => array(
+        'type' => 'varchar',
+        'not null' => false,
+        'length' => 2000,
+        'default' => '',
+        'description' => '保存下架前的一些信息'
+      ),
+    ),
+    'primary key' => array('sid')
+  );
+  return $schema;
+}
+
+/**
+ * @description 添加机房属性
+ */
+function order_update_8121(&$sandbox) {
+  $schema = order_schema();
+  db_add_field('cart', 'rid', $schema['cart']['fields']['rid']);
+}
+/**
+ * @description 添加机房属性
+ */
+function order_update_8125(&$sandbox) {
+  $schema = order_schema();
+  db_add_field('order_product', 'rid', $schema['order_product']['fields']['rid']);
+}
+/**
+ * @description 添加机房属性
+ */
+function order_update_8127(&$sandbox) {
+  $schema = order_schema();
+  db_add_field('order_server_trial', 'rid', $schema['order_server_trial']['fields']['rid']);
+}
+
+function order_update_8129(&$sandbox) {
+  $schema = order_schema();
+  db_add_field('hostclient_stop_info', 'info', $schema['hostclient_stop_info']['fields']['info']);
+}

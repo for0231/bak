@@ -1,0 +1,17 @@
+{#
+/*
+ * Available variables:
+ * - form: The confirm form.
+ */
+#}
+
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+
+<div class='user-cart'>
+  <div class="title"><b>{{'I selected merchandise'|t}}</b></div>
+  <div class="blank30"></div>
+  {{ form.carts }}
+  <div class='cart-bottom'>{{form.order_price}} {{form.submit}}</div>
+</div>

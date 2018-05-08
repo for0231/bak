@@ -1,0 +1,62 @@
+{#
+/**
+ * @file
+ * 处理重大故障工单表单
+ *
+ * Available variables:
+ * - form: 处理故障工单表单
+ *   - client: 联系人
+ *
+ */
+#}
+{{attach_library('worksheet/drupal.worksheet-default') }}
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+{{form.other}}
+{{form.js}}
+<table class='edit'>
+  <tr>
+    <td class='col1'>{{form.code}}</td>
+    <td class='col1'>{{form.show_created}}</td>
+    <td>{{form.show_user}}</td>
+  </tr>
+  <tr>
+    <td>{{form.show_handleuser}}</td>
+    <td>{{form.show_lastuser}}</td>
+    <td>{{form.tid}}</td>
+  </tr>
+  <tr>
+    <td>{{form.client}}</td>
+    <td>{{form.fault_time}}</td>
+    <td>{{form.contacts }}</td>
+  </tr>
+  <tr>  
+    <td>{{form.affect_direction}}</td>
+    <td>{{form.room}}</td>
+    <td>{{form.affect_range}}</td>
+  </tr>
+  <tr>
+    <td>{{form.affect_level}}</td>
+    <td>{{form.fault_location}}</td>
+    <td>{{form.report_time}}</td>
+  </tr>
+  <tr>
+    <td>{{form.sy_report_time}}</td>
+    <td>{{form.buss_recover_time}}</td>
+    <td>{{form.fault_recover_time}}</td>
+  </tr>
+  <tr>
+    <td>{{form.alarm_action}}</td>
+  </tr>
+  <tr>
+    <td class='default-textarea'>{{form.reason}}</td>
+    <td class='default-textarea'>{{form.recover_method}}</td>
+    <td class='default-textarea'>{{form.deal_method}}</td>
+  </tr>
+  <tr>
+    <td class='default-textarea'>{{form.note}}</td>
+  </tr>
+</table>
+{{form.deliver_info_show}}
+{{form.actions}}

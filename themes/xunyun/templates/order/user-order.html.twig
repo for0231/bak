@@ -1,0 +1,53 @@
+{#
+/**
+ * @file
+ * 我的订单
+ *
+ *  Available variables:
+ * -orders:
+ */
+#}
+<div class='order-item'>
+  {% set i = 1%}
+  <table>
+    <tr class='beij'>
+      <td colspan=4>
+        {{ 'Order code'|t }}：{{ order.code.value }}
+        <span>{{ 'Order title'|t }}：</span> {{ order.alias_order.value }}
+     </td>
+    </tr>
+    {% for product in order.products%}
+      <tr>
+        <td class='product-info'>
+         <b>{{ product.product_name }}
+           {% if product.room %}
+           ({{ product.room }})
+           {% endif %}：</b>
+         <i class='price'>￥{{ product.base_price + product.custom_price }}</i>
+         <em>{{ product.product_num }}</em>
+        </td>
+        {% if(i == 1) %}
+        <td rowspan='{{ order.product_count }}'>
+          <p>{{ 'Formal order'|t }}：<i class='price'>{{ order.status_title}}</i></p>
+          <p>{{ 'Created'|t }}：{{ order.create_formate }}</p>
+        </td>
+        <td rowspan='{{ order.product_count }}'>
+          <p>{{ 'Service period'|t }}：{{ 'Month'|t }} </p>
+          <p>{{ 'Total price'|t }}：<i class='price'>￥ {{ order.order_price.value - order.discount_price.value }}</i></p>
+        </td>
+        <td rowspan='{{ order.product_count }}'>
+          {% if order.payURL %}
+          <span class='red_anniu'>{{ order.payURL }}</span>
+          {% endif %}
+          <span class='blue_anniu'>{{ order.detailURL }}</span>
+          {% if order.cancelURL %}
+          <span class='quxiao'>{{ order.cancelURL }}</span>
+          {% endif %}
+         </td>
+        {% endif %}
+      </tr>
+      {% set i = 2%}
+    {% endfor %}
+  </table>
+</div>
+<div class="blank20"></div>

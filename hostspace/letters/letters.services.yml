@@ -1,0 +1,4 @@
+services:
+  letters.letterservice:
+    class: Drupal\letters\LettersService
+    arguments: ['@database']

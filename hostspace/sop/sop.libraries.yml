@@ -1,0 +1,37 @@
+sop.sop_task_server.sop-task-server-form:
+  version: VERSION
+  js:
+    js/sop-task-server-form.js: {}
+  css:
+    theme:
+      css/sop-task-server-form.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+sop.sop_task_iband.sop-task-iband-form:
+  version: VERSION
+  js:
+    js/sop-task-iband-form.js: {}
+#  css:
+#    theme:
+#      css/sop-task-server-form.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+sop.sop_task_server:
+  version: VERSION
+  css:
+    theme:
+      css/sop-task-server.css: {}
+sop.sop_task_server.autocompletemip:
+  version: VERSION
+  js:
+    js/sop-task-server-autocomplete.js: {}
+  dependencies:
+    - core/drupal.autocomplete
+sop.sop_task_room.autocompletemip:
+  version: VERSION
+  js:
+    js/sop-task-room-autocomplete.js: {}
+  dependencies:
+    - core/drupal.autocomplete

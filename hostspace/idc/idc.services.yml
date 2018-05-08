@@ -1,0 +1,8 @@
+services:
+  idc.cabinet:
+    class: Drupal\idc\CabinetService
+  idc.cabinet.switch:
+    class: Drupal\idc\CabinetSwitchService
+  idc.cabinet.server:
+    class: Drupal\idc\CabinetServerService
+    arguments: ['@database']

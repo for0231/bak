@@ -1,0 +1,49 @@
+{#
+/**
+ * @file
+ * 处理故障工单表单
+ *
+ * Available variables:
+ * - form: 处理故障工单表单
+ *   - client: 联系人
+ *
+ */
+#}
+{{attach_library('worksheet/drupal.worksheet-default') }}
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+{{form.other}}
+{{form.js}}
+<table class='edit'>
+  <tr>
+    <td class='col1'>{{form.code}}</td>
+    <td class='col1'>{{form.ip}}</td>
+    <td>{{form.client}}</td>
+  </tr>
+  <tr>
+    <td>{{form.contacts}}</td>
+    <td>{{form.show_created}}</td>
+    <td>{{form.show_user}}</td>
+  </tr>
+  <tr>
+    <td>
+     {{form.show_handleuser}}
+     {{form.show_lastuser}}
+    </td>
+    <td>
+      {{form.problem_types}}
+      {{form.problem_difficulty}}
+    </td>
+    <td>
+      {{form.tid}}
+    </td>
+  </tr>
+  <tr>
+    <td class='fault-textarea'>{{form.phenomenon}}</td>
+    <td class='fault-textarea'>{{form.handle_info}}</td>
+    <td class='fault-textarea'>{{form.reason}}</td>
+  </tr>
+</table>
+{{form.deliver_info_show}}
+{{form.actions}}

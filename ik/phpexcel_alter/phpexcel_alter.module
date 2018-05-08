@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file Phpexcel_alter module.
+ */
+
+/**
+ * @description Implement hook_cron().
+ */
+function phpexcel_alter_cron() {
+  $result = db_select('file_usage', 'f')
+    ->fields('f', ['fid'])
+    ->condition('module', 'phpexcel_alter')
+    ->condition('type', 'node')
+    ->execute()
+    ->fetchCol();
+
+  error_log(print_r($result, 1));
+  if (!empty($result)) {
+    db_delete('file_usage')
+      ->condition('fid', $result, 'IN')
+      ->execute();
+    db_delete('file_managed')
+      ->condition('fid', $result, 'IN')
+      ->execute();
+  }
+}

@@ -1,0 +1,113 @@
+#menubar,.menubar{
+  height: 120px;
+}
+.float-left-fix {
+  height: 120px;
+}
+#logo {
+  float: left;
+//  margin-top: 27px;
+//  width: 22%;
+  height: 50px;
+  img {
+    margin: 20px 0 0;
+  }
+}
+#block-xunyun-branding > a {
+  color: white;
+  &:visited, &:focus, &:hover {
+    color: white;
+  }
+}
+#block-sitebranding > a {
+  color: white;
+  &:visited, &:focus, &:hover {
+    color: white;
+  }
+}
+#block-sitebranding,#block-xunyun-branding {
+  float: left;
+}
+////==============主导航====================
+div[class=menubar] {
+  nav {
+    float:right;
+    height:120px;
+    ul {
+      li {
+        background:url(../../images/xian_01.png) right no-repeat;
+        width:120px;
+        float:left;
+        //height:117px;
+        text-align:center;
+        &:hover{
+          background:#021222;
+          a {
+            color:#ffc000;
+          }
+        }
+        a {
+          color:#fff;
+          font-size:18px;
+          height:40px;
+          float:left;
+          text-align:center;
+          width:120px;
+          margin-top:50px;
+        }
+        a.is-active {
+          color:#ffc000;
+        }
+        u {
+          color:#ccc;
+          font-size:10px;
+          text-transform:uppercase;
+        }
+      }
+      li.is-active {
+        background:#021222;
+        a{
+          color:#ffc000;
+          &:hover {
+            color:#ffc000;
+          }
+        }
+      }
+    }
+  }
+}
+nav {
+	float:right;
+	height:120px;
+  ul li {
+    ///** 在苹果浏览器下第一个菜单底色异常
+    //&:first-child {
+  	//  content:url(../../images/xian_01.png) right no-repeat;
+    //}
+  	background:url(../../images/xian_01.png) right no-repeat;
+  	width:120px;
+  	float:left;
+  	height:114px;
+  	text-align:center;
+    a {
+    	color:#fff;
+    	font-size:18px;
+    	height:40px;
+    	float:left;
+    	text-align:center;
+    	width:120px;
+    	margin-top:50px;
+    }
+    u {
+    	color:#ccc;
+    	font-size:10px;
+    	text-transform:uppercase;
+    }
+  }
+}
+nav ul .is-active, nav ul li:hover {
+	background:#021222;
+}
+nav ul .is-active a, nav ul li a:hover {
+	color:#ffc000;
+}

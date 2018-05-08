@@ -1,0 +1,6 @@
+name: Resource pool
+type: module
+core: 8.x
+package: Work Sheet
+description: '资源池'
+version: VERSION

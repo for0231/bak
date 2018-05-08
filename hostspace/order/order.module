@@ -1,0 +1,720 @@
+<?php
+/**
+ * @file
+ * Manage order description.
+ */
+
+use Drupal\Core\Url;
+use Drupal\Component\Utility\SafeMarkup;
+use Drupal\order\ServerDistribution;
+
+/**
+ * Implement hook_theme_suggestions_HOOK().
+ */
+function order_theme_suggestions_product_list($variables) {
+  $products = $variables['products'];
+  $dis = ServerDistribution::createInstance();
+  foreach($products as $key => $product) {
+    $rids =  (Array) json_decode($product->get('rids')->value);
+    $idc_stock = $dis->getServerStock($product->getObjectId('server_type'), $rids);
+    if($idc_stock  == 0) {
+      $variables['products'][$key]->is_stock = false;
+    } else {
+      $variables['products'][$key]->is_stock = true;
+    }
+    $info_url = new Url('server.info', array('productId' => $key));
+    $variables['products'][$key]->info_url = new Url('server.info', array('productId' => $key));
+    if($product->getSimpleValue('custom_business')) {
+      $variables['products'][$key]->op_url = new Url('server.order', array('productId' => $key));
+    } else {
+      $variables['products'][$key]->op_url = $info_url;
+    }
+  }
+}
+
+/**
+ * Implement hook_theme().
+ */
+function order_theme() {
+ return array(
+   'user_order' => array(
+     'template' => 'user-order',
+     'variables' => array('order' => null)
+   ),
+   'user_order_detail' => array(
+     'template' => 'user-order-detail',
+     'variables' => array('detail' => null, 'summary' => null, 'order'=> null)
+   ),
+   'admin_order_client' => array(
+     'template' => 'admin-order-client',
+     'variables' => array('client_obj' => null)
+   ),
+   'admin_order_detail' => array(
+     'template' => 'admin-order-detail',
+     'variables' => array('order_obj' => null)
+   ),
+   'admin_hostclient_info' => array(
+     'template' => 'admin-hostclient-info',
+     'variables' => array('handle_info' => null, 'is_distribution' => true)
+   ),
+   'user_payment_success_msg' => array(
+     'template' => 'user-payment-success-msg',
+     'variables' => array('order' => null)
+   ),
+   'user_hostclient_detail' => array(
+     'template' => 'user-hostclient-detail' ,
+     'variables' => array('hostclient' => null)
+   ),
+   'user_hostclient_panel' => array(
+     'template' => 'user-hostclient-panel',
+     'variables' => array('hostclient' => null),
+   ),
+   'custom_business_form' => array(
+     'render element' => 'form',
+     'template' => 'custom-business-form',
+   ),
+   'product_upgrade_form' => array(
+     'render element' => 'form',
+     'template' => 'product-upgrade-form',
+   ),
+   'user_cart_form' => array(
+     'render element' => 'form',
+     'template' => 'user-cart-form'
+   ),
+   'order_create_form' => array(
+     'render element' => 'form',
+     'template' => 'build-order-form'
+   ),
+   'server_product_info' => array(
+     'render element' => 'form',
+     'template' => 'server-product-info'
+   ),
+   'user_order_list' => array(
+     'render element' => 'elements',
+     'template' => 'user-order-list'
+   ),
+   'user_order_filter_form' => array(
+     'render element' => 'form',
+     'template' => 'user-order-filter-form'
+   )
+ );
+}
+
+/**
+ * 购物车购买期限选项
+ */
+function order_cart_buy_options() {
+  return array(
+    '1' => t('One month'),
+    '3' => t('Three month'),
+    '6' => t('Six month'),
+    '12' => t('Twelve month')
+  );
+}
+
+/**
+ * 订单产品类型
+ */
+function order_product_action() {
+  return array(
+    '1' => t('Hire'),
+    '2' => t('Renew'),
+    '3' => t('Upgrade'),
+    '4' => t('Trial')
+  );
+}
+
+/**
+ * 服务器停用操作方式
+ */
+function order_stop_operation() {
+  return array(
+    '0' => '可立即入库',
+    '24' => '24小时后入库',
+    '72' => '72小时后入库'
+  );
+}
+
+/**
+ * 合并购买业务与默认业务
+ */
+function order_cart_business_combine(array $cart_defalut_business) {
+  $list = array();
+  foreach($cart_defalut_business as $cart_business) {
+    $businessid = $cart_business->business_id;
+    $business = entity_load('product_business', $businessid);
+    $item = array(
+      'business' => $business,
+      'business_value' => $cart_business->business_content,
+      'business_price' => $cart_business->business_price 
+    );
+    if(array_key_exists($businessid, $list)) {
+      $old_item = $list[$businessid];
+      $old_business_value = $old_item['business_value'];
+      $combine_mode = $business->getSimpleValue('combine_mode');
+      $op = $business->getSimpleValue('operate');
+      if($op == 'edit_number') {
+        if($combine_mode == 'add') {
+          $item['business_value'] = $old_business_value + $cart_business->business_content;
+        } else {
+          if($cart_business->business_default) {
+            $item['business_value'] = $old_business_value;
+          } else {
+            $item['business_value'] = $cart_business->business_content;
+          }
+        }
+      } else if ($op == 'select_content') {
+        if($combine_mode == 'add') {
+          $item['business_value'] = $old_business_value . ',' . $cart_business->business_content;
+        } else {
+          if($cart_business->business_default) {
+            $item['business_value'] = $old_business_value;
+          } else {
+            $item['business_value'] = $cart_business->business_content;
+          }
+        }
+      } else if ($op == 'select_and_number') {
+        if($combine_mode == 'add') {
+          $business_value = $cart_business->business_content;
+          $value_arr = explode(',', $business_value);
+          $old_value_arr = explode(':', $old_business_value);
+          $is_add = false;
+          $list_value = array();
+          foreach($value_arr as $value) {
+            $item_arr = explode(':', $value);
+            if($item_arr[0] == $old_value_arr[0]) {
+              $list_value[] = $item_arr[0] . ':'. ($item_arr[1] + $old_value_arr[1]);
+              $is_add = true;
+            } else {
+              $list_value[] = $value;
+            }
+          }
+          if(!$is_add) {
+            array_unshift($list_value, $old_business_value);
+          }
+          $item['business_value'] = implode(',', $list_value);
+        } else {
+          if($cart_business->business_default) {
+            $item['business_value'] = $old_business_value;
+          } else {
+            $item['business_value'] = $cart_business->business_content;
+          }
+        }
+      }
+      $item['business_price'] = $old_item['business_price'] + $cart_business->business_price;
+    }
+    $list[$businessid] = $item;
+  }
+  return $list;
+}
+
+/**
+ * 订单产品业务合并
+ */
+function order_order_product_business_combine(array $product_business_list) {
+  $list = array();
+  foreach($product_business_list as $product_business) {
+    $businessid = $product_business->business_id;
+    $business = entity_load('product_business', $businessid);
+    $item = array(
+      'business' => $business,
+      'business_value' => $product_business->business_content,
+      'business_price' => $product_business->business_price 
+    );
+    if(array_key_exists($businessid, $list)) {
+      $old_item = $list[$businessid];
+      $old_business_value = $old_item['business_value'];
+      $combine_mode = $business->getSimpleValue('combine_mode');
+      $op = $business->getSimpleValue('operate');
+      if($op == 'edit_number') {
+        if($combine_mode == 'add') {
+          $item['business_value'] = $old_business_value + $product_business->business_content;
+        } else {
+          if($product_business->business_default) {
+            $item['business_value'] = $old_business_value;
+          } else {
+            $item['business_value'] = $product_business->business_content;
+          }
+        }
+      } else if ($op == 'select_content') {
+        if($combine_mode == 'add') {
+          $item['business_value'] = $old_business_value . ',' . $product_business->business_content;
+        } else {
+          if($product_business->business_default) {
+            $item['business_value'] = $old_business_value;
+          } else {
+            $item['business_value'] = $product_business->business_content;
+          }
+        }
+      } else if ($op == 'select_and_number') {
+        if($combine_mode == 'add') {
+          $business_value = $product_business->business_content;
+          $value_arr = explode(',', $business_value);
+          $old_value_arr = explode(':', $old_business_value);
+          $is_add = false;
+          $list_value = array();
+          foreach($value_arr as $value) {
+            $item_arr = explode(':', $value);
+            if($item_arr[0] == $old_value_arr[0]) {
+              $list_value[] = $item_arr[0] . ':'. ($item_arr[1] + $old_value_arr[1]);
+              $is_add = true;
+            } else {
+              $list_value[] = $value;
+            }
+          }
+          if(!$is_add) {
+            array_unshift($list_value, $old_business_value);
+          }
+          $item['business_value'] = implode(',', $list_value);
+        } else {
+          if($product_business->business_default) {
+            $item['business_value'] = $old_business_value;
+          } else {
+            $item['business_value'] = $product_business->business_content;
+          }
+        }
+      }
+      $item['business_price'] = $old_item['business_price'] + $product_business->business_price;
+    }
+    $list[$businessid] = $item;
+  }
+  return $list;
+}
+
+/**
+ * 计算或刷新升级的价格,在购物车存放1天以上价格可以发生变以。
+ *
+ * $business_list: 升级的业务列表
+ * $hostclient: 升级的hostclient实体
+ * $days: 升级中合并方式为replace的天数。
+ * $month: 升级中加上整月的价格，续费和升级在同一个订单中会用到。
+ *
+ */
+function order_upgrade_afresh_price($business_list, $hostclient, $days, $month = 0) {
+   $sum_price = 0;
+    $original_business = \Drupal::service('hostclient.serverservice')->loadHostclientBusiness($hostclient->id());
+    foreach($business_list as $item) {
+      $business = entity_load('product_business', $item->business_id);
+      if($business->getSimpleValue('combine_mode') == 'replace') {
+        $filter = array();
+        foreach($original_business as $data) {
+          if($item->business_id == $data->business_id) {
+            $filter['businessId'] = $data->business_id;
+            $filter['business_content'] = $data->business_content;
+          }
+        }
+        if(!empty($filter)) {
+          $entities = entity_load_multiple_by_properties('product_business_price', $filter);
+          if (empty($entities))
+            continue;
+          $entity = reset($entities);
+          $old_price = $entity->getSimpleValue('price');
+          $price = (($item->business_price - $old_price) / 30) * $days;
+          $price = $price + $item->business_price * $month;
+          $sum_price += $price;
+          continue;
+        }
+      }
+      $price = ($item->business_price/30)* $days;
+      $price = $price + $item->business_price * $month;
+      $sum_price += $price;
+    }
+    return $sum_price;
+}
+
+/**
+ * 构建模板参数
+ */
+function template_preprocess_user_payment_success_msg(&$variables){
+  $order = $variables['order'];
+  $hostclient_service = \Drupal::service('hostclient.serverservice');
+  $hids = $hostclient_service->getHandleInfoHid($order->id());
+  $hostclients = entity_load_multiple('hostclient', $hids);
+
+  $hostclient_list = array();
+  foreach($hostclients as $hostclient) {
+    $ip = array();
+    $ipbs = $hostclient->get('ipb_id')->referencedEntities();
+    foreach($ipbs as $ipb) {
+      $ip[] = $ipb->label(); 
+    }
+    $server_code = '';
+    if($server = $hostclient->getObject('server_id')) {
+      $server_code = $server->label();
+    }
+    $hostclient_list[$hostclient->id()] = array(
+      'server_code' => $server_code,
+      'product_name' => $hostclient->getObject('product_id')->label(),
+      'ip' => $ip
+    ); 
+  }
+  $client = \Drupal::service('member.memberservice')->queryDataFromDB('client', $order->getObjectId('uid'));
+  $client_name = '';
+  if(empty($client)) {
+    $client_name = $order->getObject('uid')->label();
+  } else {
+    $client_name = $client->client_name ? $client->client_name : $order->getObject('uid')->label();
+  }
+  $title = t('Honorific custome %client， Depending on your needs，The system assigned you the IP as follows：', array(
+    '%client' => $client_name,
+  ));
+  $tip = t('Tip: if the IP is not satisfied, please click %contact，Or check my server %server', array(
+    '%contact' => t('Contact customer service'),
+    '%server' => \Drupal::l(t('Click to enter'), new Url('user.server'))
+  ));
+  $variables['page_self'] = array(
+    'title' => $title,
+    'hostclients' => $hostclient_list,
+    'my_server' => $tip
+  );
+}
+
+/**
+ * 构建用户订单列表模板所需的参数
+ */
+function template_preprocess_user_order(&$variables) {
+  $order = $variables['order'];
+  // 该订单下订购的产品数组
+  $products_origin = \Drupal::service('order.product')->getProductByOrderId($order->id());
+  $products = array();
+  foreach ($products_origin as $row) {
+    if ($row->rid > 0) {
+      $row->room = entity_load('room', $row->rid)->label();
+    } else {
+      $row->room = '';
+    }
+    $products[] = $row;
+  }
+  $order->products =  $products;
+  $order->product_count = count($products);
+  $order->status_title = orderStatus()[$order->getSimpleValue('status')];
+  $order->create_formate = date('Y-m-d H:i',$order->getSimpleValue('created'));
+  $order->detailURL = \Drupal::l(t('Detail'), new Url('user.order.detail',array('order'=>$order->get('oid')->value)));
+  if($order->getSimpleValue('status') == 0) {  //未付款状态
+    $order->payURL = \Drupal::l(t('Payment'), new Url('user.order.payment',array('order'=>$order->get('oid')->value)));
+    $order->cancelURL = \Drupal::l(t('Cancel'), new Url('user.order.cencel',array('order'=>$order->get('oid')->value)));
+  }
+}
+
+/**
+ * 构建前台显示用户订单详情模板所需的参数
+ */
+function  template_preprocess_user_order_detail(&$variables) {
+  $order = $variables['order'];
+  $client = \Drupal::service('member.memberservice')->queryDataFromDB('client',$order->getObjectId('uid'));
+  $summary = array(
+    'client' =>  $client ? ('['.$client->corporate_name.']' . $client->client_name ) : entity_load('user', $order->getObjectId('uid'))->label(),
+    'contact' => $client ? ($client->client_name ? $client->client_name : $order->getObject('uid')->getUsername() ):'',
+    'phone' => $client ? ($client->telephone ?  $client->telephone : '') : '',
+    'price' => $order->getSimpleValue('order_price') - $order->getSimpleValue('discount_price'),
+    'discount_price' => $order->getSimpleValue('discount_price'),
+    'status' => orderStatus()[$order->getSimpleValue('status')],
+    'created' => format_date($order->getSimpleValue('created'), 'custom', 'Y-m-d H:i:s')
+  );
+  $variables['summary'] = $summary;
+
+  $products = \Drupal::service('order.product')->getProductByOrderId($order->id());
+    if(is_array($products)) {
+      foreach($products as $key=>$product) {
+        $product_business_list = \Drupal::service('order.product')->getOrderBusiness($product->opid);
+        $combine_list =  order_order_product_business_combine($product_business_list);
+        $product_business = array();
+        foreach($combine_list as $key => $item) {
+          $business = $item['business'];
+          $business_values = $item['business_value'];
+          $value_arr = explode(',', $business_values);
+          $value_html = '';
+          foreach($value_arr as $value) {
+            $value_text = product_business_value_text($business, $value);
+            $value_html .= SafeMarkup::format('<span>'. $value_text .'</span>', array());
+          }
+          $product_business[$key] = array(
+            'name' => $business->label(),
+            'value' => SafeMarkup::format($value_html, array()),
+            'price' => $item['business_price']
+          );
+        }
+
+        $product->business =  $product_business;
+        $price = ($product->base_price + $product->custom_price) * $product->product_num * $product->product_limit;
+        $product->total_price = round($price, 2);
+        if ($product->rid > 0) {
+          $product->product_room = entity_load('room', $product->rid)->label();
+        }
+      }
+    }
+   $variables['detail'] = $products ;
+}
+
+/**
+ * 构建订单摘要
+ * @return $summary
+ *   该订单摘要
+ */
+function template_preprocess_admin_order_client($variables) {
+  $user = $variables['client_obj'];
+
+  $summary = array();
+  //@todo 需要重新处理这两个用户名问题
+  //如果是管理人员下单，出现报错问题
+  //$client = \Drupal::service('member.memberservice')->queryDataFromDB('client',$user->id());
+  $client = user_load($user->id());
+  //得到用户所属的角色集合
+  $client_role = $user->getRoles($client->uid);
+  $role_arr = array();
+  foreach($client_role as $role) {
+    $role_entity = entity_load('user_role', $role);
+    if(isset($role_entity)) {
+      $role_arr[] = $role_entity->label();
+    }
+  }
+   $user->client =  '['.$client->corporate_name.']' . $client->client_name;
+   $user->contact = $client->client_name ? $client->client_name : $user->label();
+   $user->phone = $client->telephone ?  $client->telephone : '';
+   $user->agent = $role_arr;
+}
+
+/**
+ * 构建后台台显示订单详情模板所需的参数
+ */
+function template_preprocess_admin_order_detail(&$variables) {
+  $order = $variables['order_obj'];
+
+  //构建订单信息
+  $order->order_time = date('Y-m-d H:i:s', $order->getSimpleValue('created'));
+  $payment_mode = $order->getSimpleValue('payment_mode');
+  $order->pay_method = $payment_mode ? orderPaymentMode()[$payment_mode] : '';
+  $payment_date = $order->getSimpleValue('payment_date');
+  $order->pay_time = $payment_date ? date('Y-m-d H:i:s', $payment_date) : '';
+  $order->order_status = orderStatus()[$order->getSimpleValue('status')];
+
+  //构建订单产品信息
+  $order_product_service = \Drupal::service('order.product');
+  $products =$order_product_service ->getProductByOrderId($order->id());
+  foreach($products as $key=>$product) {
+    if($product->action == 3) {
+      $product->limit_text = $product->product_limit . t('days');
+    } else { 
+      $product->limit_text = order_cart_buy_options()[$product->product_limit];
+    }
+    $product_business_list = $order_product_service->getOrderBusiness($product->opid);
+    $combine_list =  order_order_product_business_combine($product_business_list);
+    $product_business = array();
+    foreach($combine_list as $key => $item) {
+      $business = $item['business'];
+      $business_values = $item['business_value'];
+
+      $value_arr = explode(',', $business_values);
+      $value_html = '';
+      foreach($value_arr as $value) {
+        $value_text = product_business_value_text($business, $value);
+        $value_html .= '<span>'. $value_text .'</span>';
+      }
+      $product_business[$key] = array(
+        'name' => $business->label(),
+        'value' => SafeMarkup::format($value_html, array()),
+        'price' => $item['business_price']
+      ); 
+    }
+    $product->business = $product_business;
+  }
+  $variables['order_obj']->product_list = $products;
+}
+
+function template_preprocess_admin_hostclient_info(&$variables) {
+  $handle_info = $variables['handle_info'];
+  $hostclient = entity_load('hostclient', $handle_info->hostclient_id);
+  $order = entity_load('order', $handle_info->handle_order_id);
+  $product = $hostclient->getObject('product_id');
+  $handle_info->order_code = $order->getSimpleValue('code');
+  $handle_info->type_label =  order_product_action()[$handle_info->handle_action];
+  $handle_info->product_name = $product->label();
+
+  $product_business_list = \Drupal::service('order.product')->getOrderBusiness($handle_info->handle_order_product_id);
+  $combine_list =  order_order_product_business_combine($product_business_list);
+  $product_business = array();
+  foreach($combine_list as $key => $item) {
+    $business = $item['business'];
+    $business_values = $item['business_value'];
+    $value_arr = explode(',', $business_values);
+    $value_html = '';
+    foreach($value_arr as $value) {
+      $value_text = product_business_value_text($business, $value);
+      $value_html .= SafeMarkup::format('<span>'. $value_text .'</span>', array());
+    }
+    $product_business[$key] = array(
+      'name' => $business->label(),
+      'value' => SafeMarkup::format($value_html, array()),
+      'price' => $item['business_price']
+    ); 
+  }
+  $handle_info->business = $product_business;
+
+  if($variables['is_distribution']) {
+    $ipm = $hostclient->getObject('ipm_id');
+    $hostclient->ipm_label = $ipm->label();
+
+    $ipb_arr = array();
+    $ipb_values = $hostclient->get('ipb_id')->getValue();
+    foreach($ipb_values as $value) {
+      $ipb = entity_load('ipb', $value['target_id']);
+      $ipb_arr[] = $ipb->label() . '--' . $ipb->get('type')->entity->label();
+    }
+    $hostclient->ipb_list = $ipb_arr;
+    $variables['hostclient_info'] = $hostclient;
+  }
+}
+
+function template_preprocess_user_hostclient_panel(&$variables) {
+  $hostclient = $variables['hostclient'];
+  $server_code = '';
+  if($server = $hostclient->getObject('server_id')) {
+    $server_code = $server->label();
+  }
+  $hostclient->server_code = $server_code;
+  $hostclient->username = \Drupal::currentUser()->getUsername();
+
+  $product_name = '';
+  if($product = $hostclient->getObject('product_id')) {
+    $product_name = $product->label();
+  }
+  $hostclient->product_name = $product_name;
+
+  $ipb_arr = array();
+  $ipb_ids = $hostclient->get('ipb_id')->getValue();
+  $qys = get_current_ip_traction_info(); //当前牵引IP信息
+  foreach($ipb_ids as $ipb_id) {
+    if(isset($ipb_id['target_id'])) {
+      $ipb = entity_load('ipb', $ipb_id['target_id']);
+      $ipStr = trim($ipb->label());
+      if(array_key_exists($ipStr, $qys)) {
+        $ipStr .= '<span class="qy-logo">牵</span>';
+      }
+      $ipb_arr[] = array('ip' => SafeMarkup::format($ipStr, array()));
+    }
+  }
+  $hostclient->ips = $ipb_arr;
+
+
+}
+
+function template_preprocess_user_hostclient_detail(&$variables) {
+  $hostclient = $variables['hostclient'];
+  $server_code = '';
+  if($server = $hostclient->getObject('server_id')) {
+    $server_code = $server->label();
+  }
+  $hostclient->server_code = $server_code;
+
+  $product_name = '';
+  if($product = $hostclient->getObject('product_id')) {
+    $product_name = $product->label();
+  }
+  $hostclient->product_name = $product_name;
+
+  $equipment_date = $hostclient->getSimpleValue('equipment_date');
+  if(empty($equipment_date)) {
+    $hostclient->equipment_format = '';
+    $hostclient->expired_format = '';
+  } else {
+    $hostclient->equipment_format = format_date($equipment_date, 'custom', 'Y-m-d H:i:s');
+    $hostclient->expired_format = format_date($hostclient->getSimpleValue('service_expired_date'), 'custom' ,'Y-m-d H:i:s');
+  }
+
+  $ipb_arr = array();
+  $ipb_ids = $hostclient->get('ipb_id')->getValue();
+  $qys = get_current_ip_traction_info(); //当前牵引IP信息
+  foreach($ipb_ids as $ipb_id) {
+    if(isset($ipb_id['target_id'])) {
+      $ipb = entity_load('ipb', $ipb_id['target_id']);
+      $ipStr = trim($ipb->label());
+      if(array_key_exists($ipStr, $qys)) {
+        $ipStr .= '<span class="qy-logo">牵</span>';
+      }
+      $ipb_arr[] = array('ip' => SafeMarkup::format($ipStr, array()));
+    }
+  }
+  $hostclient->ips = $ipb_arr;
+
+  $room = '';
+  if($cabinet_server = $hostclient->getObject('cabinet_server_id')) {
+    $cabinet = $cabinet_server->getObject('cabinet_id');
+    $room = $cabinet->getObject('rid')->label();
+  }
+  $hostclient->room = $room;
+
+  $hostclient->status_name = hostClientStatus()[$hostclient->getSimplevalue('status')];
+
+  $combine_list = \Drupal::service('hostclient.serverservice')->loadHostclientBusiness($hostclient->id());
+  $product_business = array();
+  foreach($combine_list as $item) {
+    $business = entity_load('product_business', $item->business_id);
+    $business_values = $item->business_content;
+    $value_arr = explode(',', $business_values);
+    $value_html = '';
+    foreach($value_arr as $value) {
+      $value_text = product_business_value_text($business, $value);
+      $value_html .= '<span>'. $value_text .'</span>';
+    }
+    $product_business[$item->business_id] = array(
+      'name' => $business->label(),
+      'value' => SafeMarkup::format($value_html, array()),
+    );
+  }
+  $hostclient->business_list = $product_business;
+
+}
+
+/**
+ * 修改机柜服务器信息
+ */
+function order_cabinet_server_detail(&$variables) {
+  $cabinet_server = $variables['cabinet_server'];
+  //购买业务信息
+  $hostclients = entity_load_multiple_by_properties('hostclient', array(
+    'cabinet_server_id' => $cabinet_server->id(),
+  ));
+  $business_list = array();
+  if(!empty($hostclients)) {
+    $hostclient = reset($hostclients);
+    $combine_list = \Drupal::service('hostclient.serverservice')->loadHostclientBusiness($hostclient->id());
+    $product_business_tmp = array();
+    foreach($combine_list as $item) {
+      $business = entity_load('product_business', $item->business_id);
+      $lib = $business->getSimpleValue('resource_lib');
+      if($lib == 'part_lib') {
+        continue;
+      }
+      if($lib == 'ipb_lib') {
+        $business_contents = array();
+        $contents = entity_load_multiple_by_properties('product_business_entity_content', array('businessId' => $business->id()));
+        foreach($contents as $content) {
+          $business_contents[] = $content->getSimpleValue('target_id');   //得到业务的内容
+        }
+        $ipb_values = $hostclient->get('ipb_id')->getValue();
+        foreach($ipb_values as $value) { 
+          $ipb = entity_load('ipb', $value['target_id']);
+          $ipb_type = $ipb->get('type')->entity;
+          if(in_array($ipb_type->id(), $business_contents)) {
+            $product_business_tmp[$business->label()][] = $ipb->label() . '-' . $ipb_type->label();
+          }
+        }
+        continue;
+      }
+      $business_values = $item->business_content;
+      $value_arr = explode(',', $business_values);
+      foreach($value_arr as $value) {
+        $value_text = product_business_value_text($business, $value);
+        $product_business_tmp[$business->label()][] = $value_text;
+      }
+    }
+
+    foreach($product_business_tmp as $key => $value) {
+      $business_list[$key] = array(
+        'number' => count($value),
+        'title' => SafeMarkup::format(implode($value, '<br>'), array())
+      );
+    }
+  }
+  $variables['business_list'] = $business_list;
+}

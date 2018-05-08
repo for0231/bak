@@ -1,0 +1,191 @@
+<?php
+
+use \Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function qy_form_smtp_admin_settings_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['actions']['submit']['#submit'][] = '::submitForm';
+  $form['actions']['submit']['#submit'][] = 'qy_smtp_admin_settings_submit';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() 提交的方法
+ */
+function qy_smtp_admin_settings_submit() {
+  $mail_config = \Drupal::configFactory()->getEditable('system.mail');
+  $qy_config = \Drupal::configFactory()->getEditable('qy.settings');
+  $mail_system = $mail_config->get('interface');
+  $smtp_config = \Drupal::config('smtp.settings');
+  if ($smtp_config->get('smtp_on')) {
+    $mail_system['qy_traction'] = 'SMTPMailSystem';
+    $mail_config->set('interface', $mail_system);
+    $mail_config->save();
+    $qy_config->set('send_mail', 1);
+  } else {
+    if(isset($mail_system['qy_traction'])) {
+      unset($mail_system['qy_traction']);
+      $mail_config->set('interface', $mail_system);
+      $mail_config->save();
+    }
+    $qy_config->set('send_mail', 0);
+  }
+  $qy_config->save();
+}
+
+/**
+ * Implements hook_mail()
+ */
+function qy_mail($key, &$message, $params) {
+  if($key == 'traction') {
+    $message['subject'] = $params['subject'];
+    $message['body'] = $params['body'];
+  }
+}
+
+/**
+ * 得到时分秒
+ */
+function qy_time2string($second){
+  if($second <= 0){return '00分'.'00秒';}
+  $day = floor($second/(3600*24));
+  $second = $second%(3600*24);//除去整天之后剩余的时间
+  $hour = floor($second/3600);
+  $second = $second%3600;//除去整小时之后剩余的时间
+  $minute = floor($second/60);
+  $second = $second%60;//除去整分钟之后剩余的时间
+  if($second < 0){return '00分'.'00秒';}
+  if($minute<10)$minute='0'.$minute;
+  if($second<10)$second='0'.$second;
+  //返回字符串
+  if($day==0){
+    if($hour==0)return $minute.'分'.$second.'秒';
+    return $hour.'小时'.$minute.'分'.$second.'秒';
+  } else {
+    return $day.'天'.$hour.'小时'.$minute.'分'.$second.'秒';
+  }
+}
+
+/**
+ * 用ajax获取数据的模块别名对应的模块名
+ */
+function qy_module_provider() {
+  return array(
+    'wd' => 'qy_wd',
+    'jd' => 'qy_jd',
+    'remote' => 'qy_remote',
+    'qy' => 'qy'
+  );
+}
+
+/**
+ * 获取防火墙
+ */
+function qy_module_firewall() {
+  return array(
+    'qy_wd' => '唯盾防火墙',
+    'qy_jd' => '金盾防火墙',
+  );
+}
+
+/**
+ * 牵引模式
+ */
+function qy_traction_ms() {
+  return array(
+    '1' => '独享牵引值',
+    '2' => '共享牵引值'
+  );
+}
+
+/**
+ * 线路状态
+ */
+function qy_route_status(){
+  return array(
+    '0' => '禁用',
+    '1' => '启用',
+    '2' => '只启用监控不写黑洞'
+  );
+}
+
+/**
+ * 牵引类型
+ */
+function qy_traction_type() {
+  return array(
+    'add' => '手动增加(Add)',
+    'Alarm' => '超总墙(Alarm)',
+    'Long' => '超策略(Long)',
+    'Share' => '超策略共享(Share)',
+    'PreDef' => '无策略超默认(PreDef)',
+    'cleaning' => 'Cleaning'
+  );
+}
+
+/**
+ * 获取已打开防火墙
+ */
+function qy_module_open_firewall() {
+  $open = array();
+  $module_handler = \Drupal::moduleHandler();
+  if($module_handler->moduleExists('qy_wd')) {
+    $open['qy_wd'] = 'qy_wd';
+  }
+  if($module_handler->moduleExists('qy_jd')) {
+    $open['qy_jd'] = 'qy_jd';
+  }
+  return $open;
+}
+
+/**
+ * 获得指定IP指定线路的策略
+ */
+function getPolicyByIP($db_service, $routeid, $ip) {
+  $ips = explode(".", $ip);
+  $pre_ip = $ips[0] . '.' . $ips[1] . '.' . $ips[2] . '.';
+  $policys = $db_service->load_policy_nopage(array('zt' => 0, 'routeid' =>$routeid, 'ip' => array('value' => $pre_ip, 'op'=> 'like')), 'xx', 'mask_number');
+  foreach($policys as $policy) {
+    $policy_ips = explode('.', $policy->ip);
+    $max = $policy_ips[3];
+    if($policy->mask_number < 32) {
+      $n = 32 - $policy->mask_number;
+      $num = pow(2, $n);
+      $max = $policy_ips[3] + $num - 1;
+    }
+    if($ips[3] >= $policy_ips[3] && $ips[3] <= $max) {
+      return $policy;
+    }
+  }
+  return array();
+}
+
+/**
+ * 导出
+ * @param unknown $datas
+ */
+function qy_logs_export($datas) {
+  $filename = 'number'.time().'.csv';
+  header('Content-Type: application/vnd.ms-excel;');
+  header('Content-Disposition: attachment;filename="'.$filename.'"');
+  header('Cache-Control: max-age=0');
+  $fp = fopen('php://output', 'a');
+  $head = array('ip','线路','BPS流量','PPS流量','开始时间','解封时间','牵引类型','备注','工号');
+  fwrite($fp, chr(0xEF).chr(0xBB).chr(0xBF)); // 添加 BOM
+  fputcsv($fp, $head);
+  foreach ($datas as $key=>$val){
+    $row = array();
+    $row[] = $val->ip;
+    $row[] = $val->routename;
+    $row[] = $val->bps;
+    $row[] = $val->pps;
+    $row[] = date('Y-m-d H:i:s',$val->start);
+    $row[] = date('Y-m-d H:i:s',$val->end);
+    $row[] = $val->type;
+    $row[] = $val->note;
+    $row[] = $val->opter;
+    fputcsv($fp, $row);
+  }
+  fclose($fp);
+}

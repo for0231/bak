@@ -1,0 +1,180 @@
+<?php
+
+/**
+ * @file
+ * uc_alipay.module的安装文件.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function hc_alipay_schema() {
+  $schema = array();
+
+  $schema['user_payment_alipay'] = array(
+    'description' => 'Logs alipay Instant Payment Notifications.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'The order ID.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'The user ID.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'order_code' => array(
+        'description' => 'The order code.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'currency' => array(
+        'description' => 'trade currency.',
+        'type' => 'varchar',
+        'length' => 255,
+        'default' => '',
+      ),
+      'total_fee' => array(
+        'description' => 'The total amount from alipay.',
+        'type' => 'varchar',
+        'length' => 255,
+        'default' => '',
+      ),
+      'rmb_fee' => array(
+        'description' => 'The order\'s rmb total fee.',
+        'type' => 'varchar',
+        'length' => 255,
+        'default' => '',
+      ),
+      'trade_status' => array(
+        'description' => 'trade status.',
+        'type' => 'varchar',
+        'length' => 255,
+        'default' => '',
+      ),
+      'trade_no' => array(
+        'description' => 'trade no.',
+        'type' => 'varchar',
+        'length' => 255,
+        'default' => '',
+      ),
+      'notify_type' => array(
+        'description' => 'notify type.',
+        'type' => 'varchar',
+        'length' => 255,
+        'default' => '',
+      ),
+      'notify_id' => array(
+        'description' => 'notify id.',
+        'type' => 'varchar',
+        'length' => 255,
+        'default' => '',
+      ),
+      'notify_time' => array(
+        'description' => 'The notify timestamp.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'default' => 0,
+      ),
+      'received' => array(
+        'description' => 'The return timestamp.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  $schema['user_consumer_records'] = array(
+    'description' => '用户信用额度/现金余额变更记录',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary Key: unique ID ',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'client_uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '相关的客户id',
+      ),
+      'op_uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '操作用户id',
+      ),
+      'amount' => array(
+        'type' => 'numeric',
+        'precision' => 10,
+        'scale' => 2,
+        'not null' => TRUE,
+        'default' => 0.0,
+        'description' => '操作金额'
+      ),
+      'message' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'length' => 225,
+        'default' => '',
+        'description' => '操作信息.',
+      ),
+      'created' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '操作时间.',
+      ),
+      'order_code' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'length' => 225,
+        'default' => '',
+        'description' => '消费或充值订单编号.',
+      ),
+      'type' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '消费类型  （充值/消费）',
+      ),
+      'method' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '消费方式 （支付宝支付/现金余额支付/信用额度支付)',
+      ),
+    ),
+    'primary key' => array('id'),
+    'foreign keys' => array(
+       'client_uid' => array(
+         'table' => 'users',
+         'columns' => array(
+          'client_uid' => 'uid',
+        ),
+      ),
+      'op_uid' => array(
+         'table' => 'users',
+         'columns' => array(
+          'op_uid' => 'uid',
+        ),
+      ),
+    ),
+  );
+  return $schema;
+}
+
+

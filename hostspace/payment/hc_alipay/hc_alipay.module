@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * 集成支付宝的支付服务。
+ */
+use Drupal\Core\Form\FormStateInterface;
+/**
+ * 实现钩子 hook_form_FORM_ID_alter().
+ */
+function hc_alipay_form_order_payment_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  //unset($form['actions']['submit']);
+  $form = \Drupal::formBuilder()->getForm('Drupal\hc_alipay\Form\AlipayForm');
+}
+
+/**
+ * 用户充值默认使用方式
+ */
+function getDefaultPaymentMethod($method = array()) {
+  switch ($method) {
+    case $method['alipay']:
+      return 'alipay';
+      break;
+  }
+}

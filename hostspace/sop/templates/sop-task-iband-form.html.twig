@@ -1,0 +1,69 @@
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+<div class="row">
+  <div class="col-xs-8">
+    <div class="row">
+      <div class="col-xs-4">
+        {{ form.mips }}
+      </div>
+      <div class="col-xs-4">
+        {{ form.client_uid }}
+      </div>
+      <div class="col-xs-4">
+        {{ form.sop_type }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-4">
+        {{ form.edit_info.business_ip.bips }}
+      </div>
+      <div class="col-xs-4">
+        {{ form.edit_info.business_ip.aips }}
+      </div>
+      <div class="col-xs-4">
+        {{ form.edit_info.business_ip.sips }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-8">
+        {{ form.description }}
+      </div>
+      <div class="col-xs-4">
+        <div class="row">
+          <br />
+          {{ form.sop_op_type }}
+        </div>
+        <div class="row">
+          <br/>
+          {{ form.actions }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-4">
+    <div class="row">
+      <div class="col-xs-6">
+        {{ form.set_active }}
+      </div>
+      <div class="col-xs-5">
+        {{ form.bip_type }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-11">
+        {{ form.edit_info.business_ip.ipb_search.ipb_search_wrapper }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-11">
+        {{ form.edit_info.business_ip.ipb_search.ipb_search_text }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-11">
+        {{ form.edit_info.business_ip.ipb_search.ipb_search_submit }}
+      </div>
+    </div>
+  </div>
+</div>

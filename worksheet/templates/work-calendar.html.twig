@@ -1,0 +1,53 @@
+{#
+/**
+ * @file
+ * work_calendar元素模板
+ *
+ * Available variables
+ * - element: 元素内容
+ *
+ */
+#}
+<div {{ attributes }}>
+<table>
+  <tr>
+    <td>星期日</td>
+    <td>星期一</td>
+    <td>星期二</td>
+    <td>星期三</td>
+    <td>星期四</td>
+    <td>星期五</td>
+    <td>星期六</td>
+  </tr>
+  {% for day,item in info %}
+    {% if loop.first %}
+      <tr>
+      {% if item.week > 0 %}
+        {% for n in 0..(item.week-1) %}
+          <td>&nbsp;</td>
+        {% endfor %}
+      {% endif %}
+    {% endif %}
+    
+    {% if item.work %}
+      <td class="calendar-day work" js-day="{{day}}"><div><b>{{day}}</b></div></td>
+    {% else %}
+      <td class="calendar-day unwork" js-day="{{day}}"><div><span>休</span><b>{{day}}</b></div></td>
+    {% endif %}
+    
+    {% if loop.last %}
+      {% if item.week < 6 %}
+        {% for i in (item.week+1)..6 %}
+          <td>&nbsp;</td>
+        {% endfor %}
+      {%endif %}
+      </tr>
+    {% else %}
+      {% if item.week == 6 %}
+        </tr>
+        <tr>
+      {% endif %}
+    {%endif%}
+  {% endfor %}
+</table>
+</div>

@@ -1,0 +1,36 @@
+administer ip list:
+  title: 'administer ip list'
+
+administer ip add:
+  title: 'administer ip add'
+
+administer ip edit:
+  title: 'administer ip edit'
+
+administer IP delete:
+  title: 'administer IP delete'
+
+access ip log:
+  title: 'access ip log'
+
+administer IP taxonomy:
+  title: 'administer IP taxonomy'
+
+access administration ip pages:
+  title: 'access administration ip pages'
+
+administer apply add bip:
+  title: 'administer apply add bip'
+
+administer apply list:
+  title: 'administer apply list'
+
+administer audit apply:
+  title: 'administer audit apply'
+
+administer ip group view:
+  title: 'administer ip group view'
+
+administer ip group edit:
+  title: 'administer ip group edit'
+

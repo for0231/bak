@@ -1,0 +1,92 @@
+{#
+/**
+ * @file
+ * 一个机柜的机位列表 	 
+ *
+ * Available variables:
+ * -cabinet:
+ *
+ * @see template_preprocess_seat_list()
+ */
+#}
+
+<div class = "seat-list">
+  <div class = 'seat-list-summary'>
+  <table>
+    <tr>
+      <td style="width:200px">{{ 'Room'|t }}</td>
+      <td>{{ cabinet.rid.entity.name.value }}</td>
+      <td style='width:200px'>{{ 'Cabinet'|t }}</td>
+      <td>{{ cabinet.code.value }}</td>
+   </tr>
+   <tr>
+      <td>{{ 'Seat Number'|t }}</td>
+      <td colspan = '3'>{{ cabinet.seat.value }}</td>
+   </tr>
+   {% for switch in cabinet.switchList %}
+    <tr>
+      <td>{{ 'Switch IP'|t }}</td>
+      <td>{{ switch.ips_id.entity.ip.value }}</td>
+      <td>{{ 'Port Number'|t }}</td>
+      <td>{{ switch.ips_id.entity.port.value }}</td>
+    </tr>
+   {% endfor %} 
+  </table>
+  </div>
+  <div class = 'seat-list-content'>
+    <table>
+      <tr>
+        <th>{{ 'Seat No.'|t }}</th>
+        <th>{{ 'Group name'|t}}</th> 
+        <th>{{ 'Server code'|t }}</th>
+        <th>{{ 'Manage ip'|t }}</th>
+        <th>{{ 'Switch IP'|t }}</th>
+        <th>{{ 'Node'|t }}</th>
+        <th>{{ 'Status'|t }}</th>
+        <th>{{ 'Operate'|t }}</th>
+      </tr>
+      {% for key, seat in cabinet.seatList %}
+        <tr>
+          <td>#{{ key }}</td>
+          {% if seat.action == 'new'  %}
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>&nbsp;</td>
+           <td>{{ seat.operate }}</td>
+          {% else %}
+           {% if not seat.is_rowspan %}
+            {% if seat.entity_type == 'cabinet_server' %}
+              {% if seat.is_group %}
+                <td rowspan="{{ seat.rowspan }}">{{ seat.group_name }}</td>
+                <td rowspan="{{ seat.rowspan }}">{{ seat.code }}</td>
+                <td rowspan="{{ seat.rowspan }}">{{ seat.manage_ip }}</td>
+                <td rowspan="{{ seat.rowspan }}">{{ seat.switch }}</td>
+                <td rowspan="{{ seat.rowspan }}">{{ seat.node }}</td>
+                <td rowspan="{{ seat.rowspan }}">{{ seat.status }}</td>
+              {% else %}
+                <td rowspan="{{ seat.rowspan }}">&nbsp;</td>
+                <td rowspan="{{ seat.rowspan }}">{{ seat.code }}</td>
+                <td rowspan="{{ seat.rowspan }}"><a href="{{ path('admin.idc.cabinet.server.detail',{cabinet_server: seat.sid}) }}">{{ seat.manage_ip }}</a></td>
+                <td rowspan="{{ seat.rowspan }}">{{ seat.switch }}</td>
+                <td rowspan="{{ seat.rowspan }}">&nbsp;</td>
+                <td rowspan="{{ seat.rowspan }}">{{ seat.status }}</td>
+              {% endif %}
+            {% else %}
+             <td rowspan="{{ seat.rowspan }}">&nbsp;</td>
+             <td rowspan="{{ seat.rowspan }}">&nbsp;</td>
+             <td rowspan="{{ seat.rowspan }}">&nbsp;</td>
+             <td rowspan="{{ seat.rowspan }}">{{ seat.switch }}</td>
+             <td rowspan="{{ seat.rowspan }}">&nbsp;</td>
+             <td rowspan="{{ seat.rowspan }}">&nbsp;</td>
+            {% endif %}
+            <td rowspan="{{ seat.rowspan }}">{{ seat.operate }}</td>
+           {% endif %}  
+         {% endif %}
+       </tr>
+     {% endfor  %}
+    </table>
+  </div>
+</div>

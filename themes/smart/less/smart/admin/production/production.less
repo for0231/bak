@@ -1,0 +1,72 @@
+// import local smart less
+/*!
+ * SmartAdmin - Responsive WebApp
+ *
+ * Copyright 2014 bootstraphunter.com
+ * Designed and built with all the love in the world by @bootstraphunt.
+ */
+// Core variables and mixins
+@import "../../variables.less";
+@import "../../../../bootstrap/less/mixins.less";
+@import "../../../elements/elements.less";
+@import "../../../customize/customize.less"; // custom variable overrides
+
+
+// Plugins have been moved to "smartadmin-production-plugins.less" file (because IE cannot handle more than 4096 selectors in a stylesheet)
+
+// Libraries (Remove if not needed)
+@import "../../../library/animation/animation-engine.less";
+@import "../../../library/jqueryui/jquery-ui-1.10.3.custom.less";
+@import "../../../library/flags/flags.less";
+@import "../../../library/cursors/cursors.less";
+
+// Individual pages, sections, and components.  You can remove any of these sections you don't use
+
+// Components
+@import "../component/component-fullscreen.less";
+@import "../component/component-jqueryui.less"; // dependency: jquery-ui-1.10.3.custom.less
+@import "../component/component-pricingtable.less";
+@import "../component/component-pace.less";
+@import "../component/component-smartchat.less";
+@import "../component/component-smartforms.less";
+
+// Pages
+@import "../page/page-error.less";
+@import "../page/page-extr.less";
+
+// Sections
+@import "../section/section-nestables.less";
+@import "../section/section-calendar.less";
+@import "../section/section-inbox.less";
+@import "../section/section-profile.less";
+@import "../section/section-search.less";
+@import "../section/section-todo.less";
+@import "../section/section-timeline.less";
+@import "../section/section-forum.less";
+@import "../section/section-ajax-msg.less";
+@import "../section/section-projects.less";
+@import "../section/section-dashboard-social.less";
+@import "../section/section-ecommerce.less";
+
+// Main THEME (Imports by order - do not change order)
+@import "../main/main.less";
+@import "../main/main-progress.less";
+@import "../main/main-container-fix.less";
+@import "../main/main-special-class.less";
+@import "../main/main-form-radiocheck.less";
+@import "../main/main-animated.less";
+@import "../main/main-colorpallet.less";
+@import "../main/main-colorblind.less";
+@import "../main/main-page-footer.less";
+@import "../main/main-responsive.less";
+
+// Patches
+@import "../patch/ie-fix.less";
+
+// UI (overrides and new)
+@import "../ui/top-menu.less";
+@import "../ui/no-menu.less";
+
+// Overrides
+@import "../overrides.less";
+

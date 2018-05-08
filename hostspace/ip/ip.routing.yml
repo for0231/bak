@@ -1,0 +1,239 @@
+system.admin_ip:
+  path: '/admin/ip'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Ip Library'
+  requirements:
+    _permission: 'access administration ip pages'
+
+ip.ipm.admin:
+  path: '/admin/ipm'
+  defaults:
+    _entity_list: 'ipm'
+    _title: 'View list of management ip '
+  requirements:
+    _permission: 'administer ip list'
+
+ip.ipm.add_form:
+  path: '/admin/ipm/add'
+  defaults:
+    _entity_form: 'ipm.default'
+    _title: 'Add management ip'
+  requirements:
+    _permission: 'administer ip add'
+
+entity.ipm.edit_form:
+  path: '/admin/ipm/{ipm}/edit'
+  defaults:
+    _entity_form: 'ipm.default'
+    _title: 'Edit IP'
+  requirements:
+    _permission: 'administer ip edit'
+
+entity.ipm.delete_form:
+  path: '/admin/ipm/{ipm}/delete'
+  defaults:
+    _entity_form: 'ipm.delete'
+    _title: 'Delete IP'
+  requirements:
+    _permission: 'administer IP delete'
+
+ip.ips.admin:
+  path: '/admin/ips'
+  defaults:
+    _entity_list: 'ips'
+    _title: 'View list of switch ip '
+  requirements:
+    _permission: 'administer ip list'
+
+ip.ips.add_form:
+  path: '/admin/ips/add'
+  defaults:
+    _entity_form: 'ips.default'
+    _title: 'Add switch ip'
+  requirements:
+    _permission: 'administer ip add'
+
+ip.ips.multiple.add_form:
+  path: '/admin/ips/multiple/add'
+  defaults:
+    _entity_form: 'ips.multiple'
+    _title: 'Add switch ip'
+  requirements:
+    _permission: 'administer ip add'
+
+entity.ips.edit_form:
+  path: '/admin/ips/{ips}/edit'
+  defaults:
+    _entity_form: 'ips.default'
+    _title: 'Edit IP'
+  requirements:
+    _permission: 'administer ip edit'
+
+entity.ips.delete_form:
+  path: '/admin/ips/{ips}/delete'
+  defaults:
+    _entity_form: 'ips.delete'
+    _title: 'Delete IP'
+  requirements:
+    _permission: 'administer IP delete'
+
+ip.ipb.admin:
+  path: '/admin/ipb'
+  defaults:
+    _entity_list: 'ipb'
+    _title: 'View list of business ip '
+  requirements:
+    _permission: 'administer ip list'
+
+ip.ipb.add_form:
+  path: '/admin/ipb/add'
+  defaults:
+    _entity_form: 'ipb.default'
+    _title: 'Add business ip'
+  requirements:
+    _permission: 'administer ip add'
+
+ip.ipb.multiple.add_form:
+  path: '/admin/ipb/multiple/add'
+  defaults:
+    _entity_form: 'ipb.multiple'
+    _title: 'Add business ip'
+  requirements:
+    _permission: 'administer ip add'
+
+ip.ipm.multiple.add_form:
+  path: '/admin/ipm/multiple/add'
+  defaults:
+    _entity_form: 'ipm.multiple'
+    _title: 'Add management ip'
+  requirements:
+    _permission: 'administer ip add'
+
+entity.ipb.edit_form:
+  path: '/admin/ipb/{ipb}/edit'
+  defaults:
+    _entity_form: 'ipb.default'
+    _title: 'Edit IP'
+  requirements:
+    _permission: 'administer ip edit'
+
+entity.ipb.delete_form:
+  path: '/admin/ipb/{ipb}/delete'
+  defaults:
+    _entity_form: 'ipb.delete'
+    _title: 'Delete IP'
+  requirements:
+    _permission: 'administer IP delete'
+
+ip.ipb.view.ipsegment:
+  path: '/admin/ip/view/ipsegment'
+  defaults:
+    _controller: 'Drupal\ip\Controller\IpController::viewIpSegment'
+    _title: 'overview the segment of business ip'
+  requirements:
+    _permission: 'access ip log'
+
+#业务IP防御值管理
+ip.ipb.taxonomy.admin:
+  path: '/admin/ipb/taxonomy'
+  defaults:
+    _controller: 'Drupal\ip\Controller\IpController::adminBusinessIpType'
+    _title: 'Admin the taxonomy of business ip'
+  requirements:
+    _permission: 'administer IP taxonomy'
+
+#业务IP上架申请
+ip.bip.apply:
+  path: '/admin/ipb/apply'
+  defaults:
+    _form: 'Drupal\ip\Form\ApplyAddBipForm'
+    _title: 'Apply to add bip'
+  requirements:
+    _permission: 'administer apply add bip'
+
+#申请列表
+ip.bip.apply.list:
+  path: '/admin/ipb/apply/list'
+  defaults:
+    _controller: 'Drupal\ip\Controller\IpController::bipApplyList'
+    _title: 'Application List'
+  requirements:
+    _permission: 'administer apply list'
+
+#申请审核
+ip.bip.apply.audit:
+  path: '/admin/ipb/apply/{apply_id}/audit'
+  defaults:
+    _form: 'Drupal\ip\Form\ApplyAuditForm'
+    _title: 'Audit the application'
+  requirements:
+    _permission: 'administer audit apply'
+
+#业务IP分类管理(VPS|站群...)
+ip.ipb.classify.admin:
+  path: '/admin/ipb/classify'
+  defaults:
+    _controller: 'Drupal\ip\Controller\IpController::adminBusinessIpClassify'
+    _title: 'Admin the classify of business ip'
+  requirements:
+    _permission: 'administer IP taxonomy'
+
+
+#业务IP下架申请
+ip.ipb.cancle.apply:
+  path: '/admin/ipb/cancle/apply'
+  defaults:
+    _form: 'Drupal\ip\Form\ApplyCancleBipForm'
+    _title: 'Apply to cancle ip'
+  requirements:
+    _permission: 'administer apply add bip'
+
+ip.bip.cancle.list:
+  path: '/admin/ipb/cancle/apply/list'
+  defaults:
+    _controller: 'Drupal\ip\Controller\IpController::bipCancleApplyList'
+    _title: 'Application List'
+  requirements:
+    _permission: 'administer apply list'
+
+ip.bip.cancle.audit:
+  path: '/admin/ipb/cancle/{apply_id}/audit'
+  defaults:
+    _form: 'Drupal\ip\Form\CancleAuditForm'
+    _title: 'Audit the application'
+  requirements:
+    _permission: 'administer audit apply'
+
+ip.group.list:
+  path: '/admin/ip/group'
+  defaults:
+    _controller: 'Drupal\ip\Controller\IpController::groupList'
+    _title: 'IP group list'
+  requirements:
+    _permission: 'administer ip group view'
+
+ip.group.add:
+  path: '/admin/ip/group/add'
+  defaults:
+    _form: 'Drupal\ip\Form\IpGroupEditForm'
+    _title: 'Add Ip group'
+  requirements:
+    _permission: 'administer ip group edit'
+
+ip.group.edit:
+  path: '/admin/ip/group/{group_id}/edit'
+  defaults:
+    _form: 'Drupal\ip\Form\IpGroupEditForm'
+    _title: 'Edit Ip group'
+  requirements:
+    _permission: 'administer ip group edit'
+ip.group.delete:
+  path: '/admin/ip/group/{group_id}/delete'
+  defaults:
+    _controller: 'Drupal\ip\Controller\IpController::groupDelete'
+    _title: 'Delete Ip group'
+  requirements:
+    _permission: 'administer ip group edit'
+
+

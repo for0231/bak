@@ -1,0 +1,151 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+use \Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Url;
+use Drupal\Component\Utility\SafeMarkup;
+use Drupal\hostlog\HostLogFactory;
+
+ /**
+ * Implement hook_theme().
+ */
+function published_information_theme() {
+  return array(
+    'news_box' => array(
+      'template' => 'news-box',
+      'render element' => 'elements',
+    ),
+    'news_list' => array(
+      'template' => 'news-list',
+      'variables' => array('newsData'=>null)
+    ),
+    'news_detail' => array(
+      'template' => 'news-detail',
+      'variables' => array('news_obj'=>null)
+    ),
+
+    'article_box' => array(
+      'template' => 'article-box',
+      'render element' => 'elements',
+    ),    
+    'article_list' => array(
+      'template' => 'article-list',
+      'variables' => array('articleData'=>null)
+    ),
+//=======================区块模板==============================
+    'news_catgeory_block' => array(
+      'template' => 'block--news-catgeory',
+      'variables' => array('category_data'=>null)
+    ),
+    'article_catgeory_block' => array(
+      'template' => 'block--article-catgeory',
+      'variables' => array('categorys'=>null)
+    ),
+    'recommend_message_block' => array(
+      'template' => 'block--recommend-message',
+      'variables' => array('recommend_data'=>null)
+    ),
+  );
+}
+
+/**
+ * 显示新闻目录的区块模板参数
+ */
+function template_preprocess_news_catgeory_block(&$variables) {
+  $category_data = $variables['category_data'];
+  foreach($category_data as $catg) {
+    $catg->list_url =  new Url('published.front.list',array('p_category' => $catg->name, 'node_type' => 'news' )) ;
+  }
+}
+
+/**
+ * 显示文章目录的区块模板参数
+ */
+function template_preprocess_article_catgeory_block(&$variables) {
+  $categorys = $variables['categorys'];
+  foreach($categorys as $catg) {
+    $catg->list_url =  new Url('published.front.list',array('p_category' => $catg->name, 'node_type' => 'articles' )) ;
+  }
+}
+
+/**
+ * 显示推荐内容的区块模板参数
+ */
+function template_preprocess_recommend_message_block(&$variables) { 
+  $recommend_data = $variables['recommend_data'];
+  foreach($recommend_data as $msg) {
+    $msg->summary_val = strip_tags($msg->get('summary')->value);
+    $msg->detail = new Url('published.front.published.detail',array('node_id' => $msg->id()));
+  }
+}
+
+
+/**
+ * 构建前台显示新闻列表页面所需的参数
+ */
+function template_preprocess_news_list(&$variables) {  
+  // 加载对应类型的数据
+  $newsData = $variables['newsData'];
+  foreach($newsData as $news) {
+    $news->category_val = $news->get('category')->entity->label();
+    $news->title_val = $news->label();//cutstr($news->label(),100);
+    $news->update_time = format_date($news->get('changed')->value, 'custom', 'Y-m-d H:i:s') ;
+    $news->detail = new Url('entity.node.canonical',array('node' => $news->id())) ;
+  }
+}
+
+/**
+ * 构建前台显示文章列表页面所需的参数
+ */
+function template_preprocess_article_list(&$variables) {  
+  // 加载对应类型的数据
+  $articleData = $variables['articleData'];
+ 
+  foreach($articleData as $article) {
+    $article->category_val = $article->get('article_category')->entity->label();
+    $article->summary_val = strip_tags($article->get('summary')->value);
+    $article->pub_time = format_date($article->get('created')->value, 'custom', 'Y-m-d H:i:s') ;
+    $article->detail = new Url('entity.node.canonical',array('node' => $article->id())) ;
+  }
+}
+
+
+/**
+ * Implements hook_ENTITY_TYPE_view() for user entities.
+ * 
+ * 预览文章内容
+ */
+function published_information_node_view(array &$build, EntityInterface $node, EntityViewDisplayInterface $display) {
+ //设置浏览量递增1
+  if($node->get('type')->entity->id() == 'news' || $node->get('type')->entity->id() == 'articles') {
+    $views = $node->get('views')->value;
+    $node->set('views',$views+1);
+    $node->save();
+    $build['content'] = array(
+      '#type' => 'container',
+      '#markup' => $node->get('body')->value
+    );
+  }
+  return $build;
+}
+
+function published_information_node_insert(EntityInterface $entity) {
+  $type = $entity->get('type')->target_id;
+  if($type == 'news' || $type == 'articles') {
+    HostLogFactory::OperationLog('published_information')->log($entity, 'insert');
+  }
+}
+
+function published_information_node_update(EntityInterface $entity) {
+  $type = $entity->get('type')->target_id;
+  if($type == 'news' || $type == 'articles') {
+    HostLogFactory::OperationLog('published_information')->log($entity, 'update');
+  }
+}
+
+function published_information_node_delete(EntityInterface $entity) {
+  $type = $entity->get('type')->target_id;
+  if($type == 'news' || $type == 'articles') {
+    HostLogFactory::OperationLog('published_information')->log($entity, 'delete');
+  }
+}

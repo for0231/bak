@@ -1,0 +1,127 @@
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+<!-- row -->
+<div class="row">
+  <!-- NEW WIDGET START -->
+  <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="alert alert-danger fade in">
+			<button data-dismiss="alert" class="close">
+				×
+			</button>
+			<i class="fa-fw fa fa-warning"></i>
+      重要提示: 一个采购单只能包含一个币种、一个供应商。
+		</div>
+  </article>
+  <!-- WIDGET END -->
+</div>
+<!-- end row -->
+<table class="table table-bordered table-striped" style="clear: both">
+   <tbody>
+    <tr>
+      <td colspan=6>
+				<!-- row -->
+				<div class="row">
+					<!-- NEW WIDGET START -->
+					<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+             {{ form.audit_locale }}
+           </article>
+         </div>
+      </td>
+    </tr>
+    <tr>
+     <td colspan=6><h6 class="text-primary">采购单信息</h6></td>
+    </tr>
+    <tr>
+      <td><strong>采购单据编号</strong></td>
+      <td >{{ form.no }}</td>
+      <td><strong>采购单名称</strong></td>
+      <td>{{ form.title }}</td>
+      <td><strong>创建时间</strong></td>
+      <td>{{ form.created }}</td>
+    </tr>
+    <tr>
+     <td colspan=6><h6 class="text-primary">申请信息</h6></td>
+    </tr>
+    <tr>
+      <td><strong>申请人</strong></td>
+      <td>{{ member_info.name }}</td>
+     <td><strong>申请部门</strong></td>
+     <td>{{ member_info.depart }}</td>
+     <td><strong>所属公司</strong></td>
+     <td>{{ member_info.company }}</td>
+    </tr>
+
+    <tr>
+      <td colspan=6><h6 class="text-primary">采购物品列表<!--物品列表来自配件实体表--></h6></td>
+    </tr>
+    <tr>
+     <td colspan=6>
+        <!-- row -->
+        <div class="row">
+          <!-- NEW WIDGET START -->
+          <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <table id="caigou-detail"></table>
+            <div id="pjcaigou-detail"></div>
+          </article>
+          <!-- WIDGET END -->
+        </div>
+        <!-- end row -->
+     </td>
+    </tr>
+
+  <tr>
+    <td>
+      <!-- row -->
+      <div class="row">
+        <!-- NEW WIDGET START -->
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <strong>用途</strong>:
+         </article>
+       </div>
+    </td>
+    <td colspan=5>
+      <!-- row -->
+      <div class="row">
+        <!-- NEW WIDGET START -->
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+           {{ form.purpose }}
+         </article>
+       </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <!-- row -->
+      <div class="row">
+        <!-- NEW WIDGET START -->
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <strong>备注</strong>:
+         </article>
+       </div>
+    </td>
+    <td colspan=5>
+      <!-- row -->
+      <div class="row">
+        <!-- NEW WIDGET START -->
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+           {{ form.description }}
+         </article>
+       </div>
+    </td>
+  </tr>    <tr>
+      <td colspan=6>
+				<!-- row -->
+				<div class="row">
+					<!-- NEW WIDGET START -->
+					<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+             {{ form.fid }}
+           </article>
+         </div>
+      </td>
+    </tr>
+
+   </tbody>
+  </table>
+  {{ form.actions }}
+

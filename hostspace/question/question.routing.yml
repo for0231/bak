@@ -1,0 +1,106 @@
+system.admin_question:
+  path: '/admin/question'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Malfunction declare'
+  requirements:
+    _permission: 'access administration question pages'
+
+question.category.admin:
+  path: 'admin/question/category'
+  defaults:
+    _controller: '\Drupal\question\Controller\QuestionController::adminCategoryList'
+    _title: 'Manage category of question'
+  requirements:
+    _permission: 'administer question category admin'
+
+question.category.add_form:
+  path: '/admin/question/categoey/add'
+  defaults:
+    _entity_form: 'question_class.default'
+    _title: 'Add category of question'
+  requirements:
+    _permission: 'administer question category add'
+
+question.category.edit_form:
+  path: '/admin/question/categoey/{question_class}/add'
+  defaults:
+    _entity_form: 'question_class.default'
+    _title: 'edit category of question'
+  requirements:
+    _permission: 'administer question category edit'
+
+question.category.delelte_form:
+  path: '/admin/question/categoey/{question_class}/delete'
+  defaults:
+    _entity_form: 'question_class.delete'
+    _title: 'Delete category of question'
+  requirements:
+    _permission: 'administer question category delete'
+
+question.admin:
+  path: '/admin/question/list'
+  defaults:
+    _entity_list: 'question'
+    _title: 'List of question .'
+  requirements:
+    _permission: 'administer question list'
+
+question.statistics:
+  path: '/admin/question/statistics'
+  defaults:
+    _controller: '\Drupal\question\Controller\QuestionStatisticsController::statistical'
+    _title: 'Statistics'
+  requirements:
+    _permission: 'administer question statistics'
+
+entity.question.edit_form:
+  path: '/admin/question/{question}/detail'
+  defaults:
+    _entity_form: 'question.detail'
+    _title: 'Detail of question'
+  requirements:
+    _permission: 'administer question detail'
+
+question.mine.statistics:
+  path: '/admin/question/me/statistics'
+  defaults:
+    _controller: '\Drupal\question\Controller\QuestionController::myStatistics'
+    _title: 'My Statistics'
+  requirements:
+    _permission: 'administer I deal with'
+
+question.mine.admin:
+  path: '/admin/quedtion/deal/list'
+  defaults:
+    _controller: 'Drupal\question\Controller\QuestionController::viewIDealWith'
+    _title: 'Question that I deal with.'
+  requirements:
+    _permission: 'administer I deal with'
+
+# --------------------前台路由-------------------
+question.add_form:
+  path: 'user/malfunction/declare/{hid}'
+  defaults:
+    _entity_form: 'question.default'
+    _title: 'Declare a question'
+    hid: null   #标识是否是从服务器列表链接的申报请求。如果是则hid的值为当前服务器数据的主键hid的值  反之则为null
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+question.client.admin:
+  path: 'user/malfunction'
+  defaults:
+    _controller: '\Drupal\question\Controller\QuestionController::ClientQuestionList'
+    _title: 'Question that I decared.'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+question.client.question.detail:
+  path: 'user/malfunction/{question}/detail'
+  defaults:
+    _entity_form: 'question.client_detail'
+    _title: 'Detail of question'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+

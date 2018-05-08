@@ -1,0 +1,17 @@
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+<div class="Order_title"><b>{{ 'Modify information'|t }}</b> </div>
+<div class="blank20"></div>
+<div class="my_info">
+<p class="tip">注意：如果您需要修改email地址，需要验证当前密码。若不修改，则可以忽略密码框！ </p>
+{{ form.account.current_pass }}
+{{ form.account.mail }}
+{{ form.user_host_picture }}
+{{ form.account.roles }}
+{{ form.information.basic_info_1 }}
+{{ form.information.area }}
+{{ form.information.basic_info }}
+{{ form.language }}
+{{ form.actions }}
+</div>

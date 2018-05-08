@@ -1,0 +1,135 @@
+/* line 1, ../../bag/sass/host/nav-common.scss */
+#menubar, .menubar {
+  height: 120px;
+}
+
+/* line 4, ../../bag/sass/host/nav-common.scss */
+.float-left-fix {
+  height: 120px;
+}
+
+/* line 7, ../../bag/sass/host/nav-common.scss */
+#logo {
+  float: left;
+  height: 50px;
+}
+/* line 12, ../../bag/sass/host/nav-common.scss */
+#logo img {
+  margin: 20px 0 0;
+}
+
+/* line 16, ../../bag/sass/host/nav-common.scss */
+#block-xunyun-branding > a {
+  color: white;
+}
+/* line 18, ../../bag/sass/host/nav-common.scss */
+#block-xunyun-branding > a:visited, #block-xunyun-branding > a:focus, #block-xunyun-branding > a:hover {
+  color: white;
+}
+
+/* line 22, ../../bag/sass/host/nav-common.scss */
+#block-sitebranding > a {
+  color: white;
+}
+/* line 24, ../../bag/sass/host/nav-common.scss */
+#block-sitebranding > a:visited, #block-sitebranding > a:focus, #block-sitebranding > a:hover {
+  color: white;
+}
+
+/* line 28, ../../bag/sass/host/nav-common.scss */
+#block-sitebranding, #block-xunyun-branding {
+  float: left;
+}
+
+/* line 33, ../../bag/sass/host/nav-common.scss */
+div[class=menubar] nav {
+  float: right;
+  height: 120px;
+}
+/* line 37, ../../bag/sass/host/nav-common.scss */
+div[class=menubar] nav ul li {
+  background: url(../../images/xian_01.png) right no-repeat;
+  width: 120px;
+  float: left;
+  text-align: center;
+}
+/* line 43, ../../bag/sass/host/nav-common.scss */
+div[class=menubar] nav ul li:hover {
+  background: #021222;
+}
+/* line 45, ../../bag/sass/host/nav-common.scss */
+div[class=menubar] nav ul li:hover a {
+  color: #ffc000;
+}
+/* line 49, ../../bag/sass/host/nav-common.scss */
+div[class=menubar] nav ul li a {
+  color: #fff;
+  font-size: 18px;
+  height: 40px;
+  float: left;
+  text-align: center;
+  width: 120px;
+  margin-top: 50px;
+}
+/* line 58, ../../bag/sass/host/nav-common.scss */
+div[class=menubar] nav ul li a.is-active {
+  color: #ffc000;
+}
+/* line 61, ../../bag/sass/host/nav-common.scss */
+div[class=menubar] nav ul li u {
+  color: #ccc;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+/* line 67, ../../bag/sass/host/nav-common.scss */
+div[class=menubar] nav ul li.is-active {
+  background: #021222;
+}
+/* line 69, ../../bag/sass/host/nav-common.scss */
+div[class=menubar] nav ul li.is-active a {
+  color: #ffc000;
+}
+/* line 71, ../../bag/sass/host/nav-common.scss */
+div[class=menubar] nav ul li.is-active a:hover {
+  color: #ffc000;
+}
+
+/* line 79, ../../bag/sass/host/nav-common.scss */
+nav {
+  float: right;
+  height: 120px;
+}
+/* line 82, ../../bag/sass/host/nav-common.scss */
+nav ul li {
+  background: url(../../images/xian_01.png) right no-repeat;
+  width: 120px;
+  float: left;
+  height: 114px;
+  text-align: center;
+}
+/* line 92, ../../bag/sass/host/nav-common.scss */
+nav ul li a {
+  color: #fff;
+  font-size: 18px;
+  height: 40px;
+  float: left;
+  text-align: center;
+  width: 120px;
+  margin-top: 50px;
+}
+/* line 101, ../../bag/sass/host/nav-common.scss */
+nav ul li u {
+  color: #ccc;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+/* line 108, ../../bag/sass/host/nav-common.scss */
+nav ul .is-active, nav ul li:hover {
+  background: #021222;
+}
+
+/* line 111, ../../bag/sass/host/nav-common.scss */
+nav ul .is-active a, nav ul li a:hover {
+  color: #ffc000;
+}

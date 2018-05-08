@@ -1,0 +1,126 @@
+#main {
+  min-height: 1000px;
+}
+h1.page-header {
+  margin-top: 0;
+  margin-bottom: 3px;
+}
+#header > div.region-header {
+  width: 100%;
+}
+/*
+ * nav ul.tabs--primary.nav.nav-tabs {
+  li.active a {
+    color: black;
+    &:hover {
+      color: white;
+    }
+  }
+  li a:hover {
+    background-color: #337ab7;
+  }
+}
+nav ul.tabs--primary li.active a {
+  background-color: #9ed;
+  &:hover {
+    background-color: #9fd;
+  }
+}
+nav ul.tabs--secondary {
+  margin-top: 0px;
+}
+*/
+nav ul.tabs--primary li {
+  background-color: #5bc0de;
+  border-radius: 2px;
+}
+nav ul.tabs--primary li a {
+  color: white;
+  border: solid 1px #fff;
+}
+nav ul.tabs--primary li a:hover,
+nav ul.tabs--primary li a:visited {
+  background-color: #09c;
+  border-radius: 2px;
+}
+nav ul.tabs--primary li a.is-active {
+  border: none;
+  background-color: #199ed8;
+  border-radius: 2px;
+}
+nav ul.tabs--primary li a.is-active:hover,
+nav ul.tabs--primary li a.is-active:visited {
+  border: none;
+  background-color: #09c;
+  border-radius: 2px;
+}
+dl.list-group {
+  margin-top: 10px;
+  padding: 5px;
+}
+dl.list-group dt {
+  background-color: #dedede;
+  height: 25px;
+  line-height: 25px;
+}
+dl.list-group dd {
+  background-color: #f9f9f9;
+  height: 35px;
+}
+.table {
+  margin-bottom: 18px;
+  max-width: 100%;
+  width: 100%;
+  background-color: transparent;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.table thead tr {
+  font-size: 12px;
+}
+.table thead tr th,
+.table thead tr td {
+  background-color: #eee;
+  background-image: -moz-linear-gradient(center top, #f2f2f2 0px, #fafafa 100%);
+}
+#system-modules th.checkbox {
+  background: rgba(0, 0, 0, 0.51) none repeat scroll 0 0;
+  border-bottom-style: none;
+  border-left: solid #fff 1px;
+  color: #fff;
+}
+#system-modules td.checkbox {
+  border-bottom-style: none;
+  border-left: solid #fff 1px;
+  color: #fff;
+}
+#system-modules th.name {
+  width: 25%;
+  background: rgba(0, 0, 0, 0.51) none repeat scroll 0 0;
+  border-bottom-style: none;
+  border-left: solid #fff 1px;
+  color: #fff;
+}
+#system-modules th.description {
+  width: 67%;
+  background: rgba(0, 0, 0, 0.51) none repeat scroll 0 0;
+  border-left: solid #fff 1px;
+  color: #fff;
+  border-bottom-style: none;
+}
+.module-link {
+  display: block;
+  float: left;
+  margin-top: 2px;
+  padding: 2px 20px;
+  white-space: nowrap;
+}
+.module-link-permissions {
+  background: rgba(0, 0, 0, 0) url("/core/themes/stable/images/core/icons/787878/key.svg") no-repeat scroll 0 50%;
+}
+.module-link-help {
+  background: rgba(0, 0, 0, 0) url("/core/themes/stable/images/core/icons/787878/questionmark-disc.svg") no-repeat scroll 0 50%;
+}
+.module-link-configure {
+  background: rgba(0, 0, 0, 0) url("/core/themes/stable/images/core/icons/787878/cog.svg") no-repeat scroll 0 50%;
+}

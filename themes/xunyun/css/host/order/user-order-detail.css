@@ -1,0 +1,73 @@
+/* line 1, ../../../bag/sass/host/order/user-order-detail.scss */
+.order-detail {
+  font-size: 14px;
+}
+/* line 3, ../../../bag/sass/host/order/user-order-detail.scss */
+.order-detail .title {
+  border-bottom: 2px solid #CDD2D7;
+  color: #333333;
+  font-size: 16px;
+  height: 30px;
+  line-height: 30px;
+}
+/* line 9, ../../../bag/sass/host/order/user-order-detail.scss */
+.order-detail .title b {
+  border-bottom: 2px solid #041E39;
+  color: #041E39;
+  float: left;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+}
+/* line 18, ../../../bag/sass/host/order/user-order-detail.scss */
+.order-detail .base-info {
+  height: 40px;
+  line-height: 40px;
+}
+/* line 21, ../../../bag/sass/host/order/user-order-detail.scss */
+.order-detail .base-info tr.beij {
+  background: none repeat scroll 0 0 #F2F4F5;
+}
+/* line 24, ../../../bag/sass/host/order/user-order-detail.scss */
+.order-detail .base-info .name {
+  font-weight: bold;
+  text-align: right;
+}
+/* line 28, ../../../bag/sass/host/order/user-order-detail.scss */
+.order-detail .base-info td.length {
+  width: 100px;
+}
+/* line 31, ../../../bag/sass/host/order/user-order-detail.scss */
+.order-detail .base-info .value {
+  text-align: left;
+  padding-left: 5px;
+}
+/* line 36, ../../../bag/sass/host/order/user-order-detail.scss */
+.order-detail .product-info {
+  border-left: 1px solid #CCCCCC;
+  border-top: 1px solid #CCCCCC;
+}
+/* line 39, ../../../bag/sass/host/order/user-order-detail.scss */
+.order-detail .product-info tr.header {
+  height: 40px;
+  line-height: 40px;
+  background: none repeat scroll 0 0 #DDDDDD;
+  color: #041E39;
+  font-weight: bold;
+}
+/* line 45, ../../../bag/sass/host/order/user-order-detail.scss */
+.order-detail .product-info tr.header th {
+  border-bottom: 1px solid #CCCCCC;
+  border-right: 1px solid #CCCCCC;
+  text-align: center;
+}
+/* line 51, ../../../bag/sass/host/order/user-order-detail.scss */
+.order-detail .product-info td {
+  border-bottom: 1px solid #CCCCCC;
+  border-right: 1px solid #CCCCCC;
+  text-align: center;
+}
+/* line 56, ../../../bag/sass/host/order/user-order-detail.scss */
+.order-detail .product-info td.business {
+  text-align: left;
+}

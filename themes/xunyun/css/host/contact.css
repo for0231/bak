@@ -1,0 +1,20 @@
+/* line 1, ../../bag/sass/host/contact.scss */
+main#content {
+  border-color: #cdd2d7;
+  border-image: none;
+  border-style: solid;
+  border-width: 2px 1px 1px;
+}
+
+/* line 8, ../../bag/sass/host/contact.scss */
+#main .t-two-content {
+  background-color: white;
+}
+/* line 11, ../../bag/sass/host/contact.scss */
+#main .t-single-content {
+  background-color: white;
+}
+/* line 14, ../../bag/sass/host/contact.scss */
+#main .t-no-sidebars {
+  background-color: white;
+}

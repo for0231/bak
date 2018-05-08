@@ -1,0 +1,28 @@
+#edit-deal-detail th {
+  height: 100px;
+  background-color: #c2bebe;
+  color: #000	;
+ /* font-weight: bold;*/
+  font-size: 14px;
+}
+
+.time{
+  color:green;
+}
+
+.server{
+  display: table-cell;
+  padding-right: 120px;
+}
+.ip_search{
+  display: table-cell;
+}
+.form-type-textfield{
+  display: inline;
+}
+.server select{
+  width: 200px;
+}
+.ip_search select{
+  width: 200px;
+}

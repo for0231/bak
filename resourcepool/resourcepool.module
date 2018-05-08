@@ -1,0 +1,65 @@
+<?php
+/**
+ * @file 资源池.
+ */
+
+/**
+ * @description 定义远程连接地址.
+ */
+function getRoomTypeAdministerAccount() {
+  return [
+    'username' => 'IT',
+    'password' => 'jKQMGnx3',
+  ];
+}
+
+/**
+ * Implement hook_load().
+ */
+function resourcepool_load($id) {
+  $storage = \Drupal::entityManager()->getStorage('work_sheet_rackpart');
+  $entity = $storage->load($id);
+
+  return $entity;
+}
+
+#添加专线
+/**
+ * Implement hook_theme().
+ */
+function resourcepool_theme() {
+  return [
+    'dedicated_list' => array(
+      'template' => 'dedicated-list',
+      'variables' => array('tmp_sharing'=>null,'tmp_dedicated'=>null)
+    ),
+    'subsection_list' => array(
+      'template' => 'subsection-list',
+      'variables' => array('direct_re'=>null,'resolution_re'=>null,'direct_res'=>null)
+    ),
+    'business_lists' => array(
+      'template' => 'business-lists',
+      'variables' => array('business_list'=>null)
+    ),
+    'split_res_list' => array(
+      'template' => 'split-res-list',
+      'variables' => array('split_res'=>null,'aff_list'=>null,'dedicated'=>null,'client_no'=>null)
+    ),
+    'item_cacti_images' => [
+     'template' => 'item_cacti_images',
+     'variables' => ['item_cacti_images' => null],
+    ],
+  ];
+}
+/**
+ * 机房
+ */
+function getRoom() {
+  return array(
+    49 => 'LA',
+    50 => 'HK',
+    51 => 'DC',
+    52 => 'SGP',
+    53 => 'JP',
+  );
+}

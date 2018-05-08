@@ -1,0 +1,63 @@
+admin.taxonomy_menu_page.admin:
+  path: 'admin/taxonomy/menu'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: '术语重构'
+  requirements:
+    _permission: 'administer taxonomy_menu_page menu'
+
+admin.taxonomy_menu_page.enterprises:
+  path: 'admin/taxonomy_menu_page/enterprises'
+  defaults:
+    _controller: '\Drupal\taxonomy_menu_page\Controller\TaxonomyMenuPageController::getEnterprises'
+    _title: '企业'
+  requirements:
+    _permission: 'administer taxonomy_menu_page enterprises menu'
+
+admin.taxonomy_menu_page.supply:
+  path: 'admin/taxonomy_menu_page/supply'
+  defaults:
+    _controller: 'Drupal\taxonomy_menu_page\Controller\TaxonomyMenuPageController::getSupply'
+    _title: '供应商'
+  requirements:
+    _permission: 'administer taxonomy_menu_page supply menu'
+
+admin.taxonomy_menu_page.unit:
+  path: 'admin/taxonomy_menu_page/unit'
+  defaults:
+    _controller: 'Drupal\taxonomy_menu_page\Controller\TaxonomyMenuPageController::getUnit'
+    _title: '单位'
+  requirements:
+    _permission: 'administer taxonomy_menu_page unit menu'
+
+admin.taxonomy_menu_page.located:
+  path: 'admin/taxonomy_menu_page/located'
+  defaults:
+    _controller: 'Drupal\taxonomy_menu_page\Controller\TaxonomyMenuPageController::getLocated'
+    _title: '地点'
+  requirements:
+    _permission: 'administer taxonomy_menu_page located menu'
+
+admin.taxonomy_menu_page.ships:
+  path: 'admin/taxonomy_menu_page/ships'
+  defaults:
+    _controller: 'Drupal\taxonomy_menu_page\Controller\TaxonomyMenuPageController::getShips'
+    _title: '物流公司'
+  requirements:
+    _permission: 'administer taxonomy_menu_page ships menu'
+
+admin.taxonomy_menu_page.parts:
+  path: 'admin/taxonomy_menu_page/parts'
+  defaults:
+    _controller: 'Drupal\taxonomy_menu_page\Controller\TaxonomyMenuPageController::getParts'
+    _title: '配件'
+  requirements:
+    _permission: 'administer taxonomy_menu_page parts menu'
+
+admin.taxonomy_menu_page.add_form:
+  path: 'admin/structure/taxonomy/manage/{taxonomy_vocabulary}/myselfadd'
+  defaults:
+    _controller: '\Drupal\taxonomy_menu_page\Controller\TaxonomyMenuPageController::addForm'
+    _title: 'Add term'
+  requirements:
+    _permission: 'administer taxonomy_menu_page add'

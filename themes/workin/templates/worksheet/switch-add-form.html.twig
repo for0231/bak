@@ -1,0 +1,66 @@
+{#
+/**
+ * @file
+ * 处理开关机工单表单
+ *
+ * Available variables:
+ * - form: 处理开关机工单表单
+ *   - client: 客户
+ *
+ */
+#}
+{{ attach_library('worksheet/worksheet') }}
+{{form.form_build_id}}
+{{form.form_token}}
+{{form.form_id}}
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+    <h2 class="page-title txt-color-blueDark">
+      <i class="fa-fw fa fa-pencil-square-o"></i> 工单系统<span>&gt;开关机</span></h2>
+  </div>
+  <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable" >
+    <div data-widget-custombutton="false" data-widget-editbutton="false" id="wid-id-6" class="jarviswidget jarviswidget-sortable" role="widget">
+
+      <header role="heading"><div class="jarviswidget-ctrls" role="menu">   <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a> <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-fullscreen-btn" href="javascript:void(0);" data-original-title="Fullscreen"><i class="fa fa-expand "></i></a> <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-delete-btn" href="javascript:void(0);" data-original-title="Delete"><i class="fa fa-times"></i></a></div><div class="widget-toolbar" role="menu"><a href="javascript:void(0);" class="dropdown-toggle color-box selector" data-toggle="dropdown"></a><ul class="dropdown-menu arrow-box-up-right color-select pull-right"><li><span data-original-title="Green Grass" data-placement="left" rel="tooltip" data-widget-setstyle="jarviswidget-color-green" class="bg-color-green"></span></li><li><span data-original-title="Dark Green" data-placement="top" rel="tooltip" data-widget-setstyle="jarviswidget-color-greenDark" class="bg-color-greenDark"></span></li><li><span data-original-title="Light Green" data-placement="top" rel="tooltip" data-widget-setstyle="jarviswidget-color-greenLight" class="bg-color-greenLight"></span></li><li><span data-original-title="Purple" data-placement="top" rel="tooltip" data-widget-setstyle="jarviswidget-color-purple" class="bg-color-purple"></span></li><li><span data-original-title="Magenta" data-placement="top" rel="tooltip" data-widget-setstyle="jarviswidget-color-magenta" class="bg-color-magenta"></span></li><li><span data-original-title="Pink" data-placement="right" rel="tooltip" data-widget-setstyle="jarviswidget-color-pink" class="bg-color-pink"></span></li><li><span data-original-title="Fade Pink" data-placement="left" rel="tooltip" data-widget-setstyle="jarviswidget-color-pinkDark" class="bg-color-pinkDark"></span></li><li><span data-original-title="Light Blue" data-placement="top" rel="tooltip" data-widget-setstyle="jarviswidget-color-blueLight" class="bg-color-blueLight"></span></li><li><span data-original-title="Teal" data-placement="top" rel="tooltip" data-widget-setstyle="jarviswidget-color-teal" class="bg-color-teal"></span></li><li><span data-original-title="Ocean Blue" data-placement="top" rel="tooltip" data-widget-setstyle="jarviswidget-color-blue" class="bg-color-blue"></span></li><li><span data-original-title="Night Sky" data-placement="top" rel="tooltip" data-widget-setstyle="jarviswidget-color-blueDark" class="bg-color-blueDark"></span></li><li><span data-original-title="Night" data-placement="right" rel="tooltip" data-widget-setstyle="jarviswidget-color-darken" class="bg-color-darken"></span></li><li><span data-original-title="Day Light" data-placement="left" rel="tooltip" data-widget-setstyle="jarviswidget-color-yellow" class="bg-color-yellow"></span></li><li><span data-original-title="Orange" data-placement="bottom" rel="tooltip" data-widget-setstyle="jarviswidget-color-orange" class="bg-color-orange"></span></li><li><span data-original-title="Dark Orange" data-placement="bottom" rel="tooltip" data-widget-setstyle="jarviswidget-color-orangeDark" class="bg-color-orangeDark"></span></li><li><span data-original-title="Red Rose" data-placement="bottom" rel="tooltip" data-widget-setstyle="jarviswidget-color-red" class="bg-color-red"></span></li><li><span data-original-title="Light Red" data-placement="bottom" rel="tooltip" data-widget-setstyle="jarviswidget-color-redLight" class="bg-color-redLight"></span></li><li><span data-original-title="Purity" data-placement="right" rel="tooltip" data-widget-setstyle="jarviswidget-color-white" class="bg-color-white"></span></li><li><a data-original-title="Reset widget color to default" data-placement="bottom" rel="tooltip" data-widget-setstyle="" class="jarviswidget-remove-colors" href="javascript:void(0);">Remove</a></li></ul></div>
+        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+        <h2>开关机表单</h2>
+
+        <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span></header>
+      <div role="content">
+        <div class="jarviswidget-editbox">
+        </div>
+        <div class="widget-body no-padding">
+
+          <div class="smart-form" id="comment-form" method="post" action="php/demo-comment.php" novalidate="novalidate">
+            <fieldset>
+              <div class="row">
+                <section class="col col-4">
+                  <div class="input"> {{form['code']}} <i class="icon-append fa glyphicon-cloud"></i></div>
+                </section>
+                <section class="col col-4">
+                  <label class="input">{{form['client']}}<i class="icon-append fa fa-user "></i></label>
+                </section>
+                <section class="col col-4">
+                  <div class="label select">{{form['tid']}}</div>
+                </section>
+              </div>
+              <section>
+                <label class="label">{{form['manage_ips']}}</label>
+              </section>
+            </fieldset>
+            <footer>
+              {{form['actions']}}
+            </footer>
+            <div class="message">
+              <i class="fa fa-check fa-lg"></i>
+              <p>
+                Your comment was successfully added!
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </article>
+</div>

@@ -1,0 +1,7 @@
+drupal.utils-base:
+  version: VERSION
+  js:
+    js/utils-base.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

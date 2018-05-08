@@ -1,0 +1,64 @@
+<div class="huiyuan_01">
+  <div class="fl huiyuan_geren">
+    {% if img %}
+      {{ img }}
+    {% else %}
+      <img src ="/{{ directory }}/images/header.jpg"> 
+     {% endif %}
+
+    <dl>
+      <dt><b> {{ 'user name'|t }}：</b>{{ user.u_name }}<span>&nbsp;&nbsp;&nbsp;&nbsp;{{user.level_name}}</span></dt>
+      <dd><b> {{ 'Cash balance'|t }}：</b> <i>{{ user.cash }} </i>{{'yuan'|t }}<a class="lijichongz" target="_blank"  href="{{ path('member.user.recharge') }}">{{'Recharge'|t }}</a> </dd>
+      <dd><b> {{ 'Line of credit'|t }}：</b> <i>{{ user.credit }} </i>{{'yuan'|t }}</dd>
+    </dl>
+    <div class="xiugai"><a href="/user/account/{{ user.uid }}/edit">  {{ 'Modify account message'|t }}</a></div>
+  </div>
+  <!--
+  <div class="fr huiyuan_beijing"> <span class="gaofang"><img src="/{{ directory }}/images/icon_11.png">
+    <p><b>{{ 'High anti'|t }}</b> {{ 'For network cloud server provides defense'|t }} </p>
+    </span> <span class="gaofang_01">
+    <p> {{ '2014 Cumulative attack'|t }}</p>
+    <p><u>16,675,114,499</u>time </p>
+    </span> <span class="gaofang_02">
+    <p> {{ 'accumulative success DDoS'|t }} </p>
+    <p><u>3,297,162</u>G</p>
+    </span>
+  </div>
+  -->
+</div>
+
+<div class="blank20"></div>
+
+<div class="chanping_fuw">
+  <div class="Order_title"><b>{{ 'My products and services'|t }} </b> </div>
+  <div class="cpfw_01">
+     <h4><b>{{ 'My server'|t }} </b></h4>
+     <a href="/user/server">{{ 'All'|t }} <i>（{{ user.server_all }}）</i></a> <a href="/user/server">{{ 'Is about to expire'|t }} <i>（{{ user.will_expire }}）</i></a> <a href="/user/server">{{ 'Has been to'|t }} <i>（{{ user.has_expire }}）</i></a> <a href="/user/server">{{ 'On trial'|t }} <i>（{{ user.trial }}）</i></a> <a href="/user/server">{{ 'Other'|t }} <i>（{{ user.other }}）</i></a>
+  </div>
+  <div class="cpfw_01 margin_01">
+    <h4><b>{{ 'After-sales service'|t }} </b></h4>
+    <a href="/user/malfunction">{{ 'Completed work order'|t }} <i>（{{ user.done }}）</i></a> 
+    <a href="/user/malfunction">{{ 'Waiting handle'|t }}<i>（{{ user.wait }}）</i></a>
+    <a href="/user/malfunction">{{ 'Processing'|t }}<i>（{{ user.doing }}）</i></a>
+  </div>
+  <div class="cpfw_01">
+    <h4><b>{{ 'Messages within the station'|t }}</b></h4>
+    <a href="/user/account/letter">{{ 'Messages within the station'|t }} <i>（{{ user.letter }}）</i></a> 
+  </div>
+</div>
+
+<div class="blank20"></div>
+<!--
+<div class="chanping_fuw">
+  <div class="Order_title"><b>{{ 'Has been the opening of the products and services'|t }} </b> </div>
+  <div class="cpfw_01">
+    <h4><b>{{ 'The cloud monitoring'|t }} </b></h4>
+    <span><i>8</i>a </span>
+  </div>
+  <div class="cpfw_01 margin_01">
+    <h4><b>{{ 'The control panel'|t }} </b></h4>
+    <span><i>8</i>a</span>
+  </div>
+</div>
+
+-->

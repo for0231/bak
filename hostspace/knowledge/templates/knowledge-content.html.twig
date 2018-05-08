@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * 各知识分类首页显示
+ *
+ *  Available variables:
+ *   -contents: 存在每个知识分类的前6条数据. 结构如下:
+ *   array(
+ *     'title' => '根分类名',
+ *     'subclass' => array(
+ *       'title' => '子分类名'
+ *       'number' => '此分类知识数'
+ *       'knowledges' => '此分类具体的知识'
+ *     )
+ *   )
+ */
+ #}
+ {% for content in contents %}
+ <div>
+   <h3>{{ content.title }}</h3>
+   {% for type in content.subclass %}
+     <div>
+       <div class='title'><span>{{ type.title }}</span><span class='number'>共{{type.number}}篇</span></div>
+       <ul>
+         {% for knowledge in type.knowledges %}
+         <li><a href="{{ path('knowledge.view.info', {knowledge_content: knowledge.id.value}) }}">{{ knowledge.title.value }}</a></li>
+         {% endfor %}
+       </ul>
+     </div>
+   {% endfor %}
+ </div>
+{% endfor %}
+

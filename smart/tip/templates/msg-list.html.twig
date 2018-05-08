@@ -1,0 +1,28 @@
+{#
+/**
+ * @file
+ * 个人账户Msg列表页面
+ *
+ * 可用变量
+ * - entities_msg
+ * @code
+ *  $entities_msg = [
+ *    'id' => '',
+ *    'title' => '',
+ *    'content' => '',
+ *    'created' => '',
+ *  ]
+ * @endcode
+ * 包含了msg实体的所有信息
+ * @see template_preprocess_msg_list()
+ */
+#}
+<div>
+  <ul>
+  {% for msg in entities_msg %}
+
+    <li>Id:{{msg.id}}|title:{{msg.title}}|content:{{msg.content}}|created:{{msg.created}}</li>
+
+  {% endfor %}
+    </ul>
+</div>

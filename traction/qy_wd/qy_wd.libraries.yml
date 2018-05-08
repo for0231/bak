@@ -1,0 +1,15 @@
+drupal.audioload:
+  version: VERSION
+  js:
+    js/audioload.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+
+drupal.route-view:
+  version: VERSION
+  js:
+    js/route-view.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

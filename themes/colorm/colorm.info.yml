@@ -1,0 +1,24 @@
+name: Colorm
+type: theme
+base theme: classy
+description: 'Color admin theme.'
+package: Core
+version: VERSION
+core: 8.x
+libraries:
+ - colorm/globalscripts
+#stylesheets-remove:
+#  - core/assets/vendor/jquery.ui/themes/base/dialog.css
+#quickedit_stylesheets:
+#  - css/components/quickedit.css
+regions:
+  page_top: 'Page top'
+  brand: 'Logo'
+  header: 'Header top'
+  help: Help
+  highlighted: Highlighted
+  featured_top: 'Featured top'
+  breadcrumb: Breadcrumb
+  content: Content
+  sidebar: 'Sidebar for admin'
+  page_bottom: 'Page bottom'

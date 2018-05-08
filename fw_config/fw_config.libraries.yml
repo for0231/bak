@@ -1,0 +1,31 @@
+drupal.ip-shield:
+  version: VERSION
+  js:
+    js/ip-shield.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupal.dialog
+
+drupal.fblink-list:
+  version: VERSION
+  js:
+    js/fblink-list.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupal.tableselect
+
+drupal.fw-common:
+  version: VERSION
+  css:
+    theme:
+      css/fwbase.css: {}
+
+drupal.conmon-list:
+  version: VERSION
+  js:
+    js/conmon-list.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

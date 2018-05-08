@@ -1,0 +1,1015 @@
+<?php
+
+use Drupal\Core\Field\BaseFieldDefinition;
+/**
+ * Implements hook_install().
+ */
+function worksheet_install() {
+  $types = \Drupal::service('worksheet.type')->DefaultTypes();
+  foreach($types as $key => $type) {
+    db_insert('work_sheet_type')
+      ->fields(array('tid' => $key) + $type)
+      ->execute();
+  }
+  $options = \Drupal::service('worksheet.option')->optionDefault();
+  foreach($options as $option) {
+    db_insert('work_sheet_options')
+      ->fields($option)
+      ->execute();
+  }
+  //创建用户默认工作量字段(I类)
+  entity_create('field_storage_config', array(
+    'entity_type' => 'user',
+    'field_name' => 'workload_i',
+    'type' => 'decimal',
+    'cardinality' => 1,
+  ))->save();
+  entity_create('field_config', array(
+    'entity_type' => 'user',
+    'field_name' => 'workload_i',
+    'bundle' => 'user',
+    'label' => 'I类工作量',
+    'translatable' => FALSE,
+  ))->save();
+  entity_get_form_display('user', 'user', 'default')
+    ->setComponent('workload_i', array('type' => 'number'))
+    ->save();
+  //创建用户默认工作量(p类)字段
+  entity_create('field_storage_config', array(
+    'entity_type' => 'user',
+    'field_name' => 'workload_p',
+    'type' => 'decimal',
+    'cardinality' => 1,
+  ))->save();
+  entity_create('field_config', array(
+    'entity_type' => 'user',
+    'field_name' => 'workload_p',
+    'bundle' => 'user',
+    'label' => 'P类工作量',
+    'translatable' => FALSE,
+  ))->save();
+  entity_get_form_display('user', 'user', 'default')
+    ->setComponent('workload_p', array('type' => 'number'))
+    ->save();
+  //创建用户子部门
+
+  entity_create('field_storage_config', array(
+    'entity_type' => 'user',
+    'field_name' => 'subdivision',
+    'type' => 'text',
+    'cardinality' => 1,
+  ))->save();
+  entity_create('field_config', array(
+    'entity_type' => 'user',
+    'field_name' => 'subdivision',
+    'bundle' => 'user',
+    'label' => '子部门',
+    'translatable' => FALSE,
+  ))->save();
+  entity_get_form_display('user', 'user', 'default')
+    ->setComponent('subdivision', array(
+    'type' => 'text_textfield',
+    'weight' => 1,
+    ))
+    ->save();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function worksheet_uninstall() {
+  entity_delete_multiple('user_role', array('worksheet_business', 'worksheet_manage', 'worksheet_operation'));
+}
+
+/**
+ * Implements hook_schema().
+ */
+function worksheet_schema() {
+  $schema['work_sheet_type'] = array(
+    'fields' => array(
+      'tid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'class_name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => '类型'
+      ),
+      'operation_name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => '操作类型'
+      ),
+      'complete_time' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => '完成所需求时间(单位：分)'
+      ),
+      'workload' => array(
+        'type' => 'numeric',
+        'precision' => 10,
+        'scale' => 2,
+        'default' => 0,
+        'description' => '工作量'
+      )
+    ),
+    'primary key' => array('tid')
+  );
+  $schema['work_sheet_statistic'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '做事人'
+      ),
+      'created' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '做事时间'
+      ),
+      'event' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '所做事情，程序枚举'
+      ),
+      'type_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '工单类型'
+      ),
+      'wid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '工单ID'
+      ),
+      'entity_name' => array(
+        'type' => 'varchar',
+        'length' => 100,
+        'not null' => FALSE,
+        'description' => '实体名'
+      ),
+      'user_dept' => array(
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => FALSE,
+        'description' => '用户部门'
+      )
+    ),
+    'primary key' => array('id'),
+    'indexes' => array(
+      'uid' => array('uid'),
+      'event' => array('event'),
+      'type_id' => array('type_id')
+    )
+  );
+  $schema['work_sheet_options'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'optin_name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => '名称'
+      ),
+      'option_type' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => '选项'
+      ),
+      'parent_id' => array(
+        'type' => 'int',
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => '上级日录'
+      ),
+      'is_delete' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => '是否删除'
+      )
+    ),
+    'primary key' => array('id'),
+    'indexes' => array(
+      'option_type' => array('option_type')
+    )
+  );
+  $schema['work_sheet_allot'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'allot_uid' => array(
+        'type' => 'int',
+        'description' => '工单分配人uid',
+        'not null' => TRUE
+      ),
+      'created' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => '分配开始时间'
+      ),
+      'allot_endtime' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => '分配结束时间'
+      )
+    ),
+    'primary key' => array('id')
+  );
+  $schema['work_sheet_status'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'wid' => array(
+        'type' => 'int',
+        'description' => '工单编号'
+      ),
+      'entity_name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => '工单类型'
+      ),
+      'btime' => array(
+        'type' => 'int',
+        'description' => '开始时间'
+      ),
+      'etime' => array(
+        'type' => 'int',
+        'description' => '结束时间'
+      ),
+      'bstatus' => array(
+        'type' => 'int',
+        'description' => '开始状态'
+      ),
+      'estatus' => array(
+        'type' => 'int',
+        'description' => '结束状态'
+      ),
+      'group_wid' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => '组合工单编号'
+      ),
+    ),
+    'primary key' => array('id')
+  );
+  return $schema;
+}
+
+/**
+ * 增加一个作息时间实体
+ */
+function worksheet_update_8001() {
+  $entity_type = \Drupal::entityManager()->getDefinitions()['work_sheet_date'];
+  $manager = \Drupal::entityDefinitionUpdateManager();
+  $manager->installEntityType($entity_type);
+}
+
+/**
+ * 创建一个工单完成时间
+ */
+function worksheet_update_8002() {
+  $com_time = BaseFieldDefinition::create('integer')
+    ->setLabel('完成时间')
+    ->setDescription('工单完成时间')
+    ->setDefaultValue(0)
+    ->setSetting('unsigned', TRUE);
+
+  $entity_update = \Drupal::entityDefinitionUpdateManager();
+  $entity_update->installFieldStorageDefinition('com_time', 'work_sheet_base', 'worksheet', $com_time);
+  $entity_update->installFieldStorageDefinition('com_time', 'work_sheet_fault', 'worksheet', $com_time);
+  $entity_update->installFieldStorageDefinition('com_time', 'work_sheet_frame', 'worksheet', $com_time);
+  $entity_update->installFieldStorageDefinition('com_time', 'work_sheet_ip', 'worksheet', $com_time);
+  $entity_update->installFieldStorageDefinition('com_time', 'work_sheet_room', 'worksheet', $com_time);
+  $entity_update->installFieldStorageDefinition('com_time', 'work_sheet_switch', 'worksheet', $com_time);
+}
+
+/**
+ * 机房事务类型调整
+ */
+function worksheet_update_8003() {
+  db_delete('work_sheet_type')
+    ->condition('tid', '134')
+    ->execute();
+    
+  $types = \Drupal::service('worksheet.type')->DefaultTypes();
+  db_insert('work_sheet_type')
+    ->fields(array('tid' => 160) + $types[160])
+    ->execute();
+  db_insert('work_sheet_type')
+    ->fields(array('tid' => 161) + $types[161])
+    ->execute();
+  db_insert('work_sheet_type')
+    ->fields(array('tid' => 162) + $types[162])
+    ->execute();
+  db_insert('work_sheet_type')
+    ->fields(array('tid' => 169) + $types[169])
+    ->execute();
+}
+
+/**
+ * 升级可配置项
+ */
+function worksheet_update_8004() {
+  $config = \Drupal::configFactory()->getEditable('worksheet.settings');
+  $config->set('transfer_time', 10);
+  $config->set('task_assigner', 0);
+  $config->save();
+}
+/**
+ * 增加一个P7
+ */
+function worksheet_update_8005() {
+  db_update('work_sheet_type')
+    ->fields(array(
+      'class_name' => 'P7', 
+      'operation_name'=> 'NOC任务', 
+      'complete_time'=> 0, 
+      'workload'=> 0
+    ))
+    ->condition('tid', '260')
+    ->execute();
+  db_insert('work_sheet_type')
+    ->fields(array(
+      'tid' => 300,
+      'class_name' => 'E类其他', 
+      'operation_name'=> '非故障类售后事务', 
+      'complete_time'=> 0, 
+      'workload'=> 0
+    ))
+    ->execute();
+}
+/**
+ * 增加一个联系人
+ */
+function worksheet_update_8006() {
+  $contacts = BaseFieldDefinition::create('string')
+    ->setLabel('联系人')
+    ->setDisplayOptions('form', array(
+      'type' => 'string_textfield',
+      'weight' => 11
+    ))
+    ->setDisplayConfigurable('form', TRUE);
+
+  $entity_update = \Drupal::entityDefinitionUpdateManager();
+  $entity_update->installFieldStorageDefinition('contacts', 'work_sheet_base', 'worksheet', $contacts);
+  $entity_update->installFieldStorageDefinition('contacts', 'work_sheet_fault', 'worksheet', $contacts);
+  $entity_update->installFieldStorageDefinition('contacts', 'work_sheet_frame', 'worksheet', $contacts);
+  $entity_update->installFieldStorageDefinition('contacts', 'work_sheet_ip', 'worksheet', $contacts);
+  $entity_update->installFieldStorageDefinition('contacts', 'work_sheet_room', 'worksheet', $contacts);
+  $entity_update->installFieldStorageDefinition('contacts', 'work_sheet_switch', 'worksheet', $contacts);
+}
+/**
+ * 增加选项表
+ */
+function worksheet_update_8010() {
+  $table = db_table_exists('work_sheet_options');
+  if(!$table) {
+    $schema = worksheet_schema();
+    db_create_table('work_sheet_options', $schema['work_sheet_options']);
+    //设置默认值
+    $options = \Drupal::service('worksheet.option')->optionDefault();
+    foreach($options as $option) {
+      db_insert('work_sheet_options')
+        ->fields($option)
+        ->execute();
+    }
+  }
+}
+/**
+ * 增加问题类型子类
+ */
+function worksheet_update_8011() {
+  $problem_types_child = BaseFieldDefinition::create('integer')
+    ->setLabel('问题类型')
+    ->setDefaultValue(0)
+    ->setSetting('unsigned', TRUE);
+
+  $entity_update = \Drupal::entityDefinitionUpdateManager();
+  $entity_update->installFieldStorageDefinition('problem_types_child', 'work_sheet_fault', 'worksheet', $problem_types_child);
+}
+/**
+ * 增加ATOM专用
+ */
+function worksheet_update_8012() {
+  db_insert('work_sheet_options')
+    ->fields(array('optin_name'=> 'ATOM专用', 'option_type' => 'ip_type', 'parent_id'=>0, 'is_delete'=>0))
+    ->execute();
+}
+
+/**
+ * 增加I9、P9分类
+ */
+function worksheet_update_8013() {
+  $types = \Drupal::service('worksheet.type')->DefaultTypes();
+  db_insert('work_sheet_type')->fields(array('tid' => 400) + $types[400])->execute();
+  db_insert('work_sheet_type')->fields(array('tid' => 410) + $types[410])->execute();
+}
+
+/**
+ * 增加一个周期性工单实体
+ */
+function worksheet_update_80014() {
+  $entity_type = \Drupal::entityManager()->getDefinitions()['work_sheet_cycle'];
+  $manager = \Drupal::entityDefinitionUpdateManager();
+  $manager->installEntityType($entity_type);
+}
+/**
+ * 升级设置用户默认工作量
+ */
+function worksheet_update_80015() {
+  //创建用户默认工作量字段(I类)
+  entity_create('field_storage_config', array(
+    'entity_type' => 'user',
+    'field_name' => 'workload_i',
+    'type' => 'decimal',
+    'cardinality' => 1,
+  ))->save();
+  entity_create('field_config', array(
+    'entity_type' => 'user',
+    'field_name' => 'workload_i',
+    'bundle' => 'user',
+    'label' => 'I类工作量',
+    'translatable' => FALSE,
+  ))->save();
+  entity_get_form_display('user', 'user', 'default')
+    ->setComponent('workload_i', array('type' => 'number'))
+    ->save();
+  //创建用户默认工作量(p类)字段
+  entity_create('field_storage_config', array(
+    'entity_type' => 'user',
+    'field_name' => 'workload_p',
+    'type' => 'decimal',
+    'cardinality' => 1,
+  ))->save();
+  entity_create('field_config', array(
+    'entity_type' => 'user',
+    'field_name' => 'workload_p',
+    'bundle' => 'user',
+    'label' => 'P类工作量',
+    'translatable' => FALSE,
+  ))->save();
+  entity_get_form_display('user', 'user', 'default')
+    ->setComponent('workload_p', array('type' => 'number'))
+    ->save();
+}
+
+/**
+ * 升级值班人员设置参数
+ */
+function worksheet_update_80016() {
+  $config = \Drupal::configFactory()->getEditable('worksheet.settings');
+  $config->set('person_on_duty', array());
+  $config->save();
+}
+
+/**
+ * 机房事务增加操作部门、处理日期、工作内容、机房工时字段
+ */
+function worksheet_update_80020() {
+  $op_dept = BaseFieldDefinition::create('list_integer')
+    ->setLabel('操作部门')
+    ->setSetting('allowed_values_function', 'worksheet_options')
+    ->setDisplayOptions('form', array(
+      'type' => 'options_select',
+      'weight' => 14
+    ))
+    ->setDisplayConfigurable('form', True);
+
+  $handle_date = BaseFieldDefinition::create('list_integer')
+    ->setLabel('处理日期')
+    ->setDefaultValue(0)
+    ->setSetting('allowed_values', array(0 => '当天处理', 1 => '下一个工作日处理'))
+    ->setDisplayOptions('form', array(
+      'type' => 'options_select',
+      'weight' => 14
+    ))
+    ->setDisplayConfigurable('form', True);
+
+  $job_content = BaseFieldDefinition::create('list_integer')
+    ->setLabel('工作内容')
+    ->setSetting('allowed_values_function', 'worksheet_options')
+    ->setDisplayOptions('form', array(
+      'type' => 'options_select',
+      'weight' => 14
+    ))
+    ->setDisplayConfigurable('form', True);
+
+  $job_hours = BaseFieldDefinition::create('integer')
+    ->setLabel('机房工时')
+    ->setDefaultValue(20)
+    ->setDisplayOptions('form', array(
+      'type' => 'number',
+      'weight' => 14
+    ))
+    ->setDisplayConfigurable('form', True);
+
+  $entity_update = \Drupal::entityDefinitionUpdateManager();
+  $entity_update->installFieldStorageDefinition('op_dept', 'work_sheet_room', 'worksheet', $op_dept);
+  $entity_update->installFieldStorageDefinition('handle_date', 'work_sheet_room', 'worksheet', $handle_date);
+  $entity_update->installFieldStorageDefinition('job_content', 'work_sheet_room', 'worksheet', $job_content);
+  $entity_update->installFieldStorageDefinition('job_hours', 'work_sheet_room', 'worksheet', $job_hours);
+}
+
+/**
+ * 增加工作内容选择
+ */
+function worksheet_update_80021() {
+  $job_content = array(
+    array('optin_name'=> '加减内存', 'option_type' => 'job_content', 'parent_id'=>0, 'is_delete'=>0),
+    array('optin_name'=> '加减硬盘(无数据)', 'option_type' => 'job_content', 'parent_id'=>0, 'is_delete'=>0),
+    array('optin_name'=> '加减硬盘(有数据)', 'option_type' => 'job_content', 'parent_id'=>0, 'is_delete'=>0),
+    array('optin_name'=> '加减网线', 'option_type' => 'job_content', 'parent_id'=>0, 'is_delete'=>0),
+    array('optin_name'=> '收快递', 'option_type' => 'job_content', 'parent_id'=>0, 'is_delete'=>0),
+  );
+  foreach($job_content as $content) {
+    db_insert('work_sheet_options')
+      ->fields($content)
+      ->execute();
+  }
+  $options_id = db_insert('work_sheet_options')
+    ->fields(array('optin_name'=> '其它', 'option_type' => 'job_content', 'parent_id'=>0, 'is_delete'=>0))
+    ->execute();
+  db_update('work_sheet_room')
+    ->fields(array('job_content' => $options_id, 'job_hours' => 20, 'handle_date' => 0))
+    ->execute();
+}
+
+/**
+ * 增加操作部门选项
+ */
+function worksheet_update_80022() {
+  $options_id = db_insert('work_sheet_options')
+    ->fields(array('optin_name'=> '生产机房', 'option_type' => 'op_dept', 'parent_id'=>0, 'is_delete'=>0))
+    ->execute();
+  db_update('work_sheet_room')
+    ->fields(array('op_dept' => $options_id))
+    ->condition('tid', '160')
+    ->execute();
+
+  $options_id = db_insert('work_sheet_options')
+    ->fields(array('optin_name'=> '故障机房', 'option_type' => 'op_dept', 'parent_id'=>0, 'is_delete'=>0))
+    ->execute();
+  db_update('work_sheet_room')
+    ->fields(array('op_dept' => $options_id))
+    ->condition('tid', '161')
+    ->execute();
+
+  $options_id = db_insert('work_sheet_options')
+    ->fields(array('optin_name'=> '企业机房', 'option_type' => 'op_dept', 'parent_id'=>0, 'is_delete'=>0))
+    ->execute();
+  db_update('work_sheet_room')
+    ->fields(array('op_dept' => $options_id))
+    ->condition('tid', '162')
+    ->execute();
+
+  $options_id = db_insert('work_sheet_options')
+    ->fields(array('optin_name'=> '其他机房', 'option_type' => 'op_dept', 'parent_id'=>0, 'is_delete'=>0))
+    ->execute();
+  db_update('work_sheet_room')
+    ->fields(array('op_dept' => $options_id))
+    ->condition('tid', '169')
+    ->execute();
+}
+
+/**
+ * 变更机房事务类型
+ */
+function worksheet_update_80023() {
+  db_delete('work_sheet_type')
+    ->condition('tid', '162')
+    ->execute();
+  db_delete('work_sheet_type')
+    ->condition('tid', '169')
+    ->execute();
+  db_update('work_sheet_type')
+    ->fields(array('class_name' => 'I7', 'operation_name' => '机房事务'))
+    ->condition('tid', '160')
+    ->execute();
+  db_update('work_sheet_type')
+    ->fields(array('class_name' => 'I8', 'operation_name' => '机房事务'))
+    ->condition('tid', '161')
+    ->execute();
+  $entitys = entity_load_multiple('work_sheet_room');
+  foreach($entitys as $entity) {
+    $entity->set('tid', '161');
+    $entity->save();
+  }
+}
+/**
+ * 增加备记字段
+ */
+function worksheet_update_80024() {
+  $remember = BaseFieldDefinition::create('string_long')
+    ->setLabel('备注')
+    ->setDefaultValue('')
+    ->setDisplayOptions('form', array(
+      'type' => 'string_textarea',
+      'weight' => 18
+    ))
+    ->setDisplayConfigurable('form', TRUE);
+  $entity_update = \Drupal::entityDefinitionUpdateManager();
+  $entity_update->installFieldStorageDefinition('remember', 'work_sheet_room', 'worksheet', $remember);
+}
+/**
+ * 故障类工单增加字段
+ */
+function worksheet_update_80025() {
+  $fault_time = BaseFieldDefinition::create('timestamp')
+    ->setLabel('故障时间')
+    ->setDefaultValue(0)
+    ->setDisplayOptions('form', array(
+      'type' => 'datetime_timestamp',
+      'weight' => 5
+    ))
+    ->setDisplayConfigurable('form', TRUE);
+  $report_time = BaseFieldDefinition::create('timestamp')
+    ->setLabel('上报时间')
+    ->setDefaultValue(0)
+    ->setDisplayOptions('form', array(
+      'type' => 'datetime_timestamp',
+      'weight' => 5
+    ))
+    ->setDisplayConfigurable('form', TRUE);
+  $report_user = BaseFieldDefinition::create('entity_reference')
+    ->setLabel('上报给谁')
+    ->setDefaultValue(0)
+    ->setSetting('target_type', 'user')
+    ->setSetting('handler', 'username')
+    ->setDisplayOptions('form', array(
+      'type' => 'entity_reference_autocomplete',
+      'weight' => 5
+    ))
+    ->setDisplayConfigurable('form', TRUE);
+  $buss_recover_time = BaseFieldDefinition::create('timestamp')
+    ->setLabel('业务恢复时间')
+    ->setDefaultValue(0)
+    ->setDisplayOptions('form', array(
+      'type' => 'datetime_timestamp',
+      'weight' => 5
+    ))
+    ->setDisplayConfigurable('form', TRUE);
+  $fault_recover_time = BaseFieldDefinition::create('timestamp')
+    ->setLabel('故障恢复时间')
+    ->setDefaultValue(0)
+    ->setDisplayOptions('form', array(
+      'type' => 'datetime_timestamp',
+      'weight' => 5
+    ))
+    ->setDisplayConfigurable('form', TRUE);
+  $entity_update = \Drupal::entityDefinitionUpdateManager();
+  $entity_update->installFieldStorageDefinition('fault_time', 'work_sheet_fault', 'worksheet', $fault_time);
+  $entity_update->installFieldStorageDefinition('report_time', 'work_sheet_fault', 'worksheet', $report_time);
+  $entity_update->installFieldStorageDefinition('report_user', 'work_sheet_fault', 'worksheet', $report_user);
+  $entity_update->installFieldStorageDefinition('buss_recover_time', 'work_sheet_fault', 'worksheet', $buss_recover_time);
+  $entity_update->installFieldStorageDefinition('fault_recover_time', 'work_sheet_fault', 'worksheet', $fault_recover_time);
+}
+
+/**
+ * 增加分类
+ */
+function worksheet_update_80026() {
+  $types = \Drupal::service('worksheet.type')->DefaultTypes();
+  db_insert('work_sheet_type')->fields(array('tid' => 111) + $types[111])->execute();
+  db_insert('work_sheet_type')->fields(array('tid' => 500) + $types[500])->execute();
+}
+
+/**
+ * 增加物流工单表
+ */
+function worksheet_update_80027() {
+  $entity_type = \Drupal::entityManager()->getDefinitions()['work_sheet_logistics'];
+  $manager = \Drupal::entityDefinitionUpdateManager();
+  $manager->installEntityType($entity_type);
+}
+/**
+ * 机房事务增加关联工单
+ */
+function worksheet_update_80029() {
+  $relation_code = BaseFieldDefinition::create('string')
+    ->setLabel('关联工单编号')
+    ->setDisplayOptions('form', array(
+      'type' => 'string_textfield',
+      'weight' => 20
+    ))
+    ->setDisplayConfigurable('form', TRUE);
+  $entity_update = \Drupal::entityDefinitionUpdateManager();
+  $entity_update->installFieldStorageDefinition('relation_code', 'work_sheet_room', 'worksheet', $relation_code);
+}
+
+/**
+ * 增加一个重大故障工单实体
+ */
+function worksheet_update_80030() {
+  $entity_type = \Drupal::entityManager()->getDefinitions()['work_sheet_major_fault'];
+  $manager = \Drupal::entityDefinitionUpdateManager();
+  $manager->installEntityType($entity_type);
+}
+
+
+/**
+ * 重大故障实体表新增监控系统发现耗时字段
+ */
+function worksheet_update_80031() {
+  $sytime_consuming = BaseFieldDefinition::create('string')
+    ->setLabel('监控系统发现耗时')
+    ->setDisplayOptions('form', array(
+      'type' => 'string_textfield',
+      'weight' => 12
+    ))
+    ->setDisplayConfigurable('form', TRUE);
+  $entity_update = \Drupal::entityDefinitionUpdateManager();
+  $entity_update->installFieldStorageDefinition('sytime_consuming', 'work_sheet_major_fault', 'worksheet', $sytime_consuming);
+  
+}
+
+/**
+ * 向work_sheet_options表中新增加数据
+ */
+function worksheet_update_80032() {
+  $table = db_table_exists('work_sheet_options');
+  if($table) {
+    //设置默认值
+    $options = \Drupal::service('worksheet.option')->optionDefault2();
+    foreach($options as $option) {
+      db_insert('work_sheet_options')
+        ->fields($option)
+        ->execute();
+    }
+  }
+}
+
+/**
+ * 为故障实体新增工单评论的相关字段
+ */
+function worksheet_update_80033() {
+    $if_question = BaseFieldDefinition::create('integer')
+      ->setLabel('是否有问题')
+      ->setDescription('工单是否有问题')
+      ->setDefaultValue(0)
+      ->setSetting('unsigned', TRUE); 
+      
+    $if_right = BaseFieldDefinition::create('integer')
+      ->setLabel('定位分类是否正确')
+      ->setDescription('工单定位分类是否正确')
+      ->setDefaultValue(0)
+      ->setSetting('unsigned', TRUE); 
+      
+    $if_deal = BaseFieldDefinition::create('integer')
+      ->setLabel('是否正确处理')
+      ->setDescription('工单是否正确')
+      ->setDefaultValue(0)
+      ->setSetting('unsigned', TRUE);
+      
+    $if_quality = BaseFieldDefinition::create('integer')
+      ->setLabel('是否是优质工单')
+      ->setDescription('工单是否是优质工单')
+      ->setDefaultValue(0)
+      ->setSetting('unsigned', TRUE);
+
+    $comment_note = BaseFieldDefinition::create('string_long')
+      ->setLabel('评论备注')
+      ->setDisplayOptions('form', array(
+        'type' => 'string_textarea',
+        'weight' => 22
+      ));
+      
+  $entity_update = \Drupal::entityDefinitionUpdateManager();
+  $entity_update->installFieldStorageDefinition('if_question', 'work_sheet_fault', 'worksheet', $if_question);
+  $entity_update->installFieldStorageDefinition('if_right', 'work_sheet_fault', 'worksheet', $if_right);
+  $entity_update->installFieldStorageDefinition('if_deal', 'work_sheet_fault', 'worksheet', $if_deal);
+  $entity_update->installFieldStorageDefinition('if_quality', 'work_sheet_fault', 'worksheet', $if_quality);
+  $entity_update->installFieldStorageDefinition('comment_note', 'work_sheet_fault', 'worksheet', $comment_note);
+  
+}
+/**
+ * 为重大故障实体新增工单评论的相关字段
+ */
+function worksheet_update_80034() {
+    $if_question = BaseFieldDefinition::create('integer')
+      ->setLabel('是否有问题')
+      ->setDescription('工单是否有问题')
+      ->setDefaultValue(0)
+      ->setSetting('unsigned', TRUE);  
+      
+    $if_right = BaseFieldDefinition::create('integer')
+      ->setLabel('定位分类是否正确')
+      ->setDescription('工单定位分类是否正确')
+      ->setDefaultValue(0)
+      ->setSetting('unsigned', TRUE);  
+      
+    $if_deal = BaseFieldDefinition::create('integer')
+      ->setLabel('是否正确处理')
+      ->setDescription('工单是否正确')
+      ->setDefaultValue(0)
+      ->setSetting('unsigned', TRUE);
+      
+    $if_quality = BaseFieldDefinition::create('integer')
+      ->setLabel('是否是优质工单')
+      ->setDescription('工单是否是优质工单')
+      ->setDefaultValue(0)
+      ->setSetting('unsigned', TRUE);
+
+    $comment_note = BaseFieldDefinition::create('string_long')
+      ->setLabel('评论备注');
+      
+  $entity_update = \Drupal::entityDefinitionUpdateManager();
+  $entity_update->installFieldStorageDefinition('if_question', 'work_sheet_major_fault', 'worksheet', $if_question);
+  $entity_update->installFieldStorageDefinition('if_right', 'work_sheet_major_fault', 'worksheet', $if_right);
+  $entity_update->installFieldStorageDefinition('if_deal', 'work_sheet_major_fault', 'worksheet', $if_deal);
+  $entity_update->installFieldStorageDefinition('if_quality', 'work_sheet_major_fault', 'worksheet', $if_quality);
+  $entity_update->installFieldStorageDefinition('comment_note', 'work_sheet_major_fault', 'worksheet', $comment_note);
+  
+}
+/**
+ * 为重大故障实体新增绩效加分字段
+ */
+function worksheet_update_80053() {
+  $performance = BaseFieldDefinition::create('integer')
+    ->setLabel('绩效加分')
+    ->setDescription('绩效加分');
+  $entity_update = \Drupal::entityDefinitionUpdateManager();
+  $entity_update->installFieldStorageDefinition('performance', 'work_sheet_major_fault', 'worksheet', $performance);
+  
+}
+/**
+ * 为故障实体新增绩效加分字段
+ */
+function worksheet_update_80054() {
+  $performance = BaseFieldDefinition::create('integer')
+    ->setLabel('绩效加分')
+    ->setDescription('绩效加分');
+  $entity_update = \Drupal::entityDefinitionUpdateManager();
+  $entity_update->installFieldStorageDefinition('performance', 'work_sheet_fault', 'worksheet', $performance);
+  
+}
+/**
+ * 为重大故障实体新增是否评论字段
+ */
+function worksheet_update_80067() {
+  $isno_comment = BaseFieldDefinition::create('integer')
+    ->setLabel('是否评论')
+    ->setDefaultValue(0)
+    ->setSetting('unsigned', TRUE);
+  $entity_update = \Drupal::entityDefinitionUpdateManager();
+  $entity_update->installFieldStorageDefinition('isno_comment', 'work_sheet_major_fault', 'worksheet', $isno_comment);
+  db_update('work_sheet_major_fault')
+    ->fields(array('isno_comment'=> 1))
+    ->condition('comment_note','','<>')
+    ->execute();
+  db_query("UPDATE work_sheet_major_fault set isno_comment=0 where comment_note is null");
+}
+/**
+ * 为故障实体新增是否评论字段
+ */
+function worksheet_update_80068() {
+  $isno_comment = BaseFieldDefinition::create('integer')
+    ->setLabel('是否评论')
+    ->setDefaultValue(0)
+    ->setSetting('unsigned', TRUE);
+  $entity_update = \Drupal::entityDefinitionUpdateManager();
+  $entity_update->installFieldStorageDefinition('isno_comment', 'work_sheet_fault', 'worksheet', $isno_comment);
+  db_update('work_sheet_fault')
+    ->fields(array('isno_comment'=> 1))
+    ->condition('comment_note','','<>')
+    ->execute();
+  db_query("UPDATE work_sheet_fault set isno_comment=0 where comment_note is null");
+  
+}
+
+/**
+ * 增加工单分配表
+ */
+function worksheet_update_80074() {
+  $table = db_table_exists('work_sheet_allot');
+  if(!$table) {
+    $schema = worksheet_schema();
+    db_create_table('work_sheet_allot', $schema['work_sheet_allot']);
+  }
+}
+/**
+ * 为故障实体新增评论对象
+ */
+
+function worksheet_update_80079() {
+  $comment_uid = BaseFieldDefinition::create('integer')
+    ->setLabel('评论对象')
+    ->setSetting('unsigned', TRUE);
+  $entity_update = \Drupal::entityDefinitionUpdateManager();
+  $entity_update->installFieldStorageDefinition('comment_uid', 'work_sheet_fault', 'worksheet', $comment_uid);
+  $data = \Drupal::service('worksheet.dbservice')->get_handle_uid('work_sheet_fault');
+  foreach($data as $item) {
+    db_update('work_sheet_fault')
+    ->fields(array('comment_uid' => $item->handle_uid))
+    ->condition('wid',$item->wid)
+    ->execute();
+  }
+}
+/**
+ * 为重大故障实体新增评论对象
+ */
+
+function worksheet_update_80080() {
+  $comment_uid = BaseFieldDefinition::create('integer')
+    ->setLabel('评论对象')
+    ->setSetting('unsigned', TRUE);
+  $entity_update = \Drupal::entityDefinitionUpdateManager();
+  $entity_update->installFieldStorageDefinition('comment_uid', 'work_sheet_major_fault', 'worksheet', $comment_uid);
+  $data = \Drupal::service('worksheet.dbservice')->get_handle_uid('work_sheet_major_fault');
+  foreach($data as $item) {
+    db_update('work_sheet_major_fault')
+    ->fields(array('comment_uid'=> $item->handle_uid))
+    ->condition('wid',$item->wid)
+    ->execute();
+  }
+}
+
+/**
+ * worksheet_allot表 增加表的主键id
+ */
+function worksheet_update_80085() {
+  db_query("alter table work_sheet_allot add allot_id int(5) unsigned not null auto_increment ,add primary key (allot_id)");
+}
+/**
+ * worksheet_allot表数据修改
+*/
+function worksheet_update_80087() {
+  $result = db_select('work_sheet_allot', 'c')
+   ->fields('c',array('allot_id','created'))
+   ->execute()
+   ->fetchAll();
+  $num=null;
+  foreach($result as $key=>$items){
+    $num =$key +1;
+    $sql_update = "UPDATE work_sheet_allot set allot_endtime='{$result[$key+1]->created}' WHERE allot_id ='{$num}'";
+    $row = db_query($sql_update);
+  }
+}
+/**
+ * 为user实体添加子部分字段
+*/
+function worksheet_update_80090(){
+  //创建用户子部门
+  entity_create('field_storage_config', array(
+    'entity_type' => 'user',
+    'field_name' => 'subdivision',
+    'type' => 'text',
+    'cardinality' => 1,
+  ))->save();
+  entity_create('field_config', array(
+    'entity_type' => 'user',
+    'field_name' => 'subdivision',
+    'bundle' => 'user',
+    'label' => '子部门',
+    'translatable' => FALSE,
+  ))->save();
+  entity_get_form_display('user', 'user', 'default')
+    ->setComponent('subdivision', array(
+    'type' => 'text_textfield',
+    'weight' => 1,
+    ))
+    ->save();
+}
+/**
+ * 增加统计工单未完成和完成数量曲线的表
+ */
+function worksheet_update_80091() {
+  $table = db_table_exists('work_sheet_status');
+  if(!$table) {
+    $schema = worksheet_schema();
+    db_create_table('work_sheet_status', $schema['work_sheet_status']);
+  }
+}

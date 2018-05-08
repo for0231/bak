@@ -1,0 +1,105 @@
+.huiyuan_01 {
+  background-color: #FFFFFF;
+  border: 1px solid #C9C9C9;
+  border-radius: 6px 6px 6px 6px;
+  height: 130px;
+  overflow: hidden;
+  .fl {
+    margin-left: 20px;
+    margin-top: 20px;
+  }
+  .huiyuan_geren {
+    width: 600px;
+  }
+ .xiugai {
+    float: left;
+    line-height: 30px;
+    margin: 30px 25px 0;
+//    width: 90px;
+  }
+}
+
+.huiyuan_beijing {
+  background: -moz-linear-gradient(center top , #F9F9FB, #EDEEF0) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.3);
+  float: left;
+  height: 130px;
+  padding: 20px;
+  width: 438px;
+}
+.gaofang {
+  float: left;
+  height: 32px;
+  line-height: 32px;
+  width: 438px;
+  img {
+    float: left;
+    margin: 0 20px;
+  }
+  p {
+    float: left;
+    font-size: 14px;
+  }
+}
+.gaofang_01, .gaofang_02 {
+  float: left;
+  text-align: center;
+  width: 219px;
+  p {
+    font-size: 14px;
+    line-height: 28px;
+  }
+  u {
+    color: #FF0000;
+    font-family: Verdana;
+    font-size: 18px;
+  }
+}
+
+.cpfw_01 {
+  border: 1px solid #DADADA;
+  border-radius: 6px 6px 6px 6px;
+  box-shadow: 0 1px 2px rgba(150, 150, 150, 0.5);
+  float: left;
+  height: 130px;
+  margin-top: 20px;
+  overflow: hidden;
+  position: relative;
+  width: 320px;
+  h4 {
+    background: -moz-linear-gradient(center top , #EDEEF0, #DCDDDF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: block;
+    font-size: 15px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+    margin: 0;
+  }
+  a {
+    color: #041E39;
+    float: left;
+    font-size: 14px;
+    margin: 5px 10px;
+  }
+  span {
+    float: left;
+    font-size: 24px;
+    margin: 20px;
+    i {
+      color: #FF0000;
+      font-family: Verdana;
+      font-size: 24px;
+    }
+  }
+}
+.margin_01 {
+  margin: 20px 45px;
+}
+
+.chanping_fuw {
+  background-color: #FFFFFF;
+  border: 1px solid #C9C9C9;
+  border-radius: 6px 6px 6px 6px;
+  overflow: hidden;
+  padding: 10px 20px;
+}

@@ -1,0 +1,23 @@
+div.container-inline {
+  margin-bottom:15px;
+}
+
+ul.dropbutton li {
+  display:block;
+}
+
+table.ip-checked th, table.ip-checked td{
+  border: 1px solid #BFBFBA;
+  text-align: center;
+  padding: 0;
+  height: 40px;
+}
+
+table.ip-checked td p {
+  margin: 5px 0;
+}
+
+div.filter-ipchecked textarea {
+  display: inline;
+  width: auto;
+}

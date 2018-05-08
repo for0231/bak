@@ -1,0 +1,92 @@
+{#
+/**
+ * @file
+ * 一个机柜的模板 	 
+ *
+ * Available variables:
+ * -cabinet_server:
+ * -base_info
+ *
+ * @see template_preprocess_cabinet_server_detail()
+ */
+#}
+<div class='cabinet-server-detail'>
+  <div class='head-info'>
+    <p><label>所属机房：</label><span>{{base_info.room_name}}</span></p>
+    <p><label>所属机柜：</label><span>{{base_info.cabinet_code}}</span></p>
+    <p><label>管理IP：</label><span>{{base_info.ipm}}</span></p>
+    <p><label>配置名称：</label>
+       <span>{{base_info.server_type}}</span>
+       <label>服务器编码：</label>
+      <span>{{base_info.server_code}}</span></p>
+  </div>
+  <div class='detail-table'>
+    <table>
+      <tr>
+       <th>一</th>
+       <th colspan="2">硬件基础配置</th>
+      </tr>
+      <tr>
+        <td class='first'>配置</td>
+        <td class='info'>品牌型号</td>
+        <td>数量</td>
+      </tr>
+      {% for key, base_item in base_part %}
+      <tr>
+        <td>{{ key }}</td>
+        <td>{{ base_item.title }}</td>
+        <td>{{ base_item.number }}</td>
+      </tr>
+      {% endfor %}
+     </table>
+ 
+    <table>
+      <tr>
+       <th>二</th>
+       <th colspan="2">附加配置</th>
+      </tr>
+      <tr>
+        <td class='first'>配置</td>
+        <td class='info'>品牌型号</td>
+        <td>数量</td>
+      </tr>
+      {% if business_part %}
+        {% for key, part_item in business_part %}
+        <tr>
+          <td>{{ key }}</td>
+          <td>{{ part_item.title }}</td>
+          <td>{{ part_item.number }}</td>
+        </tr>
+        {% endfor %}
+      {% else %}
+      <tr>
+        <td colspan="3">无信息</td>
+      </tr>
+      {% endif %}
+    </table>
+    <table>
+      <tr>
+       <th>三</th>
+       <th colspan="2">附加业务</th>
+      </tr>
+      <tr>
+        <td class='first'>业务名称</td>
+        <td class='info'>详情</td>
+        <td>数量</td>
+      </tr>
+      {% if business_list %} 
+        {% for key, business_item in business_list %}
+        <tr>
+           <td>{{ key }}</td>
+           <td>{{ business_item.title }}</td>
+           <td>{{ business_item.number }}</td>
+         </tr>
+        {% endfor %}
+      {% else %}
+      <tr>
+        <td colspan="3">无信息</td>
+      </tr>
+      {% endif %}
+    </table>
+  </div>
+</div>

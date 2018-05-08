@@ -1,0 +1,6 @@
+name: Alipay
+type: module
+core: 8.x
+package: Hostspaces - payment
+description: 'Alipay Payment methods'
+version: VERSION

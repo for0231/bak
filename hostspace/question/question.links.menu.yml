@@ -1,0 +1,46 @@
+system.admin_question:
+  title: Malfunction declare
+  description: 'Malfunction declare'
+  parent: system.admin
+  route_name: system.admin_question
+  weight: -160
+
+question.category.admin:
+  title: 'Fault directory'
+  description: 'Management of fault classification information'
+  parent: system.admin_question
+  route_name: question.category.admin
+  weight: -20
+
+#question.add_form:
+#  title: 'Declare a question'
+#  description: 'Declare a question.'
+#  parent: system.admin_question
+#  route_name: question.add_form
+#  weight: -17
+
+question.admin:
+  title: 'List of question'
+  description: 'View all the fault  data.'
+  parent: system.admin_question
+  route_name: question.admin
+  weight: -19
+
+question.statistics:
+  title: 'Statistical'
+  description: 'Statistical'
+  parent: system.admin_question
+  route_name: question.statistics
+  weight: -18
+
+question.mine.admin:
+  title: 'I deal with'
+  description: 'Question that I deal with.'
+  parent: system.admin_question
+  route_name: question.mine.admin
+
+question.mine.statistics:
+  title: 'My Statistics'
+  description: 'My Statistics.'
+  parent: question.mine.admin
+  route_name: question.mine.statistics

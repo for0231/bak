@@ -1,0 +1,47 @@
+{#
+/**
+ * @file
+ * 我经手的故障统计 
+ * 
+ *  Available variables:
+ *   -statistics:
+ */
+#}
+<div>
+  <table>
+    <tr>
+      <th>{{'Parent'|t}}</th>
+      <th>{{'Category'|t}}</th>
+      <th>{{'Transferred out'|t}}</th>
+      <th>{{'Income'|t}}</th>
+      <th>{{'On time'|t}}</th>
+      <th>{{'Time out'|t}}</th>
+      <th>{{'Total'|t}}</th>
+    </tr>
+    {% for s in statistics %}
+       {% set i = 1%}
+       {% for c in s.child %}
+        <tr>
+          {% if(i==1) %}
+          <td rowspan={{ s.child_count }}>{{ s.name.value }}{{ s.child_count }}</td>
+          {% endif %}
+          <td>{{ c.class_name.value }}</td>
+          <td>{{ c.treansfer_out }}</td>
+          <td>{{ c.income }}</td>
+          <td>{{ c.on_time }}</td>
+          <td>{{ c.time_out }}</td>
+          <td>{{ c.treansfer_out + c.income + c.on_time + c.time_out }}</td>
+        </tr>
+        {% set i = 2 %}
+      {% endfor %}
+    {% endfor %}
+    <tr>
+      <th colspan =2>{{ 'Total'|t }}</th>
+      <th>{{ out }}</th>
+      <th>{{ in }}</th>
+      <th>{{ on }}</th>
+      <th>{{ out_time }}</th>
+      <th>{{ out + in + on + out_time }}</th>
+    </tr>
+  </table>
+<div>

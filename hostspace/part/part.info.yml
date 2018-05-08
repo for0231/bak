@@ -1,0 +1,8 @@
+name: Parts
+type: module
+core: 8.x
+package: Hostspaces
+description: '配件'
+version: VERSION
+dependencies:
+  - common

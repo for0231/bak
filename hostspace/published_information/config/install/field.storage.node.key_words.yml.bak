@@ -1,0 +1,14 @@
+id: node.key_words
+field_name: key_words
+entity_type: node
+type: string
+settings: { }
+locked: false
+cardinality: 1
+translatable: true
+indexes: { }
+status: true
+langcode: en
+dependencies:
+  module:
+    - node

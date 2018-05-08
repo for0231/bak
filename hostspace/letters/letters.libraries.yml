@@ -1,0 +1,7 @@
+letters.user_letter:
+  version: VERSION
+  js:
+    js/show_letter_content.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

@@ -1,0 +1,7 @@
+#more-parts {
+  color: red;
+}
+
+#more-parts:hover {
+  cursor: pointer;
+}

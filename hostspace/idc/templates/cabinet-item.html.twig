@@ -1,0 +1,46 @@
+{#
+/**
+ * @file
+ * 一个机柜的模板 	 
+ *
+ * Available variables:
+ * -cabinet:
+ *
+ * @see template_preprocess_cabinet_item()
+ */
+#}
+
+<div class = "cabinet-item">
+  <table>
+    <tr>
+     <th colspan = '2'>{{cabinet.cabinet_code }}</th>
+    </tr>
+    <tr>
+      <td>机柜编号</td>
+      <td>{{cabinet.code.value }}</td>
+   </tr>
+   <tr>
+      <td>总量</td>
+      <td><span>{{cabinet.seat.value }} U</span></td>
+   </tr>
+   <tr>
+      <td>未使用</td>
+      <td><span>{{cabinet.unused_seat.value }} U</span></td>
+   </tr>
+   <tr>
+      <td>已使用</td>
+      <td><span>{{cabinet.used_seat.value }} U</span></td>
+   </tr>
+   <tr>
+      <td>交换机数</td>
+      <td><span>{{cabinet.switch_seat.value }} U</span></td>
+   </tr>
+   <tr>
+      <td>故障数</td>
+      <td><span>{{cabinet.fault_seat.value }} U</span></td>
+   </tr>
+   <tr>
+      <td colspan='2' class = 'op'>{{cabinet.edit}}{{cabinet.delete}}</td>
+   </tr>
+  </table>
+</div>

@@ -1,0 +1,61 @@
+admin.jd.policy.add:
+  route_name: admin.jd.policy.add
+  title: '增加策略'
+  appears_on:
+    - admin.jd.policy
+
+admin.jd.policy.segment.add:
+  route_name: admin.jd.policy.segment.add
+  title: '增加路线策略'
+  appears_on:
+    - admin.jd.policy
+ 
+admin.jd.policy_tmp.add:
+  route_name: admin.jd.policy_tmp.add
+  title: '增加临时策略'
+  appears_on:
+    - admin.jd.policy_tmp
+
+admin.jd.traction.add:
+  route_name: admin.jd.traction.add
+  title: '增加手动牵引'
+  appears_on:
+    - admin.jd.traction
+    - admin.jd.traction_filter
+  class: \Drupal\qy_jd\Plugin\Menu\TractionAddLocalAction
+
+admin.jd.ip_stop.add:
+  route_name: admin.jd.ip_stop.add
+  title: '增加IP封停'
+  appears_on:
+    - admin.jd.ip_stop
+
+admin.jd.route.add:
+  route_name: admin.jd.route.add
+  title: '增加线路'
+  appears_on:
+    - admin.jd.route
+
+admin.jd.listen.kill:
+  route_name: admin.jd.listen.kill
+  title: '开启解牵引及重写缓存数据'
+  appears_on:
+    - admin.jd.route
+  options:
+    attributes:
+      target: _blank
+
+admin.jd.alarm:
+  title: '报警值设置'
+  route_name: admin.jd.alarm
+  appears_on:
+    - admin.jd.monitor
+  options:
+    attributes:
+      target: _blank
+
+admin.jd.logs.export:
+  title: '导出数据'
+  route_name: admin.jd.logs.export
+  appears_on:
+    - admin.jd.logs.traction

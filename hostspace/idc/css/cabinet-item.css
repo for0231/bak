@@ -1,0 +1,29 @@
+.container-inline div.cabinet-item {
+  display: inline-block;
+}
+
+.container-inline div.cabinet-item table {
+  font-size: 14px;
+}
+
+.container-inline div.cabinet-item table td {
+  width: 70px;
+}
+
+.container-inline div.cabinet-item table td span{
+  color:red;
+}
+
+.container-inline div.cabinet-item table th {
+  font-size: 20px;
+  text-align: center;
+}
+
+.container-inline div.cabinet-item table td.op {
+  text-align: center;
+}
+
+.container-inline div.cabinet-item table td.op a {
+  margin-left: 10px;
+  margin-right: 10px;
+}

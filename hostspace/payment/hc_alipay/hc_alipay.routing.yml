@@ -1,0 +1,42 @@
+alipay.return_url:
+  path: 'alipay/return_url'
+  defaults:
+    _controller: 'Drupal\hc_alipay\Controller\AlipayController::alipayReturn'
+    _title: 'Return URL'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+alipay.notify_url:
+  path: 'alipay/notify_url'
+  defaults:
+    _controller: 'Drupal\hc_alipay\Controller\AlipayController::alipayNotify'
+    _title: 'Notify URL'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+alipay.overview:
+  path: 'admin/alipay/list'
+  defaults:
+    _controller: 'Drupal\hc_alipay\Controller\AlipayController::overView'
+    _title: 'Alipay payment list'
+  requirements:
+    _permission: 'administer alipay list'
+alipay.config:
+  path: 'admin/alipay/config'
+  defaults:
+    _form: 'Drupal\hc_alipay\Form\AlipayConfigForm'
+    _title: 'Configure Alipay'
+  requirements:
+    _permission: 'administer alipay configuration'
+alipay.order.redirect:
+  path: 'redirect/{order}/alipay'
+  defaults:
+    _controller: 'Drupal\hc_alipay\Controller\AlipayController::alipayForOrderRedirectUrl'
+    _title: 'Redirect for order'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+alipay.user.redirect:
+  path: 'redirect/{amount}/{orderno}/alipay'
+  defaults:
+    _controller: 'Drupal\hc_alipay\Controller\AlipayController::alipayForRechargeRedirectUrl'
+    _title: 'Redirect for recharge'
+  requirements:
+    _user_is_logged_in: 'TRUE'

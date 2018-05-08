@@ -1,0 +1,23 @@
+admin.sop.list:
+  title: '工单流程'
+  parent: system.admin
+  route_name: admin.sop.list
+  weight: -203
+admin.sop_task.list:
+  title: '工单列表'
+  parent: admin.sop.list
+  route_name: admin.sop_task.list
+  weight: 1
+#这个暂时屏蔽掉。开启会出现工单事务无法显示的问题。
+#admin.sop.sop_task.sop_task_room.add:
+#  title: '机房事务'
+#  parent: admin.sop.list
+#  route_name: admin.sop.sop_task.sop_task_room.add
+#  weight: 3
+####临时
+common.operation.log:
+  title: 'Operation log'
+  description: 'The website backstage operation log.'
+  parent: admin.sop.list
+  route_name: host.log.admin
+  weight: 504
